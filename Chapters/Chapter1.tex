@@ -6,7 +6,10 @@
 \newcommand{\bexp}[0]{\ensuremath{\text{BExp}}}
 \newcommand{\gexp}[0]{\ensuremath{\text{Exp}}}
 \newcommand{\usg}[0]{\ensuremath{\text{u}}}
+\newcommand{\eval}[0]{\ensuremath{\mathtt{eval}}}
+\newcommand{\sat}[0]{\ensuremath{\mathtt{sat}}}
 \newcommand{\sg}[0]{\ensuremath{\text{s}}}
+\newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
 \newcommand{\lbl}[0]{\ensuremath{\text{lbl}}}
 \newcommand{\Real}[0]{\ensuremath{\mathbb{R}}}
 \newcommand{\letter}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z}\right)}}
@@ -15,6 +18,7 @@
 \newcommand{\RC}[0]{\ensuremath{\text{RC}}}
 \newcommand{\Low}[0]{\ensuremath{\text{Low}}}
 \newcommand{\Variable}[0]{\ensuremath{\mathcal{V}}}
+\newcommand{\Integer}[0]{\ensuremath{\mathbb{Z}}}
 \newcommand{\alphanumeric}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9}\right)}}
 \newcommand{\alphanumericP}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9\ |\ .\ |\ \_\ |\ \$}\right)}}
 \newcommand{\semantics}[1]{\ensuremath{\llbracket #1\rrbracket}}
@@ -180,7 +184,7 @@ To obtain the notion of constant time that is used for security analysis, we nee
 Thus, guarded strings now satisfy either the pattern $(\valuation,\alpha)$ or the pattern $(\valuation,\alpha)\cdot a\cdot h$, where $\valuation$ is a valuation of the variables, $\alpha$ is an atom and $h$ is a guarded string.
 
 \begin{remark}
-{This formulation reduces to the original formulation as follows: for each variable $p$ and each of its possible values $v$, we include the proposition $p=v$ in the set of tests.}
+{If the domains of variables are finite, this formulation reduces to the original formulation as follows: for each variable $p$ and each of its possible values $v$, we include the proposition $p=v$ in the set of tests.}
 \end{remark}
 \begin{definition}[Public Equality]
 Whenever two valuations $\valuation_1$ and $\valuation_2$ are equal on their public variables, we denote it by $\valuation_1=_p\valuation_2$. Two guarded strings $g_1$ and $g_2$ are equal on their public variables, denoted $g_1=_p g_2$, if and only if their \emph{initial} valuations are equal on public variables. 
@@ -192,8 +196,39 @@ g_1=_p g_2\Rightarrow\RC(g_1)=\RC(g_2).
 \end{align}
 \end{definition}
 
+\section{The IMP Language with Division}
+We modify the simple imperative programming language with variable assignments and boolean expressions from \cite{GKAT} --IMP-- to include division; the language is defined as follows:
+\begin{align*}
+{\small
+\begin{tabular}{R RL}
+\text{arithmetic expressions} & a\in \mathscr{A}\!\!\!\!\!\! &::= x\in \Variable\ |\ n \in \Real_\perp\ |\ a_1+a_2\ |\ a_1-a_2\ |\ a_1\times a_2\ |\ a_1 \div a_2\\
+\text{boolean expressions} & b\in \mathscr{B}\!\!\!\!\!\! &::= \textbf{false}\ |\ \textbf{true}\ |\ a_1<a_2\ |\ a_1-a_2\ |\ \textbf{not } b\ |\ b_1 \textbf{ and } b_2\ |\ b_1 \textbf{ or } b_2\\
+\text{commands} & c\in \mathscr{C}\!\!\!\!\!\! &::= \textbf{skip}\ |\ x:=a\ |\ c_1;c_2\ |\ \textbf{if }b\text{ then }c_1\text{ else }c_2\ |\ \textbf{while } b\textbf{ do }c
+\end{tabular}
+}
+\end{align*}
+where $\Real_\perp=\Real \uplus \{\perp\}$, and $\perp$ is a symbol to denote \emph{not-a-number} (NaN).
+
+As stated in \cite{GKAT}, this language can be modelled in GKAT using actions for assignments and primitive tests for comparisons as follows:
+\begin{align}
+\Sigma=\set{x:=a\ |\ x\in \Variable, a\in \mathscr{A}}, \quad T=\set{a_1 < a_2\ |\ a_1,a_2\in \mathscr{A}}.
+\end{align}
+Following \cite{GKAT}, we interpret GKAT expressions over the space of variable assignments $\semantics{\Variable}\triangleq\Variable \rightarrow\Real_\perp$:
+\begin{align*}
+\eval(x:=a)&\triangleq \set{(\sigma, \sigma[x:=n])\ |\  \sigma \in \semantics{\Variable}, n=\mathscr{A}\semantics{a}_\sigma},\\
+\sigma[x:=n]&\triangleq \uplambda y \ldotp 
+	\begin{cases}
+		n, \quad &\text{if $y=x$};\\
+		\sigma(y), \quad&\text{otherwise},
+	\end{cases}\\
+\sat(a_1<a_2)&\triangleq \set{\sigma \in \semantics{\Variable}\ |\ \mathscr{A}\semantics{a_1}_{\sigma} < \mathscr{A}\semantics{a_2}_{\sigma}},
+\end{align*}
+%where $\mathscr{A}\semantics{a}_\sigma\colon \semantics{\Variable}\rightarrow \Real_\perp$ denotes arithmetic evaluation of the expression $a$ in the context of $\sigma$.
+where $\mathscr{A}\semantics{a}_\sigma$ denotes the arithmetic evaluation of $a$ in the context of $\sigma$. Finally, sequential composition, conditionals and while loops are modelled by their GKAT counterparts, and $\mathbf{skip}$ is modelled by 1.
+
+\subsection{Transformations for Secure Constant Time in IMP}
 \subsection{Types}
-For our first language, we support the following types:
+For our first LLVM IR sublanguage, we support the following types:
 \begin{itemize}
 \item Void type, which cannot be assigned to variables.
 \item Integer types of the form $i_N$ where $N\in [1..2^{23}-1]$.
@@ -212,7 +247,6 @@ and a \emph{signed} interpretation $\sg\colon i_N\rightarrow \mathbb{Z}$, where
 \end{align}
 In other words, the first bit $x(0)$ determines whether $x$ represents a positive or a negative number under the signed representation.
 
-\subsection{Instructions} 
 For the set of instructions we need to introduce the notion of variables and assignments. The set of \emph{variables} $v$ is generated by the regular expression
 \begin{align}
 v::= (@\ |\ \%)\cdot\letter\cdot\alphanumericP^{*}.
@@ -222,7 +256,7 @@ A \emph{variable assignment} is an instruction of the form $v:=e$, where $e$ is 
 \item Language  
 \item Arithmetic operations that use division.
 \end{itemize}
-
+\subsection{Instructions} 
 \todo[inline]{Overflows}
 
 \subsection{Central idea}

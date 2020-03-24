@@ -11,35 +11,37 @@
 \contentsline {section}{\numberline {1.3}CTP (Cryptocoding) Axioms, and our solution}{1}{section.13}
 \contentsline {section}{\numberline {1.4}Formalisation}{3}{section.15}
 \contentsline {subsection}{\numberline {1.4.1}Language-Based Semantics CTP}{4}{subsection.16}
-\contentsline {subsection}{\numberline {1.4.2}Types}{5}{subsection.27}
-\contentsline {subsection}{\numberline {1.4.3}Instructions}{5}{subsection.31}
-\contentsline {subsection}{\numberline {1.4.4}Central idea}{5}{subsection.34}
-\contentsline {subsection}{\numberline {1.4.5}Subsection 1}{6}{subsection.36}
-\contentsline {subsection}{\numberline {1.4.6}Subsection 2}{6}{subsection.37}
-\contentsline {section}{\numberline {1.5}Main Section 2}{6}{section.38}
-\contentsline {chapter}{\numberline {2}First chapter $\Sigma _\omega ^i \infty $ }{7}{chapter.39}
-\contentsline {section}{\numberline {2.1}Welcome and Thank You}{7}{section.40}
-\contentsline {section}{\numberline {2.2}Learning \LaTeX {}}{7}{section.41}
-\contentsline {subsection}{\numberline {2.2.1}A (not so short) Introduction to \LaTeX {}}{7}{subsection.42}
-\contentsline {subsection}{\numberline {2.2.2}A Short Math Guide for \LaTeX {}}{8}{subsection.43}
-\contentsline {subsection}{\numberline {2.2.3}Common \LaTeX {} Math Symbols}{8}{subsection.44}
-\contentsline {subsection}{\numberline {2.2.4}\LaTeX {} on a Mac}{8}{subsection.45}
-\contentsline {section}{\numberline {2.3}Getting Started with this Template}{8}{section.46}
-\contentsline {subsection}{\numberline {2.3.1}About this Template}{9}{subsection.47}
-\contentsline {section}{\numberline {2.4}What this Template Includes}{9}{section.48}
-\contentsline {subsection}{\numberline {2.4.1}Folders}{9}{subsection.49}
-\contentsline {subsection}{\numberline {2.4.2}Files}{10}{subsection.50}
-\contentsline {section}{\numberline {2.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{11}{section.51}
-\contentsline {section}{\numberline {2.6}The \texttt {main.tex} File Explained}{11}{section.52}
-\contentsline {section}{\numberline {2.7}Thesis Features and Conventions}{12}{section.53}
-\contentsline {subsection}{\numberline {2.7.1}Printing Format}{12}{subsection.54}
-\contentsline {subsection}{\numberline {2.7.2}Using US Letter Paper}{12}{subsection.55}
-\contentsline {subsection}{\numberline {2.7.3}References}{13}{subsection.56}
-\contentsline {subsubsection}{A Note on bibtex}{13}{section*.58}
-\contentsline {subsection}{\numberline {2.7.4}Tables}{14}{subsection.59}
-\contentsline {subsection}{\numberline {2.7.5}Figures}{14}{subsection.61}
-\contentsline {subsection}{\numberline {2.7.6}Typesetting mathematics}{15}{subsection.63}
-\contentsline {section}{\numberline {2.8}Sectioning and Subsectioning}{16}{section.65}
-\contentsline {section}{\numberline {2.9}In Closing}{16}{section.66}
-\contentsline {chapter}{\numberline {A}Appendix Title Here}{17}{appendix.67}
-\contentsline {chapter}{Bibliography}{18}{appendix*.68}
+\contentsline {section}{\numberline {1.5}The IMP Language with Division}{5}{section.27}
+\contentsline {subsection}{\numberline {1.5.1}Transformations for Secure Constant Time in IMP}{5}{subsection.29}
+\contentsline {subsection}{\numberline {1.5.2}Types}{5}{subsection.30}
+\contentsline {subsection}{\numberline {1.5.3}Instructions}{6}{subsection.35}
+\contentsline {subsection}{\numberline {1.5.4}Central idea}{6}{subsection.37}
+\contentsline {subsection}{\numberline {1.5.5}Subsection 1}{6}{subsection.39}
+\contentsline {subsection}{\numberline {1.5.6}Subsection 2}{6}{subsection.40}
+\contentsline {section}{\numberline {1.6}Main Section 2}{7}{section.41}
+\contentsline {chapter}{\numberline {2}First chapter $\Sigma _\omega ^i \infty $ }{8}{chapter.42}
+\contentsline {section}{\numberline {2.1}Welcome and Thank You}{8}{section.43}
+\contentsline {section}{\numberline {2.2}Learning \LaTeX {}}{8}{section.44}
+\contentsline {subsection}{\numberline {2.2.1}A (not so short) Introduction to \LaTeX {}}{8}{subsection.45}
+\contentsline {subsection}{\numberline {2.2.2}A Short Math Guide for \LaTeX {}}{9}{subsection.46}
+\contentsline {subsection}{\numberline {2.2.3}Common \LaTeX {} Math Symbols}{9}{subsection.47}
+\contentsline {subsection}{\numberline {2.2.4}\LaTeX {} on a Mac}{9}{subsection.48}
+\contentsline {section}{\numberline {2.3}Getting Started with this Template}{9}{section.49}
+\contentsline {subsection}{\numberline {2.3.1}About this Template}{10}{subsection.50}
+\contentsline {section}{\numberline {2.4}What this Template Includes}{10}{section.51}
+\contentsline {subsection}{\numberline {2.4.1}Folders}{10}{subsection.52}
+\contentsline {subsection}{\numberline {2.4.2}Files}{11}{subsection.53}
+\contentsline {section}{\numberline {2.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{12}{section.54}
+\contentsline {section}{\numberline {2.6}The \texttt {main.tex} File Explained}{12}{section.55}
+\contentsline {section}{\numberline {2.7}Thesis Features and Conventions}{13}{section.56}
+\contentsline {subsection}{\numberline {2.7.1}Printing Format}{13}{subsection.57}
+\contentsline {subsection}{\numberline {2.7.2}Using US Letter Paper}{13}{subsection.58}
+\contentsline {subsection}{\numberline {2.7.3}References}{14}{subsection.59}
+\contentsline {subsubsection}{A Note on bibtex}{14}{section*.61}
+\contentsline {subsection}{\numberline {2.7.4}Tables}{15}{subsection.62}
+\contentsline {subsection}{\numberline {2.7.5}Figures}{15}{subsection.64}
+\contentsline {subsection}{\numberline {2.7.6}Typesetting mathematics}{16}{subsection.66}
+\contentsline {section}{\numberline {2.8}Sectioning and Subsectioning}{17}{section.68}
+\contentsline {section}{\numberline {2.9}In Closing}{17}{section.69}
+\contentsline {chapter}{\numberline {A}Appendix Title Here}{18}{appendix.70}
+\contentsline {chapter}{Bibliography}{19}{appendix*.71}
