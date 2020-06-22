@@ -2,7 +2,7 @@
 % Chapter Template
 
 \newcommand{\branch}[3]{\ensuremath{{#2}\ {+_{#1}}\ {#3}}}
-\newcommand{\iterate}[2]{\ensuremath{{#1}^{\left(#2\right)}}}
+\newcommand{\iterate}[2]{\ensuremath{{#2}^{\left(#1\right)}}}
 \newcommand{\bexp}[0]{\ensuremath{\text{BExp}}}
 \newcommand{\gexp}[0]{\ensuremath{\text{Exp}}}
 \newcommand{\usg}[0]{\ensuremath{\text{u}}}
@@ -12,6 +12,7 @@
 \newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
 \newcommand{\lbl}[0]{\ensuremath{\text{lbl}}}
 \newcommand{\Real}[0]{\ensuremath{\mathbb{R}}}
+\newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
 \newcommand{\letter}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z}\right)}}
 \newcommand{\Atom}[0]{\ensuremath{\text{At}}}
 \newcommand{\GuardedString}[0]{\ensuremath{\text{GS}}}
@@ -123,7 +124,7 @@ Do note also the following:
 \item Casting operations at higher level may be dangerous: they might introduce branching at the lower level for some architectures (there is an example where a \_Bool is casted into an uint\_32 in the blog.
 \end{itemize}
 \section{Formalisation}
-We first present Guarded Kleene Algebra with Tests (GKAT) \cite{GKAT}.
+We use Guarded Kleene Algebra with Tests (GKAT) \cite{GKAT} to define our transformation rules. the GKAT syntax is as follows:
 \newline
 \begin{minipage}{0.5\textwidth}
 \begin{align*}
@@ -142,25 +143,26 @@ We first present Guarded Kleene Algebra with Tests (GKAT) \cite{GKAT}.
    \begin{align*}
 \begin{tabular}{RCLL}
 \multicolumn{4}{L}{e,f,g, \in \gexp::=} \\
-  &    |   &  p \in \Sigma  	&  \textbf{False}   \\
-  &    |   &   b \in \bexp   	&   \textbf{True}   \\
-  &    |   &    e \cdot f  	&  b \ \textbf{and}\ c   \\
-  &    |   &   \branch{b}{f}{g} 		&   b \ \textbf{or}\ c   \\
-  &    |   &    \iterate{e}{b} 	& \textbf{not}\ b
+  &    |   &  p \in \Sigma  		&  \textbf{do } p \\
+  &    |   &   b \in \bexp   		&   \textbf{assert } b \\
+  &    |   &    e \cdot f  			&  e{;}f   \\
+  &    |   &   \branch{b}{f}{g} 	&   \textbf{if }b \textbf{ then }f\textbf{ else }g   \\
+  &    |   &    \iterate{b}{e} 		& \textbf{while }b\textbf{ do }e
 \end{tabular}
 \end{align*}
 \end{minipage}
+\paragraph{}
+We take a layered approach to constant time programming (CTP); initially, we consider actions $a\in \Sigma$ to be abstract (i.e., only symbols), then, we give semantics to actions by mapping them to a set of instructions in LLVM IR. This layered approach allows us to exclusively focus on program structure, and how branching and iteration could introduce side channels.
 
-In the context of constant time programming (CTP), actions $a\in \Sigma$ correspond to instructions in LLVM IR. However, before we explore the concrete meaning of instructions, we use the GKAT framework to define notions for CTP.
 \subsection{Language-Based Semantics CTP}
-Given a GKAT expression $e$, its language-based semantics corresponds to a language of \emph{guarded strings}. Before we introduce the notion of guarded strings, we must introduce the notion of (logical) \emph{atoms}. Informally, each atom is a valuation of all tests in the set of tests $T$; e.g., if $T=\{t_1,t_2\}$, the expressions  $\overline{t_1}\land \overline{t_2}$, $\overline{t_1}\land {t_2}$, $t_1\land \overline{t_2}$, and $t_1\land {t_2}$ are the atoms. Formally, atoms correspond to non-zero minimal elements in the free boolean algebra in $T$ \cite{KAT}. We denote atoms by $\alpha, \beta,$ and $\gamma$, and the set of atoms by $\Atom$.
+The language-based semantics of a GKAT expression $e$ corresponds to a language of \emph{guarded strings} \cite{GKAT}. Informally, a guarded string is an interleaved sequence of \emph{(logical) atoms} and actions, which model how actions change the state of the system. Informally, an \emph{atom} is a valuation of all tests in the set of tests $T$ (e.g., if $T=\{t_1,t_2\}$, the expressions  $\overline{t_1}\land \overline{t_2}$, $\overline{t_1}\land {t_2}$, $t_1\land \overline{t_2}$, and $t_1\land {t_2}$ are the atoms). Formally, an atom is a non-zero minimal element in the free boolean algebra in $T$ \cite{KAT}. We denote atoms by $\alpha, \beta,$ and $\gamma$, and the set of atoms by $\Atom$. The formal definition of a guarded string is as follows.
 
 \begin{definition}[Guarded String]
-Given a set of actions $\Sigma$ and a set of tests $T$, a \emph{guarded string} $g$ is an element of the set $\GuardedString := \Atom \cdot \left(\Sigma\cdot \Atom\right)^{*}$.
+Given a set of actions $\Sigma$ and a set of tests $T$, a \emph{guarded string} $g$ is an element of the set $\GuardedString := \Atom \cdot \left(\Sigma\cdot \Atom\right)^{*}$. 
 \end{definition}
 
-\begin{definition}[Resource Consumption]
-A \emph{resource metric} is a map $m\colon \GuardedString \rightarrow \Sigma \rightarrow \Real^{+}$; given a guarded string $g$, $m(g)(a)$ is the resource consumption for the action $a$ after executing all the actions in $g$. The \emph{resource consumption} of $g$, denoted $\RC(g)$, is the accumulated resource consumption of its actions; formally,
+\begin{definition}[Resource Metrics and Resource Consumption]
+A \emph{resource metric} is a map $m\colon \GuardedString \rightarrow \Sigma \rightarrow \Real^{+}$. Given a resource metric $m$ and a guarded string $g$, the value of $m(g)(a)$ is the {resource consumption for the action $a$ after executing all the actions in $g$}. The \emph{resource consumption} of $g$, denoted $\RC(g)$, is the accumulated resource consumption of its actions; formally,
 \begin{align}
 \RC(g)&\triangleq 
 \begin{cases}
@@ -196,8 +198,46 @@ g_1=_p g_2\Rightarrow\RC(g_1)=\RC(g_2).
 \end{align}
 \end{definition}
 
+\section{The IMP Language}
+We explore the simple imperative programming language with variable assignments and boolean expressions from \cite{GKAT}: IMP; the language is defined as follows:
+\begin{align*}
+{\small
+\begin{tabular}{L RL}
+\text{-- arithmetic expressions:} & a\in \mathscr{A}\!\!\!\!\!\! &::= x\in \Variable\ |\ n \in \Nat\ |\ a_1+a_2\ |\ a_1-a_2\ |\ a_1\times a_2\\
+\text{-- boolean expressions:} & b\in \mathscr{B}\!\!\!\!\!\! &::= \textbf{false}\ |\ \textbf{true}\ |\ a_1<a_2\ |\ \textbf{not } b\ |\ b_1 \textbf{ and } b_2\ |\ b_1 \textbf{ or } b_2\\
+\text{-- commands:} & c\in \mathscr{C}\!\!\!\!\!\! &::= \textbf{skip}\ |\ x:=a\ |\ c_1;c_2\ |\ \textbf{if }b\text{ then }c_1\text{ else }c_2\ |\ \textbf{while } b\textbf{ do }c
+\end{tabular}
+}
+\end{align*}
+
+As stated in \cite{GKAT}, this language can be modelled in GKAT using actions for assignments and primitive tests for comparisons as follows:
+\begin{align}
+\Sigma=\set{x:=a\ |\ x\in \Variable, a\in \mathscr{A}}, \quad T=\set{a_1 < a_2\ |\ a_1,a_2\in \mathscr{A}}.
+\end{align}
+Following \cite{GKAT}, we interpret GKAT expressions over the space of variable assignments $\semantics{\Variable}\triangleq\Variable \rightarrow\Nat$:
+\begin{align*}
+\eval(x:=a)&\triangleq \set{(\sigma, \sigma[x:=n])\ |\  \sigma \in \semantics{\Variable}, n=\mathscr{A}\semantics{a}_\sigma},\\
+\sigma[x:=n]&\triangleq \uplambda y \ldotp 
+	\begin{cases}
+		n, \quad &\text{if $y=x$};\\
+		\sigma(y), \quad&\text{otherwise},
+	\end{cases}\\
+\sat(a_1<a_2)&\triangleq \set{\sigma \in \semantics{\Variable}\ |\ \mathscr{A}\semantics{a_1}_{\sigma} < \mathscr{A}\semantics{a_2}_{\sigma}},
+\end{align*}
+%where $\mathscr{A}\semantics{a}_\sigma\colon \semantics{\Variable}\rightarrow \Real_\perp$ denotes arithmetic evaluation of the expression $a$ in the context of $\sigma$.
+where $\mathscr{A}\semantics{a}_\sigma$ denotes the arithmetic evaluation of $a$ in the context of $\sigma$. Finally, sequential composition, conditionals and while loops are modelled by their GKAT counterparts, and $\mathbf{skip}$ is modelled by 1.
+
+
+\section{Memory Footprint for the IMP Language}
+A memory footprint considers how variables are contiguously allocated in memory. To capture the notion of a memory footprint, we are going to give a dimension to variables so they now work as finite vectors indexed by integers.  Given a variable $\vec{x}\in \Variable$ and an arithmetic expression $a \in \mathscr{A}$, the expression $\vec{x}[a]$ refers to the value stored in $\vec{x}$ at position $a$.
+
+This treatment of variables as vectors not change the expressivity of the IMP language, and it is purely to address the fact that, for several computer architectures, when we read a memory location (e.g, $\vec{x}[a]$), its contiguous locations are also loaded into the cache (e.g., $\vec{x}[a+1]$ to $\vec{x}[a+k-1]$, where $k$ is the cache line size).
+
+\subsection{Secure Constant Memory}
+Now that actions have a more concrete semantics, 
+
 \section{The IMP Language with Division}
-We modify the simple imperative programming language with variable assignments and boolean expressions from \cite{GKAT} --IMP-- to include division; the language is defined as follows:
+We modify the simple imperative programming language with variable assignments and boolean expressions from \cite{GKAT} --IMP-- so that it includes division; the language is defined as follows:
 \begin{align*}
 {\small
 \begin{tabular}{R RL}
@@ -226,7 +266,99 @@ Following \cite{GKAT}, we interpret GKAT expressions over the space of variable 
 %where $\mathscr{A}\semantics{a}_\sigma\colon \semantics{\Variable}\rightarrow \Real_\perp$ denotes arithmetic evaluation of the expression $a$ in the context of $\sigma$.
 where $\mathscr{A}\semantics{a}_\sigma$ denotes the arithmetic evaluation of $a$ in the context of $\sigma$. Finally, sequential composition, conditionals and while loops are modelled by their GKAT counterparts, and $\mathbf{skip}$ is modelled by 1.
 
-\subsection{Transformations for Secure Constant Time in IMP}
+
+
+\subsection{Examples of Side Channel Attacks}
+
+\subsection{Transformations Rules for CTP in IMP}
+%The most important transformation for constant time are linearisation and loop unfolding. 
+Branch balancing is a technique to enforce CTP at the language level. This technique adds dummy instructions to shorter branches so that both branches have the same resource consumption. We capture this notion with the following repair rule.
+\begin{definition}[Branch Balancing]
+\begin{align*}
+\branch{b}{(x:=a_1)}{1} \leadsto \branch{b}{(x:=a_1)}{(x:=x)}
+\end{align*}
+\end{definition}
+To balance branches, we want an instruction that has the same resource consumption as $x:=a$, but acts as an identity on $x$, hence the choice for $x:=x$. For simplicity, we assume that all variables are initialised by default with a value of 0 so the assignment $x:=x$ is always well defined. \todo[inline]{Maybe we can define at the theoretical level an instruction $\textbf{noOp}(:=)$?}
+Unfortunately, the compiler may remove all dummy instructions since it considers them no-ops, taking us back to an unbalanced program. To overcome this limitation, we rely on the correspondence between program structure and arithmetic expressions, captured by the following repair rule.
+\begin{definition}[Linearisation Rule]
+\begin{align*}
+\branch{b}{(x:=a_1)}{(x:=a_2)} \leadsto x:=b\otimes a_1+(\textbf{not }b)\otimes a_2
+\end{align*}
+where $\otimes$ is multiplication, but it interprets the boolean condition as 0 or 1 depending on whether the condition evaluates to $\textbf{false}$ or $\textbf{true}$, respectively. 
+%Strict typing
+%\begin{align*}
+%\branch{b}{(x:=a_1)}{(x:=a_2)} \leadsto \left(\branch{b}{(m:=1)}{(m:=0)}\right)\cdot(x:=m\times a_1+(1-m)\times a_2)
+%\end{align*}
+\end{definition}
+Loops have two problems: in general, they are both vulnerable to spectre attacks and timing side-channel attacks. The former vulnerability is due to the branching implicitly introduced by the loop's guard, and the latter is due to the variable number of executions of the loop's body.
+\begin{definition}[Delay Termination]
+if $s$ is a secret, then we need a public constant $p$  to transform the loop so it becomes secret-independent
+\begin{align*}
+\iterate{x<s}{g} \leadsto \iterate{x<p}{\left(\branch{(x<s)}{g}{1}\right)}
+\end{align*}
+\end{definition}
+Unfortunately, this rule is still vulnerable to spectre attacks . We want to eliminate the loop altogether.
+\begin{definition}[Loop Unfolding]
+Loop unfolding is an original axiom from GKAT. To solve indirect jumps, we want to totally unfold it until the condition no longer holds.
+\begin{align*}
+\iterate{b}{e} \equiv \branch{b}{e\cdot\iterate{b}{e}}{1} 
+\end{align*}
+Thus, we can transform loops to expressions of the form
+%\begin{align*}
+%\iterate{x<n}{\left(g\cdot(x:=x+1)\right)} \leadsto \underbrace{\branch{(x<n)}{\left(g\cdot(x:=x+1)\right)}{1}}_\text{$k$ times},
+%\end{align*}
+%\begin{align*}
+%\iterate{x<n}{(x:=x+a)} \equiv \branch{(x<n)}{\left((x:=x+a)\cdot \iterate{x<n}{(x:=x+a)}\right)}{1} 
+%\end{align*}
+\begin{align*}
+\iterate{b}{e} \leadsto \underbrace{\left(\branch{b}{e}{1}\right)\ldots\left(\branch{b}{e}{1}\right)}_\text{$k$ times}
+\end{align*}
+where $k$ is a public over-approximation of the (secret-dependent) loop bound.
+\todo[inline]{The programmer should tell us somehow how many times we unfold each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unfold.}
+\end{definition}
+
+\subsection{Enforcing Safe Behaviour}
+Dividing by zero or accessing a position outside of an array are two examples of computations that may raise exceptions during runtime. These exceptions can be mitigated by sanitising the inputs to these functions. This sanitisation is often responsibility of the programmer, who uses conditionals to ensure that the inputs are safe to use. Since our repair rules remove conditionals by forcing the execution of both branch paths, they may introduce runtime exception that were not present in the original program. This is a well-known problem when using predication (see \cite{Rane}), and to overcome it, we need to shift sanitisation of inputs to the compiler or to the architecture. 
+
+Consider the program $\textbf{if }x\neq 0\textbf{ then } y:=z/x \textbf{ else skip}$. The repair rules would transform it into the program $y:=(x\neq 0)\otimes (z/x)+(x=0)\otimes y$. Now, if $\otimes$ is to follow CTP practices, its execution time must not vary on the value of its (secret) input parameters, so early termination by checking if any of the parameters is zero is not allowed. This means that both parameters are fully evaluated before applying multiplication, and we can be certain that the expression $z/x$ is going to be evaluated, even if $x$ is equal to 0. Fortunately, the value of $z/x$ is guarded by $(x\neq 0)$, so we can enforce input sanitisation at compiler level by using a variable $x_\texttt{div}$ to assign a default safe value (e.g., 1) to the parameter of the division function in case the original variable is unsafe, yielding the following repaired program
+\begin{align}
+x_\texttt{div}:= (x\neq 0)\otimes x+(x=0)\otimes 1\ ;\ y:=(x\neq 0)\otimes (z/x_\texttt{div})+(x=0)\otimes y\ .
+\end{align}
+The choice of the default safe value should be irrelevant in the context of CTP because, if the division operation also follows CTP practices, then it should not matter which arguments we give it, as long as they do not break the functionality of the program. 
+
+Now, consider the program $\textbf{if }x<\texttt{size}(A)\textbf{ then } y:=A[x] \textbf{ else skip}$. Similarly to the previous example, if we repair this program naively, we obtain 
+\[y:=(x<\texttt{size}(A))\otimes A[x]+(x\geq\texttt{size}(A))\otimes y
+\]
+
+
+\subsection{A GKAT to Correctly Unfold Basic Block Loops}
+\todo[inline]{The objective of this section is to provide the background theory to prove that the loop transformation that we use in the CFG corresponds to an unfolding transformation of GKAT iteration expressions. For that, we show that the CFG of an LLVM IR program models a normal GKAT coalgebra. If that is the case, then, from a normal GKAT coalgebra, we can use Kleene's theorem for GKAT to obtain a GKAT expression that models the program. Once we have the GKAT expression, we can unfold loops using the unfolding theorem. Somehow, this should be equivalent to unwinding a loop in the CFG (even if the loop has multiple exit points). If I am not mistaken, we want to identify two blocks: the header block and the merging block of the loop. The header is unique by definition, but the merging block is the postdominator of all exiting blocks in the loops, and that is what we will end up iterating using GKAT iteration.
+}
+
+The Control Flow Graph (CFG) of LLVM IR consists of Basic Blocks (BBs). Each BB has a single entry point and a single exit point, the latter represented by a \emph{terminator instruction}. Let us consider only two types of termination instructions for BBs:
+\begin{enumerate}
+\item $\texttt{return }v$, which ends the current execution and returns a value $v$; and
+\item $\texttt{branch $\alpha:$ $BB_1$ ; $BB_2$}$, which states that we should continue execution from $BB_1$ if the condition $\alpha$ is valid, or continue execution from $BB_2$ otherwise.
+\end{enumerate}
+\todo[inline]{The $\texttt{branch}$ instruction can be generalised to a $\texttt{switch}$ instruction, but we work with binary branching since it is possible to express a switch associating on the right, so we go o a basic block on the else branch that continues resolving the cases of the switch following the classical \texttt{switch $g_i:c_i$ $\equiv$ if $g_1$ then $c_1$ elseif $g_2$ then $c_2$ elseif...} equivalence that most decent programming languages have (which is why I never use switches in C++, since they are not equivalent).}
+Let us consider a GKAT where the set of actions $\Sigma$ is the set of BBs and the tests are the conditions used in \texttt{branch} termination instructions.
+
+
+
+%\begin{definition}[Loop Unfolding]
+%%From \cite{GKAT}
+%%\begin{align*}
+%%\iterate{b}{e} \equiv \branch{b}{(e\cdot \iterate{b}{e})}{1}
+%%\end{align*}
+%%The programmer should tell us somehow how many times we unfold each loop that depends on a secret. A different version
+%\begin{align*}
+%\iterate{x<n}{(x:=x+a)} \equiv \branch{(x<n)}{\left((x:=x+a)\cdot \iterate{x<n}{(x:=x+a)}\right)}{1} 
+%\end{align*}
+%\todo[inline]{The programmer should tell us somehow how many times we unfold each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unfold.}
+%\end{definition}
+
+
+
 \subsection{Types}
 For our first LLVM IR sublanguage, we support the following types:
 \begin{itemize}
