@@ -18,37 +18,37 @@
 \contentsline {section}{\numberline {1.7}The IMP Language with Division}{6}{section.32}
 \contentsline {subsection}{\numberline {1.7.1}Examples of Side Channel Attacks}{6}{subsection.34}
 \contentsline {subsection}{\numberline {1.7.2}Transformations Rules for CTP in IMP}{6}{subsection.35}
-\contentsline {subsection}{\numberline {1.7.3}Enforcing Safe Behaviour}{7}{subsection.42}
-\contentsline {subsection}{\numberline {1.7.4}A GKAT to Correctly Unfold Basic Block Loops}{8}{subsection.44}
-\contentsline {subsection}{\numberline {1.7.5}Types}{9}{subsection.49}
-\contentsline {subsection}{\numberline {1.7.6}Instructions}{9}{subsection.54}
-\contentsline {subsection}{\numberline {1.7.7}Central idea}{10}{subsection.56}
-\contentsline {subsection}{\numberline {1.7.8}Subsection 1}{10}{subsection.58}
-\contentsline {subsection}{\numberline {1.7.9}Subsection 2}{10}{subsection.59}
-\contentsline {section}{\numberline {1.8}Main Section 2}{10}{section.60}
-\contentsline {chapter}{\numberline {2}First chapter $\Sigma _\omega ^i \infty $ }{11}{chapter.61}
-\contentsline {section}{\numberline {2.1}Welcome and Thank You}{11}{section.62}
-\contentsline {section}{\numberline {2.2}Learning \LaTeX {}}{11}{section.63}
-\contentsline {subsection}{\numberline {2.2.1}A (not so short) Introduction to \LaTeX {}}{11}{subsection.64}
-\contentsline {subsection}{\numberline {2.2.2}A Short Math Guide for \LaTeX {}}{12}{subsection.65}
-\contentsline {subsection}{\numberline {2.2.3}Common \LaTeX {} Math Symbols}{12}{subsection.66}
-\contentsline {subsection}{\numberline {2.2.4}\LaTeX {} on a Mac}{12}{subsection.67}
-\contentsline {section}{\numberline {2.3}Getting Started with this Template}{12}{section.68}
-\contentsline {subsection}{\numberline {2.3.1}About this Template}{13}{subsection.69}
-\contentsline {section}{\numberline {2.4}What this Template Includes}{13}{section.70}
-\contentsline {subsection}{\numberline {2.4.1}Folders}{13}{subsection.71}
-\contentsline {subsection}{\numberline {2.4.2}Files}{14}{subsection.72}
-\contentsline {section}{\numberline {2.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{15}{section.73}
-\contentsline {section}{\numberline {2.6}The \texttt {main.tex} File Explained}{15}{section.74}
-\contentsline {section}{\numberline {2.7}Thesis Features and Conventions}{16}{section.75}
-\contentsline {subsection}{\numberline {2.7.1}Printing Format}{16}{subsection.76}
-\contentsline {subsection}{\numberline {2.7.2}Using US Letter Paper}{16}{subsection.77}
-\contentsline {subsection}{\numberline {2.7.3}References}{17}{subsection.78}
-\contentsline {subsubsection}{A Note on bibtex}{17}{section*.80}
-\contentsline {subsection}{\numberline {2.7.4}Tables}{18}{subsection.81}
-\contentsline {subsection}{\numberline {2.7.5}Figures}{18}{subsection.83}
-\contentsline {subsection}{\numberline {2.7.6}Typesetting mathematics}{19}{subsection.85}
-\contentsline {section}{\numberline {2.8}Sectioning and Subsectioning}{20}{section.87}
-\contentsline {section}{\numberline {2.9}In Closing}{20}{section.88}
-\contentsline {chapter}{\numberline {A}Appendix Title Here}{21}{appendix.89}
-\contentsline {chapter}{Bibliography}{22}{appendix*.90}
+\contentsline {subsection}{\numberline {1.7.3}Enforcing Safe Behaviour}{8}{subsection.40}
+\contentsline {subsection}{\numberline {1.7.4}A GKAT to Correctly Unwind Basic Block Loops}{9}{subsection.45}
+\contentsline {subsection}{\numberline {1.7.5}Types}{9}{subsection.50}
+\contentsline {subsection}{\numberline {1.7.6}Instructions}{10}{subsection.55}
+\contentsline {subsection}{\numberline {1.7.7}Central idea}{10}{subsection.57}
+\contentsline {subsection}{\numberline {1.7.8}Subsection 1}{10}{subsection.59}
+\contentsline {subsection}{\numberline {1.7.9}Subsection 2}{10}{subsection.60}
+\contentsline {section}{\numberline {1.8}Main Section 2}{11}{section.61}
+\contentsline {chapter}{\numberline {2}First chapter $\Sigma _\omega ^i \infty $ }{12}{chapter.62}
+\contentsline {section}{\numberline {2.1}Welcome and Thank You}{12}{section.63}
+\contentsline {section}{\numberline {2.2}Learning \LaTeX {}}{12}{section.64}
+\contentsline {subsection}{\numberline {2.2.1}A (not so short) Introduction to \LaTeX {}}{12}{subsection.65}
+\contentsline {subsection}{\numberline {2.2.2}A Short Math Guide for \LaTeX {}}{13}{subsection.66}
+\contentsline {subsection}{\numberline {2.2.3}Common \LaTeX {} Math Symbols}{13}{subsection.67}
+\contentsline {subsection}{\numberline {2.2.4}\LaTeX {} on a Mac}{13}{subsection.68}
+\contentsline {section}{\numberline {2.3}Getting Started with this Template}{13}{section.69}
+\contentsline {subsection}{\numberline {2.3.1}About this Template}{14}{subsection.70}
+\contentsline {section}{\numberline {2.4}What this Template Includes}{14}{section.71}
+\contentsline {subsection}{\numberline {2.4.1}Folders}{14}{subsection.72}
+\contentsline {subsection}{\numberline {2.4.2}Files}{15}{subsection.73}
+\contentsline {section}{\numberline {2.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{16}{section.74}
+\contentsline {section}{\numberline {2.6}The \texttt {main.tex} File Explained}{16}{section.75}
+\contentsline {section}{\numberline {2.7}Thesis Features and Conventions}{17}{section.76}
+\contentsline {subsection}{\numberline {2.7.1}Printing Format}{17}{subsection.77}
+\contentsline {subsection}{\numberline {2.7.2}Using US Letter Paper}{17}{subsection.78}
+\contentsline {subsection}{\numberline {2.7.3}References}{18}{subsection.79}
+\contentsline {subsubsection}{A Note on bibtex}{18}{section*.81}
+\contentsline {subsection}{\numberline {2.7.4}Tables}{19}{subsection.82}
+\contentsline {subsection}{\numberline {2.7.5}Figures}{19}{subsection.84}
+\contentsline {subsection}{\numberline {2.7.6}Typesetting mathematics}{20}{subsection.86}
+\contentsline {section}{\numberline {2.8}Sectioning and Subsectioning}{21}{section.88}
+\contentsline {section}{\numberline {2.9}In Closing}{21}{section.89}
+\contentsline {chapter}{\numberline {A}Appendix Title Here}{22}{appendix.90}
+\contentsline {chapter}{Bibliography}{23}{appendix*.91}

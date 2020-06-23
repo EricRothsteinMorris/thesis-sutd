@@ -77,7 +77,7 @@ Replace table look-up with sequences of constant-time logical operations, for ex
 \begin{quote}
 Make sure that all loops are bounded by a constant (or at least a non-secret variable). In particular, make sure, as far as possible, that loop bounds and their potential underflow or overflow are independent of user-controlled input (you may have heard of the Heartbleed bug).
 \end{quote}
-\item Our solution: each secret has an associated iteration bound (i.e., loops that depend on that secret will be unfolded that number amount of times).
+\item Our solution: each secret has an associated iteration bound (i.e., loops that depend on that secret will be unwinded that number amount of times).
 \end{itemize}
 \item Prevent compiler interference with security-critical operations (i.e., compilers can mess up your patches)
 \begin{itemize}
@@ -172,7 +172,7 @@ A \emph{resource metric} is a map $m\colon \GuardedString \rightarrow \Sigma \ri
 \end{align}
 
 Henceforth, we will assume that resource metrics are history-independent, i.e., resource consumption is independent of previous actions or initial conditions, meaning that resource metrics are instead maps of type $\Sigma \rightarrow \Real^{+}$.  
-\todo[inline]{Are there relevant cases where this is not true?}
+\todo[inline]{Are there relevant cases where this is not true? Answer: actually, the memory footprint may probably be one of these cases (more precisely, memory footprint should also consider the interaction environment... it can get really complicated if we want to model everything...)}
 
 \end{definition}
 
@@ -271,16 +271,18 @@ where $\mathscr{A}\semantics{a}_\sigma$ denotes the arithmetic evaluation of $a$
 \subsection{Examples of Side Channel Attacks}
 
 \subsection{Transformations Rules for CTP in IMP}
-%The most important transformation for constant time are linearisation and loop unfolding. 
+%The most important transformation for constant time are linearisation and loop unwinding. 
 Branch balancing is a technique to enforce CTP at the language level. This technique adds dummy instructions to shorter branches so that both branches have the same resource consumption. We capture this notion with the following repair rule.
 \begin{definition}[Branch Balancing]
 \begin{align*}
 \branch{b}{(x:=a_1)}{1} \leadsto \branch{b}{(x:=a_1)}{(x:=x)}
 \end{align*}
 \end{definition}
-To balance branches, we want an instruction that has the same resource consumption as $x:=a$, but acts as an identity on $x$, hence the choice for $x:=x$. For simplicity, we assume that all variables are initialised by default with a value of 0 so the assignment $x:=x$ is always well defined. \todo[inline]{Maybe we can define at the theoretical level an instruction $\textbf{noOp}(:=)$?}
-Unfortunately, the compiler may remove all dummy instructions since it considers them no-ops, taking us back to an unbalanced program. To overcome this limitation, we rely on the correspondence between program structure and arithmetic expressions, captured by the following repair rule.
-\begin{definition}[Linearisation Rule]
+To balance branches, we want an instruction that has the same resource consumption as $x:=a$, but acts as an identity on $x$, hence the choice for $x:=x$.  To avoid undefined behaviour, we assume that all variables are initialised by default with a value of 0 so the assignment $x:=x$ is always well defined. 
+%\todo[inline]{Maybe we can define at the theoretical level an instruction $\textbf{noOp}(:=)$?}
+
+While branch balancing may seem like a sound solution, the compiler may remove all dummy instructions inserted since it considers them to be no-ops, taking us back to an unbalanced program at the binary level. To overcome this limitation, we rely on the correspondence between program structure and arithmetic expressions, captured by the following repair rule.
+\begin{definition}[Linearisation]
 \begin{align*}
 \branch{b}{(x:=a_1)}{(x:=a_2)} \leadsto x:=b\otimes a_1+(\textbf{not }b)\otimes a_2
 \end{align*}
@@ -290,20 +292,27 @@ where $\otimes$ is multiplication, but it interprets the boolean condition as 0 
 %\branch{b}{(x:=a_1)}{(x:=a_2)} \leadsto \left(\branch{b}{(m:=1)}{(m:=0)}\right)\cdot(x:=m\times a_1+(1-m)\times a_2)
 %\end{align*}
 \end{definition}
-Loops have two problems: in general, they are both vulnerable to spectre attacks and timing side-channel attacks. The former vulnerability is due to the branching implicitly introduced by the loop's guard, and the latter is due to the variable number of executions of the loop's body.
-\begin{definition}[Delay Termination]
-if $s$ is a secret, then we need a public constant $p$  to transform the loop so it becomes secret-independent
-\begin{align*}
-\iterate{x<s}{g} \leadsto \iterate{x<p}{\left(\branch{(x<s)}{g}{1}\right)}
-\end{align*}
-\end{definition}
-Unfortunately, this rule is still vulnerable to spectre attacks . We want to eliminate the loop altogether.
-\begin{definition}[Loop Unfolding]
-Loop unfolding is an original axiom from GKAT. To solve indirect jumps, we want to totally unfold it until the condition no longer holds.
-\begin{align*}
-\iterate{b}{e} \equiv \branch{b}{e\cdot\iterate{b}{e}}{1} 
-\end{align*}
-Thus, we can transform loops to expressions of the form
+The linearisation rule forces the evaluation of all terms in both branches, so it is more resource intensive than branch balancing; however, linearisation addresses two of our objectives: one is to prevent the compiler from removing dummy assignments introduced during branch balancing, and the second is to remove branches that might be vulnerable to spectre attacks.
+
+Loops have two problems: in general, they are both vulnerable to spectre attacks and timing side-channel attacks. The former vulnerability is due to the branching implicitly introduced by the loop's guard, and the latter is due to the variable number of executions of the loop's body. Both of these vulnerabilities can be addressed by a combination of branch balancing, linearisation and the following transformation rule.
+%{\color{lightgray}
+%\begin{definition}[Delay Termination]
+%if $s$ is a secret, then we need a public constant $p$  to transform the loop so it becomes secret-independent
+%\begin{align*}
+%\iterate{x<s}{g} \leadsto \iterate{x<p}{\left(\branch{(x<s)}{g}{1}\right)}
+%\end{align*}
+%\end{definition}
+%Unfortunately, this rule is still vulnerable to spectre attacks introduced by the verification loop condition $x<p$. We want to eliminate the loop altogether.}
+\begin{definition}[$k$-Truncation]
+%Loop unwinding is an original axiom from GKAT, represented by the equivalence
+%\begin{align*}
+%\iterate{b}{e} \equiv \branch{b}{(e\cdot\iterate{b}{e})}{1} 
+%\end{align*}
+%\begin{align*}
+%\branch{b}{(e\cdot\iterate{b}{e})}{1} \equiv \branch{b}{(e\cdot(\branch{b}{(e\cdot\iterate{b}{e})}{1} ))}{1} \\
+%\branch{b}{(e\cdot\iterate{b}{e})}{1} \equiv \branch{b}{(e\cdot(\branch{b}{(e\cdot\iterate{b}{e})}{1} ))}{1} \\
+%\end{align*}
+To $k$-truncate a loop means that we transform $\iterate{b}{e}$ into a sequence of $k$ conditional statements as follows
 %\begin{align*}
 %\iterate{x<n}{\left(g\cdot(x:=x+1)\right)} \leadsto \underbrace{\branch{(x<n)}{\left(g\cdot(x:=x+1)\right)}{1}}_\text{$k$ times},
 %\end{align*}
@@ -311,28 +320,34 @@ Thus, we can transform loops to expressions of the form
 %\iterate{x<n}{(x:=x+a)} \equiv \branch{(x<n)}{\left((x:=x+a)\cdot \iterate{x<n}{(x:=x+a)}\right)}{1} 
 %\end{align*}
 \begin{align*}
-\iterate{b}{e} \leadsto \underbrace{\left(\branch{b}{e}{1}\right)\ldots\left(\branch{b}{e}{1}\right)}_\text{$k$ times}
+\iterate{b}{e} \leadsto \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\ldots\left(\branch{b}{e}{1}\right)}_\text{$k$ times}
 \end{align*}
-where $k$ is a public over-approximation of the (secret-dependent) loop bound.
-\todo[inline]{The programmer should tell us somehow how many times we unfold each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unfold.}
+An equivalence relation between $\iterate{b}{e}$ and its $k$-truncation can be obtained if $k$ is a public over-approximation of the (secret-dependent) loop bound of $\iterate{b}{e}$.
+\todo[inline]{The programmer should tell us somehow how many times we unwind each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unwind.}
 \end{definition}
 
 \subsection{Enforcing Safe Behaviour}
+\todo[inline]{I originally thought that this section should be part of the GKAT rules, but after some consideration, if we were to assume that sanitisation is part of the actions (i.e. is a part of CTP practices), then this section becomes largely irrelevant for the theory. However, since LLVM can have problems when accessing arrays or dividing by zero, this should be mentioned in the LLVM section, probably.}
 Dividing by zero or accessing a position outside of an array are two examples of computations that may raise exceptions during runtime. These exceptions can be mitigated by sanitising the inputs to these functions. This sanitisation is often responsibility of the programmer, who uses conditionals to ensure that the inputs are safe to use. Since our repair rules remove conditionals by forcing the execution of both branch paths, they may introduce runtime exception that were not present in the original program. This is a well-known problem when using predication (see \cite{Rane}), and to overcome it, we need to shift sanitisation of inputs to the compiler or to the architecture. 
 
-Consider the program $\textbf{if }x\neq 0\textbf{ then } y:=z/x \textbf{ else skip}$. The repair rules would transform it into the program $y:=(x\neq 0)\otimes (z/x)+(x=0)\otimes y$. Now, if $\otimes$ is to follow CTP practices, its execution time must not vary on the value of its (secret) input parameters, so early termination by checking if any of the parameters is zero is not allowed. This means that both parameters are fully evaluated before applying multiplication, and we can be certain that the expression $z/x$ is going to be evaluated, even if $x$ is equal to 0. Fortunately, the value of $z/x$ is guarded by $(x\neq 0)$, so we can enforce input sanitisation at compiler level by using a variable $x_\texttt{div}$ to assign a default safe value (e.g., 1) to the parameter of the division function in case the original variable is unsafe, yielding the following repaired program
+Consider the program $\textbf{if }b \textbf{ then } y:=z/x \textbf{ else skip}$. The repair rules would transform it into the program $y:=b\otimes (z/x)+(\textbf{not }b)\otimes y$. If $b$ is a condition that rules out whether $x$ is not equal to zero, we might run into problems should we evaluate $z/x$ in the repaired program. If $\otimes$ is to follow CTP practices, its execution time must not vary on the value of its (secret) input parameters, so early termination by checking if any of the parameters is zero is not allowed. If both parameters are fully evaluated before applying multiplication, we can be certain that the expression $z/x$ is going to be evaluated, even if $x$ is equal to 0. %Fortunately, the value of $z/x$ is guarded by $(x\neq 0)$, 
+To avoid raising an exception at runtime, we enforce input sanitisation at compiler level by using a variable $x_\texttt{div}$ to assign a default safe value (e.g., 1) to the parameter of the division function in case the original variable is unsafe, yielding the following repaired program
 \begin{align}
-x_\texttt{div}:= (x\neq 0)\otimes x+(x=0)\otimes 1\ ;\ y:=(x\neq 0)\otimes (z/x_\texttt{div})+(x=0)\otimes y\ .
+x_\texttt{div}:= (x\neq 0)\otimes x+(x=0)\otimes 1\ ;\ y:=b\otimes (z/x_\texttt{div})+(\textbf{not }b)\otimes y\ .
 \end{align}
-The choice of the default safe value should be irrelevant in the context of CTP because, if the division operation also follows CTP practices, then it should not matter which arguments we give it, as long as they do not break the functionality of the program. 
+Since we evaluate $z/x_\texttt{div}$ instead of $z/x$ in the repaired program, the repaired program is also safe if the original program was safe. We remark that the choice of the default safe value should be irrelevant in the context of CTP because, if the division operation also follows CTP practices, then it should not matter which values we choose as long as they do not break the functionality of the program. 
 
-Now, consider the program $\textbf{if }x<\texttt{size}(A)\textbf{ then } y:=A[x] \textbf{ else skip}$. Similarly to the previous example, if we repair this program naively, we obtain 
-\[y:=(x<\texttt{size}(A))\otimes A[x]+(x\geq\texttt{size}(A))\otimes y
+Now, consider the program $\textbf{if }b \textbf{ then } y:=A[x] \textbf{ else skip}$. Similarly to the previous example, if we repair this program naively, we obtain the program $y:=b\otimes A[x]+(\textbf{not }b)\otimes y$ which might introduce runtime exceptions should $A[x]$ be executed when $x$ is greater than the size of $A$. We can sanitise the input by 
+\[x_\texttt{idx}:= (x<\textbf{size}(A))\otimes x;\ y:=b\otimes A[x_\texttt{idx}]+(\textbf{not }b)\otimes y\ ,
 \]
+\todo[inline]{OR}
+\[x_\texttt{idx}:= x \textbf{ mod }(\textbf{size}(A));\ y:=b\otimes A[x_\texttt{idx}]+(\textbf{not }b)\otimes y\ ,
+\]
+to avoid undesired side effects.
+\todo[inline]{I have the hunch that substituting the expression $A[x]$ for $ A[x\textbf{ mod }(\textbf{size}(A))]$ might leak via memory SC that the secret is a multiple of the array index that corresponds to $x\textbf{ mod }(\textbf{size}(A))$. However, this substitution for $A[0]$ also leaks that the secret is greater than the size of the array. Now, using a secret as an index should be frowned upon by CTP guidelines, but do we want to define the problem away? probably not. What this is missing is the memory SC mitigation, and any of the options above should be valid.}
 
-
-\subsection{A GKAT to Correctly Unfold Basic Block Loops}
-\todo[inline]{The objective of this section is to provide the background theory to prove that the loop transformation that we use in the CFG corresponds to an unfolding transformation of GKAT iteration expressions. For that, we show that the CFG of an LLVM IR program models a normal GKAT coalgebra. If that is the case, then, from a normal GKAT coalgebra, we can use Kleene's theorem for GKAT to obtain a GKAT expression that models the program. Once we have the GKAT expression, we can unfold loops using the unfolding theorem. Somehow, this should be equivalent to unwinding a loop in the CFG (even if the loop has multiple exit points). If I am not mistaken, we want to identify two blocks: the header block and the merging block of the loop. The header is unique by definition, but the merging block is the postdominator of all exiting blocks in the loops, and that is what we will end up iterating using GKAT iteration.
+\subsection{A GKAT to Correctly Unwind Basic Block Loops}
+\todo[inline]{The objective of this section is to provide the background theory to prove that the loop transformation that we use in the CFG corresponds to an unwinding transformation of GKAT iteration expressions. For that, we show that the CFG of an LLVM IR program models a normal GKAT coalgebra. If that is the case, then, from a normal GKAT coalgebra, we can use Kleene's theorem for GKAT to obtain a GKAT expression that models the program. Once we have the GKAT expression, we can unwind loops using $k$-truncation. Somehow, this should be equivalent to unwinding a loop in the CFG (even if the loop has multiple exit points). If I am not mistaken, we want to identify two blocks: the header block and the merging block of the loop. The header is unique by definition, but the merging block is the postdominator of all exiting blocks in the loops, and that is what we will end up iterating using GKAT iteration.
 }
 
 The Control Flow Graph (CFG) of LLVM IR consists of Basic Blocks (BBs). Each BB has a single entry point and a single exit point, the latter represented by a \emph{terminator instruction}. Let us consider only two types of termination instructions for BBs:
@@ -345,16 +360,16 @@ Let us consider a GKAT where the set of actions $\Sigma$ is the set of BBs and t
 
 
 
-%\begin{definition}[Loop Unfolding]
+%\begin{definition}[Loop unwinding]
 %%From \cite{GKAT}
 %%\begin{align*}
 %%\iterate{b}{e} \equiv \branch{b}{(e\cdot \iterate{b}{e})}{1}
 %%\end{align*}
-%%The programmer should tell us somehow how many times we unfold each loop that depends on a secret. A different version
+%%The programmer should tell us somehow how many times we unwind each loop that depends on a secret. A different version
 %\begin{align*}
 %\iterate{x<n}{(x:=x+a)} \equiv \branch{(x<n)}{\left((x:=x+a)\cdot \iterate{x<n}{(x:=x+a)}\right)}{1} 
 %\end{align*}
-%\todo[inline]{The programmer should tell us somehow how many times we unfold each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unfold.}
+%\todo[inline]{The programmer should tell us somehow how many times we unwind each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unwind.}
 %\end{definition}
 
 
