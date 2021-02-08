@@ -1,0 +1,56 @@
+%!TEX root = ../main.tex
+% Chapter Template
+
+
+\chapter{Preliminaries and Notation} % Main chapter title
+\label{ch:Preliminaries} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+\todo[inline]{This first page should have an index from concepts to the page where they are explained/defined. There should be a bit of redundancy with the glossary at the end, but I feel it makes the thesis easier to navigate: search preliminaries, and you're there. THIS SECTION HAS CONTENT THAT I DID NOT DEVELOP. The newer content comes in the following chapters}
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Universal (Co)Algebra}
+\label{sec:Preliminaries:Coalgebras}
+\todo[inline]{Make sure you create a wonderful introduction to the world of (co)algebras and explain why you want to use them. They are a wonderful way to unify the formalism of the thesis.}
+\subsection{Categories, Functors and Monads}
+%\todo[inline]{*Puts an Edna Mode face* NO MONADS (unless necessary)}
+\subsection{$\Monad$-algebras, $\Functor$-coalgebras and $\lambda$-bialgebras}
+A \emph{$\Monad$-algebra} for a monad $\Monad=(\MFunctor,\eta,\mu)$ is a pair $(\TheSet,\Monad(\TheSet)\xrightarrow{a}\TheSet)$ of an object $\TheSet$ and a morphism $a\colon \Monad(\TheSet)\rightarrow\TheSet$ which, due to the relationship between monads and adjunctions, satisfy two properties: the \emph{multiplication square} and the \emph{unit triangle}, shown in Figures~\ref{fig:MultiplicationSquare} and~\ref{fig:UnitTriangle}.
+
+%\subsubsection The compositions $a\circ \mu_X$ and $a\circ T(a)$ are equal.
+\begin{figure}[h]
+\centering
+\begin{minipage}{0.45\textwidth}
+ \centering
+\begin{tikzcd}
+    T^2(X) \arrow{r}{T(a)} \arrow[swap]{d}{\mu_X} & T(X) \arrow{d}{a} \\
+    T(X) \arrow{r}{a}& X
+ \end{tikzcd}
+\caption{Multiplication square.}
+\label{fig:MultiplicationSquare}
+\end{minipage}
+ \begin{minipage}{0.45\textwidth}
+ \centering
+\begin{tikzcd}
+    T(X) \arrow{r}{a} \arrow[swap]{dr}{1_{T(X)}} & X\arrow{d}{\eta} \\
+    & T(X)
+  \end{tikzcd}
+\caption{Unit triangle.}
+\label{fig:UnitTriangle}
+  \end{minipage}
+\end{figure}
+
+
+
+
+
+\subsection{Catamorphisms and Anamorphisms}
+\section{Spectre}
+\label{sec:Preliminaries:Spectre}
+\todo[inline]{And Meltdown?}
+\subsection{Spectre V1}
+%\todo[inline]{}
+\subsection{Spectre V2}
+\section{Cyber-Physical System} 
+\todo[inline]{This section probably makes more sense in its own chapter, when we explain what the latent behaviour of a CPS is.}

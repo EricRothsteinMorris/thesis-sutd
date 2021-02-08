@@ -1,0 +1,70 @@
+%!TEX root = ../main.tex
+% Chapter Template
+
+\newcommand{\branch}[3]{\ensuremath{{#2}\ {+_{#1}}\ {#3}}}
+\newcommand{\iterate}[2]{\ensuremath{{#2}^{\left(#1\right)}}}
+\newcommand{\bexp}[0]{\ensuremath{\text{BExp}}}
+\newcommand{\gexp}[0]{\ensuremath{\text{Exp}}}
+\newcommand{\usg}[0]{\ensuremath{\text{u}}}
+\newcommand{\eval}[0]{\ensuremath{\mathtt{eval}}}
+\newcommand{\sat}[0]{\ensuremath{\mathtt{sat}}}
+\newcommand{\sg}[0]{\ensuremath{\text{s}}}
+\newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
+\newcommand{\lbl}[0]{\ensuremath{\text{lbl}}}
+\newcommand{\Real}[0]{\ensuremath{\mathbb{R}}}
+\newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
+\newcommand{\letter}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z}\right)}}
+\newcommand{\Atom}[0]{\ensuremath{\text{At}}}
+\newcommand{\GuardedString}[0]{\ensuremath{\text{GS}}}
+\newcommand{\RC}[0]{\ensuremath{\text{RC}}}
+\newcommand{\Low}[0]{\ensuremath{\text{Low}}}
+\newcommand{\Variable}[0]{\ensuremath{\mathscr{V}}}
+\newcommand{\Integer}[0]{\ensuremath{\mathbb{Z}}}
+\newcommand{\alphanumeric}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9}\right)}}
+\newcommand{\alphanumericP}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9\ |\ .\ |\ \_\ |\ \$}\right)}}
+\newcommand{\semantics}[1]{\ensuremath{\llbracket #1\rrbracket}}
+\newcommand{\valuation}[0]{\ensuremath{\Gamma}}
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{R}{>{$}r<{$}} % math-mode version of "r" column type
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+%\newcommand{\hourglass}[0]{}%{\LARGE\fontspec{Cambria}^^^^231b}
+\newcommand{\timeequiv}[0]{\equiv_{\hourglass}}
+
+\chapter{Introduction} % Main chapter title
+\label{ch:Introduction} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Story Time}
+We model systems based on what they are supposed to do, but what can we say about the things that they \emph{could} do?
+
+\todo[inline]{Actually, the thesis would be super interesting if potential behaviour problems are presented in terms of a game between the system and the attacker, with the attacker following some sort of reactive strategy, and the system as well. At some point, one or the other wins because it is a deterministic game if the system is deterministic. }
+How can we model attackers? How can we model their actions? How can we prepare against them?
+
+Many attacks are discovered through testing: an experienced hacker creates a proof of concept to illustrate how some system may be attacked. Then, an abstraction is created to explain why the attack works, and to suggest countermeasures against it. 
+\todo[inline]{You can probably show several papers that display this pattern.} 
+
+Fuzzing is probably one of the most popular techniques for system transformations. 
+%-----------------------------------
+%	SUBSECTION 1
+%-----------------------------------
+\subsection{Subsection 1}
+
+Nunc posuere quam at lectus tristique eu ultrices augue venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam erat volutpat. Vivamus sodales tortor eget quam adipiscing in vulputate ante ullamcorper. Sed eros ante, lacinia et sollicitudin et, aliquam sit amet augue. In hac habitasse platea dictumst.
+
+%-----------------------------------
+%	SUBSECTION 2
+%-----------------------------------
+
+\subsection{Subsection 2}
+Morbi rutrum odio eget arcu adipiscing sodales. Aenean et purus a est pulvinar pellentesque. Cras in elit neque, quis varius elit. Phasellus fringilla, nibh eu tempus venenatis, dolor elit posuere quam, quis adipiscing urna leo nec orci. Sed nec nulla auctor odio aliquet consequat. Ut nec nulla in ante ullamcorper aliquam at sed dolor. Phasellus fermentum magna in augue gravida cursus. Cras sed pretium lorem. Pellentesque eget ornare odio. Proin accumsan, massa viverra cursus pharetra, ipsum nisi lobortis velit, a malesuada dolor lorem eu neque.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Main Section 2}
+
+Sed ullamcorper quam eu nisl interdum at interdum enim egestas. Aliquam placerat justo sed lectus lobortis ut porta nisl porttitor. Vestibulum mi dolor, lacinia molestie gravida at, tempus vitae ligula. Donec eget quam sapien, in viverra eros. Donec pellentesque justo a massa fringilla non vestibulum metus vestibulum. Vestibulum in orci quis felis tempor lacinia. Vivamus ornare ultrices facilisis. Ut hendrerit volutpat vulputate. Morbi condimentum venenatis augue, id porta ipsum vulputate in. Curabitur luctus tempus justo. Vestibulum risus lectus, adipiscing nec condimentum quis, condimentum nec nisl. Aliquam dictum sagittis velit sed iaculis. Morbi tristique augue sit amet nulla pulvinar id facilisis ligula mollis. Nam elit libero, tincidunt ut aliquam at, molestie in quam. Aenean rhoncus vehicula hendrerit.

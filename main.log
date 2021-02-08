@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  23 JUN 2020 09:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  8 FEB 2021 17:49
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **main.tex
@@ -1897,42 +1897,26 @@ LaTeX Font Info:    Overwriting symbol font `ugrf@m' in version `bold'
 \@LabelPart=\box68
 \ResultBox=\box69
 )
-\c@definition=\count387
-\c@remark=\count388
-Package biblatex Info: Trying to load language 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/mdsymbol/mdsymbol.sty
+Package: mdsymbol 2012/11/18 v0.5 MdSymbol support package
 
-(/usr/local/texlive/2016/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-File: english.lbx 2016/05/14 v3.4 biblatex localization (PK/JW/AB)
-)
-Package csquotes Info: Checking for multilingual support...
-Package csquotes Info: ... found 'babel' package.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
 
-(./main.aux (./Chapters/Chapter1.aux) (./Chapters/Chapter6.aux)
-(./Appendices/AppendixA.aux))
-\openout1 = `main.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Try loading font information for T1+ppl on input line 100.
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/t1ppl.fd
-File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 Now handling font encoding TS1 ...
 ... processing UTF-8 mapping file for font encoding TS1
 
@@ -2007,6 +1991,278 @@ File: ts1enc.dfu 2016/02/28 v1.1s UTF-8 support for inputenc
    defining Unicode char U+25E6 (decimal 9702)
    defining Unicode char U+25EF (decimal 9711)
    defining Unicode char U+266A (decimal 9834)
+))
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+)
+LaTeX Info: Redefining \dagger on input line 289.
+LaTeX Info: Redefining \ddagger on input line 290.
+LaTeX Info: Redefining \mathparagraph on input line 291.
+LaTeX Info: Redefining \mathsection on input line 292.
+LaTeX Info: Redefining \mathdollar on input line 293.
+LaTeX Info: Redefining \mathsterling on input line 294.
+LaTeX Info: Redefining \yen on input line 295.
+LaTeX Info: Redefining \circledR on input line 297.
+LaTeX Info: Redefining \circledS on input line 299.
+LaTeX Info: Redefining \Re on input line 300.
+LaTeX Info: Redefining \Im on input line 301.
+LaTeX Info: Redefining \thicksim on input line 303.
+LaTeX Info: Redefining \thickapprox on input line 304.
+LaTeX Info: Redefining \hslash on input line 305.
+LaTeX Info: Redefining \centerdot on input line 306.
+LaTeX Info: Redefining \hbar on input line 311.
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/fltpoint/fltpoint.sty
+Package: fltpoint 2004/11/12 v1.1b floating point arithmetic
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/fltpoint/fltpoint.tex
+\fp@loopcount=\count387
+\fp@loopcountii=\count388
+\fp@result=\count389
+\fp@carryover=\count390
+\fp@tempcount=\count391
+\fp@tempcountii=\count392
+))
+LaTeX Font Info:    Encoding `OMS' has changed to `U' for symbol font
+(Font)              `symbols' in the math version `normal' on input line 404.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> U/MdSymbolA/m/n on input line 404.
+LaTeX Font Info:    Encoding `OMS' has changed to `U' for symbol font
+(Font)              `symbols' in the math version `bold' on input line 404.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> U/MdSymbolA/b/n on input line 404.
+\symrelations=\mathgroup9
+LaTeX Font Info:    Overwriting symbol font `relations' in version `bold'
+(Font)                  U/MdSymbolB/m/n --> U/MdSymbolB/b/n on input line 405.
+\symarrows=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `arrows' in version `bold'
+(Font)                  U/MdSymbolC/m/n --> U/MdSymbolC/b/n on input line 406.
+\symnarrows=\mathgroup11
+LaTeX Font Info:    Overwriting symbol font `narrows' in version `bold'
+(Font)                  U/MdSymbolD/m/n --> U/MdSymbolD/b/n on input line 407.
+LaTeX Font Info:    Encoding `OMX' has changed to `U' for symbol font
+(Font)              `largesymbols' in the math version `normal' on input line 4
+08.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> U/MdSymbolE/m/n on input line 408.
+LaTeX Font Info:    Encoding `OMX' has changed to `U' for symbol font
+(Font)              `largesymbols' in the math version `bold' on input line 408
+.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> U/MdSymbolE/b/n on input line 408.
+\symdelimiters=\mathgroup12
+LaTeX Font Info:    Overwriting symbol font `delimiters' in version `bold'
+(Font)                  U/MdSymbolF/m/n --> U/MdSymbolF/b/n on input line 409.
+LaTeX Info: Redefining \vdots on input line 433.
+LaTeX Info: Redefining \relbar on input line 1408.
+LaTeX Info: Redefining \Relbar on input line 1409.
+LaTeX Info: Redefining \joinrel on input line 1410.
+LaTeX Font Info:    Redeclaring math accent \widehat on input line 1956.
+LaTeX Font Info:    Redeclaring math accent \widetilde on input line 1957.
+LaTeX Font Info:    Redeclaring math accent \vec on input line 1959.
+LaTeX Font Info:    Redeclaring math symbol \setminus on input line 2037.
+LaTeX Font Info:    Redeclaring math symbol \mid on input line 2041.
+LaTeX Font Info:    Redeclaring math symbol \nmid on input line 2042.
+LaTeX Font Info:    Redeclaring math symbol \parallel on input line 2046.
+LaTeX Font Info:    Redeclaring math symbol \nparallel on input line 2047.
+LaTeX Font Info:    Redeclaring math symbol \shortmid on input line 2055.
+LaTeX Font Info:    Redeclaring math symbol \nshortmid on input line 2056.
+LaTeX Font Info:    Redeclaring math symbol \shortparallel on input line 2057.
+LaTeX Font Info:    Redeclaring math symbol \nshortparallel on input line 2058.
+
+LaTeX Font Info:    Redeclaring math delimiter \uparrow on input line 2067.
+LaTeX Font Info:    Redeclaring math delimiter \downarrow on input line 2068.
+LaTeX Font Info:    Redeclaring math delimiter \updownarrow on input line 2069.
+
+LaTeX Font Info:    Redeclaring math delimiter \Uparrow on input line 2070.
+LaTeX Font Info:    Redeclaring math delimiter \Downarrow on input line 2071.
+LaTeX Font Info:    Redeclaring math delimiter \Updownarrow on input line 2072.
+
+LaTeX Font Info:    Redeclaring math symbol \braceld on input line 2073.
+LaTeX Font Info:    Redeclaring math symbol \bracelu on input line 2074.
+LaTeX Font Info:    Redeclaring math symbol \bracerd on input line 2075.
+LaTeX Font Info:    Redeclaring math symbol \braceru on input line 2076.
+LaTeX Info: Redefining \overbrace on input line 2094.
+LaTeX Info: Redefining \underbrace on input line 2097.
+LaTeX Font Info:    Redeclaring math symbol \surd on input line 2109.
+LaTeX Info: Redefining \r@@t on input line 2113.
+LaTeX Info: Redefining \c@ncel on input line 2159.
+LaTeX Info: Redefining \not on input line 2160.
+\overliningbox=\box70
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count393
+\c@ALG@rem=\count394
+\c@ALG@nested=\count395
+\ALG@tlm=\skip85
+\ALG@thistlm=\skip86
+\c@ALG@Lnr=\count396
+\c@ALG@blocknr=\count397
+\c@ALG@storecount=\count398
+\c@ALG@tmpcounter=\count399
+\ALG@tmplength=\skip87
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count400
+\float@exts=\toks46
+\float@box=\box71
+\@float@everytoks=\toks47
+\@floatcapt=\box72
+)
+Package scrhack Info: loading float hack on input line 32.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/koma-script/float.hak
+File: float.hak 2016/05/10 v3.20 KOMA-Script package (hacking package float)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/koma-script/tocbasic.sty
+Package: tocbasic 2016/05/10 v3.20 KOMA-Script package (handling toc-files)
+\scr@dte@tocline@numberwidth=\skip88
+\scr@dte@tocline@numbox=\box73
+)
+Package scrhack Info: redefining \newfloat on input line 161.
+Package scrhack Info: redefining \listof on input line 161.
+Package scrhack Info: undefining \float@addtolists on input line 161.
+)
+Package tocbasic Info: setting babel extension for `loa' on input line 95.
+\@float@every@algorithm=\toks48
+\c@algorithm=\count401
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/tikz-cd/tikz-cd.sty
+Package: tikz-cd 2014/10/30 v0.9e Commutative diagrams with tikz
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/tikz-cd/tikzlibrarycd.code.tex
+(/usr/local/texlive/2016/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarymatrix.code.tex
+File: tikzlibrarymatrix.code.tex 2013/07/12 v3.0.1a (rcs-revision 1.4)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2014/03/21 v3.0.1a (rcs-revision 1.4)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
+meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2015/05/13 v3.0.1a (rcs-revision 1.13)
+\pgfarrowinset=\dimen323
+\pgfarrowlength=\dimen324
+\pgfarrowwidth=\dimen325
+\pgfarrowlinewidth=\dimen326
+)))
+\c@definition=\count402
+\c@remark=\count403
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2016/05/14 v3.4 biblatex localization (PK/JW/AB)
+)
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+
+(./main.aux (./Chapters/Introduction.aux) (./Chapters/Preliminaries.aux)
+(./Chapters/LatentBehaviours.aux) (./Chapters/Chapter1.aux)
+(./Chapters/Chapter6.aux) (./Appendices/AppendixA.aux))
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 129.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 129.
+
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 129.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/t1ppl.fd
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/beamer/translator/dicts/translato
 r-basic-dictionary/translator-basic-dictionary-English.dict
@@ -2016,17 +2272,17 @@ Dictionary: translator-basic-dictionary, Language: English
 File: siunitx-abbreviations.cfg 2016/03/01 v2.6q siunitx: Abbreviated units
 ) (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count389
-\scratchdimen=\dimen323
-\scratchbox=\box70
-\nofMPsegments=\count390
-\nofMParguments=\count391
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count392
-\MPscratchDim=\dimen324
-\MPnumerator=\count393
-\makeMPintoPDFobject=\count394
-\everyMPtoPDFconversion=\toks47
+\scratchcounter=\count404
+\scratchdimen=\dimen327
+\scratchbox=\box74
+\nofMPsegments=\count405
+\nofMParguments=\count406
+\everyMPshowfont=\toks49
+\MPscratchCnt=\count407
+\MPscratchDim=\dimen328
+\MPnumerator=\count408
+\makeMPintoPDFobject=\count409
+\everyMPtoPDFconversion=\toks50
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -2043,6 +2299,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
@@ -2082,14 +2339,14 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package scrlayer Info: Setting magic \footheight to \baselineskip while
-(scrlayer)             \begin{document} on input line 100.
-Package scrbase Info: activating english \authorshipname on input line 100.
-Package scrbase Info: activating english \authorshipname on input line 100.
-Package scrbase Info: activating english \byname on input line 100.
-Package scrbase Info: activating english \abbrevname on input line 100.
-Package scrbase Info: activating english \constantsname on input line 100.
-Package scrbase Info: activating english \symbolsname on input line 100.
-Package scrbase Info: activating english \acknowledgementname on input line 100
+(scrlayer)             \begin{document} on input line 129.
+Package scrbase Info: activating english \authorshipname on input line 129.
+Package scrbase Info: activating english \authorshipname on input line 129.
+Package scrbase Info: activating english \byname on input line 129.
+Package scrbase Info: activating english \abbrevname on input line 129.
+Package scrbase Info: activating english \constantsname on input line 129.
+Package scrbase Info: activating english \symbolsname on input line 129.
+Package scrbase Info: activating english \acknowledgementname on input line 129
 .
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
@@ -2102,56 +2359,92 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
 (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 100.
-Package biblatex Info: Reference segment=0 on input line 100.
-\AtBeginShipoutBox=\box71
-Package hyperref Info: Link coloring ON on input line 100.
+Package biblatex Info: Reference section=0 on input line 129.
+Package biblatex Info: Reference segment=0 on input line 129.
+\AtBeginShipoutBox=\box75
+Package hyperref Info: Link coloring ON on input line 129.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count395
+\c@section@level=\count410
 )
-LaTeX Info: Redefining \ref on input line 100.
-LaTeX Info: Redefining \pageref on input line 100.
-LaTeX Info: Redefining \nameref on input line 100.
+LaTeX Info: Redefining \ref on input line 129.
+LaTeX Info: Redefining \pageref on input line 129.
+LaTeX Info: Redefining \nameref on input line 129.
 
 (./main.out) (./main.out)
 \@outlinefile=\write6
 \openout6 = `main.out'.
 
  ABD: EveryShipout initializing macros
-\c__siunitx_mathsf_int=\count396
-LaTeX Font Info:    Try loading font information for U+msa on input line 100.
+\c__siunitx_mathsf_int=\count411
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 10.95pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 8.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 6.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 10.95pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 8.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 6.0pt on input line 129.
+LaTeX Font Info:    Try loading font information for U+msa on input line 129.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 100.
+LaTeX Font Info:    Try loading font information for U+msb on input line 129.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+stmry on input line 100.
+LaTeX Font Info:    Try loading font information for U+stmry on input line 129.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 100.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 129.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-\c__siunitx_mathtt_int=\count397
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 10.95pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 8.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 6.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 10.95pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 8.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 6.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 10.95pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 8.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 6.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 10.95pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 8.0pt on input line 129.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 6.0pt on input line 129.
+\c__siunitx_mathtt_int=\count412
 
 1: section
-<Figures/SUTD.pdf, id=208, 352.31625pt x 137.51375pt>
+<Figures/SUTD.pdf, id=300, 352.31625pt x 137.51375pt>
 File: Figures/SUTD.pdf Graphic file (type pdf)
  <use Figures/SUTD.pdf>
-Package pdftex.def Info: Figures/SUTD.pdf used on input line 115.
+Package pdftex.def Info: Figures/SUTD.pdf used on input line 144.
 (pdftex.def)             Requested size: 208.55876pt x 81.40308pt.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 120.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 149.
 
 [1
 
@@ -2170,7 +2463,7 @@ es/SUTD.pdf>]
  Abstract
 --------------------
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 215.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 244.
 1: section
 [2
 
@@ -2190,18 +2483,18 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
 
 ]
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 248.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 277.
  (./main.toc
 1: section
 [5
 
 ]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 41.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 42.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 41.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 64.
 )
 \tf@toc=\write7
 \openout7 = `main.toc'.
@@ -2232,103 +2525,217 @@ LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10.95> not available
 
 ]
 1: section
-\openout2 = `Chapters/Chapter1.aux'.
+\openout2 = `Chapters/Introduction.aux'.
 
-(./Chapters/Chapter1.tex
+(./Chapters/Introduction.tex
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 39.
-LaTeX Font Info:    Try loading font information for OMS+ppl on input line 43.
-(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/omsppl.fd
-File: omsppl.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 40.
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 48.
-
-
-LaTeX Warning: Citation 'cryptocoding' on page 1 undefined on input line 52.
-
+ine 43.
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 53.
+)
 1: section
 [1
 
 
 
+] [2]
+\openout2 = `Chapters/Preliminaries.aux'.
+
+ (./Chapters/Preliminaries.tex
+Chapter 2.
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 12.0pt on input line 18.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 12.0pt on input line 18.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 12.0pt on input line 18.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 12.0pt on input line 18.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 12.0pt on input line 18.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 12.0pt on input line 18.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 18.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 18.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 18.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 18.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 18.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\lambda' on input line 18.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 18.
+
+
+Underfull \hbox (badness 1681) in paragraph at lines 39--39
+ []\T1/ppl/m/sc/10 Figure 2.2: |\T1/ppl/m/n/10 Unit 
+ []
+
+)
+1: section
+[3
+
+
+
+] [4]
+\openout2 = `Chapters/LatentBehaviours.aux'.
+
+ (./Chapters/LatentBehaviours.tex
+Chapter 3.
+)
+1: section
+[5
+
+
+
 ]
-Overfull \hbox (18.00928pt too wide) in paragraph at lines 89--90
+\openout2 = `Chapters/Chapter1.aux'.
+
+ (./Chapters/Chapter1.tex
+Chapter 4.
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 45.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1ppl.fd
+File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
+)
+
+LaTeX Warning: Citation 'cryptocoding' on page 6 undefined on input line 54.
+
+1: section
+[6
+
+
+
+]
+Overfull \hbox (18.00928pt too wide) in paragraph at lines 91--92
 \T1/ppl/m/n/10.95 par-tic-u-lar, be care-ful of op-ti-miza-tions that can re-mo
 ve code or branches,
  []
 
-[2]
-Overfull \hbox (15.14006pt too wide) in paragraph at lines 107--108
+[7]
+Overfull \hbox (15.14006pt too wide) in paragraph at lines 109--110
 \T1/ppl/m/n/10.95 tions should al-ways use the un-signed byte type to rep-re-se
 nt bytestrings
  []
 
 
-Overfull \hbox (6.66435pt too wide) in paragraph at lines 124--125
+Overfull \hbox (6.66435pt too wide) in paragraph at lines 126--127
 []\T1/ppl/m/n/10.95 Casting op-er-a-tions at higher level may be dan-ger-ous: t
 hey might in-tro-duce branch-
  []
 
 
-LaTeX Warning: Citation 'GKAT' on page 3 undefined on input line 127.
+LaTeX Warning: Citation 'GKAT' on page 8 undefined on input line 129.
 
-[3]
-LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 157.
+[8]
 
-
-LaTeX Warning: Citation 'GKAT' on page 4 undefined on input line 158.
+LaTeX Warning: Citation 'GKAT' on page 9 undefined on input line 160.
 
 
-LaTeX Warning: Citation 'KAT' on page 4 undefined on input line 158.
+LaTeX Warning: Citation 'KAT' on page 9 undefined on input line 160.
 
-[4]
+[9]
 
-LaTeX Warning: Citation 'GKAT' on page 5 undefined on input line 202.
+LaTeX Warning: Citation 'GKAT' on page 10 undefined on input line 227.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 211.
+LaTeX Font Warning: Command \small invalid in math mode on input line 236.
 
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 10.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 7.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 10.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 7.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 10.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 7.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 10.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 7.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 10.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 7.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 10.0pt on input line 236.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 7.0pt on input line 236.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 211.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 236.
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 211.
+LaTeX Font Warning: Command \small invalid in math mode on input line 236.
 
+[10]
 
-LaTeX Warning: Citation 'GKAT' on page 5 undefined on input line 213.
-
-
-LaTeX Warning: Citation 'GKAT' on page 5 undefined on input line 217.
-
-[5]
-
-LaTeX Warning: Citation 'GKAT' on page 6 undefined on input line 240.
+LaTeX Warning: Citation 'GKAT' on page 11 undefined on input line 238.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 249.
+LaTeX Warning: Citation 'GKAT' on page 11 undefined on input line 242.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 249.
+LaTeX Warning: Citation 'Chattopadhyay' on page 11 undefined on input line 262.
 
 
-LaTeX Warning: Citation 'GKAT' on page 6 undefined on input line 252.
+[11]
+
+LaTeX Warning: Citation 'GKAT' on page 12 undefined on input line 267.
 
 
-LaTeX Warning: Citation 'GKAT' on page 6 undefined on input line 256.
+LaTeX Font Warning: Command \small invalid in math mode on input line 276.
 
-[6] [7]
 
-LaTeX Warning: Citation 'Rane' on page 8 undefined on input line 331.
+LaTeX Font Warning: Command \small invalid in math mode on input line 276.
 
-[8] [9] [10]) [11]
+
+LaTeX Warning: Citation 'GKAT' on page 12 undefined on input line 279.
+
+
+LaTeX Warning: Citation 'GKAT' on page 12 undefined on input line 283.
+
+[12] [13] [14]
+Overfull \hbox (5.01169pt too wide) in paragraph at lines 382--383
+\T1/ppl/m/n/10.95 where they are de-clared (this can be en-forced with the \T1/
+pcr/m/n/10.95 opt \T1/ppl/m/n/10.95 op-ti-mi-sa-tion flag \T1/pcr/m/n/10.95 -re
+g2mem\T1/ppl/m/n/10.95 ).
+ []
+
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <12> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 391.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 397.
+[15] [16]
+
+LaTeX Warning: Citation 'Rane' on page 17 undefined on input line 441.
+
+[17] [18] [19]) [20]
 \openout2 = `Chapters/Chapter6.aux'.
 
  (./Chapters/Chapter6.tex
-Chapter 2.
+Chapter 5.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 3.
@@ -2357,24 +2764,85 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 3.
 
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 24.88pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 20.74pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 17.28pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 24.88pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 20.74pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 17.28pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 24.88pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 20.74pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 17.28pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 24.88pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 20.74pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 17.28pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 24.88pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 20.74pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 17.28pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 24.88pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 20.74pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 17.28pt on input line 3.
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 14.4pt on input line 27.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 14.4pt on input line 27.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 14.4pt on input line 27.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 14.4pt on input line 27.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 14.4pt on input line 27.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 14.4pt on input line 27.
 1: section
-[12
+[21
 
 
 
-] [13] [14]
+] [22] [23]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 138.
- [15] [16]
+ [24] [25]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <10.95> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 170.
- [17] [18]
+ [26]
+LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
+(Font)              scaled to size 9.0pt on input line 198.
+LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
+(Font)              scaled to size 9.0pt on input line 198.
+LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
+(Font)              scaled to size 9.0pt on input line 198.
+LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
+(Font)              scaled to size 9.0pt on input line 198.
+LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
+(Font)              scaled to size 9.0pt on input line 198.
+LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
+(Font)              scaled to size 9.0pt on input line 198.
+ [27]
 Overfull \hbox (8.88248pt too wide) in paragraph at lines 227--227
 []\T1/pcr/m/n/10 \caption{The effects of treatments X and Y on the four groups 
 studied.}[] 
  []
 
-<Figures/Electron.pdf, id=481, 398.3386pt x 284.52756pt>
+<Figures/Electron.pdf, id=662, 398.3386pt x 284.52756pt>
 File: Figures/Electron.pdf Graphic file (type pdf)
 
 <use Figures/Electron.pdf>
@@ -2384,37 +2852,38 @@ Package pdftex.def Info: Figures/Electron.pdf used on input line 264.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[19] [20 <./Figures/Electron.pdf>]
+[28] [29 <./Figures/Electron.pdf>]
 Overfull \hbox (4.81635pt too wide) in paragraph at lines 312--313
 \T1/pcr/b/n/10.95 MastersDoctoralThesis.cls\T1/ppl/m/n/10.95 . If you need this
  changed, you can do it in \T1/pcr/b/n/10.95 main.tex\T1/ppl/m/n/10.95 . 
  []
 
-) [21]
+) [30]
 \openout2 = `Appendices/AppendixA.aux'.
 
  (./Appendices/AppendixA.tex
 Appendix A.
 )
 1: section
-[22
+[31
 
 
 
 ]
 1: section
-[23
+[32
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 342.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 342.
- (./main.aux (./Chapters/Chapter1.aux) (./Chapters/Chapter6.aux)
-(./Appendices/AppendixA.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 342.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 342.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 374.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 374.
+ (./main.aux (./Chapters/Introduction.aux) (./Chapters/Preliminaries.aux)
+(./Chapters/LatentBehaviours.aux) (./Chapters/Chapter1.aux)
+(./Chapters/Chapter6.aux) (./Appendices/AppendixA.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 374.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 374.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F093B8E4964969016DEFAFC21F4EABF3;8396.
+(rerunfilecheck)             Checksum: 4B778B3991648FB3FE7183F7AE540D1A;12200.
 
 
 LaTeX Warning: There were undefined references.
@@ -2429,42 +2898,44 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43981 strings out of 493014
- 892828 string characters out of 6133351
- 1199705 words of memory out of 5000000
- 46740 multiletter control sequences out of 15000+600000
- 78622 words of font info for 207 fonts, out of 8000000 for 9000
+ 47878 strings out of 493014
+ 966936 string characters out of 6133351
+ 1267797 words of memory out of 5000000
+ 50503 multiletter control sequences out of 15000+600000
+ 96484 words of font info for 263 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 73i,21n,82p,10377b,2250s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 73i,21n,86p,10377b,2252s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
-xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/tex
-live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texl
-ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texli
-ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive
-/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2
-016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/201
-6/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2016/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2016/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2016/texmf-dist
-/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/local/texlive/2016/texmf-di
-st/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2016/texm
-f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2016/
-texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb></usr/local/texlive/2016/texmf-di
-st/fonts/type1/public/stmaryrd/stmary10.pfb></usr/local/texlive/2016/texmf-dist
-/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/t
-ype1/urw/courier/ucrr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw
-/courier/ucrro8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/palati
-no/uplb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/palatino/uplr
-8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-</usr/local/texlive/2016/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (33 pages, 351493 bytes).
+exlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolA-Regular.pfb></usr/
+local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolB-Regular.pfb
+></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolC-Regu
+lar.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbo
+lE-Regular.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/
+MdSymbolF-Regular.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr17.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
+pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/euler/eurm1
+0.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/m
+sbm10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/rsfs/rsfs10.pf
+b></usr/local/texlive/2016/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/lo
+cal/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texl
+ive/2016/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/201
+6/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2016/texmf
+-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2016/texmf-dist/f
+onts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/ty
+pe1/urw/palatino/uplri8a.pfb>
+Output written on main.pdf (42 pages, 372253 bytes).
 PDF statistics:
- 685 PDF objects out of 1000 (max. 8388607)
- 607 compressed objects within 7 object streams
- 128 named destinations out of 1000 (max. 500000)
- 423 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 881 PDF objects out of 1000 (max. 8388607)
+ 792 compressed objects within 8 object streams
+ 182 named destinations out of 1000 (max. 500000)
+ 607 words of extra memory for PDF output out of 10000 (max. 10000000)
 

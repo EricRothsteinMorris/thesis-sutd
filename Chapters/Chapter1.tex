@@ -1,32 +1,34 @@
 %!TEX root = ../main.tex
 % Chapter Template
 
-\newcommand{\branch}[3]{\ensuremath{{#2}\ {+_{#1}}\ {#3}}}
-\newcommand{\iterate}[2]{\ensuremath{{#2}^{\left(#1\right)}}}
-\newcommand{\bexp}[0]{\ensuremath{\text{BExp}}}
-\newcommand{\gexp}[0]{\ensuremath{\text{Exp}}}
-\newcommand{\usg}[0]{\ensuremath{\text{u}}}
-\newcommand{\eval}[0]{\ensuremath{\mathtt{eval}}}
-\newcommand{\sat}[0]{\ensuremath{\mathtt{sat}}}
-\newcommand{\sg}[0]{\ensuremath{\text{s}}}
-\newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
-\newcommand{\lbl}[0]{\ensuremath{\text{lbl}}}
-\newcommand{\Real}[0]{\ensuremath{\mathbb{R}}}
-\newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
-\newcommand{\letter}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z}\right)}}
-\newcommand{\Atom}[0]{\ensuremath{\text{At}}}
-\newcommand{\GuardedString}[0]{\ensuremath{\text{GS}}}
-\newcommand{\RC}[0]{\ensuremath{\text{RC}}}
-\newcommand{\Low}[0]{\ensuremath{\text{Low}}}
-\newcommand{\Variable}[0]{\ensuremath{\mathcal{V}}}
-\newcommand{\Integer}[0]{\ensuremath{\mathbb{Z}}}
-\newcommand{\alphanumeric}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9}\right)}}
-\newcommand{\alphanumericP}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9\ |\ .\ |\ \_\ |\ \$}\right)}}
-\newcommand{\semantics}[1]{\ensuremath{\llbracket #1\rrbracket}}
-\newcommand{\valuation}[0]{\ensuremath{\Gamma}}
-\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
-\newcolumntype{R}{>{$}r<{$}} % math-mode version of "r" column type
-\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+%\newcommand{\branch}[3]{\ensuremath{{#2}\ {+_{#1}}\ {#3}}}
+%\newcommand{\iterate}[2]{\ensuremath{{#2}^{\left(#1\right)}}}
+%\newcommand{\bexp}[0]{\ensuremath{\text{BExp}}}
+%\newcommand{\gexp}[0]{\ensuremath{\text{Exp}}}
+%\newcommand{\usg}[0]{\ensuremath{\text{u}}}
+%\newcommand{\eval}[0]{\ensuremath{\mathtt{eval}}}
+%\newcommand{\sat}[0]{\ensuremath{\mathtt{sat}}}
+%\newcommand{\sg}[0]{\ensuremath{\text{s}}}
+%\newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
+%\newcommand{\lbl}[0]{\ensuremath{\text{lbl}}}
+%\newcommand{\Real}[0]{\ensuremath{\mathbb{R}}}
+%\newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
+%\newcommand{\letter}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z}\right)}}
+%\newcommand{\Atom}[0]{\ensuremath{\text{At}}}
+%\newcommand{\GuardedString}[0]{\ensuremath{\text{GS}}}
+%\newcommand{\RC}[0]{\ensuremath{\text{RC}}}
+%\newcommand{\Low}[0]{\ensuremath{\text{Low}}}
+%\newcommand{\Variable}[0]{\ensuremath{\mathscr{V}}}
+%\newcommand{\Integer}[0]{\ensuremath{\mathbb{Z}}}
+%\newcommand{\alphanumeric}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9}\right)}}
+%\newcommand{\alphanumericP}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9\ |\ .\ |\ \_\ |\ \$}\right)}}
+%\newcommand{\semantics}[1]{\ensuremath{\llbracket #1\rrbracket}}
+%\newcommand{\valuation}[0]{\ensuremath{\Gamma}}
+%\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+%\newcolumntype{R}{>{$}r<{$}} % math-mode version of "r" column type
+%\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+%%\newcommand{\hourglass}[0]{}%{\LARGE\fontspec{Cambria}^^^^231b}
+%\newcommand{\timeequiv}[0]{\equiv_{\hourglass}}
 
 \chapter{Side-Channel Repair} % Main chapter title
 
@@ -161,24 +163,39 @@ The language-based semantics of a GKAT expression $e$ corresponds to a language 
 Given a set of actions $\Sigma$ and a set of tests $T$, a \emph{guarded string} $g$ is an element of the set $\GuardedString := \Atom \cdot \left(\Sigma\cdot \Atom\right)^{*}$. 
 \end{definition}
 
+\todo[inline]{Here is where you explain what the semantics of GKAT expressions are in terms of guarded strings, and you say that infinite loops yield an empty language, which is super weird, right?}
+
 \begin{definition}[Resource Metrics and Resource Consumption]
 A \emph{resource metric} is a map $m\colon \GuardedString \rightarrow \Sigma \rightarrow \Real^{+}$. Given a resource metric $m$ and a guarded string $g$, the value of $m(g)(a)$ is the {resource consumption for the action $a$ after executing all the actions in $g$}. The \emph{resource consumption} of $g$, denoted $\RC(g)$, is the accumulated resource consumption of its actions; formally,
 \begin{align}
 \RC(g)&\triangleq 
 \begin{cases}
-0, &\quad \text{if $g=\alpha$;}\\
+0, &\quad \text{if $g \in\Atom$;}\\
 \RC(h) + m(h)(a),&\quad \text{if $g=h \cdot a\cdot \alpha $;}\\
 \end{cases}
 \end{align}
 
-Henceforth, we will assume that resource metrics are history-independent, i.e., resource consumption is independent of previous actions or initial conditions, meaning that resource metrics are instead maps of type $\Sigma \rightarrow \Real^{+}$.  
-\todo[inline]{Are there relevant cases where this is not true? Answer: actually, the memory footprint may probably be one of these cases (more precisely, memory footprint should also consider the interaction environment... it can get really complicated if we want to model everything...)}
+{\color{red}Henceforth, we will assume that resource metrics are history-independent, i.e., resource consumption is independent of previous actions or initial conditions, meaning that resource metrics are instead maps of type $\Sigma \rightarrow \Real^{+}$.  }
+\todo[inline]{Are there relevant cases where this is not true? Answer: actually, the memory footprint may probably be one of these cases (more precisely, memory footprint should also consider the interaction environment in shared caches... it can get really complicated if we want to model everything...)}
 
 \end{definition}
 
+\begin{definition}[Weak Constant Time]
+Given a language of guarded strings $L\subseteq \GuardedString$, we say that $L$ has \emph{weak constant time} if and only if, for all $g_1, g_2 \in L$, $\RC(g_1)=\RC(g_2)$. 
+\end{definition}
+
+We also define a strong notion of constant time to study more modular attackers.
 \begin{definition}[Strong Constant Time]
-Given a language of guarded strings $L\subseteq \GuardedString$, we say that $L$ has \emph{strong constant time} guarantees if and only if, for all $g_1, g_2 \in L$, $\RC(g_1)=\RC(g_2)$. 
+Given a language of guarded strings $L\subseteq \GuardedString$, we say that two guarded strings $g_1, g_2 \in L$ are \emph{strong constant time equivalent}, denoted $g_1 \timeequiv g_2$, if and only if,
+\begin{align}
+g_1 \timeequiv g_2 \triangleq \begin{cases}
+\textbf{true}, &\quad \text{if $g_1\in \Atom$ and $g_2\in \Atom$,}\\
+g_1' \timeequiv g_2' \land m(g'_1)(a_1)=m(g'_2)(a_2),&\quad \text{if $g_i=g_i' \cdot a_i\cdot \alpha_i $ for $i=1,2$; }
+\end{cases}
+\end{align}
+We say that  $L$ has \emph{strong constant time} if and only if, for all $g_1, g_2 \in L$, $g_1\timeequiv g_2$.
 \end{definition}
+
 To obtain the notion of constant time that is used for security analysis, we need to match traces that are only equal on their public variables. Atoms themselves may match even when public values are different (e.g. if $p$ is public, the test $p\leq 128$ is satisfied by any public value below 128); thus, we need to make the state of public variables explicit. For such purposes, let $\Variable$ be the set of variables, and let $\semantics{\Variable}$ be the set of valuation functions which map variables to values; we override the definition of guarded strings so that the set of guarded strings is now generated by the grammar
 \begin{align}
 \GuardedString := \left(\semantics{\Variable}\times\Atom\right) \cdot \left(\Sigma\cdot \left(\semantics{\Variable}\times\Atom\right)\right)^{*}.
@@ -191,10 +208,18 @@ Thus, guarded strings now satisfy either the pattern $(\valuation,\alpha)$ or th
 \begin{definition}[Public Equality]
 Whenever two valuations $\valuation_1$ and $\valuation_2$ are equal on their public variables, we denote it by $\valuation_1=_p\valuation_2$. Two guarded strings $g_1$ and $g_2$ are equal on their public variables, denoted $g_1=_p g_2$, if and only if their \emph{initial} valuations are equal on public variables. 
 \end{definition}
-\begin{definition}[Secure Constant Time]
-Given a language of guarded strings $L\subseteq \GuardedString$, we say that $L$ has \emph{secure constant time} guarantees if and only if, for all $g_1, g_2 \in L:$
+Depending on the attacker model, we might choose one of the following definitions to suit our needs best:
+\begin{definition}[Secure Weak Constant Time]
+Given a language of guarded strings $L\subseteq \GuardedString$, we say that $L$ has \emph{secure weak constant time} guarantees if and only if, for all $g_1, g_2 \in L:$
 \begin{align}
 g_1=_p g_2\Rightarrow\RC(g_1)=\RC(g_2).
+\end{align}
+\end{definition}
+
+\begin{definition}[Secure Strong Constant Time]
+Given a language of guarded strings $L\subseteq \GuardedString$, we say that $L$ has \emph{secure strong constant time} guarantees if and only if, for all $g_1, g_2 \in L:$
+\begin{align}
+g_1=_p g_2\Rightarrow g_1\timeequiv g_2.
 \end{align}
 \end{definition}
 
@@ -234,7 +259,9 @@ A memory footprint considers how variables are contiguously allocated in memory.
 This treatment of variables as vectors not change the expressivity of the IMP language, and it is purely to address the fact that, for several computer architectures, when we read a memory location (e.g, $\vec{x}[a]$), its contiguous locations are also loaded into the cache (e.g., $\vec{x}[a+1]$ to $\vec{x}[a+k-1]$, where $k$ is the cache line size).
 
 \subsection{Secure Constant Memory}
-Now that actions have a more concrete semantics, 
+Now that actions have a more concrete semantics, we can describe how we expect a program in IMP to interact with cache memory. We follow \cite{Chattopadhyay} and describe caches using three main parameters: cache line size (CLS) in bytes, the number of cache sets (CS) and an associativity and replacement policy (P). 
+
+Our main challenge in defining a resource consumption function to model how actions affect the state of the cache stems from the case where caches are shared by different processes. If we want our transformed programs to be resilient to attacks like \textsc{Flush+Reload}, then 
 
 \section{The IMP Language with Division}
 We modify the simple imperative programming language with variable assignments and boolean expressions from \cite{GKAT} --IMP-- so that it includes division; the language is defined as follows:
@@ -271,7 +298,7 @@ where $\mathscr{A}\semantics{a}_\sigma$ denotes the arithmetic evaluation of $a$
 \subsection{Examples of Side Channel Attacks}
 
 \subsection{Transformations Rules for CTP in IMP}
-%The most important transformation for constant time are linearisation and loop unwinding. 
+%The most important transformation for constant time are predication and loop unwinding. 
 Branch balancing is a technique to enforce CTP at the language level. This technique adds dummy instructions to shorter branches so that both branches have the same resource consumption. We capture this notion with the following repair rule.
 \begin{definition}[Branch Balancing]
 \begin{align*}
@@ -282,7 +309,7 @@ To balance branches, we want an instruction that has the same resource consumpti
 %\todo[inline]{Maybe we can define at the theoretical level an instruction $\textbf{noOp}(:=)$?}
 
 While branch balancing may seem like a sound solution, the compiler may remove all dummy instructions inserted since it considers them to be no-ops, taking us back to an unbalanced program at the binary level. To overcome this limitation, we rely on the correspondence between program structure and arithmetic expressions, captured by the following repair rule.
-\begin{definition}[Linearisation]
+\begin{definition}[Predication]
 \begin{align*}
 \branch{b}{(x:=a_1)}{(x:=a_2)} \leadsto x:=b\otimes a_1+(\textbf{not }b)\otimes a_2
 \end{align*}
@@ -292,9 +319,9 @@ where $\otimes$ is multiplication, but it interprets the boolean condition as 0 
 %\branch{b}{(x:=a_1)}{(x:=a_2)} \leadsto \left(\branch{b}{(m:=1)}{(m:=0)}\right)\cdot(x:=m\times a_1+(1-m)\times a_2)
 %\end{align*}
 \end{definition}
-The linearisation rule forces the evaluation of all terms in both branches, so it is more resource intensive than branch balancing; however, linearisation addresses two of our objectives: one is to prevent the compiler from removing dummy assignments introduced during branch balancing, and the second is to remove branches that might be vulnerable to spectre attacks.
+The predication rule forces the evaluation of all terms in both branches, so it is more resource intensive than branch balancing; however, predication addresses two of our objectives: one is to prevent the compiler from removing dummy assignments introduced during branch balancing, and the second is to remove branches that might be vulnerable to spectre attacks.
 
-Loops have two problems: in general, they are both vulnerable to spectre attacks and timing side-channel attacks. The former vulnerability is due to the branching implicitly introduced by the loop's guard, and the latter is due to the variable number of executions of the loop's body. Both of these vulnerabilities can be addressed by a combination of branch balancing, linearisation and the following transformation rule.
+Loops have two problems: in general, they are both vulnerable to spectre attacks and timing side-channel attacks. The former vulnerability is due to the branching implicitly introduced by the loop's guard, and the latter is due to the variable number of executions of the loop's body. Both of these vulnerabilities can be addressed by a combination of branch balancing, predication and the following transformation rule.
 %{\color{lightgray}
 %\begin{definition}[Delay Termination]
 %if $s$ is a secret, then we need a public constant $p$  to transform the loop so it becomes secret-independent
@@ -312,7 +339,7 @@ Loops have two problems: in general, they are both vulnerable to spectre attacks
 %\branch{b}{(e\cdot\iterate{b}{e})}{1} \equiv \branch{b}{(e\cdot(\branch{b}{(e\cdot\iterate{b}{e})}{1} ))}{1} \\
 %\branch{b}{(e\cdot\iterate{b}{e})}{1} \equiv \branch{b}{(e\cdot(\branch{b}{(e\cdot\iterate{b}{e})}{1} ))}{1} \\
 %\end{align*}
-To $k$-truncate a loop means that we transform $\iterate{b}{e}$ into a sequence of $k$ conditional statements as follows
+To $k$-truncate a loop means that we transform $\iterate{b}{e}$ into a sequence of $k$ conditional statements by unwinding the loop as follows
 %\begin{align*}
 %\iterate{x<n}{\left(g\cdot(x:=x+1)\right)} \leadsto \underbrace{\branch{(x<n)}{\left(g\cdot(x:=x+1)\right)}{1}}_\text{$k$ times},
 %\end{align*}
@@ -323,8 +350,91 @@ To $k$-truncate a loop means that we transform $\iterate{b}{e}$ into a sequence 
 \iterate{b}{e} \leadsto \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\ldots\left(\branch{b}{e}{1}\right)}_\text{$k$ times}
 \end{align*}
 An equivalence relation between $\iterate{b}{e}$ and its $k$-truncation can be obtained if $k$ is a public over-approximation of the (secret-dependent) loop bound of $\iterate{b}{e}$.
+
+Compilers normally avoid this type of unwinding when combined with predication, because it would cause programs to slow down. However, in the context of CTP, this type of delays are desirable since they make loops safe in terms of resource consumption, and the lack of branching eliminates spectre vulnerabilities.
+
 \todo[inline]{The programmer should tell us somehow how many times we unwind each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unwind.}
 \end{definition}
+
+\section{Taint Analysis}
+\todo[inline]{Here is an interesting problem: if we have a non-security critical section (e.g., a loop that does not depend on secret) inside a section we are applying linearisation, do we need to linearise it? Probably not! The problem is that this is not compatible with our current implementation, because the current implementation linearises everything. If we introduce breakpoints we can allow loops in the branches.}
+
+A naive definition of Taint analysis is the following: a variable is tainted if an only if, from belongs to the transitive closure of the small-step taint procedure, which marks all uses of a tainted variable as tainted. There is no untainting. We assume that, after basic code optimisations have taken place, all uses of a variable are productive an monotonous in the security hierarchy (i.e., expressions are not constant W.R.T secret inputs, and they do not inherently lose their security label). Maybe we could empower the language with annotations that override whatever taint analysis infers?
+
+\section{The Enforcement Algorithm}
+We present a $k$-step \todo{Resolve $k$} 
+enforcement algorithm that enforces CTP techniques at the level of LLVM IR (compiler level) to eliminate timing side channels introduced by the use of branching and loops. 
+
+We implement these algorithms as LLVM passes, so it is useful to understand how code is organised in LLVM.
+
+\subsection{Premises Behind the Enforcement Algorithm}
+\begin{itemize}
+\item Programmers need not worry about CTP at the language level, but rather delegate as much work as possible to the compiler. The compiler may ask for information about loop bounds and about which fields are secret (these can be annotations provided by the programmer). When compiling with the right flags, the compiler may optimise the code using standard optimisations, but must ultimately enforce CTP.
+\item The sequential composition of CTP programs is CTP.  This is better understood when working with GKAT expressions: if all \emph{actions} are CTP, then their sequential composition is CTP. Even if actions are CTP, GKAT \emph{expressions} are not necessarily CTP; as we know, branching and iteration do not intrinsically satisfy CTP.
+\item The attacker model is a rather strong in the sense that it can measure resource consumption of prefix executions and not only total executions, which is equivalent to an attacker that can measure the resource consumption of each individual action.
+\item The enforcement algorithm is sound: a repaired version $R[P]$ of program $P$ is functionally equivalent to $P$ in terms of input and output, but $R[P]$ satisfies the secure constant time property.
+\item The enforcement algorithm is probably not transparent: if a program $P$ satisfies CTP, its repaired version $R[P]$ will also satisfy CTP, but $R[P]$ and $P$ may differ in terms of resource consumption, with $R[P]$ requiring more time to execute than $P$. \todo[inline]{This is just my intuition, but I would like to get empirical evidence.}
+\end{itemize}
+
+\subsection{An LLVM Primer}
+LLVM IR is a strongly typed language. We interpret an LLVM IR program as a directed graph of {basic blocks}. A \emph{basic block} (BB) is a finite sequence of non-terminating instructions followed by a single terminating instruction. In this work, a \emph{terminating} instruction is either: 1) a return instruction, which terminates the program, 2) an unconditional transition to a single BB, or 3) a conditional branching where, depending on the branching condition, there is a transition to one of two BBs.
+
+Without loss of generality, values used inside BBs are only accessible to the BB where they are declared (this can be enforced with the \texttt{opt} optimisation flag \texttt{-reg2mem}).  We use \emph{load} and \emph{store} instructions to allow cross BB communication .
+
+\todo[inline]{A figure/example may help?}
+
+ that uses single-static assignment for virtual registers and has memory read/write operations to enable communication between 
+
+A function in LLVM consists of a header BB, and, without loss of generality, a single exit BB. 
+
+\todo[inline]{Dominator/Postdominator}
+\subsection{The \texttt{Linearise} Algorithm}
+We start with a function $F$ that has a single entry block and a single exit block. In a nutshell, the algorithm advances from the entry block until it finds a branch or the exit block. In the case of a branch  $\texttt{br} c A B$, the algorithm recursively linearises the branches starting in blocks $A$ and $B$ until their postdominator $\texttt{postDom}(A,B)$, and then proceeds to continue linearisation towards the exit block.
+
+\todo[inline]{Why don't we try to describe the algorithm considering loops? It's going to be a fun exercise.}
+
+\begin{algorithm}
+    \caption{Linearisation algorithm}
+    \label{Linearisation}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{Linearise}{$\texttt{IN},\texttt{OUT},\Delta$} 
+            \If{\texttt{IN}==\texttt{OUT}}
+            	\State \Return $[\texttt{IN}]$
+	   \Else
+	   	\State $t \gets \texttt{terminator}(\texttt{IN})$
+		  \If{$t$ is \texttt{jmp NXT}}\Comment{Unconditional Jump}
+		      \State  \Return $(\texttt{IN}:$\texttt{ Linearise}({$\texttt{NXT},\texttt{OUT},\Delta$}))\ \Comment{Continue from $\texttt{NXT}$}
+		  \ElsIf{$t$ is \texttt{br C L R}}\Comment{Conditional Branching on Secret}
+		  	\State $\texttt{PD} \gets \texttt{PostDominator}(\texttt{L},\texttt{R})$
+			\State $\texttt{L'}\gets \texttt{Linearise}(\texttt{L},\texttt{PD})$
+			\State $\texttt{R'}\gets \texttt{Linearise}(\texttt{R},\texttt{PD})$
+			\State $\texttt{M} \gets \texttt{Predication}(\texttt{C},\texttt{L'},\texttt{R'})$
+			 \State  \Return $(\texttt{IN}: \texttt{M}:$\texttt{ Linearise}({$\texttt{PD},\texttt{OUT},\Delta$}))\ \Comment{Continue from $\texttt{PD}$}
+		  \EndIf
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+    \caption{Euclid's algorithm}
+    \label{euclid}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{Euclid}{$a,b$} \Comment{The g.c.d. of a and b}
+            \State $r\gets a \bmod b$
+            \While{$r\not=0$} \Comment{We have the answer if r is 0}
+                \State $a \gets b$
+                \State $b \gets r$
+                \State $r \gets a \bmod b$
+            \EndWhile\label{euclidendwhile}
+            \State \textbf{return} $b$\Comment{The gcd is b}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{A Premise for Efficient Repaired Code}
+The premise behind why our algorithm could compete against other algorithms that protect against spectre attacks is that fencing, the SoTA defence against Spectre attacks, prevents speculative execution (i.e., puts a halt in instruction pipeling) while our transformation promotes safe pipelining.
 
 \subsection{Enforcing Safe Behaviour}
 \todo[inline]{I originally thought that this section should be part of the GKAT rules, but after some consideration, if we were to assume that sanitisation is part of the actions (i.e. is a part of CTP practices), then this section becomes largely irrelevant for the theory. However, since LLVM can have problems when accessing arrays or dividing by zero, this should be mentioned in the LLVM section, probably.}
