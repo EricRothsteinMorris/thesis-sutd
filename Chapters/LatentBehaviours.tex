@@ -11,4 +11,147 @@ If you only do what you can do, you will never be more than what you are now.
 
 \section{Introduction}
 \todo[inline]{Give an interesting motivational example: What is the notion of latent behaviour? Why do we care about them? How is it useful to study them?}
-\section{Latent Behaviour of a Bialgebra}
+\section{Mutation $F$-coalgebras}
+\section{The Latent Behaviour of $F$-coalgebras}
+%For the functor $\Functor$, the monad $\Monad=(\MFunctor,\eta,\mu)$, and a $\lambda$-bialgebra $\Bialgebra=(X,a,c)$, we can define the behaviour associated to $\Bialgebra$ by means of the semantic mapping in the category of $\Functor$-coalgebras, i.e., by means of $\TheBehaviourOf{\cdot}\colon \MFunctor(X)\rightarrow \sigma\Functor$. 
+Using the semantic mapping, we can already obtain a notion of expected/normal behaviour. For the functor $F=O\times \texttt{id}^I$, given an $F$-coalgebra $\mathbb{X}=(X,(o,\delta))$, we say that the behaviour of a state $x$ is defined by $\TheBehaviourOfIn{x}{\mathbb{X}}$ in $\sigma F$, where $\sigma F = O^{I^*}$. 
+%The \emph{latent behaviour} given a mutation coalgebra $\mathbb{M}=(X,X\xrightarrow{(o_m,\delta_m)} F(X))$, is modelled by the function $\TheLatentBehaviourOf{\cdot}{\mathbb{M}}\colon X\rightarrow \sigma F$, which is coinductively defined, for $i\in I$, by
+%\begin{align}
+%o(\TheLatentBehaviourOf{x}{\mathbb{M}})&\triangleq o_m(x)\\
+%\delta(\TheLatentBehaviourOf{x}{\mathbb{M}})(i)&\triangleq \TheLatentBehaviourOf{\delta_m(x)(i)}{\mathbb{M}}.
+%\end{align}
+%The mutation $a$ skews the behaviour of states to reflect the changes to the state. 
+Given a mutation function $m\colon X\rightarrow X$, we can skew the original behaviour of $\mathbb{X}$ by defining the new $F$-coalgebra $\mathbb{M}=(X,{(o\circ m, \delta\circ m }))$. The \emph{latent behaviour} of $\mathbb{X}$ under $m$ is given by the homomorphism $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}\colon X\rightarrow \sigma F$, which corresponds to the original semantic mapping for $\mathbb{M}$; that is, for $x\in X$, 
+\begin{align}
+\TheLatentBehaviourOfIn{x}{m}{\mathbb{X}}\triangleq\TheBehaviourOfIn{x}{\mathbb{M}}
+\end{align}
+\todo[inline]{Having functions from $X$ to $X$ without changing their coalgebra is kinda odd. But I think that is the spirit of latent behaviours! If you could do anything (e.g., change the coalgebra), then why would you reuse anything from the original coalgebra? We are questioning how far we can go by just changing the state.}
+
+\begin{example}
+\label{ex:LatentBehaviour}
+Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(3,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0. Figure~\ref{fig:ExampleLatent} shows the automaton corresponding to the $G$-coalgebra $\mathbb{X}$ if $\gamma$ and $\delta$ are defined as follows
+\begin{align}
+\gamma(x)=\begin{cases}
+1, \quad \text{if  $x=1$,}\\
+0, \quad \text{otherwise;}\\
+\end{cases},\quad
+\delta(x)(i)=\begin{cases}
+\texttt{min}(x+1,2), \quad \text{if  $i=1$,}\\
+0, \quad \text{otherwise;}\\
+\end{cases}.
+\end{align}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\node[state] (q1) {$0$};
+\node[state, right of=q1] (q2) {$1$};
+\node[state,accepting, right of=q2] (q3) {$2$};
+\draw (q1) edge[loop above] node{0} (q1)
+(q1) edge[bend left, above] node{1} (q2)
+(q2) edge[bend left, above] node{0} (q1)
+(q2) edge[bend left, above] node{1} (q3)
+(q3) edge[loop above] node{1} (q3)
+(q3) edge[bend left, below] node{0} (q1);
+\end{tikzpicture}
+\caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
+\label{fig:ExampleLatent}
+\end{figure}
+
+This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in $X$ i.e. by the elements of the set $X^X$. The latent behaviours are illustrated by the following automata:
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\node[state] (q1) {$0$};
+\node[state, right of=q1] (q2) {$1$};
+\node[state,accepting, right of=q2] (q3) {$2$};
+\draw (q1) edge[loop above] node{0} (q1)
+(q1) edge[bend left, above] node{1} (q2)
+(q2) edge[bend left, above] node{0} (q1)
+(q2) edge[bend left, above] node{1} (q3)
+(q3) edge[loop above] node{1} (q3)
+(q3) edge[bend left, below] node{0} (q1);
+\end{tikzpicture}
+\caption{Latent behaviour when the mutation is $\set{(0,0),(1,1),(2,2)}$. It is the same as the original behaviour.}
+\begin{tikzpicture}
+\node[state] (q1) {$0$};
+\node[state, right of=q1] (q2) {$1$};
+\node[state,accepting, right of=q2] (q3) {$2$};
+\draw (q1) edge[loop above] node{0} (q1)
+(q1) edge[bend left, above] node{1} (q2)
+(q2) edge[bend left, above] node{0} (q1)
+(q2) edge[bend left, above] node{1} (q3)
+(q3) edge[loop above] node{1} (q3)
+(q3) edge[bend left, below] node{0} (q1);
+\end{tikzpicture}
+\caption{Latent behaviour when the mutation is $\set{(0,1),(1,0),(2,2)}$}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\node[state] (q1) {$0$};
+\node[state, right of=q1] (q2) {$1$};
+\node[state, right of=q2] (q3) {$2$};
+\draw (q1) edge[loop above] node{0} (q1)
+(q1) edge[bend left, above] node{1} (q2)
+(q2) edge[bend left, above] node{0} (q1)
+(q2) edge[loop above] node{1} (q2)
+(q3) edge[bend left, above] node{1} (q2)
+(q3) edge[bend left, below] node{0} (q1);
+\end{tikzpicture}
+\caption{Latent behaviour when the mutation is $\set{(0,0),(1,0),(2,0)}$ .}
+\begin{tikzpicture}
+\node[state] (q1) {$0$};
+\node[state, right of=q1] (q2) {$1$};
+\node[state, right of=q2] (q3) {$2$};
+\draw (q1) edge[loop above] node{0} (q1)
+(q1) edge[bend left, above] node{1} (q3)
+(q2) edge[bend left, above] node{0} (q1)
+(q2) edge[bend left, above] node{1} (q3)
+(q3) edge[loop above] node{1} (q3)
+(q3) edge[bend left, below] node{0} (q1);
+\end{tikzpicture}
+\caption{Latent behaviour when the mutation is $\set{(0,1),(1,1),(2,1)}$ .}
+\begin{tikzpicture}
+\node[state,accepting] (q1) {$0$};
+\node[state, accepting, right of=q1] (q2) {$1$};
+\node[state, accepting, right of=q2] (q3) {$2$};
+\draw (q1) edge[loop above] node{0} (q1)
+(q1) edge[bend left, above] node{1} (q3)
+(q2) edge[bend left, above] node{0} (q1)
+(q2) edge[bend left, above] node{1} (q3)
+(q3) edge[loop above] node{1} (q3)
+(q3) edge[bend left, below] node{0} (q1);
+\end{tikzpicture}
+\caption{Latent behaviour when the mutation is $\set{(0,2),(1,2),(2,2)}$ .}
+\end{figure}
+%\label{fig:ExampleLatent}
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\node[state] (q1) {$0$};
+\node[state,accepting, right of=q1] (q2) {$1$};
+\node[state, right of=q2] (q3) {$2$};
+\draw (q1) edge[loop above] node{0} (q1)
+(q1) edge[bend left, above] node{1} (q3)
+(q2) edge[bend left, above] node{0} (q1)
+(q2) edge[bend left, above] node{1} (q3)
+(q3) edge[bend left, above] node{1} (q2)
+(q3) edge[bend left, below] node{0} (q1);
+\end{tikzpicture}
+\caption{Latent behaviour when the mutation is $\set{(0,1),(1,2),(2,0)}$ .}
+%\label{fig:ExampleLatent}
+\end{figure}
+
+\end{example}
+\todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the mutation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
+
+It may not appear evident at first, but an arbitrary behaviour may not be latent for a given $F$-coalgebra.
+\begin{proposition}[Incompleteness of Latency]
+Given an arbitrary $F$-coalgebra $\mathbb{X}=(X,c)$ and a behaviour $\rho\in \sigma F$, there may not exist a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$.
+\end{proposition}
+\begin{proof}
+We provide a counterexample for the opposite proposition, that is, there exists a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. Consider, for the functor $F=2\times \texttt{id}^2$ an $F$-coalgebra where all states accept all sequences; this $F$-coalgebra cannot display a latent behaviour different from accepting all sequences, because all mutations map to states that accept.
+\end{proof}
+

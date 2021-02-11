@@ -49,6 +49,7 @@ headsepline, % Uncomment to get a line under the header
 \addbibresource{example.bib} % The filename of the bibliography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+\usepackage{minted}
 \usepackage{mathtools}
 \usepackage{amsfonts}
 \usepackage{todonotes}
@@ -65,17 +66,34 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{tikz-cd}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
 
+\tikzset{
+->, % makes the edges directed
+%>=stealth?, % makes the arrow heads bold
+node distance=3cm, % specifies the minimum distance between two nodes. Change if necessary.
+every state/.style={thick, fill=gray!10}, % sets the properties for each ?state? node
+initial text=$ $, % sets the text that appears on the start arrow
+}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}[section]
 \newtheorem{remark}{Remark}[chapter]
 
 
 \newcommand{\Monad}{{\mathbb{\MFunctor}}}
+\newcommand{\Bialgebra}{{\mathbb{X}}}
 \newcommand{\Functor}{F}
 \newcommand{\MFunctor}{T}
+\newcommand{\TheLatentBehaviourOf}[2]{{\TheBehaviourOf{#1}^{#2}}}%{{{#1}_{beh}}}
+\newcommand{\TheLatentBehaviourOfIn}[3]{{{\llbracket#1\rrbracket}}^{#2}_{#3}}%{{{#1}_{beh}}}
+\newcommand{\TheBehavioursOf}[1]{{{\llbracket\TheFinalCoalgebraOf{#1}\rrbracket}}}
+\newcommand{\TheBehaviourOf}[1]{{{\llbracket#1\rrbracket}}}%{{{#1}_{beh}}}
+\newcommand{\TheBehaviourOfIn}[2]{{{\llbracket#1\rrbracket}}_{#2}}%{{{#1}_{beh}}}
 
+%\MakeRobust{\Haskell}
 %Notation for Sets of Elements
 \newcommand{\SomeSet}[1]{
 	{\ifthenelse{\equal{#1}{1}}
@@ -93,6 +111,9 @@ headsepline, % Uncomment to get a line under the header
 \newcommand*{\0}{{0_\AsCategory{Set}}}
 \newcommand*{\1}{{1_\AsCategory{Set}}}
 \newcommand{\FinitePowerset}[1]{{\mathcal{P}_\omega(#1)}}
+
+\newtheorem{example}{Example}[chapter]
+%\newenvironment{haskell}[1]{\begin{minted}{haskell}#1}{\end{minted}}
 
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
