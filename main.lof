@@ -4,36 +4,35 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Corresponding automaton to the $G-$coalgebra described in Example~\ref {ex:LatentBehaviour}.\relax }}{6}{figure.caption.45}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,0),(2,0)\right \}}$ .\relax }}{7}{figure.caption.46}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,0),(2,1)\right \}}$ .\relax }}{7}{figure.caption.46}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,0),(2,2)\right \}}$ .\relax }}{7}{figure.caption.46}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,1),(2,0)\right \}}$ .\relax }}{8}{figure.caption.47}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,1),(2,1)\right \}}$ .\relax }}{8}{figure.caption.47}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,1),(2,2)\right \}}$. It is the same as the original behaviour.\relax }}{8}{figure.caption.47}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,2),(2,0)\right \}}$ .\relax }}{9}{figure.caption.48}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,2),(2,1)\right \}}$ .\relax }}{9}{figure.caption.48}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,2),(2,2)\right \}}$ .\relax }}{9}{figure.caption.48}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,0),(2,0)\right \}}$ .\relax }}{10}{figure.caption.49}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,0),(2,1)\right \}}$ .\relax }}{10}{figure.caption.49}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,0),(2,2)\right \}}$\relax }}{10}{figure.caption.49}
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,1),(2,0)\right \}}$ .\relax }}{11}{figure.caption.50}
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,1),(2,1)\right \}}$ .\relax }}{11}{figure.caption.50}
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,1),(2,2)\right \}}$ .\relax }}{11}{figure.caption.50}
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,2),(2,0)\right \}}$ .\relax }}{12}{figure.caption.51}
-\contentsline {figure}{\numberline {3.18}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,2),(2,1)\right \}}$ .\relax }}{12}{figure.caption.51}
-\contentsline {figure}{\numberline {3.19}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,1),(1,2),(2,2)\right \}}$ .\relax }}{12}{figure.caption.51}
-\contentsline {figure}{\numberline {3.20}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,0),(2,0)\right \}}$ .\relax }}{13}{figure.caption.52}
-\contentsline {figure}{\numberline {3.21}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,0),(2,1)\right \}}$ .\relax }}{13}{figure.caption.52}
-\contentsline {figure}{\numberline {3.22}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,0),(2,2)\right \}}$ .\relax }}{13}{figure.caption.52}
-\contentsline {figure}{\numberline {3.23}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,0),(1,1),(2,2)\right \}}$. It is the same as the original behaviour.\relax }}{14}{figure.caption.53}
-\contentsline {figure}{\numberline {3.24}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,1),(2,0)\right \}}$ .\relax }}{14}{figure.caption.53}
-\contentsline {figure}{\numberline {3.25}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,1),(2,1)\right \}}$ .\relax }}{14}{figure.caption.53}
-\contentsline {figure}{\numberline {3.26}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,1),(2,2)\right \}}$ .\relax }}{14}{figure.caption.53}
-\contentsline {figure}{\numberline {3.27}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,2),(2,0)\right \}}$ .\relax }}{15}{figure.caption.54}
-\contentsline {figure}{\numberline {3.28}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,2),(2,1)\right \}}$ .\relax }}{15}{figure.caption.54}
-\contentsline {figure}{\numberline {3.29}{\ignorespaces Latent behaviour when the mutation is $\ensuremath {\left \{(0,2),(1,2),(2,2)\right \}}$ .\relax }}{15}{figure.caption.54}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Corresponding automaton to the $G-$coalgebra described in Example~\ref {ex:LatentBehaviour}.\relax }}{6}{figure.caption.47}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,0),(2,0)\right \}}$ .\relax }}{7}{figure.caption.48}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,0),(2,1)\right \}}$ .\relax }}{7}{figure.caption.48}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,0),(2,2)\right \}}$ .\relax }}{7}{figure.caption.48}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,1),(2,0)\right \}}$ .\relax }}{8}{figure.caption.49}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,1),(2,1)\right \}}$ .\relax }}{8}{figure.caption.49}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,1),(2,2)\right \}}$.\relax }}{8}{figure.caption.49}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,2),(2,0)\right \}}$ .\relax }}{9}{figure.caption.50}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,2),(2,1)\right \}}$ .\relax }}{9}{figure.caption.50}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,0),(1,2),(2,2)\right \}}$ .\relax }}{9}{figure.caption.50}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,0),(2,0)\right \}}$ .\relax }}{10}{figure.caption.51}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,0),(2,1)\right \}}$ .\relax }}{10}{figure.caption.51}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,0),(2,2)\right \}}$\relax }}{10}{figure.caption.51}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,1),(2,0)\right \}}$ .\relax }}{11}{figure.caption.52}
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,1),(2,1)\right \}}$ .\relax }}{11}{figure.caption.52}
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,1),(2,2)\right \}}$ .\relax }}{11}{figure.caption.52}
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,2),(2,0)\right \}}$ .\relax }}{12}{figure.caption.53}
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,2),(2,1)\right \}}$ .\relax }}{12}{figure.caption.53}
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,1),(1,2),(2,2)\right \}}$ .\relax }}{12}{figure.caption.53}
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,0),(2,0)\right \}}$ .\relax }}{13}{figure.caption.54}
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,0),(2,1)\right \}}$ .\relax }}{13}{figure.caption.54}
+\contentsline {figure}{\numberline {3.22}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,0),(2,2)\right \}}$ .\relax }}{13}{figure.caption.54}
+\contentsline {figure}{\numberline {3.23}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,1),(2,0)\right \}}$ .\relax }}{14}{figure.caption.55}
+\contentsline {figure}{\numberline {3.24}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,1),(2,1)\right \}}$ .\relax }}{14}{figure.caption.55}
+\contentsline {figure}{\numberline {3.25}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,1),(2,2)\right \}}$ .\relax }}{14}{figure.caption.55}
+\contentsline {figure}{\numberline {3.26}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,2),(2,0)\right \}}$ .\relax }}{15}{figure.caption.56}
+\contentsline {figure}{\numberline {3.27}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,2),(2,1)\right \}}$ .\relax }}{15}{figure.caption.56}
+\contentsline {figure}{\numberline {3.28}{\ignorespaces Latent coalgebra under graph $\ensuremath {\left \{(0,2),(1,2),(2,2)\right \}}$ .\relax }}{15}{figure.caption.56}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces An Electron}}{39}{figure.caption.152}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces An Electron}}{39}{figure.caption.161}
 \addvspace {10\p@ }

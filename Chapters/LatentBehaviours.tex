@@ -12,18 +12,18 @@ If you only do what you can do, you will never be more than what you are now.
 \section{Introduction}
 \todo[inline]{Give an interesting motivational example: What is the notion of latent behaviour? Why do we care about them? How is it useful to study them?}
 \section{Mutation $F$-coalgebras}
-\section{The Latent Behaviour of $F$-coalgebras}
+\section{The Latent Behaviours of $F$-coalgebras}
+Informally, a latent behaviour is a behaviour that a system could display if, for whatever reason, its state is constantly being altered but its dynamics is not. 
 %For the functor $\Functor$, the monad $\Monad=(\MFunctor,\eta,\mu)$, and a $\lambda$-bialgebra $\Bialgebra=(X,a,c)$, we can define the behaviour associated to $\Bialgebra$ by means of the semantic mapping in the category of $\Functor$-coalgebras, i.e., by means of $\TheBehaviourOf{\cdot}\colon \MFunctor(X)\rightarrow \sigma\Functor$. 
-Using the semantic mapping, we can already obtain a notion of expected/normal behaviour. For the functor $F=O\times \texttt{id}^I$, given an $F$-coalgebra $\mathbb{X}=(X,(o,\delta))$, we say that the behaviour of a state $x$ is defined by $\TheBehaviourOfIn{x}{\mathbb{X}}$ in $\sigma F$, where $\sigma F = O^{I^*}$. 
 %The \emph{latent behaviour} given a mutation coalgebra $\mathbb{M}=(X,X\xrightarrow{(o_m,\delta_m)} F(X))$, is modelled by the function $\TheLatentBehaviourOf{\cdot}{\mathbb{M}}\colon X\rightarrow \sigma F$, which is coinductively defined, for $i\in I$, by
 %\begin{align}
 %o(\TheLatentBehaviourOf{x}{\mathbb{M}})&\triangleq o_m(x)\\
 %\delta(\TheLatentBehaviourOf{x}{\mathbb{M}})(i)&\triangleq \TheLatentBehaviourOf{\delta_m(x)(i)}{\mathbb{M}}.
 %\end{align}
 %The mutation $a$ skews the behaviour of states to reflect the changes to the state. 
-Given a mutation function $m\colon X\rightarrow X$, we can skew the original behaviour of $\mathbb{X}$ by defining the new $F$-coalgebra $\mathbb{M}=(X,{(o\circ m, \delta\circ m }))$. The \emph{latent behaviour} of $\mathbb{X}$ under $m$ is given by the homomorphism $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}\colon X\rightarrow \sigma F$, which corresponds to the original semantic mapping for $\mathbb{M}$; that is, for $x\in X$, 
+Given a mutation function $m\colon X\rightarrow X$, we can skew the normal behaviour of $\mathbb{X}$ by defining the $F$-coalgebra $\mathbb{X}\circ m=(X,{(o\circ m, \delta\circ m }))$, which we refer to as the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. The \emph{latent behaviour map} of $\mathbb{X}$ under $m$ is given by the function $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}\colon X\rightarrow \sigma F$, which corresponds to the semantic mapping for $\mathbb{X}\circ m$; that is, for $x\in X$, 
 \begin{align}
-\TheLatentBehaviourOfIn{x}{m}{\mathbb{X}}\triangleq\TheBehaviourOfIn{x}{\mathbb{M}}
+\TheLatentBehaviourOfIn{x}{m}{\mathbb{X}}\triangleq\TheBehaviourOfIn{x}{{\mathbb{X}\circ m}}
 \end{align}
 \todo[inline]{Having functions from $X$ to $X$ without changing their coalgebra is kinda odd. But I think that is the spirit of latent behaviours! If you could do anything (e.g., change the coalgebra), then why would you reuse anything from the original coalgebra? We are questioning how far we can go by just changing the state.}
 
@@ -58,7 +58,7 @@ Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(
 \label{fig:ExampleLatent}
 \end{figure}
 
-This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in $X$ i.e. by the elements of the set $X^X$. The latent behaviours are illustrated by the following automata.
+This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:latent1}--\ref{fig:latent27}. Note that many of these latent coalgebras are not minimal, and many have the same behaviour.
 
 
 %------------------------------------------------------------------------------------------------------------------------
@@ -75,7 +75,8 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,0),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,0),(2,0)}$ .}
+\label{fig:latent1}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -88,7 +89,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,0),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,0),(2,1)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -101,7 +102,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,0),(2,2)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,0),(2,2)}$ .}
 \end{figure}
 
 \begin{figure}[t]
@@ -117,7 +118,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,1),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,1),(2,0)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -130,7 +131,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,1),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,1),(2,1)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -143,7 +144,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,1),(2,2)}$. It is the same as the original behaviour.}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,1),(2,2)}$.}
 \end{figure}
 
 
@@ -161,7 +162,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,2),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,2),(2,0)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -174,7 +175,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,2),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,2),(2,1)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -187,7 +188,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,2),(2,2)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,0),(1,2),(2,2)}$ .}
 \end{figure}
 
 \begin{figure}[t]
@@ -203,7 +204,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,0),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,0),(2,0)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -216,7 +217,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,0),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,0),(2,1)}$ .}
 
 
 \begin{tikzpicture}
@@ -230,7 +231,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,0),(2,2)}$}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,0),(2,2)}$}
 \end{figure}
 
 \begin{figure}[t]
@@ -246,7 +247,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,1),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,1),(2,0)}$ .}
 
 
 \begin{tikzpicture}
@@ -260,7 +261,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,1),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,1),(2,1)}$ .}
 
 
 \begin{tikzpicture}
@@ -274,7 +275,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,1),(2,2)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,1),(2,2)}$ .}
 \end{figure}
 
 \begin{figure}[t]
@@ -290,7 +291,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,2),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,2),(2,0)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -303,7 +304,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,2),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,2),(2,1)}$ .}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -316,7 +317,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,1),(1,2),(2,2)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,1),(1,2),(2,2)}$ .}
 \end{figure}
 
 \begin{figure}[t]
@@ -332,7 +333,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,0),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,0),(2,0)}$ .}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -345,7 +346,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,0),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,0),(2,1)}$ .}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -358,24 +359,11 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,0),(2,2)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,0),(2,2)}$ .}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state,accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,0),(1,1),(2,2)}$. It is the same as the original behaviour.}
-
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
 \node[state, right of=q1] (q2) {$1$};
@@ -387,7 +375,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,1),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,1),(2,0)}$ .}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -400,7 +388,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,1),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,1),(2,1)}$ .}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -413,7 +401,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,1),(2,2)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,1),(2,2)}$ .}
 \end{figure}
 
 \begin{figure}[t]
@@ -429,7 +417,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,2),(2,0)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,2),(2,0)}$ .}
 
 \begin{tikzpicture}
 \node[state,accepting] (q1) {$0$};
@@ -442,7 +430,7 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,2),(2,1)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,2),(2,1)}$ .}
 
 \begin{tikzpicture}
 \node[state,accepting] (q1) {$0$};
@@ -455,17 +443,47 @@ This $G$-coalgebra has 27 latent behaviours, given by the four endofunctions in 
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent behaviour when the mutation is $\set{(0,2),(1,2),(2,2)}$ .}
+\caption{Latent coalgebra under graph $\set{(0,2),(1,2),(2,2)}$ .}
+\label{fig:latent27}
 \end{figure}
 
 \end{example}
 \todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the mutation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
 
-It may not appear evident at first, but an arbitrary behaviour may not be latent for a given $F$-coalgebra.
-\begin{proposition}[Incompleteness of Latency]
-Given an arbitrary $F$-coalgebra $\mathbb{X}=(X,c)$ and a behaviour $\rho\in \sigma F$, there may not exist a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$.
-\end{proposition}
-\begin{proof}
-We provide a counterexample for the opposite proposition, that is, there exists a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. Consider, for the functor $F=2\times \texttt{id}^2$ an $F$-coalgebra where all states accept all sequences; this $F$-coalgebra cannot display a latent behaviour different from accepting all sequences, because all mutations map to states that accept.
-\end{proof}
+\section{Potential Strategies}
+Not all behaviours are latent for a given $F$-coalgebra. For example, for the functor $F=2\times \texttt{id}^2$, a single-state $F$-coalgebra that accepts all sequences cannot display a latent behaviour different from its original behaviour. This gives us a foundation for the definition of {potential strategy problems}.
+
+\begin{definition}
+A \emph{potential strategy problem} consists of a given a pointed $F$-coalgebra $\mathbb{X}=(X,c,x_0)$ and a given behaviour $\rho\in \sigma F$. To solve this problem, we need to either 1) find a mutation $m$ which proves that $\rho$ is the latent behaviour of $x_0$ under $m$ or 2) prove that no such $m$ can exist.
+\end{definition}
+
+We can try to  coinductively define $m$, and for that we would already need to know $\mathbb{X}\circ m$. 
+\todo[inline]{Can we define  $\mathbb{X}\circ m$ based on what we know?. Let us consider the functor $O\times X^I$. We can try to solve the problem in two ways: based on bisimilarity or based on backpropagation (which are somewhat connected).}
+
+\begin{align}
+\gamma(m(x))&=\gamma_\omega(\rho)\\
+\delta(m(x))(i)&\sim \delta_\omega(\rho)(i), \forall i\in I
+\end{align}
+
+\todo[inline]{This means that the problem becomes a "searching for the next candidate at every step" problem. Alternatively, you could learn to compose solutions too. }
+\todo[inline]{Maybe we can also do something exciting: eventuality -> at some point in time, the behaviour you want becomes apparent, i.e. $\TheBehaviourOf{x_0}^w=\rho$ for some $w$}
+
+
+
+
+%\begin{proposition}
+%\label{sec:Incompleteness}
+%Given an arbitrary $F$-coalgebra $\mathbb{X}=(X,c)$ and a behaviour $\rho\in \sigma F$, there may not exist a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$.
+%\end{proposition}
+%\begin{proof}
+%We provide a counterexample for the opposite proposition, that is, there exists a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. 
+%Consider, for the functor $F=2\times \texttt{id}^2$, a single-state $F$-coalgebra that accepts all sequences; this $F$-coalgebra cannot display a latent behaviour different from its original behaviour.
+%\end{proof}
+
+We would like to consider two problems related to latent behaviours: 
+\begin{itemize}
+\item How can we use mutations ourselves to repurpose a system that is already been defined?
+\item How can an attacker use mutations to force a behaviour they want?
+\end{itemize}
+\todo[inline]{Note that, ultimately, both questions need a method to solve an equation for a mutation. That is, given a target behaviour and an a source coalgebra, how do you solve the problem of finding a mutation that helps you display the behaviour you want? Is it even possible?}
 
