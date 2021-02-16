@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  12 FEB 2021 13:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  16 FEB 2021 14:28
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -2357,31 +2357,31 @@ runsystem(rm "main.aex")...executed.
 (./Chapters/Chapter6.aux) (./Appendices/AppendixA.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 150.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 150.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 151.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 151.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Try loading font information for T1+ppl on input line 150.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 151.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
@@ -2461,14 +2461,14 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package scrlayer Info: Setting magic \footheight to \baselineskip while
-(scrlayer)             \begin{document} on input line 150.
-Package scrbase Info: activating english \authorshipname on input line 150.
-Package scrbase Info: activating english \authorshipname on input line 150.
-Package scrbase Info: activating english \byname on input line 150.
-Package scrbase Info: activating english \abbrevname on input line 150.
-Package scrbase Info: activating english \constantsname on input line 150.
-Package scrbase Info: activating english \symbolsname on input line 150.
-Package scrbase Info: activating english \acknowledgementname on input line 150
+(scrlayer)             \begin{document} on input line 151.
+Package scrbase Info: activating english \authorshipname on input line 151.
+Package scrbase Info: activating english \authorshipname on input line 151.
+Package scrbase Info: activating english \byname on input line 151.
+Package scrbase Info: activating english \abbrevname on input line 151.
+Package scrbase Info: activating english \constantsname on input line 151.
+Package scrbase Info: activating english \symbolsname on input line 151.
+Package scrbase Info: activating english \acknowledgementname on input line 151
 .
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
@@ -2481,10 +2481,10 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
 (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 150.
-Package biblatex Info: Reference segment=0 on input line 150.
+Package biblatex Info: Reference section=0 on input line 151.
+Package biblatex Info: Reference segment=0 on input line 151.
 \AtBeginShipoutBox=\box100
-Package hyperref Info: Link coloring ON on input line 150.
+Package hyperref Info: Link coloring ON on input line 151.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -2492,9 +2492,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count425
 )
-LaTeX Info: Redefining \ref on input line 150.
-LaTeX Info: Redefining \pageref on input line 150.
-LaTeX Info: Redefining \nameref on input line 150.
+LaTeX Info: Redefining \ref on input line 151.
+LaTeX Info: Redefining \pageref on input line 151.
+LaTeX Info: Redefining \nameref on input line 151.
 
 (./main.out) (./main.out)
 \@outlinefile=\write8
@@ -2504,70 +2504,70 @@ LaTeX Info: Redefining \nameref on input line 150.
 ABD: EveryShipout initializing macros
 \c__siunitx_mathsf_int=\count426
 LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
-(Font)              scaled to size 10.95pt on input line 150.
+(Font)              scaled to size 10.95pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
-(Font)              scaled to size 6.0pt on input line 150.
+(Font)              scaled to size 6.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
-(Font)              scaled to size 10.95pt on input line 150.
+(Font)              scaled to size 10.95pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
-(Font)              scaled to size 6.0pt on input line 150.
-LaTeX Font Info:    Try loading font information for U+msa on input line 150.
+(Font)              scaled to size 6.0pt on input line 151.
+LaTeX Font Info:    Try loading font information for U+msa on input line 151.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 150.
+LaTeX Font Info:    Try loading font information for U+msb on input line 151.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+stmry on input line 150.
+LaTeX Font Info:    Try loading font information for U+stmry on input line 151.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 150.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 151.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
-(Font)              scaled to size 10.95pt on input line 150.
+(Font)              scaled to size 10.95pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolB/m/n' will be
-(Font)              scaled to size 6.0pt on input line 150.
+(Font)              scaled to size 6.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
-(Font)              scaled to size 10.95pt on input line 150.
+(Font)              scaled to size 10.95pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolC/m/n' will be
-(Font)              scaled to size 6.0pt on input line 150.
+(Font)              scaled to size 6.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
-(Font)              scaled to size 10.95pt on input line 150.
+(Font)              scaled to size 10.95pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
-(Font)              scaled to size 6.0pt on input line 150.
+(Font)              scaled to size 6.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 150.
+(Font)              scaled to size 10.95pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 151.
 LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 150.
+(Font)              scaled to size 6.0pt on input line 151.
 \c__siunitx_mathtt_int=\count427
 
 1: section
-<Figures/SUTD.pdf, id=324, 352.31625pt x 137.51375pt>
+<Figures/SUTD.pdf, id=328, 352.31625pt x 137.51375pt>
 File: Figures/SUTD.pdf Graphic file (type pdf)
  <use Figures/SUTD.pdf>
-Package pdftex.def Info: Figures/SUTD.pdf used on input line 165.
+Package pdftex.def Info: Figures/SUTD.pdf used on input line 166.
 (pdftex.def)             Requested size: 208.55876pt x 81.40308pt.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 170.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 171.
 
 [1
 
@@ -2586,7 +2586,7 @@ es/SUTD.pdf>]
  Abstract
 --------------------
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 265.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 266.
 1: section
 [2
 
@@ -2606,40 +2606,106 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
 
 ]
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 298.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 299.
  (./main.toc
 1: section
 [5
 
 ]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 70.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 71.
  [6])
 \tf@toc=\write9
 \openout9 = `main.toc'.
 
- [7] (./main.lof)
-\tf@lof=\write10
-\openout10 = `main.lof'.
+ [7] (./main.lof
+Underfull \hbox (badness 10000) in paragraph at lines 13--13
+ \T1/ppl/m/n/10.95 La-tent be-haviours un-der $\OML/cmm/m/it/10.95 m$ \T1/ppl/m
+/n/10.95 are the orig-i-nal be-haviours:  
+ []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--14
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--15
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--19
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
 
 1: section
 [8
 
-] (./main.lot)
+]
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
+
+
+Overfull \hbox (82.54553pt too wide) in paragraph at lines 23--23
+ []  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--24
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--25
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
+ []
+
+)
+\tf@lof=\write10
+\openout10 = `main.lof'.
+
+ [9] (./main.lot)
 \tf@lot=\write11
 \openout11 = `main.lot'.
 
 
 1: section
-[9
+[10
 
 ]
 --------------------
  Dedicatory
 --------------------
 1: section
-[10
+[11
 
 ]
 1: section
@@ -2760,22 +2826,22 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-] [6]
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 485.
+] [6] [7]
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 549.
 
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ))
-[7] [8] [9] [10] [11] [12] [13] [14] [15]
+[8] [9] [10] [11] [12] [13] [14] [15] [16]
 \openout2 = `Chapters/Chapter1.aux'.
 
  (./Chapters/Chapter1.tex
 Chapter 4.
 
-LaTeX Warning: Citation 'cryptocoding' on page 16 undefined on input line 54.
+LaTeX Warning: Citation 'cryptocoding' on page 17 undefined on input line 54.
 
 1: section
-[16
+[17
 
 
 
@@ -2785,7 +2851,7 @@ Overfull \hbox (18.00928pt too wide) in paragraph at lines 91--92
 ve code or branches,
  []
 
-[17]
+[18]
 Overfull \hbox (15.14006pt too wide) in paragraph at lines 109--110
 \T1/ppl/m/n/10.95 tions should al-ways use the un-signed byte type to rep-re-se
 nt bytestrings
@@ -2798,18 +2864,18 @@ hey might in-tro-duce branch-
  []
 
 
-LaTeX Warning: Citation 'GKAT' on page 18 undefined on input line 129.
-
-[18]
-
-LaTeX Warning: Citation 'GKAT' on page 19 undefined on input line 160.
-
-
-LaTeX Warning: Citation 'KAT' on page 19 undefined on input line 160.
+LaTeX Warning: Citation 'GKAT' on page 19 undefined on input line 129.
 
 [19]
 
-LaTeX Warning: Citation 'GKAT' on page 20 undefined on input line 227.
+LaTeX Warning: Citation 'GKAT' on page 20 undefined on input line 160.
+
+
+LaTeX Warning: Citation 'KAT' on page 20 undefined on input line 160.
+
+[20]
+
+LaTeX Warning: Citation 'GKAT' on page 21 undefined on input line 227.
 
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 236.
@@ -2819,20 +2885,20 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10> not available
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 236.
 
-[20]
-
-LaTeX Warning: Citation 'GKAT' on page 21 undefined on input line 238.
-
-
-LaTeX Warning: Citation 'GKAT' on page 21 undefined on input line 242.
-
-
-LaTeX Warning: Citation 'Chattopadhyay' on page 21 undefined on input line 262.
-
-
 [21]
 
-LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 267.
+LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 238.
+
+
+LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 242.
+
+
+LaTeX Warning: Citation 'Chattopadhyay' on page 22 undefined on input line 262.
+
+
+[22]
+
+LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 267.
 
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 276.
@@ -2841,12 +2907,12 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 276.
 LaTeX Font Warning: Command \small invalid in math mode on input line 276.
 
 
-LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 279.
+LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 279.
 
 
-LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 283.
+LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 283.
 
-[22] [23] [24]
+[23] [24] [25]
 Overfull \hbox (5.01169pt too wide) in paragraph at lines 382--383
 \T1/ppl/m/n/10.95 where they are de-clared (this can be en-forced with the \T1/
 pcr/m/n/10.95 opt \T1/ppl/m/n/10.95 op-ti-mi-sa-tion flag \T1/pcr/m/n/10.95 -re
@@ -2857,11 +2923,11 @@ LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <12> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 391.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 397.
-[25] [26]
+[26] [27]
 
-LaTeX Warning: Citation 'Rane' on page 27 undefined on input line 441.
+LaTeX Warning: Citation 'Rane' on page 28 undefined on input line 441.
 
-[27] [28] [29]) [30]
+[28] [29] [30]) [31]
 \openout2 = `Chapters/Chapter6.aux'.
 
  (./Chapters/Chapter6.tex
@@ -2931,17 +2997,17 @@ LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
 LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
 (Font)              scaled to size 17.28pt on input line 3.
 1: section
-[31
+[32
 
 
 
-] [32] [33]
+] [33] [34]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 138.
- [34] [35]
+ [35] [36]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <10.95> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 170.
- [36]
+ [37]
 LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
 (Font)              scaled to size 9.0pt on input line 198.
 LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
@@ -2954,13 +3020,13 @@ LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
 (Font)              scaled to size 9.0pt on input line 198.
 LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 198.
- [37]
+ [38]
 Overfull \hbox (8.88248pt too wide) in paragraph at lines 227--227
 []\T1/pcr/m/n/10 \caption{The effects of treatments X and Y on the four groups 
 studied.}[] 
  []
 
-<Figures/Electron.pdf, id=822, 398.3386pt x 284.52756pt>
+<Figures/Electron.pdf, id=836, 398.3386pt x 284.52756pt>
 File: Figures/Electron.pdf Graphic file (type pdf)
 
 <use Figures/Electron.pdf>
@@ -2970,50 +3036,41 @@ Package pdftex.def Info: Figures/Electron.pdf used on input line 264.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[38] [39 <./Figures/Electron.pdf>]
+[39] [40 <./Figures/Electron.pdf>]
 Overfull \hbox (4.81635pt too wide) in paragraph at lines 312--313
 \T1/pcr/b/n/10.95 MastersDoctoralThesis.cls\T1/ppl/m/n/10.95 . If you need this
  changed, you can do it in \T1/pcr/b/n/10.95 main.tex\T1/ppl/m/n/10.95 . 
  []
 
-) [40]
+) [41]
 \openout2 = `Appendices/AppendixA.aux'.
 
  (./Appendices/AppendixA.tex
 Appendix A.
 )
 1: section
-[41
+[42
 
 
 
 ]
 1: section
-[42
+[43
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 395.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 395.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 396.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 396.
  (./main.aux (./Chapters/Introduction.aux) (./Chapters/Preliminaries.aux)
 (./Chapters/LatentBehaviours.aux) (./Chapters/Chapter1.aux)
 (./Chapters/Chapter6.aux) (./Appendices/AppendixA.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 395.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 395.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 396.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 396.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 6238D5893A9174EE259A9908BC0AFAEA;13286.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 3E57D635273924FFB4C31C550340AEF2;13148
-(rerunfilecheck)             After:  5D3B87074E738B1E5F90A0619FBDBC47;13148.
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run BibTeX on the file(s):
@@ -3025,131 +3082,24 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 50826 strings out of 493014
- 1040178 string characters out of 6133351
- 1422730 words of memory out of 5000000
- 53323 multiletter control sequences out of 15000+600000
- 96484 words of font info for 263 fonts, out of 8000000 for 9000
+ 50786 strings out of 493014
+ 1039630 string characters out of 6133351
+ 1437730 words of memory out of 5000000
+ 53316 multiletter control sequences out of 15000+600000
+ 97128 words of font info for 265 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,21n,86p,10377b,2259s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{table.caption.157} has been referenced but does n
-ot exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.caption.159} has been referenced but does no
-t exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{appendix*.165} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{appendix.164} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.163} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.162} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.156} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section*.155} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.152} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.151} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.149} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.148} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.147} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.143} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.140} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.139} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.138} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{chapter.136} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.135} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.134} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.129} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.124} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.119} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.114} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.113} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.109} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.104} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.100} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.95} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.94} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.91} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.88} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.72} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.66} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{section.65} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{chapter.64} has been referenced but does not exist,
- replaced by a fixed one
-
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolA-Regular.pfb></usr/lo
-cal/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolB-Regular.pfb><
-/usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolC-Regula
-r.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolE
--Regular.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/Md
-SymbolF-Regular.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolA-Regular.pfb></usr/
+local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolB-Regular.pfb
+></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolC-Regu
+lar.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbo
+lE-Regular.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/
+MdSymbolF-Regular.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmr17.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
@@ -3166,10 +3116,10 @@ ive/2016/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/201
 -dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2016/texmf-dist/f
 onts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/ty
 pe1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (53 pages, 399986 bytes).
+Output written on main.pdf (55 pages, 414971 bytes).
 PDF statistics:
- 1063 PDF objects out of 1200 (max. 8388607)
+ 1066 PDF objects out of 1200 (max. 8388607)
  961 compressed objects within 10 object streams
- 260 named destinations out of 1000 (max. 500000)
- 655 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 227 named destinations out of 1000 (max. 500000)
+ 663 words of extra memory for PDF output out of 10000 (max. 10000000)
 
