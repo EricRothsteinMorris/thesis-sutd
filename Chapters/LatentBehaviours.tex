@@ -29,7 +29,7 @@ Given a mutation function $m\colon X\rightarrow X$, we can skew the normal behav
 
 \begin{example}
 \label{ex:LatentBehaviour}
-Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(3,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1(0+11^*0))^*111^*$. Figure~\ref{fig:ExampleLatent} shows the automaton corresponding to the $G$-coalgebra $\mathbb{X}$ if $\gamma$ and $\delta$ are defined as follows
+Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(3,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. Figure~\ref{fig:ExampleLatent} shows the automaton corresponding to the $G$-coalgebra $\mathbb{X}$ if $\gamma$ and $\delta$ are defined as follows
 \begin{align}
 \gamma(x)=\begin{cases}
 1, \quad \text{if  $x=1$,}\\
@@ -58,9 +58,32 @@ Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(
 \label{fig:ExampleLatent}
 \end{figure}
 
-This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:latent1}--\ref{fig:latent27}. Note that many of these latent coalgebras are not minimal, and many have the same behaviour.
+This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:3.2}--\ref{fig:3.28}. Note that many of these latent coalgebras are not minimal, and many have the same behaviour.
 
+From 27 endofuctions, we can derive the XXX\todo{how many?} latent behaviours presented in Table~\ref{tab:ExampleLatentBehaviours}.
+\begin{table}[t]
+\centering
+\begin{tabular}{|l | l | }
+\hline
+$\rho_{\ref{fig:3.2}.0}$ &  $\emptyset$   \\
+$\rho_{\ref{fig:3.4}.2}$ &  $1^*$ \\
+$\rho_{\ref{fig:3.7}.0}$ &  $(0+1)^*111^*$\\%$(0+10+111^*0)^*111^*$ \\
+$\rho_{\ref{fig:3.7}.1}$ &  $\rho_{\ref{fig:3.7}.0}+1$ \\
+$\rho_{\ref{fig:3.7}.2}$ &  $\rho_{\ref{fig:3.7}.0}+1+\varepsilon$ \\
+$\rho_{\ref{fig:3.8}.1}$ &  $(00^*1+10^*1)^*$ \\
+$\rho_{\ref{fig:3.8}.0}$ &  $0^*1\rho_{\ref{fig:3.8}.1}$ \\
+$\rho_{\ref{fig:3.9}.2}$& $(0+1)^*01$\\
+$\rho_{\ref{fig:3.9}.0}$&   $\rho_{\ref{fig:3.9}.2}+1$\\
+$\rho_{\ref{fig:3.9}.1}$&   $\rho_{\ref{fig:3.9}.2}+1+\varepsilon$\\
+$\rho_{\ref{fig:3.10}.0}$ &  $(0+1)^*1$ \\
+$\rho_{\ref{fig:3.10}.1}$ &  $\rho_{\ref{fig:3.10}.0}+\varepsilon$ \\
+$\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
+\end{tabular}
+\end{table}
 
+%$\rho_{\ref{fig:3.8}.0}$ &  $$ \\
+%$\rho_{\ref{fig:3.8}.1}$ &  $$ \\
+%$\rho_{\ref{fig:3.8}.2}$ &  $$ \\
 %------------------------------------------------------------------------------------------------------------------------
 \begin{figure}[t]
 \centering
@@ -76,7 +99,7 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$ }
-\label{fig:latent1}
+\label{fig:3.2}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -90,6 +113,7 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+\label{fig:3.3}
 
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
@@ -103,6 +127,7 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,2)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\emptyset$, $\TheLatentBehaviourOf{2}{m}=1^*$}
+\label{fig:3.4}
 \end{figure}
 
 \begin{figure}[t]
@@ -147,11 +172,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,2)}$ (i.e. $m=\texttt{id}$). Latent behaviours under $m$ are the original behaviours: 
 \protect\begin{align*}
-	\TheLatentBehaviourOf{0}{m}&=(0+1(0+11^*0))^*111^*, \\
-	\TheLatentBehaviourOf{1}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{2}{m}\\ 
-	\TheLatentBehaviourOf{2}{m}&=1^*+1^*0\TheLatentBehaviourOf{0}{m}
+	\TheLatentBehaviourOf{0}{m}&=(0+1)^*111^*, \\
+	\TheLatentBehaviourOf{1}{m}&=1+\TheLatentBehaviourOf{0}{m}\\
+	\TheLatentBehaviourOf{2}{m}&=\varepsilon + 1+ \TheLatentBehaviourOf{0}{m}
 \protect\end{align*}
 }
+\label{fig:3.7}
 \end{figure}
 
 
@@ -173,8 +199,9 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,0)}$. 
 \protect\begin{align*}
 \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=0^*1\TheLatentBehaviourOf{1}{m},\\
-\TheLatentBehaviourOf{1}{m}&=((0+1)0^*1)^*
+\TheLatentBehaviourOf{1}{m}&=(00^*1+10^*1)^*
 \protect\end{align*}
+\label{fig:3.8}
 }
 
 \begin{tikzpicture}
@@ -190,10 +217,11 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,1)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1(0+11^*0))^*1,\\
-\TheLatentBehaviourOf{1}{m}&=\varepsilon+0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{2}{m},\\
-\TheLatentBehaviourOf{2}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
+\TheLatentBehaviourOf{0}{m}&=1+\TheLatentBehaviourOf{2}{m},\\
+\TheLatentBehaviourOf{1}{m}&=\varepsilon+1+\TheLatentBehaviourOf{2}{m},\\
+\TheLatentBehaviourOf{2}{m}&=(0+1)^*01
 \protect\end{align*}
+\label{fig:3.9}
 }
 
 \begin{tikzpicture}
@@ -207,11 +235,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,2)}$. 
+\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,2)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*11^*,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*+1^*\TheLatentBehaviourOf{0}{m}
+\TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon + \TheLatentBehaviourOf{0}{m}
 \protect\end{align*}
+\label{fig:3.10}
 }
 \end{figure}
 
@@ -260,11 +289,13 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,2)}$. 
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*11^*,\\ 
+\TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
 \TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m},\\
-\TheLatentBehaviourOf{2}{m}&=1^*+\TheLatentBehaviourOf{1}{m}
+\TheLatentBehaviourOf{2}{m}&=\varepsilon+\TheLatentBehaviourOf{0}{m}
+%\TheLatentBehaviourOf{2}{m}&=1^*+\TheLatentBehaviourOf{1}{m}
 \protect\end{align*}
 }
+\label{fig:3.13}
 \end{figure}
 
 \begin{figure}[t]
@@ -313,8 +344,8 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,2)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+11^*0)^*11^* \text{(same as F3.13)},\\ 
-\TheLatentBehaviourOf{2}{m}&=1^*+1^*0\TheLatentBehaviourOf{0}{m}
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*1,\\ 
+\TheLatentBehaviourOf{2}{m}&=\TheLatentBehaviourOf{0}{m}+\varepsilon
 \protect\end{align*}
 }
 \end{figure}
@@ -325,7 +356,7 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \begin{tikzpicture}
 \node[state] (q1) {$0$};
 \node[state,accepting, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
+\node[state, right of=q2] (q3) {$2$}; 
 \draw (q1) edge[loop above] node{0} (q1)
 (q1) edge[bend left, above] node{1} (q3)
 (q2) edge[bend left, above] node{0} (q1)
@@ -335,10 +366,11 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,0)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1(0+1(11)^*(0+10)))^*11(11)^* ,\\ 
+\TheLatentBehaviourOf{0}{m}&=(0+10+(11)^+(0+10))^*(11)^+ \\ %(0+1(0+1(11)^*(0+10)))^*11(11)^* ,\\ 
 \TheLatentBehaviourOf{1}{m}&=(11)^*+(11)^*(0+10)\TheLatentBehaviourOf{0}{m} ,\\
 \TheLatentBehaviourOf{2}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{1}{m}
 \protect\end{align*}
+\label{fig:3.17}
 }
 
 \begin{tikzpicture}
@@ -357,6 +389,7 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=\emptyset,\\ 
 \TheLatentBehaviourOf{1}{m}&=\varepsilon
 \protect\end{align*}
+\label{fig:3.18}
 }
 
 \begin{tikzpicture}
@@ -370,15 +403,16 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,2)}$.
+\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,2)}$. The latent behaviours also appear in Figure~\ref{fig:3.13}.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*11^*,  \text{ (same as F3.13)}\\ 
+\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*11^*,\\
 \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*+1^*0\TheLatentBehaviourOf{0}{m}
 \protect\end{align*}
 }
 \end{figure}
 
 \begin{figure}[t]
+\captionsetup{singlelinecheck=off}
 \centering
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -391,7 +425,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,0)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,0)}$. 
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}.
+\protect\end{align*} 
+}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -404,7 +443,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,1)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,1)}$.
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}.
+\protect\end{align*}
+}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -417,10 +461,16 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,2)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,2)}$. 
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
+\TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
+\protect\end{align*}
+}
 \end{figure}
 
 \begin{figure}[t]
+\captionsetup{singlelinecheck=off}
 \centering
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -433,7 +483,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,0)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,0)}$ . The latent behaviours also appear in Figure~\ref{fig:3.13}.
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}\\
+\protect\end{align*}
+}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -446,7 +501,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,1)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,1)}$. 
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}\\
+\protect\end{align*}
+}
 
 \begin{tikzpicture}
 \node[state, accepting] (q1) {$0$};
@@ -459,10 +519,16 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,2)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,2)}$ . 
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
+\TheLatentBehaviourOf{1}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{2}{m}
+\protect\end{align*}
+}
 \end{figure}
 
 \begin{figure}[t]
+\captionsetup{singlelinecheck=off}
 \centering
 \begin{tikzpicture}
 \node[state,accepting] (q1) {$0$};
@@ -475,7 +541,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,0)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,0)}$. 
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1(0+1))^*,\\ 
+\TheLatentBehaviourOf{2}{m}&=(0+1)\TheLatentBehaviourOf{0}{m}
+\protect\end{align*}
+}
 
 \begin{tikzpicture}
 \node[state,accepting] (q1) {$0$};
@@ -488,7 +559,12 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,1)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,1)}$. The latent behaviours also appear in Figure~\ref{fig:3.13}.
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+11^*0)^*\\ 
+\TheLatentBehaviourOf{2}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
+\protect\end{align*}
+}
 
 \begin{tikzpicture}
 \node[state,accepting] (q1) {$0$};
@@ -501,7 +577,11 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,2)}$ .}
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,2)}$. 
+\protect\begin{align*}
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=(0+1)^*
+\protect\end{align*}
+}
 \label{fig:latent27}
 \end{figure}
 
@@ -532,6 +612,9 @@ To coinductively define $m$, we would already need to know $\mathbb{X}\circ m$, 
 \section{Attacker Model}
 There is an attacker model associated with latent vulnerabilities: attackers that can change the value of state variables, but not the program that defines the system. This later attacker would correspond to one that can arbitrarily change the coalgebra, and is in that sense a much stronger attacker. If the attacker can enforce any behaviour they want, it becomes too powerful to defend against; all coalgebras are vulnerable, and no fix is available. However, an attacker that exploits a latent vulnerability is a bit in the middle: it can change the coalgebra by means of a mutation/attack function, but only through those. In that sense, not every behaviour is at the reach of the attacker, only those who are latent.
 
+We can do a further refinement: we can imagine attackers that control particular components of a state by partitioning states into controllable parts and observable parts
+\todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a mutation, and all mutations can be modelled by attackers that control a certain number of components. Right?}
+
 
 
 
@@ -550,4 +633,7 @@ We would like to consider two problems related to latent behaviours:
 \item How can an attacker use mutations to force a behaviour they want?
 \end{itemize}
 \todo[inline]{Note that, ultimately, both questions need a method to solve an equation for a mutation. That is, given a target behaviour and an a source coalgebra, how do you solve the problem of finding a mutation that helps you display the behaviour you want? Is it even possible?}
+
+\section{A Partial Orders of Attackers}
+\todo[inline]{We know how to quantify attackers in terms of exact latent behaviours, but latent behaviours themselves have an order (they are languages i.e. sets). What about the relationship among them? Do stronger attackers need to recognise more languages, what if a language implies another? how do attackers relate there then?}
 
