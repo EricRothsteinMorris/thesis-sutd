@@ -1,61 +1,61 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Side-Channel Repair}{17}{chapter.72}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Side-Channel Repair}{18}{chapter.71}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ChapterGKAT}{{4}{17}{Side-Channel Repair}{chapter.72}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}General Idea}{17}{section.73}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Related work and how do we distinguish from them}{17}{section.74}}
-\@writefile{tdo}{\contentsline {todo}{prove this?}{17}{section*.75}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}CTP (Cryptocoding) Axioms, and our solution}{17}{section.76}}
-\@writefile{tdo}{\contentsline {todo}{read blog}{19}{section*.77}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Formalisation}{19}{section.78}}
-\@writefile{toc}{\contentsline {paragraph}{}{20}{section*.79}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Language-Based Semantics CTP}{20}{subsection.80}}
-\@writefile{tdo}{\contentsline {todo}{Here is where you explain what the semantics of GKAT expressions are in terms of guarded strings, and you say that infinite loops yield an empty language, which is super weird, right?}{20}{section*.82}}
-\@writefile{tdo}{\contentsline {todo}{Are there relevant cases where this is not true? Answer: actually, the memory footprint may probably be one of these cases (more precisely, memory footprint should also consider the interaction environment in shared caches... it can get really complicated if we want to model everything...)}{20}{section*.85}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}The IMP Language}{22}{section.96}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Memory Footprint for the IMP Language}{22}{section.98}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Secure Constant Memory}{22}{subsection.99}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.7}The IMP Language with Division}{23}{section.100}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.1}Examples of Side Channel Attacks}{23}{subsection.102}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.2}Transformations Rules for CTP in IMP}{23}{subsection.103}}
-\@writefile{tdo}{\contentsline {todo}{The programmer should tell us somehow how many times we unwind each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unwind.}{24}{section*.107}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.8}Taint Analysis}{25}{section.108}}
-\@writefile{tdo}{\contentsline {todo}{Here is an interesting problem: if we have a non-security critical section (e.g., a loop that does not depend on secret) inside a section we are applying linearisation, do we need to linearise it? Probably not! The problem is that this is not compatible with our current implementation, because the current implementation linearises everything. If we introduce breakpoints we can allow loops in the branches.}{25}{section*.109}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.9}The Enforcement Algorithm}{25}{section.110}}
-\@writefile{tdo}{\contentsline {todo}{Resolve $k$}{25}{section*.111}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.1}Premises Behind the Enforcement Algorithm}{25}{subsection.112}}
-\@writefile{tdo}{\contentsline {todo}{This is just my intuition, but I would like to get empirical evidence.}{26}{section*.113}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.2}An LLVM Primer}{26}{subsection.114}}
-\@writefile{tdo}{\contentsline {todo}{A figure/example may help?}{26}{section*.115}}
-\@writefile{tdo}{\contentsline {todo}{Dominator/Postdominator}{26}{section*.116}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.3}The \texttt  {Linearise} Algorithm}{26}{subsection.117}}
-\@writefile{tdo}{\contentsline {todo}{Why don't we try to describe the algorithm considering loops? It's going to be a fun exercise.}{26}{section*.118}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.4}A Premise for Efficient Repaired Code}{26}{subsection.121}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Linearisation algorithm\relax }}{27}{algorithm.119}}
-\newlabel{Linearisation}{{1}{27}{Linearisation algorithm\relax }{algorithm.119}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Euclid's algorithm\relax }}{27}{algorithm.120}}
-\newlabel{euclid}{{2}{27}{Euclid's algorithm\relax }{algorithm.120}{}}
-\newlabel{euclidendwhile}{{7}{27}{Euclid's algorithm\relax }{algorithm.120}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.5}Enforcing Safe Behaviour}{28}{subsection.122}}
-\@writefile{tdo}{\contentsline {todo}{I originally thought that this section should be part of the GKAT rules, but after some consideration, if we were to assume that sanitisation is part of the actions (i.e. is a part of CTP practices), then this section becomes largely irrelevant for the theory. However, since LLVM can have problems when accessing arrays or dividing by zero, this should be mentioned in the LLVM section, probably.}{28}{section*.123}}
-\@writefile{tdo}{\contentsline {todo}{OR}{28}{section*.125}}
-\@writefile{tdo}{\contentsline {todo}{I have the hunch that substituting the expression $A[x]$ for $ A[x\textbf  { mod }(\textbf  {size}(A))]$ might leak via memory SC that the secret is a multiple of the array index that corresponds to $x\textbf  { mod }(\textbf  {size}(A))$. However, this substitution for $A[0]$ also leaks that the secret is greater than the size of the array. Now, using a secret as an index should be frowned upon by CTP guidelines, but do we want to define the problem away? probably not. What this is missing is the memory SC mitigation, and any of the options above should be valid.}{28}{section*.126}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.6}A GKAT to Correctly Unwind Basic Block Loops}{29}{subsection.127}}
-\@writefile{tdo}{\contentsline {todo}{The objective of this section is to provide the background theory to prove that the loop transformation that we use in the CFG corresponds to an unwinding transformation of GKAT iteration expressions. For that, we show that the CFG of an LLVM IR program models a normal GKAT coalgebra. If that is the case, then, from a normal GKAT coalgebra, we can use Kleene's theorem for GKAT to obtain a GKAT expression that models the program. Once we have the GKAT expression, we can unwind loops using $k$-truncation. Somehow, this should be equivalent to unwinding a loop in the CFG (even if the loop has multiple exit points). If I am not mistaken, we want to identify two blocks: the header block and the merging block of the loop. The header is unique by definition, but the merging block is the postdominator of all exiting blocks in the loops, and that is what we will end up iterating using GKAT iteration. }{29}{section*.128}}
-\@writefile{tdo}{\contentsline {todo}{The $\texttt  {branch}$ instruction can be generalised to a $\texttt  {switch}$ instruction, but we work with binary branching since it is possible to express a switch associating on the right, so we go o a basic block on the else branch that continues resolving the cases of the switch following the classical \texttt  {switch $g_i:c_i$ $\equiv $ if $g_1$ then $c_1$ elseif $g_2$ then $c_2$ elseif...} equivalence that most decent programming languages have (which is why I never use switches in C++, since they are not equivalent).}{29}{section*.131}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.7}Types}{29}{subsection.132}}
-\@writefile{tdo}{\contentsline {todo}{Set Notation}{30}{section*.133}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.8}Instructions}{30}{subsection.137}}
-\@writefile{tdo}{\contentsline {todo}{Overflows}{30}{section*.138}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.9}Central idea}{30}{subsection.139}}
-\@writefile{tdo}{\contentsline {todo}{what is it?}{30}{section*.140}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.10}Subsection 1}{30}{subsection.141}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.11}Subsection 2}{30}{subsection.142}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.10}Main Section 2}{31}{section.143}}
+\newlabel{ChapterGKAT}{{4}{18}{Side-Channel Repair}{chapter.71}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}General Idea}{18}{section.72}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Related work and how do we distinguish from them}{18}{section.73}}
+\@writefile{tdo}{\contentsline {todo}{prove this?}{18}{section*.74}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}CTP (Cryptocoding) Axioms, and our solution}{18}{section.75}}
+\@writefile{tdo}{\contentsline {todo}{read blog}{20}{section*.76}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Formalisation}{20}{section.77}}
+\@writefile{toc}{\contentsline {paragraph}{}{21}{section*.78}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Language-Based Semantics CTP}{21}{subsection.79}}
+\@writefile{tdo}{\contentsline {todo}{Here is where you explain what the semantics of GKAT expressions are in terms of guarded strings, and you say that infinite loops yield an empty language, which is super weird, right?}{21}{section*.81}}
+\@writefile{tdo}{\contentsline {todo}{Are there relevant cases where this is not true? Answer: actually, the memory footprint may probably be one of these cases (more precisely, memory footprint should also consider the interaction environment in shared caches... it can get really complicated if we want to model everything...)}{21}{section*.84}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}The IMP Language}{23}{section.95}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Memory Footprint for the IMP Language}{23}{section.97}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Secure Constant Memory}{23}{subsection.98}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.7}The IMP Language with Division}{24}{section.99}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.1}Examples of Side Channel Attacks}{24}{subsection.101}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.2}Transformations Rules for CTP in IMP}{24}{subsection.102}}
+\@writefile{tdo}{\contentsline {todo}{The programmer should tell us somehow how many times we unwind each loop that depends on a secret. FaCT forces loops to be of the form ``for x from e to e'' to fix iteration increments so they know how to unwind.}{25}{section*.106}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.8}Taint Analysis}{26}{section.107}}
+\@writefile{tdo}{\contentsline {todo}{Here is an interesting problem: if we have a non-security critical section (e.g., a loop that does not depend on secret) inside a section we are applying linearisation, do we need to linearise it? Probably not! The problem is that this is not compatible with our current implementation, because the current implementation linearises everything. If we introduce breakpoints we can allow loops in the branches.}{26}{section*.108}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.9}The Enforcement Algorithm}{26}{section.109}}
+\@writefile{tdo}{\contentsline {todo}{Resolve $k$}{26}{section*.110}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.1}Premises Behind the Enforcement Algorithm}{26}{subsection.111}}
+\@writefile{tdo}{\contentsline {todo}{This is just my intuition, but I would like to get empirical evidence.}{27}{section*.112}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.2}An LLVM Primer}{27}{subsection.113}}
+\@writefile{tdo}{\contentsline {todo}{A figure/example may help?}{27}{section*.114}}
+\@writefile{tdo}{\contentsline {todo}{Dominator/Postdominator}{27}{section*.115}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.3}The \texttt  {Linearise} Algorithm}{27}{subsection.116}}
+\@writefile{tdo}{\contentsline {todo}{Why don't we try to describe the algorithm considering loops? It's going to be a fun exercise.}{27}{section*.117}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.4}A Premise for Efficient Repaired Code}{27}{subsection.120}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Linearisation algorithm\relax }}{28}{algorithm.118}}
+\newlabel{Linearisation}{{1}{28}{Linearisation algorithm\relax }{algorithm.118}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Euclid's algorithm\relax }}{28}{algorithm.119}}
+\newlabel{euclid}{{2}{28}{Euclid's algorithm\relax }{algorithm.119}{}}
+\newlabel{euclidendwhile}{{7}{28}{Euclid's algorithm\relax }{algorithm.119}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.5}Enforcing Safe Behaviour}{29}{subsection.121}}
+\@writefile{tdo}{\contentsline {todo}{I originally thought that this section should be part of the GKAT rules, but after some consideration, if we were to assume that sanitisation is part of the actions (i.e. is a part of CTP practices), then this section becomes largely irrelevant for the theory. However, since LLVM can have problems when accessing arrays or dividing by zero, this should be mentioned in the LLVM section, probably.}{29}{section*.122}}
+\@writefile{tdo}{\contentsline {todo}{OR}{29}{section*.124}}
+\@writefile{tdo}{\contentsline {todo}{I have the hunch that substituting the expression $A[x]$ for $ A[x\textbf  { mod }(\textbf  {size}(A))]$ might leak via memory SC that the secret is a multiple of the array index that corresponds to $x\textbf  { mod }(\textbf  {size}(A))$. However, this substitution for $A[0]$ also leaks that the secret is greater than the size of the array. Now, using a secret as an index should be frowned upon by CTP guidelines, but do we want to define the problem away? probably not. What this is missing is the memory SC mitigation, and any of the options above should be valid.}{29}{section*.125}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.6}A GKAT to Correctly Unwind Basic Block Loops}{30}{subsection.126}}
+\@writefile{tdo}{\contentsline {todo}{The objective of this section is to provide the background theory to prove that the loop transformation that we use in the CFG corresponds to an unwinding transformation of GKAT iteration expressions. For that, we show that the CFG of an LLVM IR program models a normal GKAT coalgebra. If that is the case, then, from a normal GKAT coalgebra, we can use Kleene's theorem for GKAT to obtain a GKAT expression that models the program. Once we have the GKAT expression, we can unwind loops using $k$-truncation. Somehow, this should be equivalent to unwinding a loop in the CFG (even if the loop has multiple exit points). If I am not mistaken, we want to identify two blocks: the header block and the merging block of the loop. The header is unique by definition, but the merging block is the postdominator of all exiting blocks in the loops, and that is what we will end up iterating using GKAT iteration. }{30}{section*.127}}
+\@writefile{tdo}{\contentsline {todo}{The $\texttt  {branch}$ instruction can be generalised to a $\texttt  {switch}$ instruction, but we work with binary branching since it is possible to express a switch associating on the right, so we go o a basic block on the else branch that continues resolving the cases of the switch following the classical \texttt  {switch $g_i:c_i$ $\equiv $ if $g_1$ then $c_1$ elseif $g_2$ then $c_2$ elseif...} equivalence that most decent programming languages have (which is why I never use switches in C++, since they are not equivalent).}{30}{section*.130}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.7}Types}{30}{subsection.131}}
+\@writefile{tdo}{\contentsline {todo}{Set Notation}{31}{section*.132}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.8}Instructions}{31}{subsection.136}}
+\@writefile{tdo}{\contentsline {todo}{Overflows}{31}{section*.137}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.9}Central idea}{31}{subsection.138}}
+\@writefile{tdo}{\contentsline {todo}{what is it?}{31}{section*.139}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.10}Subsection 1}{31}{subsection.140}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.11}Subsection 2}{31}{subsection.141}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.10}Main Section 2}{32}{section.142}}
 \@setckpt{Chapters/Chapter1}{
-\setcounter{page}{32}
+\setcounter{page}{33}
 \setcounter{equation}{11}
 \setcounter{enumi}{2}
 \setcounter{enumii}{0}
@@ -188,12 +188,12 @@
 \setcounter{FancyVerbLine}{0}
 \setcounter{float@type}{16}
 \setcounter{linenumber}{1}
-\setcounter{LN@truepage}{44}
+\setcounter{LN@truepage}{45}
 \setcounter{FancyVerbLineBreakLast}{0}
 \setcounter{minted@FancyVerbLineTemp}{0}
 \setcounter{listing}{0}
 \setcounter{parentequation}{0}
-\setcounter{@todonotes@numberoftodonotes}{39}
+\setcounter{@todonotes@numberoftodonotes}{38}
 \setcounter{ALG@line}{9}
 \setcounter{ALG@rem}{0}
 \setcounter{ALG@nested}{0}

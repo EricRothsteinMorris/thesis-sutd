@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  18 FEB 2021 23:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  19 FEB 2021 19:27
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -2670,11 +2670,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--23
  []
 
 
-Overfull \hbox (71.83748pt too wide) in paragraph at lines 23--23
- []  
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 24--24
  [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
 .95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
@@ -2683,7 +2678,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--24
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 25--25
- \T1/ppl/m/n/10.95 haviours also ap-pear in Fig-ure [][]3.13[][].  
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
  []
 
 
@@ -2709,7 +2706,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--28
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 29--29
- \T1/ppl/m/n/10.95 haviours also ap-pear in Fig-ure [][]3.13[][].  
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
  []
 
 
@@ -2719,14 +2718,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--30
 \U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
  []
 
-[9]
+
 Underfull \hbox (badness 10000) in paragraph at lines 31--31
  [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
 .95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
 \U/MdSymbolB/m/n/10.95 ^^@ []$ \T1/ppl/m/n/10.95 .  
  []
 
-
+[9]
 Underfull \hbox (badness 10000) in paragraph at lines 32--32
  [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
 .95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
@@ -2735,7 +2734,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--32
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 33--33
- \T1/ppl/m/n/10.95 haviours also ap-pear in Fig-ure [][]3.13[][].  
+ [][] [][][]\T1/ppl/m/n/10.95 Latent coal-ge-bra un-der graph $\OML/cmm/m/it/10
+.95 G\U/MdSymbolF/m/n/10.95 ^^@\OML/cmm/m/it/10.95 m\U/MdSymbolF/m/n/10.95 ^^F 
+\U/MdSymbolB/m/n/10.95 ^^@ []$\T1/ppl/m/n/10.95 .  
  []
 
 
@@ -2884,29 +2885,30 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 ]
+Overfull \hbox (4.38702pt too wide) in paragraph at lines 61--62
+\T1/ppl/m/n/10.95 many of these la-tent coal-ge-bras are not min-i-mal, and man
+y dis-play the same be-haviours. 
+ []
 
-LaTeX Warning: Reference `fig:3.28' on page 6 undefined on input line 61.
 
+LaTeX Warning: Reference `fig:3.24' on page 6 undefined on input line 92.
 
-LaTeX Warning: Reference `tab:ExampleLatentBehaviours' on page 6 undefined on i
-nput line 63.
-
-[6] [7]
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 632.
+[6] [7] [8]
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 652.
 
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ))
-[8] [9] [10] [11] [12] [13] [14] [15] [16]
+[9] [10] [11] [12] [13] [14] [15] [16] [17]
 \openout2 = `Chapters/Chapter1.aux'.
 
  (./Chapters/Chapter1.tex
 Chapter 4.
 
-LaTeX Warning: Citation 'cryptocoding' on page 17 undefined on input line 54.
+LaTeX Warning: Citation 'cryptocoding' on page 18 undefined on input line 54.
 
 1: section
-[17
+[18
 
 
 
@@ -2916,7 +2918,7 @@ Overfull \hbox (18.00928pt too wide) in paragraph at lines 91--92
 ve code or branches,
  []
 
-[18]
+[19]
 Overfull \hbox (15.14006pt too wide) in paragraph at lines 109--110
 \T1/ppl/m/n/10.95 tions should al-ways use the un-signed byte type to rep-re-se
 nt bytestrings
@@ -2929,18 +2931,18 @@ hey might in-tro-duce branch-
  []
 
 
-LaTeX Warning: Citation 'GKAT' on page 19 undefined on input line 129.
-
-[19]
-
-LaTeX Warning: Citation 'GKAT' on page 20 undefined on input line 160.
-
-
-LaTeX Warning: Citation 'KAT' on page 20 undefined on input line 160.
+LaTeX Warning: Citation 'GKAT' on page 20 undefined on input line 129.
 
 [20]
 
-LaTeX Warning: Citation 'GKAT' on page 21 undefined on input line 227.
+LaTeX Warning: Citation 'GKAT' on page 21 undefined on input line 160.
+
+
+LaTeX Warning: Citation 'KAT' on page 21 undefined on input line 160.
+
+[21]
+
+LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 227.
 
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 236.
@@ -2950,20 +2952,20 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10> not available
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 236.
 
-[21]
-
-LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 238.
-
-
-LaTeX Warning: Citation 'GKAT' on page 22 undefined on input line 242.
-
-
-LaTeX Warning: Citation 'Chattopadhyay' on page 22 undefined on input line 262.
-
-
 [22]
 
-LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 267.
+LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 238.
+
+
+LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 242.
+
+
+LaTeX Warning: Citation 'Chattopadhyay' on page 23 undefined on input line 262.
+
+
+[23]
+
+LaTeX Warning: Citation 'GKAT' on page 24 undefined on input line 267.
 
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 276.
@@ -2972,12 +2974,12 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 276.
 LaTeX Font Warning: Command \small invalid in math mode on input line 276.
 
 
-LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 279.
+LaTeX Warning: Citation 'GKAT' on page 24 undefined on input line 279.
 
 
-LaTeX Warning: Citation 'GKAT' on page 23 undefined on input line 283.
+LaTeX Warning: Citation 'GKAT' on page 24 undefined on input line 283.
 
-[23] [24] [25]
+[24] [25] [26]
 Overfull \hbox (5.01169pt too wide) in paragraph at lines 382--383
 \T1/ppl/m/n/10.95 where they are de-clared (this can be en-forced with the \T1/
 pcr/m/n/10.95 opt \T1/ppl/m/n/10.95 op-ti-mi-sa-tion flag \T1/pcr/m/n/10.95 -re
@@ -2988,11 +2990,11 @@ LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <12> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 391.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 397.
-[26] [27]
+[27] [28]
 
-LaTeX Warning: Citation 'Rane' on page 28 undefined on input line 441.
+LaTeX Warning: Citation 'Rane' on page 29 undefined on input line 441.
 
-[28] [29] [30]) [31]
+[29] [30] [31]) [32]
 \openout2 = `Chapters/Chapter6.aux'.
 
  (./Chapters/Chapter6.tex
@@ -3062,17 +3064,17 @@ LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
 LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
 (Font)              scaled to size 17.28pt on input line 3.
 1: section
-[32
+[33
 
 
 
-] [33] [34]
+] [34] [35]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 138.
- [35] [36]
+ [36] [37]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <10.95> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 170.
- [37]
+ [38]
 LaTeX Font Info:    Font shape `U/MdSymbolA/m/n' will be
 (Font)              scaled to size 9.0pt on input line 198.
 LaTeX Font Info:    Font shape `U/MdSymbolE/m/n' will be
@@ -3085,13 +3087,13 @@ LaTeX Font Info:    Font shape `U/MdSymbolD/m/n' will be
 (Font)              scaled to size 9.0pt on input line 198.
 LaTeX Font Info:    Font shape `U/MdSymbolF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 198.
- [38]
+ [39]
 Overfull \hbox (8.88248pt too wide) in paragraph at lines 227--227
 []\T1/pcr/m/n/10 \caption{The effects of treatments X and Y on the four groups 
 studied.}[] 
  []
 
-<Figures/Electron.pdf, id=898, 398.3386pt x 284.52756pt>
+<Figures/Electron.pdf, id=910, 398.3386pt x 284.52756pt>
 File: Figures/Electron.pdf Graphic file (type pdf)
 
 <use Figures/Electron.pdf>
@@ -3101,26 +3103,26 @@ Package pdftex.def Info: Figures/Electron.pdf used on input line 264.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[39] [40 <./Figures/Electron.pdf>]
+[40] [41 <./Figures/Electron.pdf>]
 Overfull \hbox (4.81635pt too wide) in paragraph at lines 312--313
 \T1/pcr/b/n/10.95 MastersDoctoralThesis.cls\T1/ppl/m/n/10.95 . If you need this
  changed, you can do it in \T1/pcr/b/n/10.95 main.tex\T1/ppl/m/n/10.95 . 
  []
 
-) [41]
+) [42]
 \openout2 = `Appendices/AppendixA.aux'.
 
  (./Appendices/AppendixA.tex
 Appendix A.
 )
 1: section
-[42
+[43
 
 
 
 ]
 1: section
-[43
+[44
 
 
 ]
@@ -3132,13 +3134,10 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 396.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 396.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 396.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 4BD779084621DA26383E8CCB09BD13BA;13503.
+(rerunfilecheck)             Checksum: E3877857153BEC5734CF03A268EEE977;13500.
 
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run BibTeX on the file(s):
@@ -3150,13 +3149,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 50816 strings out of 493014
- 1040107 string characters out of 6133351
- 1449730 words of memory out of 5000000
- 53340 multiletter control sequences out of 15000+600000
+ 50811 strings out of 493014
+ 1039942 string characters out of 6133351
+ 1450730 words of memory out of 5000000
+ 53335 multiletter control sequences out of 15000+600000
  97128 words of font info for 265 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 73i,21n,86p,10377b,2259s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 73i,21n,86p,10377b,2299s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolA-Regular.pfb></usr/
 local/texlive/2016/texmf-dist/fonts/type1/public/mdsymbol/MdSymbolB-Regular.pfb
@@ -3184,10 +3183,10 @@ ive/2016/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/201
 -dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2016/texmf-dist/f
 onts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/ty
 pe1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (56 pages, 421746 bytes).
+Output written on main.pdf (57 pages, 422927 bytes).
 PDF statistics:
- 1129 PDF objects out of 1200 (max. 8388607)
- 1022 compressed objects within 11 object streams
+ 1141 PDF objects out of 1200 (max. 8388607)
+ 1033 compressed objects within 11 object streams
  233 named destinations out of 1000 (max. 500000)
  671 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -58,9 +58,12 @@ Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(
 \label{fig:ExampleLatent}
 \end{figure}
 
-This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:3.2}--\ref{fig:3.28}. Note that many of these latent coalgebras are not minimal, and many have the same behaviour.
+This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:3.2}--\ref{fig:3.28}. Note that many of these latent coalgebras are not minimal, and many display the same behaviours.
 
-From 27 endofuctions, we can derive the XXX\todo{how many?} latent behaviours presented in Table~\ref{tab:ExampleLatentBehaviours}.
+From 27 endofuctions and three intended behaviours, we can derive the 24 latent behaviours presented in Table~\ref{tab:ExampleLatentBehaviours} as regular expressions. 
+
+The existence of these latent behaviours opens a new possibility for system repurposing: if we wanted the system to recognise the language $(0+1)^*1$ (i.e., the language of sequences that end in 1), we could mutate our original system using a mutation where $0\mapsto0, 1\mapsto2$ and $2\mapsto2$ (shown in Figure~\ref{fig:3.10}), whilst preserving $0$ as the initial state. Nevertheless, if providing the mutation is within the capabilities of an adversary, it would also mean that they can repurpose our system as well.
+
 \begin{table}[t]
 \centering
 \begin{tabular}{|l | l | }
@@ -78,7 +81,21 @@ $\rho_{\ref{fig:3.9}.1}$&   $\rho_{\ref{fig:3.9}.2}+1+\varepsilon$\\
 $\rho_{\ref{fig:3.10}.0}$ &  $(0+1)^*1$ \\
 $\rho_{\ref{fig:3.10}.1}$ &  $\rho_{\ref{fig:3.10}.0}+\varepsilon$ \\
 $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
+$\rho_{\ref{fig:3.17}.0}$ &  $(0+10+(11)^+(0+10))^*(11)^+$ \\
+$\rho_{\ref{fig:3.17}.1}$ &  $(11)^*+(0+10)\rho_{\ref{fig:3.17}.0}$ \\
+$\rho_{\ref{fig:3.17}.2}$ &  $0\rho_{\ref{fig:3.17}.0}+1\rho_{\ref{fig:3.17}.1}$ \\
+$\rho_{\ref{fig:3.18}.0}$ &  $\varepsilon$ \\
+$\rho_{\ref{fig:3.20}.1}$ &  $(0+1)^*0$ \\
+$\rho_{\ref{fig:3.20}.0}$ &  $\rho_{\ref{fig:3.20}.1}+\varepsilon$ \\
+$\rho_{\ref{fig:3.22}.0}$ &  $(1+0)^*$ \\
+$\rho_{\ref{fig:3.22}.1}$ &  $1^*0(1+0)^*$ \\
+$\rho_{\ref{fig:3.24}.1}$ &  $1(1+0)^*+0(1+0)^*$ \\
+$\rho_{\ref{fig:3.26}.0}$ &  $(0+10+11)^*$ \\
+$\rho_{\ref{fig:3.26}.2}$ &  $(0+1)\rho_{\ref{fig:3.26}.0}$\\
+\hline
 \end{tabular}
+\caption{Latent behaviours for all mutations for the coalgebra that recognises $(0+1)^*11$. }
+\label{tab:ExampleLatentBehaviours}
 \end{table}
 
 %$\rho_{\ref{fig:3.8}.0}$ &  $$ \\
@@ -367,7 +384,7 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,0)}$.
 \protect\begin{align*}
 \TheLatentBehaviourOf{0}{m}&=(0+10+(11)^+(0+10))^*(11)^+ \\ %(0+1(0+1(11)^*(0+10)))^*11(11)^* ,\\ 
-\TheLatentBehaviourOf{1}{m}&=(11)^*+(11)^*(0+10)\TheLatentBehaviourOf{0}{m} ,\\
+\TheLatentBehaviourOf{1}{m}&=(11)^*+(0+10)\TheLatentBehaviourOf{0}{m},\\
 \TheLatentBehaviourOf{2}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{1}{m}
 \protect\end{align*}
 \label{fig:3.17}
@@ -403,10 +420,10 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,2)}$. The latent behaviours also appear in Figure~\ref{fig:3.13}.
+\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,2)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*11^*,\\
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*+1^*0\TheLatentBehaviourOf{0}{m}
+\TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon+\TheLatentBehaviourOf{0}{m}
 \protect\end{align*}
 }
 \end{figure}
@@ -427,9 +444,10 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,0)}$. 
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}.
+\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
+\TheLatentBehaviourOf{1}{m}&=(0+1)^*0
 \protect\end{align*} 
+\label{fig:3.20}
 }
 
 \begin{tikzpicture}
@@ -445,8 +463,8 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,1)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}.
+\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
+\TheLatentBehaviourOf{1}{m}&=(0+1)^*0
 \protect\end{align*}
 }
 
@@ -466,6 +484,7 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
 \TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
 \protect\end{align*}
+\label{fig:3.22}
 }
 \end{figure}
 
@@ -483,10 +502,10 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 (q3) edge[bend left, above] node{1} (q2)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,0)}$ . The latent behaviours also appear in Figure~\ref{fig:3.13}.
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,0)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}\\
+\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
 \protect\end{align*}
 }
 
@@ -503,8 +522,8 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,1)}$. 
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+11^*0)^*,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=1^*0\TheLatentBehaviourOf{0}{m}\\
+\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
+\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
 \protect\end{align*}
 }
 
@@ -543,9 +562,10 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 \end{tikzpicture}
 \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,0)}$. 
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1(0+1))^*,\\ 
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+10+11)^*,\\ 
 \TheLatentBehaviourOf{2}{m}&=(0+1)\TheLatentBehaviourOf{0}{m}
 \protect\end{align*}
+\label{fig:3.26}
 }
 
 \begin{tikzpicture}
@@ -559,10 +579,10 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 (q3) edge[loop above] node{1} (q3)
 (q3) edge[bend left, below] node{0} (q1);
 \end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,1)}$. The latent behaviours also appear in Figure~\ref{fig:3.13}.
+\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,1)}$.
 \protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+11^*0)^*\\ 
-\TheLatentBehaviourOf{2}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
+\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*0+\varepsilon\\ 
+\TheLatentBehaviourOf{2}{m}&=(0+1)^*0
 \protect\end{align*}
 }
 
@@ -582,7 +602,7 @@ $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
 \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=(0+1)^*
 \protect\end{align*}
 }
-\label{fig:latent27}
+\label{fig:3.28}
 \end{figure}
 
 \end{example}
