@@ -11,6 +11,8 @@
 %----------------------------------------------------------------------------------------
 \section{Notation Glossary}
 \todo[inline]{Graph of a function}
+\section{Sets and Functions}
+We say that an endofunction $f\colon X \rightarrow X$ has finite support iff $f(x)\neq x$ for a finite number of $x$ in $X$.
 \section{Universal Coalgebra}
 \label{sec:Preliminaries:Coalgebras}
 \todo[inline]{Make sure you create a wonderful introduction to the world of (co)algebras and explain why you want to use them. They are a wonderful way to unify the formalism of the thesis.}
@@ -22,7 +24,12 @@ An \emph{$F$-coalgebra} for a functor $F$ is a pair $(X,X\xrightarrow{c}F(X))$ o
 \begin{example}
 We can model systems whose states have one component of type $O$ and that can perform state transitions on inputs of type $I$ by means of the functor $F(X)=O\times X^I$. An $F-$coalgebra is of the form $(X,X\xrightarrow{(o,\delta)}O\times X^I)$, with $o\colon X\rightarrow O$ and $\delta\colon X\rightarrow X^I$; the function $o$ lets us explore the component in the state $x$, and $\delta$ lets us perform transitions. We often write $x.o$ instead of $o(x)$, and we write $x^i$ as a shorthand for $\delta(x)(i)$. Deterministic automata that recognise sequences from an alphabet $A$ can be modelled with coalgebras of the functor $G(X)=2\times X^A$.
 \end{example}
-\todo[inline]{Pointed coalgebras}
+\subsection{Pointed coalgebras}
+Pointed coalgebras are coalgebras with a distinguished state, usually referred to as the \emph{initial state}. Formally, for a functor $F$, a pointed $F$-coalgebra is a triple $(X,c, x_0)$ where $(X,c)$ is an $F$-coalgebra and $x_0\in X$.
+\subsection{States and Components}
+We often use vectors/tuples as a states. We access the values inside states by means of projection functions. If the carrier is a product set $\vec{X}=Y_1 \times\ldots Y_n$, we can use, for $j=1..n$, the projection functions $\pi_j\colon \vec{X}\rightarrow Y_j$ defined, for $\vec{x}=(v_1,\ldots,v_n)$, by $\pi_j(\vec{x})\triangleq v_j$. In this case, we say that $\pi_1$ to $\pi_n$ are the \emph{components} of $\vec{X}$ and its elements. Since both coalgebras and components are functions from the carrier, we use bracket notation for component to distinguish them, i.e., we write $\vec{x}[\pi_j]$ instead of $\pi_j(\vec{x})$.  %, or, alternatively the \emph{state variables} of states in $X$. 
+Whenever we write a state or a carrier  with arrows above them (i.e., $\vec{x}$ or $\vec{X}$), we imply that they have more than one component. Note that if the carrier $X$ has only one component, then it must be the identity function $\id\colon X\rightarrow X$. 
+\todo[inline]{Consider $\vec{x}.\pi_j$ too, called dot notation}
 %A \emph{$\Monad$-algebra} for a monad $\Monad=(\MFunctor,\eta,\mu)$ is a pair $(\TheSet,\Monad(\TheSet)\xrightarrow{a}\TheSet)$ of an object $\TheSet$ and a morphism $a\colon \Monad(\TheSet)\rightarrow\TheSet$ which, due to the relationship between monads and adjunctions, satisfies two properties: the \emph{multiplication square} and the \emph{unit triangle}, shown in Figure~\ref{fig:MultiplicationSquare}.
 %
 %%\subsubsection The compositions $a\circ \mu_X$ and $a\circ T(a)$ are equal.

@@ -93,7 +93,10 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand{\TheBehavioursOf}[1]{{{\llbracket\TheFinalCoalgebraOf{#1}\rrbracket}}}
 \newcommand{\TheBehaviourOf}[1]{{{\llbracket#1\rrbracket}}}%{{{#1}_{beh}}}
 \newcommand{\TheBehaviourOfIn}[2]{{{\llbracket#1\rrbracket}}_{#2}}%{{{#1}_{beh}}}
-
+\newcommand{\ThePowersetOf}[1]{{\Powerset\!\left({#1}\right)}}
+\newcommand{\TheFinitePowersetOf}[1]{{\FinitePowerset\left(#1\right)}}
+\newcommand{\Powerset}{{\mathscr{P}}}
+\newcommand{\FinitePowerset}{{\Powerset_\omega}}
 %\MakeRobust{\Haskell}
 %Notation for Sets of Elements
 \newcommand{\SomeSet}[1]{
@@ -110,8 +113,8 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand*{\TheSet}{{\SomeSet{1}}}
 \newcommand{\AsSet}[1]{{{#1_\AsCategory{Set}}}}
 \newcommand*{\0}{{0_\AsCategory{Set}}}
+\newcommand*{\id}{{\texttt{id}}}
 \newcommand*{\1}{{1_\AsCategory{Set}}}
-\newcommand{\FinitePowerset}[1]{{\mathcal{P}_\omega(#1)}}
 
 \newtheorem{example}{Example}[chapter]
 %\newenvironment{haskell}[1]{\begin{minted}{haskell}#1}{\end{minted}}

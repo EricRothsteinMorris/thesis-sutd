@@ -62,7 +62,7 @@ This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We pr
 
 From 27 endofuctions and three intended behaviours, we can derive the 24 latent behaviours presented in Table~\ref{tab:ExampleLatentBehaviours} as regular expressions. 
 
-The existence of these latent behaviours opens a new possibility for system repurposing: if we wanted the system to recognise the language $(0+1)^*1$ (i.e., the language of sequences that end in 1), we could mutate our original system using a mutation where $0\mapsto0, 1\mapsto2$ and $2\mapsto2$ (shown in Figure~\ref{fig:3.10}), whilst preserving $0$ as the initial state. Nevertheless, if providing the mutation is within the capabilities of an adversary, it would also mean that they can repurpose our system as well.
+The existence of these latent behaviours opens a new possibility for system repurposing: if we wanted the system to recognise the language $(0+1)^*1$ (i.e., the language of sequences that end in 1), we could mutate our original system using a mutation where $0\mapsto0, 1\mapsto2$ and $2\mapsto2$ (shown in Figure~\ref{fig:3.10}), whilst preserving $0$ as the initial state. Nevertheless, if providing the mutation is within the capabilities of an adversary, it would also mean that they can repurpose our system as well. 
 
 \begin{table}[t]
 \centering
@@ -89,7 +89,7 @@ $\rho_{\ref{fig:3.20}.1}$ &  $(0+1)^*0$ \\
 $\rho_{\ref{fig:3.20}.0}$ &  $\rho_{\ref{fig:3.20}.1}+\varepsilon$ \\
 $\rho_{\ref{fig:3.22}.0}$ &  $(1+0)^*$ \\
 $\rho_{\ref{fig:3.22}.1}$ &  $1^*0(1+0)^*$ \\
-$\rho_{\ref{fig:3.24}.1}$ &  $1(1+0)^*+0(1+0)^*$ \\
+$\rho_{\ref{fig:3.25}.1}$ &  $1(1+0)^*+0(1+0)^*$ \\
 $\rho_{\ref{fig:3.26}.0}$ &  $(0+10+11)^*$ \\
 $\rho_{\ref{fig:3.26}.2}$ &  $(0+1)\rho_{\ref{fig:3.26}.0}$\\
 \hline
@@ -543,6 +543,7 @@ $\rho_{\ref{fig:3.26}.2}$ &  $(0+1)\rho_{\ref{fig:3.26}.0}$\\
 \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
 \TheLatentBehaviourOf{1}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{2}{m}
 \protect\end{align*}
+\label{fig:3.25}
 }
 \end{figure}
 
@@ -609,7 +610,7 @@ $\rho_{\ref{fig:3.26}.2}$ &  $(0+1)\rho_{\ref{fig:3.26}.0}$\\
 \todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the mutation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
 
 \section{Latent Vulnerabilities}
-Not all behaviours are latent for a given $F$-coalgebra. For example, for the functor $F=2\times \texttt{id}^2$, a single-state $F$-coalgebra that accepts all sequences cannot display a latent behaviour different from its original behaviour. This gives us a foundation for the definition of {latent vulnerability problems}.
+Not all behaviours are latent for a given $F$-coalgebra. In Example~\ref{ex:LatentBehaviour}, we see that no mutation can yield the language $0^*$ as a latent behaviour. We see latent behaviours as targets for attackers, and we would like to know if there is a way for an attacker to cause the system to shift to a particular latent behaviour by means of a mutation. For that purpose, we introduce the definition of {latent vulnerability problems}.
 
 \begin{definition}
 A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebra $\mathbb{X}=(X,c,x_0)$ and a given behaviour $\rho\in \sigma F$. To solve this problem, we need to either 1) find a mutation $m$ which proves that $\rho$ is the latent behaviour of $x_0$ under $m$ or 2) prove that no such $m$ can exist.
@@ -629,11 +630,66 @@ To coinductively define $m$, we would already need to know $\mathbb{X}\circ m$, 
 \todo[inline]{Maybe we can also do something exciting: eventuality -> at some point in time, the behaviour you want becomes apparent, i.e. $\TheBehaviourOf{x_0}^w=\rho$ for some $w$}
 
  
-\section{Attacker Model}
+\section{Attackers and Attacks}
 There is an attacker model associated with latent vulnerabilities: attackers that can change the value of state variables, but not the program that defines the system. This later attacker would correspond to one that can arbitrarily change the coalgebra, and is in that sense a much stronger attacker. If the attacker can enforce any behaviour they want, it becomes too powerful to defend against; all coalgebras are vulnerable, and no fix is available. However, an attacker that exploits a latent vulnerability is a bit in the middle: it can change the coalgebra by means of a mutation/attack function, but only through those. In that sense, not every behaviour is at the reach of the attacker, only those who are latent.
 
 We can do a further refinement: we can imagine attackers that control particular components of a state by partitioning states into controllable parts and observable parts
 \todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a mutation, and all mutations can be modelled by attackers that control a certain number of components. Right?}
+
+\begin{definition}[Attack]
+Given an $F$-coalgebra $(X,c)$ for the functor $F$, we define the set of its possible attacks as the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$ (a function $f\colon X \rightarrow X$ has finite support iff $f(x)\neq x$ for a finite number of $x\in X$.)
+\end{definition}
+
+Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
+
+\begin{definition}[Attacker]
+Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a {finite} subset of $\Pi$ whose semantics is a set of attacks defined by the function $\texttt{attacks}\colon \TheFinitePowersetOf{\Pi}\rightarrow\ThePowersetOf{X^X_\omega}$ as follows. 
+For $j\in \set{1, \ldots,  n}$,  
+\begin{align}
+\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$, for all $x\in X$}}.
+\end{align}
+{\color{red}
+equivalently
+\begin{align}
+\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
+\end{align}
+}
+In other words, we associate to $A$ the set of attacks where, if $A$ does not contain the component $\pi_j$, then the attacks cannot change the value of $\pi_j$ when mutating states.
+ \end{definition}
+ \todo[inline]{Commented is the definition with ranges, but it is kinda complicated. For spectre, we define the strategy first, then we think of what attacker we are, and for vulnerabilities, we will define the attacker first, and then we find the strategy.}
+% 
+% \begin{definition}[Attacker]
+%Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a pairing of a {finite} subset of $\Pi$, namely $A[\Pi]$, and a map $A[\texttt{range}]$ that associates each component in $A[\Pi]$ with a range of possible values; formally, $A[\texttt{range}(\pi_j)]\subseteq \Pi_j$, for all $\pi_j \in A[\Pi]$. %Formally, the type of attackers is $\TheFinitePowersetOf{\Pi} \times \ThePowersetOf{\Pi \times \vec{X}}$
+%
+%The semantics of an attacker is given by the set of attacks defined by the function $\texttt{attacks}\colon \texttt{Attackers}\rightarrow\ThePowersetOf{X^X_\omega}$ as follows. 
+%For $j\in \set{1, \ldots,  n}$,  
+%\begin{align}
+%\texttt{attacks}(A)&\triangleq\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$, for all $x\in X$}}\cap\\
+%&\set{f\in X^X_\omega | \text{ if $\pi_j \in A$, then $f(x)[\pi_j]\in \texttt{control}(A)(\pi_j)$, for all $x\in X$}}
+%\end{align}
+%{\color{red}
+%equivalently
+%\begin{align}
+%\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
+%\end{align}
+%}
+%In other words, we associate to $A$ the set of attacks where, if $A$ does not contain the component $\pi_j$, then the attacks cannot change the value of $\pi_j$ when mutating states.
+% \end{definition}
+% 
+% 
+ \todo[inline]{We can refine this definition of attackers with $(\pi_j, Y_j)$, with $Y_j\subseteq X_j$, instead of just $\pi_j$. HoWEVER, I highly encourage against this, because it overcomplicates things unnecessarily.}
+ \todo[inline]{I love writing $j\in n$, but this means enumeration should start from 0...I can probably use that in my language though}
+ \begin{example}[Attackers of Example~\ref{ex:LatentBehaviour} and their Semantics]
+ The carrier $3$ has only one component, the identity function $\id$, so there are only two attackers for this system: $\emptyset$ and $\set{\id}$; their corresponding attacks are: $\texttt{attacks}(\emptyset)=\set{\id}$ and $\texttt{attacks}(\set{\id})=3^3$. In other words, the $\emptyset$ attacker can only attack the system with the identity mutation (i.e., nothing, it is a passive attacker), while the attacker controlling the state can attack the system with whatever mutation they want.
+ \todo[inline]{While the text above is 100\% correct, is it a mess to read.}
+ \todo[inline]{UGH, maybe we'll have to change the example to a 4-state set (0,0),(1,0),(0,1), (1,1) such that $\gamma(a,b)=b$ and $0=(0,0), 1=(1,0)$ and $2=(1,1)$, and $(0,1)\xrightarrow{0}(0,0)$ and $(0,1)\xrightarrow{1}(1,0)$. DO NOTE THAT THERE ARE 256 attacks!!!! $4^4=256$. 
+}
+ \end{example}
+
+
+
+\subsection{A Partial Order of Attackers}
+\todo[inline]{We know how to quantify attackers in terms of exact latent behaviours, but latent behaviours themselves have an order (they are languages i.e. sets). What about the relationship among them? Do stronger attackers need to recognise more languages, what if a language implies another? how do attackers relate there then?}
 
 
 
@@ -654,6 +710,5 @@ We would like to consider two problems related to latent behaviours:
 \end{itemize}
 \todo[inline]{Note that, ultimately, both questions need a method to solve an equation for a mutation. That is, given a target behaviour and an a source coalgebra, how do you solve the problem of finding a mutation that helps you display the behaviour you want? Is it even possible?}
 
-\section{A Partial Orders of Attackers}
-\todo[inline]{We know how to quantify attackers in terms of exact latent behaviours, but latent behaviours themselves have an order (they are languages i.e. sets). What about the relationship among them? Do stronger attackers need to recognise more languages, what if a language implies another? how do attackers relate there then?}
+
 
