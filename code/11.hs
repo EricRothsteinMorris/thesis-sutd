@@ -16,7 +16,6 @@ instance Functor F where
   fmap f (F o d) = (F o (f.d))
 
 
-
 end11::X-> F X
 end11 x = F o d
   where
@@ -99,6 +98,12 @@ m ! x = case m M.!? x of
   Nothing -> x
   Just x' -> x'
 
+allSeqs::X->F X
+allSeqs x = F True (const x)
+
+noSeqs::X->F X
+noSeqs x = F False (const x)
+
 zeroStar::X->F X
 zeroStar (x1,x2) = F (not (x1 || x2)) (\i-> (i || x1, i|| x2))
 
@@ -122,6 +127,10 @@ targetBehaviour = not . (elem True) -- == semantics all0 (False,False)
 targetZeroStar= (zeroStar,(False,False)) --so,we want the latent coalgebra to have a state:r such that that state is bisimilar to this.
 targetOneStar= (oneStar,(True,True))
 targetZeroOneStar= (zeroOneStar,(True,False)) --this is what I want, otherwise it would be OneZeroStar
+targetOneZeroStar= (zeroOneStar,(False,True)) --this is what I want, otherwise it would be OneZeroStar
+targetOriginal = (end11,(False,False))
+targetAny = (allSeqs,(False,False))
+targetNone = (noSeqs,(False,False))
 
 bruteforce::(Ord x, Ord y)=> (x->F x)-> [Attack x]-> [x]->((y->F y),y) -> Maybe (x,Attack x)
 bruteforce c attacks states behaviour@(targetCoalgebra,targetState) = 
