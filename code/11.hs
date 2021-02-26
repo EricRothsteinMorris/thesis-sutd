@@ -73,7 +73,7 @@ semantics c x =
 
 type Attack x = M.Map x x--it ismore practical to define it as Map x x for solutions instead of x->x (finite support: if x is not in the map, then we assume a(x)=x).
 
-allPermutationAttacks = [M.fromList a | a<-(permutations states)]  --not only permutations, but any function
+allPermutationAttacks = [M.fromList (zip states a) | a<-(permutations states)]  --not only permutations, but any function
 
 allAttacks = [ M.fromList $ zip states image | image <- (getListsOfSize (length states) states)]
 
@@ -147,6 +147,20 @@ bruteforce c attacks states behaviour@(targetCoalgebra,targetState) =
         where
           findTargetState c' = find (\x-> bisimilar c' targetCoalgebra x targetState) states
           
+
+bruteforceInitial::(Ord x, Ord y)=> (x->F x)-> [Attack x]-> [x]->x->((y->F y),y) -> Maybe (x,Attack x)
+bruteforceInitial c attacks states x0 behaviour@(targetCoalgebra,targetState) = 
+  case attacks of
+    [] -> Nothing
+    (a:attacks') -> 
+      let
+        c' = latent a c --get the latent coalgebra
+      in
+        if bisimilar c' targetCoalgebra x0 targetState then
+          Just (x0,a)
+        else
+            bruteforceInitial c attacks' states x0 behaviour
+
 
 --bisimilar cannot be used with behaviours because they are not Ord and not Eq
 
