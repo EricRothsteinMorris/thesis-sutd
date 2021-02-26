@@ -71,7 +71,7 @@ semantics c x =
         []      -> o
         (w:ws') -> semantics c (d w) ws'
 
-type Attack x = M.Map x x--it ismore practical to define it as Map x x for solutions instead of x->x (finite support: if x is not in the map, then we assume a(x)=x).
+type Attack x = M.Map x x--it is more practical to define it as Map x x for solutions instead of x->x (finite support: if x is not in the map, then we assume a(x)=x).
 
 allPermutationAttacks = [M.fromList (zip states a) | a<-(permutations states)]  --not only permutations, but any function
 
@@ -120,6 +120,19 @@ zeroOneStar x@(x1,x2) =
   where
     sink = (False,False)
 
+shortString::Bool->String
+shortString b
+  | b = "1"
+  | otherwise = "0"
+  
+getString::X->String
+getString (x,y)= "("++(shortString x)++","++(shortString y)++")"
+
+getStateId::X->String
+getStateId (x,y)=(shortString x)++(shortString y)
+
+getWrappedStateId::X->String
+getWrappedStateId x="("++(getStateId x)++")"
 
 targetBehaviour::Behaviour 
 targetBehaviour = not . (elem True) -- == semantics all0 (False,False)
@@ -161,6 +174,57 @@ bruteforceInitial c attacks states x0 behaviour@(targetCoalgebra,targetState) =
         else
             bruteforceInitial c attacks' states x0 behaviour
 
+toTikz c =
+  "\\begin{tikzpicture}\n" ++ 
+  stateDefs ++
+  "\\draw "++
+  arrowDefs ++
+  ";"++
+  "\\end{tikzpicture}"
+  where
+    ff= getStateId (False,False)
+    tf= getStateId (True,False)
+    ft= getStateId (False,True)
+    tt= getStateId (True,True)
+    wff= "("++ff++")"
+    wtf= "("++tf++")"
+    wft= "("++ft++")"
+    wtt= "("++tt++")"
+    showAccepting x
+      | (o.c) x = ", accepting"
+      | otherwise = ""
+    arrowDefs = concat$  fmap defArrow [(s,i)|s<-states,i<-[True,False]]
+      where
+        defArrow (x,i) = 
+          let
+            x' = (d.c) x $ i
+          in
+            if x==x' then
+              --loop above
+              (getWrappedStateId x)++" edge[loop above] node{"++(shortString i)++"} "++(getWrappedStateId x)++"\n"
+            else
+              --bend right
+              (getWrappedStateId x)++" edge[bend left, above] node{"++(shortString i)++"} "++(getWrappedStateId x')++"\n"
+
+    stateDefs = concat$  fmap defState states
+      where
+        defState x = 
+          case x of 
+            (False,False)-> "\\node[state"++(showAccepting x)++"] "++wff++" {$"++ (getString x)++"$};\n"
+            (True,False)->"\\node[state"++(showAccepting x)++", above right  of="++ff++"] "++wtf++" {$"++ (getString x)++"$};\n"
+            (False,True)->"\\node[state"++(showAccepting x)++", below right of="++ff++"] "++wft++" {$"++ (getString x)++"$};\n"
+            (True,True)->"\\node[state"++(showAccepting x)++", below right of="++tf++"] "++wtt++" {$"++ (getString x)++"$};\n"
+                
+-- \node[state] (q1) {$0$};
+-- \node[state, right of=q1] (q2) {$1$};
+-- \node[state, right of=q2] (q3) {$2$};
+-- \draw (q1) edge[loop above] node{0} (q1)
+-- (q1) edge[bend left, above] node{1} (q2)
+-- (q2) edge[bend left, above] node{0} (q1)
+-- (q2) edge[loop above] node{1} (q2)
+-- (q3) edge[bend left, above] node{1} (q2)
+-- (q3) edge[bend left, below] node{0} (q1);
+-- \end{tikzpicture}
 
 --bisimilar cannot be used with behaviours because they are not Ord and not Eq
 

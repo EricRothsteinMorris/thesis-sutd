@@ -44,16 +44,39 @@ Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state,accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
+\node[state] (00) {$(0,0)$};
+\node[state, accepting, below right of=00] (01) {$(0,1)$};
+\node[state, above right  of=00] (10) {$(1,0)$};
+\node[state, below right of=10] (11) {$(1,1)$};
+\draw (00) edge[bend left, above] node{1} (10)
+(00) edge[loop above] node{0} (00)
+(01) edge[bend left, above] node{1} (11)
+(01) edge[loop above] node{0} (01)
+(10) edge[loop above] node{1} (10)
+(10) edge[bend left, above] node{0} (00)
+(11) edge[bend left, above] node{1} (10)
+(11) edge[bend left, above] node{0} (00)
+;\end{tikzpicture}
+\caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
+\label{fig:ExampleLatent}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\node[state] (00) {$(0,0)$};
+\node[state, below right of=00] (01) {$(0,1)$};
+\node[state, above right  of=00] (10) {$(1,0)$};
+\node[state, accepting, below right of=10] (11) {$(1,1)$};
+\draw (00) edge[bend left, above] node{1} (10)
+(00) edge[loop above] node{0} (00)
+(01) edge[bend left, above] node{1} (10)
+(01) edge[bend left, above] node{0} (00)
+(10) edge[bend left, above] node{1} (11)
+(10) edge[bend left, above] node{0} (01)
+(11) edge[loop above] node{1} (11)
+(11) edge[bend left, above] node{0} (01)
+;\end{tikzpicture}
 \caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
 \label{fig:ExampleLatent}
 \end{figure}

@@ -30,59 +30,59 @@
 \contentsline {section}{\numberline {3.1}Introduction}{6}{section.42}
 \contentsline {section}{\numberline {3.2}Mutation $F$-coalgebras}{6}{section.44}
 \contentsline {section}{\numberline {3.3}The Latent Behaviours of $F$-coalgebras}{6}{section.45}
-\contentsline {section}{\numberline {3.4}Latent Vulnerabilities}{7}{section.62}
-\contentsline {section}{\numberline {3.5}Attackers and Attacks}{9}{section.69}
-\contentsline {subsection}{\numberline {3.5.1}A Partial Order of Attackers}{11}{subsection.81}
-\contentsline {chapter}{\numberline {4}Side-Channel Repair}{20}{chapter.84}
-\contentsline {section}{\numberline {4.1}General Idea}{20}{section.85}
-\contentsline {section}{\numberline {4.2}Related work and how do we distinguish from them}{20}{section.86}
-\contentsline {section}{\numberline {4.3}CTP (Cryptocoding) Axioms, and our solution}{20}{section.88}
-\contentsline {section}{\numberline {4.4}Formalisation}{22}{section.90}
-\contentsline {paragraph}{}{23}{section*.91}
-\contentsline {subsection}{\numberline {4.4.1}Language-Based Semantics CTP}{23}{subsection.92}
-\contentsline {section}{\numberline {4.5}The IMP Language}{25}{section.108}
-\contentsline {section}{\numberline {4.6}Memory Footprint for the IMP Language}{25}{section.110}
-\contentsline {subsection}{\numberline {4.6.1}Secure Constant Memory}{25}{subsection.111}
-\contentsline {section}{\numberline {4.7}The IMP Language with Division}{26}{section.112}
-\contentsline {subsection}{\numberline {4.7.1}Examples of Side Channel Attacks}{26}{subsection.114}
-\contentsline {subsection}{\numberline {4.7.2}Transformations Rules for CTP in IMP}{26}{subsection.115}
-\contentsline {section}{\numberline {4.8}Taint Analysis}{28}{section.120}
-\contentsline {section}{\numberline {4.9}The Enforcement Algorithm}{28}{section.122}
-\contentsline {subsection}{\numberline {4.9.1}Premises Behind the Enforcement Algorithm}{28}{subsection.124}
-\contentsline {subsection}{\numberline {4.9.2}An LLVM Primer}{29}{subsection.126}
-\contentsline {subsection}{\numberline {4.9.3}The \texttt {Linearise} Algorithm}{29}{subsection.129}
-\contentsline {subsection}{\numberline {4.9.4}A Premise for Efficient Repaired Code}{29}{subsection.133}
-\contentsline {subsection}{\numberline {4.9.5}Enforcing Safe Behaviour}{31}{subsection.134}
-\contentsline {subsection}{\numberline {4.9.6}A GKAT to Correctly Unwind Basic Block Loops}{32}{subsection.139}
-\contentsline {subsection}{\numberline {4.9.7}Types}{32}{subsection.144}
-\contentsline {subsection}{\numberline {4.9.8}Instructions}{33}{subsection.149}
-\contentsline {subsection}{\numberline {4.9.9}Central idea}{33}{subsection.151}
-\contentsline {subsection}{\numberline {4.9.10}Subsection 1}{33}{subsection.153}
-\contentsline {subsection}{\numberline {4.9.11}Subsection 2}{33}{subsection.154}
-\contentsline {section}{\numberline {4.10}Main Section 2}{34}{section.155}
-\contentsline {chapter}{\numberline {5}First chapter $\Sigma _\omega ^i \infty $ }{35}{chapter.156}
-\contentsline {section}{\numberline {5.1}Welcome and Thank You}{35}{section.157}
-\contentsline {section}{\numberline {5.2}Learning \LaTeX {}}{35}{section.158}
-\contentsline {subsection}{\numberline {5.2.1}A (not so short) Introduction to \LaTeX {}}{35}{subsection.159}
-\contentsline {subsection}{\numberline {5.2.2}A Short Math Guide for \LaTeX {}}{36}{subsection.160}
-\contentsline {subsection}{\numberline {5.2.3}Common \LaTeX {} Math Symbols}{36}{subsection.161}
-\contentsline {subsection}{\numberline {5.2.4}\LaTeX {} on a Mac}{36}{subsection.162}
-\contentsline {section}{\numberline {5.3}Getting Started with this Template}{36}{section.163}
-\contentsline {subsection}{\numberline {5.3.1}About this Template}{37}{subsection.164}
-\contentsline {section}{\numberline {5.4}What this Template Includes}{37}{section.165}
-\contentsline {subsection}{\numberline {5.4.1}Folders}{37}{subsection.166}
-\contentsline {subsection}{\numberline {5.4.2}Files}{38}{subsection.167}
-\contentsline {section}{\numberline {5.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{39}{section.168}
-\contentsline {section}{\numberline {5.6}The \texttt {main.tex} File Explained}{39}{section.169}
-\contentsline {section}{\numberline {5.7}Thesis Features and Conventions}{40}{section.170}
-\contentsline {subsection}{\numberline {5.7.1}Printing Format}{40}{subsection.171}
-\contentsline {subsection}{\numberline {5.7.2}Using US Letter Paper}{40}{subsection.172}
-\contentsline {subsection}{\numberline {5.7.3}References}{41}{subsection.173}
-\contentsline {subsubsection}{A Note on bibtex}{41}{section*.175}
-\contentsline {subsection}{\numberline {5.7.4}Tables}{42}{subsection.176}
-\contentsline {subsection}{\numberline {5.7.5}Figures}{42}{subsection.178}
-\contentsline {subsection}{\numberline {5.7.6}Typesetting mathematics}{43}{subsection.180}
-\contentsline {section}{\numberline {5.8}Sectioning and Subsectioning}{44}{section.182}
-\contentsline {section}{\numberline {5.9}In Closing}{44}{section.183}
-\contentsline {chapter}{\numberline {A}Appendix Title Here}{45}{appendix.184}
-\contentsline {chapter}{Bibliography}{46}{appendix*.185}
+\contentsline {section}{\numberline {3.4}Latent Vulnerabilities}{8}{section.63}
+\contentsline {section}{\numberline {3.5}Attackers and Attacks}{10}{section.70}
+\contentsline {subsection}{\numberline {3.5.1}A Partial Order of Attackers}{11}{subsection.82}
+\contentsline {chapter}{\numberline {4}Side-Channel Repair}{20}{chapter.85}
+\contentsline {section}{\numberline {4.1}General Idea}{20}{section.86}
+\contentsline {section}{\numberline {4.2}Related work and how do we distinguish from them}{20}{section.87}
+\contentsline {section}{\numberline {4.3}CTP (Cryptocoding) Axioms, and our solution}{20}{section.89}
+\contentsline {section}{\numberline {4.4}Formalisation}{22}{section.91}
+\contentsline {paragraph}{}{23}{section*.92}
+\contentsline {subsection}{\numberline {4.4.1}Language-Based Semantics CTP}{23}{subsection.93}
+\contentsline {section}{\numberline {4.5}The IMP Language}{25}{section.109}
+\contentsline {section}{\numberline {4.6}Memory Footprint for the IMP Language}{25}{section.111}
+\contentsline {subsection}{\numberline {4.6.1}Secure Constant Memory}{25}{subsection.112}
+\contentsline {section}{\numberline {4.7}The IMP Language with Division}{26}{section.113}
+\contentsline {subsection}{\numberline {4.7.1}Examples of Side Channel Attacks}{26}{subsection.115}
+\contentsline {subsection}{\numberline {4.7.2}Transformations Rules for CTP in IMP}{26}{subsection.116}
+\contentsline {section}{\numberline {4.8}Taint Analysis}{28}{section.121}
+\contentsline {section}{\numberline {4.9}The Enforcement Algorithm}{28}{section.123}
+\contentsline {subsection}{\numberline {4.9.1}Premises Behind the Enforcement Algorithm}{28}{subsection.125}
+\contentsline {subsection}{\numberline {4.9.2}An LLVM Primer}{29}{subsection.127}
+\contentsline {subsection}{\numberline {4.9.3}The \texttt {Linearise} Algorithm}{29}{subsection.130}
+\contentsline {subsection}{\numberline {4.9.4}A Premise for Efficient Repaired Code}{29}{subsection.134}
+\contentsline {subsection}{\numberline {4.9.5}Enforcing Safe Behaviour}{31}{subsection.135}
+\contentsline {subsection}{\numberline {4.9.6}A GKAT to Correctly Unwind Basic Block Loops}{32}{subsection.140}
+\contentsline {subsection}{\numberline {4.9.7}Types}{32}{subsection.145}
+\contentsline {subsection}{\numberline {4.9.8}Instructions}{33}{subsection.150}
+\contentsline {subsection}{\numberline {4.9.9}Central idea}{33}{subsection.152}
+\contentsline {subsection}{\numberline {4.9.10}Subsection 1}{33}{subsection.154}
+\contentsline {subsection}{\numberline {4.9.11}Subsection 2}{33}{subsection.155}
+\contentsline {section}{\numberline {4.10}Main Section 2}{34}{section.156}
+\contentsline {chapter}{\numberline {5}First chapter $\Sigma _\omega ^i \infty $ }{35}{chapter.157}
+\contentsline {section}{\numberline {5.1}Welcome and Thank You}{35}{section.158}
+\contentsline {section}{\numberline {5.2}Learning \LaTeX {}}{35}{section.159}
+\contentsline {subsection}{\numberline {5.2.1}A (not so short) Introduction to \LaTeX {}}{35}{subsection.160}
+\contentsline {subsection}{\numberline {5.2.2}A Short Math Guide for \LaTeX {}}{36}{subsection.161}
+\contentsline {subsection}{\numberline {5.2.3}Common \LaTeX {} Math Symbols}{36}{subsection.162}
+\contentsline {subsection}{\numberline {5.2.4}\LaTeX {} on a Mac}{36}{subsection.163}
+\contentsline {section}{\numberline {5.3}Getting Started with this Template}{36}{section.164}
+\contentsline {subsection}{\numberline {5.3.1}About this Template}{37}{subsection.165}
+\contentsline {section}{\numberline {5.4}What this Template Includes}{37}{section.166}
+\contentsline {subsection}{\numberline {5.4.1}Folders}{37}{subsection.167}
+\contentsline {subsection}{\numberline {5.4.2}Files}{38}{subsection.168}
+\contentsline {section}{\numberline {5.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{39}{section.169}
+\contentsline {section}{\numberline {5.6}The \texttt {main.tex} File Explained}{39}{section.170}
+\contentsline {section}{\numberline {5.7}Thesis Features and Conventions}{40}{section.171}
+\contentsline {subsection}{\numberline {5.7.1}Printing Format}{40}{subsection.172}
+\contentsline {subsection}{\numberline {5.7.2}Using US Letter Paper}{40}{subsection.173}
+\contentsline {subsection}{\numberline {5.7.3}References}{41}{subsection.174}
+\contentsline {subsubsection}{A Note on bibtex}{41}{section*.176}
+\contentsline {subsection}{\numberline {5.7.4}Tables}{42}{subsection.177}
+\contentsline {subsection}{\numberline {5.7.5}Figures}{42}{subsection.179}
+\contentsline {subsection}{\numberline {5.7.6}Typesetting mathematics}{43}{subsection.181}
+\contentsline {section}{\numberline {5.8}Sectioning and Subsectioning}{44}{section.183}
+\contentsline {section}{\numberline {5.9}In Closing}{44}{section.184}
+\contentsline {chapter}{\numberline {A}Appendix Title Here}{45}{appendix.185}
+\contentsline {chapter}{Bibliography}{46}{appendix*.186}
