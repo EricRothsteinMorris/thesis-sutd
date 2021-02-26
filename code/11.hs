@@ -74,8 +74,20 @@ semantics c x =
 type Attack x = M.Map x x--it is more practical to define it as Map x x for solutions instead of x->x (finite support: if x is not in the map, then we assume a(x)=x).
 
 allPermutationAttacks = [M.fromList (zip states a) | a<-(permutations states)]  --not only permutations, but any function
-
 allAttacks = [ M.fromList $ zip states image | image <- (getListsOfSize (length states) states)]
+allAttacksOnSnd=filter isValidMap allAttacks --M.filterWithKey (\k v-> (fst k) == (fst v) ) allAttacks 
+  where
+    isValidMap m =
+      all (\(x,x') -> (fst x) == (fst x')) (M.toList m)
+allAttacksOnFst=filter isValidMap allAttacks --M.filterWithKey (\k v-> (fst k) == (fst v) ) allAttacks 
+  where
+    isValidMap m =
+      all (\(x,x') -> (snd x) == (snd x')) (M.toList m)
+
+allAttacksOnNone=filter isValidMap allAttacks --M.filterWithKey (\k v-> (fst k) == (fst v) ) allAttacks 
+  where
+    isValidMap m =
+      all (\(x,x') -> x==x') (M.toList m)
 
 allLatentCoalgebras = fmap (\a-> latent a end11) allAttacks  --ok, this has 256 latent coalgebras. What do I do with them?
 
