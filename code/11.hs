@@ -3,6 +3,7 @@ import Data.List
 import qualified Data.Set as S
 import Control.Arrow
 import qualified Data.Map as M
+import Z3.Monad
 
 -- pairApply::(a->b)->(a->c)->a->(b,c)
 -- pairApply = &&&

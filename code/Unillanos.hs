@@ -4,7 +4,7 @@ import Data.Char
 --g :: Integer -> Integer
 --h :: Integer -> Integer
 f=(+2)
-g=(*3)
+g=(*10)
 h=(+(-1))
 
 --

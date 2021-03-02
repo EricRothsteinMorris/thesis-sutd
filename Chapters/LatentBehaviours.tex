@@ -29,17 +29,20 @@ Given a mutation function $m\colon X\rightarrow X$, we can skew the normal behav
 
 \begin{example}
 \label{ex:LatentBehaviour}
-Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(3,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. Figure~\ref{fig:ExampleLatent} shows the automaton corresponding to the $G$-coalgebra $\mathbb{X}$ if $\gamma$ and $\delta$ are defined as follows
-\begin{align}
-\gamma(x)=\begin{cases}
-1, \quad \text{if  $x=1$,}\\
-0, \quad \text{otherwise;}\\
-\end{cases},\quad
-\delta(x)(i)=\begin{cases}
-\texttt{min}(x+1,2), \quad \text{if  $i=1$,}\\
-0, \quad \text{otherwise;}\\
-\end{cases}.
-\end{align}
+Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. Figure~\ref{fig:ExampleLatent} shows the automaton corresponding to the $G$-coalgebra $\mathbb{X}$ if $\gamma$ and $\delta$ are defined as follows
+\todo{Uncomment and fix}
+%\begin{align}
+%\gamma(x)=\begin{cases}
+%1, \quad \text{if  $x=1$,}\\
+%0, \quad \text{otherwise;}\\
+%\end{cases},\quad
+%\delta(x)(i)=\begin{cases}
+%\texttt{min}(x+1,2), \quad \text{if  $i=1$,}\\
+%0, \quad \text{otherwise;}\\
+%\end{cases}.
+%\end{align}
+
+This $G$-coalgebra is not minimal. The states $(0,0)$ and $(0,1)$ are bisimilar.
 
 \begin{figure}[t]
 \centering
@@ -50,8 +53,8 @@ Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(
 \node[state, below right of=10] (11) {$(1,1)$};
 \draw (00) edge[bend left, above] node{1} (10)
 (00) edge[loop above] node{0} (00)
-(01) edge[bend left, above] node{1} (11)
-(01) edge[loop above] node{0} (01)
+(01) edge[bend right, above] node{1} (11)
+(01) edge[loop left] node{0} (01)
 (10) edge[loop above] node{1} (10)
 (10) edge[bend left, above] node{0} (00)
 (11) edge[bend left, above] node{1} (10)
@@ -639,7 +642,7 @@ Not all behaviours are latent for a given $F$-coalgebra. In Example~\ref{ex:Late
 A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebra $\mathbb{X}=(X,c,x_0)$ and a given behaviour $\rho\in \sigma F$. To solve this problem, we need to either 1) find a mutation $m$ which proves that $\rho$ is the latent behaviour of $x_0$ under $m$ or 2) prove that no such $m$ can exist.
 \end{definition}
 
-To coinductively define $m$, we would already need to know $\mathbb{X}\circ m$, so that is not an option. Instead, we can play a game with the coalgebra as follows. We start at the initial state $x_0$, and we take turns; we play first, and we are allowed to map $x_0$ to another state (i.e. define $m(x_0)$. Once we do, the coalgebra computes $c(m(x_0))$ and, on input consumed, and if the coalgebra has transition dynamics, we can continue the game from the new state.
+\todo[inline]{To coinductively define $m$, we would already need to know $\mathbb{X}\circ m$, so that is not an option. Instead, we can play a game with the coalgebra as follows. We start at the initial state $x_0$, and we take turns; we play first, and we are allowed to map $x_0$ to another state (i.e. define $m(x_0)$. Once we do, the coalgebra computes $c(m(x_0))$ and, on input consumed, and if the coalgebra has transition dynamics, we can continue the game from the new state.}
 
 \todo[inline]{Can we define  $\mathbb{X}\circ m$ based on what we know?. Let us consider the functor $O\times X^I$. We can try to solve the problem in two ways: based on bisimilarity or based on backpropagation (which are somewhat connected).}
 
@@ -660,7 +663,7 @@ We can do a further refinement: we can imagine attackers that control particular
 \todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a mutation, and all mutations can be modelled by attackers that control a certain number of components. Right?}
 
 \begin{definition}[Attack]
-Given an $F$-coalgebra $(X,c)$ for the functor $F$, we define the set of its possible attacks as the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$ (a function $f\colon X \rightarrow X$ has finite support iff $f(x)\neq x$ for a finite number of $x\in X$.)
+Given an $F$-coalgebra $(X,c)$ for the functor $F$, we define the set of its possible attacks as the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$ (a function $m\colon X \rightarrow X$ has finite support iff $m(x)\neq x$ for a finite number of $x\in X$.) Moreover, an attack $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$.
 \end{definition}
 
 Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
@@ -677,7 +680,7 @@ equivalently
 \texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
 \end{align}
 }
-In other words, we associate to $A$ the set of attacks where, if $A$ does not contain the component $\pi_j$, then the attacks cannot change the value of $\pi_j$ when mutating states.
+In other words, $A$ has access to the set of attacks that can only mutate the components that $A$ contains.
  \end{definition}
  \todo[inline]{Commented is the definition with ranges, but it is kinda complicated. For spectre, we define the strategy first, then we think of what attacker we are, and for vulnerabilities, we will define the attacker first, and then we find the strategy.}
 % 
@@ -703,16 +706,86 @@ In other words, we associate to $A$ the set of attacks where, if $A$ does not co
  \todo[inline]{We can refine this definition of attackers with $(\pi_j, Y_j)$, with $Y_j\subseteq X_j$, instead of just $\pi_j$. HoWEVER, I highly encourage against this, because it overcomplicates things unnecessarily.}
  \todo[inline]{I love writing $j\in n$, but this means enumeration should start from 0...I can probably use that in my language though}
  \begin{example}[Attackers of Example~\ref{ex:LatentBehaviour} and their Semantics]
- The carrier $3$ has only one component, the identity function $\id$, so there are only two attackers for this system: $\emptyset$ and $\set{\id}$; their corresponding attacks are: $\texttt{attacks}(\emptyset)=\set{\id}$ and $\texttt{attacks}(\set{\id})=3^3$. In other words, the $\emptyset$ attacker can only attack the system with the identity mutation (i.e., nothing, it is a passive attacker), while the attacker controlling the state can attack the system with whatever mutation they want.
- \todo[inline]{While the text above is 100\% correct, is it a mess to read.}
- \todo[inline]{UGH, maybe we'll have to change the example to a 4-state set (0,0),(1,0),(0,1), (1,1) such that $\gamma(a,b)=b$ and $0=(0,0), 1=(1,0)$ and $2=(1,1)$, and $(0,1)\xrightarrow{0}(0,0)$ and $(0,1)\xrightarrow{1}(1,0)$. DO NOTE THAT THERE ARE 256 attacks!!!! $4^4=256$. 
-}
+ The carrier $2\times 2$ has two components, $\fst$ and $\snd$, so there are four attackers: $\emptyset$, $\set{\fst}$, $\set{\snd}$ and $\set{\fst,\snd}$. The attacks of the attacker $\emptyset$ do not mutate any component, i.e., $\texttt{attacks}(\emptyset)=\set{\id}$, and the attacks of $\set{\fst}$ and $\set{\snd}$ only affect the first/second component, respectively. The attacker $\set{\fst,\snd}$ has access to all attacks.
  \end{example}
+ 
+ \subsection{Attacks over Discrete Time Systems}
+ \todo[inline]{DO NOT FORGET THAT YOU CAN ASSUME $x(t)\neq x(t+k)$ for all $k$, because otherwise, you would have taken a different decision before!!! it's like going on a loop on a chessboard.}
+Recall that we model discrete time systems with pointed $\DTS$-coalgebras of the functor $\DTS=O\times X^I$ for some fixed sets $O$ and $I$. Instead of describing attacks as some general mapping over the carrier set, we might want to describe attacks as changes in the current state. We call this notion of individual mutation a \emph{strategy}, and it is formalised as follows:
+\begin{definition}[Strategy]
+Given a $\DTS$-coalgebra $\TheCoalgebra=(X,\gamma,\delta,x_0)$, a \emph{strategy} $\lambda$ consists of a sequence of attacks...
+\todo[inline]{Why do I want this?? Strategies are useful representations of attacks...but why?}
+\end{definition}
 
-
-
-\subsection{A Partial Order of Attackers}
+\begin{proposition}[Every Strategy is an Attack]
+For all $\DTS$-coalgebras $\TheCoalgebra=(X,\gamma,\delta,x_0)$ and every strategy $\lambda\in\Lambda$\todo{complete}
+\end{proposition}
+ 
+ \section{A Partial Order of Attackers}
 \todo[inline]{We know how to quantify attackers in terms of exact latent behaviours, but latent behaviours themselves have an order (they are languages i.e. sets). What about the relationship among them? Do stronger attackers need to recognise more languages, what if a language implies another? how do attackers relate there then?}
+\todo[inline]{Introduce the emulation problem.}
+
+\begin{definition}[Attack Ordering]
+Given two attacks $m_1, m_2$ and an $F$-coalgebra $\TheCoalgebra$, we say that $m_1\lesssim_\TheCoalgebra m_2$ if and only if $\supp(m_1) \subseteq \supp(m_2)$, and $m_1(x)\sim_\TheCoalgebra m_2(x)$ for all $x\in \supp(m_1)$. In other words, any $x$ that $m_1$ mutates can also be mutated by $m_2$ in the same way, in the context of the coalgebra $\TheCoalgebra$. We omit the subscript $\TheCoalgebra$ when it is clear from the context, or it is irrelevant.
+\end{definition}
+This notion of attack ordering is a bit more general than one that uses equality (i.e., requiring $m_1(x)= m_2(x)$ instead of $m_1(x)\sim_\TheCoalgebra m_2(x)$), as it lets us focus directly on behaviour, and not on structure. We recall that if $\TheCoalgebra$ is minimal, then $m_1(x)= m_2(x)$ is equivalent to $m_1(x)\sim_\TheCoalgebra m_2(x)$.
+
+\begin{definition}[Attack Replication]
+Given an attacker $A$, an $F$-coalgebra $\TheCoalgebra=(X,c)$, and an arbitrary attack $m\in X_\omega^X$, we say that \emph{$A$ replicates the attack $m$} if and only if there exists an attack $m'\in \texttt{attacks}(A)$ such that $m\lesssim m'$.
+%\begin{align}
+%m' (x)\sim m (x), \quad \text{for all $x\in \supp(m)$}.
+%\end{align}
+%In such a case, we write $m'\lesssim m$.
+\end{definition}
+
+
+\todo[inline]{Should we just focus on DTS? NO!  The DTS I wanted to use does not have loops, so it is clear that we can keep doing this in the current modelling.}
+
+\begin{definition}[Emulation Problem]
+We say 
+\end{definition}
+ 
+ \section{Solving Latent Vulnerability Problems}
+ 
+ \subsection{Alternative formulations}
+ \begin{definition}[Target Value]
+Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ with components in $\Pi$, a \emph{target value} is a proposition $x[\pi]==v$, modelled by the triple $(x,\pi,v)$ where $x\in X$, $\pi\in \Pi$ and $v$ is a value in the range of component $\pi$.
+\end{definition}
+ 
+ \subsection{Exhaustive Search}
+Given an attacker $A$ of an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a target behaviour $\sigma$, we could perform an exhaustive search over the domain of its attacks if the carrier $X$ is finite.  A naive, exhaustive search would choose an attack $m$, mutate $\TheCoalgebra$, then perform a bisimulation check to see if there exists a state $x$ such that its latent behaviour $\TheLatentBehaviourOfIn{x}{m}{\TheCoalgebra}$ is equal to $\sigma$.
+
+Since the search space is finite, if we cannot find an attack $m$ within the capabilities of $A$, then the system $\TheCoalgebra$ is safe with respect to $A$.
+
+\begin{example}
+\todo[inline]{For the example we can show that it can be solved}
+\end{example}
+
+
+\subsection{Using SMT Solvers}
+Due to our formulation, we have a perfect information deterministic game, like Chomp~\cite{Chomp}. Our idea is to leverage an SMT solver to give us a winning move for the attacker, or prove that such move does not exist. For the remainder of this section, we focus on $\DTS$-coalgebras.
+
+\begin{definition}[Winning Latency Games]
+Let $A$ be an  attacker, $\TheCoalgebra=(X,\gamma,\delta,x_0)$ be a pointed $\DTS$-coalgebra, and consider a set of target values $(\pi_1,v_1),...,(\pi_n,v_n)$. We say that the attacker $A$ \emph{wins the latency game in zero steps} if and only if there exists an attack $m_0$ in $\texttt{attacks}(A)$ such that $m_0(x_0)[p_j]=v_i$, for $j=1..n$.
+
+The attacker $A$ wins the latency game in $\tau+1$ steps given $(w\cdot i)$ with the attack $m_{\tau+1}$ if and only if there exists an attacker $A'$ that wins the latency game in $\tau$ steps from state $x_\tau$ with the attack $m_{\tau}$\todo[inline]{COMPLETE!!!!!}
+\begin{align}
+m_{\tau+1}(x_{\tau +1})=x_\tau(
+\end{align}
+\end{definition}
+
+If there exists a solution for $\tau=0$, then $A$ there exists an assignment of variables such that an...
+\todo[inline]{We should do it for $\tau=1$, because it becomes clearer there...}
+
+\begin{definition}[Forcing a Value given $w$]
+Given an attacker $A$, a $DTS$-coalgebra $\TheCoalgebra=(X,\gamma,\delta,x_0)$, and a target value $(\pi,v)$, we say that $A$ forces the value $v$ at component $\pi$ in state $x$ in $\tau$ steps if and only if there exists an attack $m\in \texttt{attacks}(A)$ and an input sequence $w\in I^\tau$ such that
+\begin{align}
+m' (x_0^w)[\pi], \quad \text{for all $x\in \supp(m)$}.
+\end{align}
+
+\end{definition}
+
+
 
 
 
