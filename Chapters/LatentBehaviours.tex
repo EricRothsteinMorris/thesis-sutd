@@ -663,24 +663,25 @@ We can do a further refinement: we can imagine attackers that control particular
 \todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a mutation, and all mutations can be modelled by attackers that control a certain number of components. Right?}
 
 \begin{definition}[Attack]
-Given an $F$-coalgebra $(X,c)$ for the functor $F$, we define the set of its possible attacks as the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$ (a function $m\colon X \rightarrow X$ has finite support iff $m(x)\neq x$ for a finite number of $x\in X$.) Moreover, an attack $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$.
+Given an $F$-coalgebra $(X,c)$ for the functor $F$, we define the set of its possible attacks as the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$ (a function $m\colon X \rightarrow X$ has finite support iff $m(x)\neq x$ for a finite number of $x\in X$.) Moreover, an attack $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. Henceforth, whenever we mention an attack, we assume it is consistent, unless explicitly mentioned otherwise.
 \end{definition}
 
 Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
 
 \begin{definition}[Attacker]
 Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a {finite} subset of $\Pi$ whose semantics is a set of attacks defined by the function $\texttt{attacks}\colon \TheFinitePowersetOf{\Pi}\rightarrow\ThePowersetOf{X^X_\omega}$ as follows. 
-For $j\in \set{1, \ldots,  n}$,  
+For $j\in \set{1, \ldots,  n}$ and all $x\in X$,
 \begin{align}
-\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$, for all $x\in X$}}.
+%\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ $f$ is consistent, and if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
+\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
 \end{align}
-{\color{red}
-equivalently
-\begin{align}
-\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
-\end{align}
-}
-In other words, $A$ has access to the set of attacks that can only mutate the components that $A$ contains.
+%{\color{red}
+%equivalently
+%\begin{align}
+%\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
+%\end{align}
+%}
+In other words, $A$ has access to the set of attacks that can only affect the components that $A$ has direct control of.
  \end{definition}
  \todo[inline]{Commented is the definition with ranges, but it is kinda complicated. For spectre, we define the strategy first, then we think of what attacker we are, and for vulnerabilities, we will define the attacker first, and then we find the strategy.}
 % 
@@ -765,29 +766,36 @@ Since the search space is finite, if we cannot find an attack $m$ within the cap
 \subsection{Using SMT Solvers}
 Due to our formulation, we have a perfect information deterministic game, like Chomp~\cite{Chomp}. Our idea is to leverage an SMT solver to give us a winning move for the attacker, or prove that such move does not exist. For the remainder of this section, we focus on $\DTS$-coalgebras.
 
+\todo[inline]{Rephrase this as a reachability problem. i.e. instead of a target value, use a set of goal states defined by the target values.}
+\todo[inline]{HERE I AM}
 \begin{definition}[Winning Latency Games]
-Let $A$ be an  attacker, $\TheCoalgebra=(X,\gamma,\delta,x_0)$ be a pointed $\DTS$-coalgebra, and consider a set of target values $(\pi_1,v_1),...,(\pi_n,v_n)$. We say that the attacker $A$ \emph{wins the latency game in zero steps} if and only if there exists an attack $m_0$ in $\texttt{attacks}(A)$ such that $m_0(x_0)[p_j]=v_i$, for $j=1..n$.
+Let $A$ be an  attacker, $\TheCoalgebra=(X,\gamma,\delta,x_0)$ be a pointed $\DTS$-coalgebra, and consider a set of target values $(\pi_1,v_1),...,(\pi_n,v_n)$. We say that the attacker $A$ \emph{wins the latency game in zero steps} if and only if there exists an attack $m$ in $\texttt{attacks}(A)$ such that $m(x_0)[p_k]=v_k$, for $k=1..n$. If a solution is found in zero steps, then all target components $\pi_1$ to $\pi_n$ must be in control of $A$, i.e., $\set{\pi_1, \ldots, \pi_n}\subseteq A$.
 
-The attacker $A$ wins the latency game in $\tau+1$ steps given $(w\cdot i)$ with the attack $m_{\tau+1}$ if and only if there exists an attacker $A'$ that wins the latency game in $\tau$ steps from state $x_\tau$ with the attack $m_{\tau}$\todo[inline]{COMPLETE!!!!!}
+The attacker $A$ \emph{wins the latency game in $\tau$ steps given the inputs $(i_1, \ldots, i_\tau)$ with the attack $m$ at state $x_{\tau}$} if and only if there exists a sequence of states $(x_1, \ldots, x_\tau)$, where
 \begin{align}
-m_{\tau+1}(x_{\tau +1})=x_\tau(
+%m_{\tau+1}(x_{\tau +1})=x_\tau(
+x_{t+1}=\delta(m (x_{t}))(i_t), \quad \text{for $t=0..{\tau-1}$}
+\end{align}
+and
+\begin{align}
+m(x_\tau)[p_k]=v_k,\quad \text{ for $k=1..n$.}
 \end{align}
 \end{definition}
 
-If there exists a solution for $\tau=0$, then $A$ there exists an assignment of variables such that an...
-\todo[inline]{We should do it for $\tau=1$, because it becomes clearer there...}
 
-\begin{definition}[Forcing a Value given $w$]
-Given an attacker $A$, a $DTS$-coalgebra $\TheCoalgebra=(X,\gamma,\delta,x_0)$, and a target value $(\pi,v)$, we say that $A$ forces the value $v$ at component $\pi$ in state $x$ in $\tau$ steps if and only if there exists an attack $m\in \texttt{attacks}(A)$ and an input sequence $w\in I^\tau$ such that
+\begin{proposition}[Composition through Emulation]
+\todo[inline]{There are several ways to compose attackers: through $\delta$ and through $m$. The message I want to carry across is the following: if you know that you can solve a latency game from a state $x$, then 
+ I already have a notion of winning over time, so I just need to emulate the attack of other attackers to reach my goal.}
+If an attacker $A$ can win a latency game in $\tau$ steps given the inputs $i_1, \ldots i_{\tau}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{0})$ with an attack $m$, then an attacker $A'$ can win the same latency game in $\tau+t$ steps given the input $i_1, i_2, \ldots i_{\tau+1}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{-t})$ if and only if 
 \begin{align}
-m' (x_0^w)[\pi], \quad \text{for all $x\in \supp(m)$}.
+\delta
 \end{align}
 
-\end{definition}
-
-
-
-
+%Given a pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_0)$, an attacker $A_0$ can win a given latency game in ${\tau+1}$ steps given the inputs $(i_1, \ldots, i_\tau, i_{\tau+1})$ with some attack $m$ at some state $x_{\tau+1}$ if and only if there exists an attacker $A_{\tau}$ that can win the given latency game in one step in the pointed $\DTS$-coalgebra $(X,m\gamma,\delta, x_{\tau})$.
+\end{proposition}
+\begin{proof}
+The main objective of $A_0$ is to reach state $x_{\tau}$ and from there 
+\end{proof}
 
 
 %\begin{proposition}
