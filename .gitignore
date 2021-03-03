@@ -4,3 +4,8 @@
 *.lot
 *.log
 *.lof
+main.lot
+main.lof
+Chapters/Chapter6.aux
+Chapters/Chapter1.aux
+Appendices/AppendixA.aux
