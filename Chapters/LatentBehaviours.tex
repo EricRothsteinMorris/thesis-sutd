@@ -11,59 +11,42 @@ If you only do what you can do, you will never be more than what you are now.
 
 \section{Introduction}
 \todo[inline]{Give an interesting motivational example: What is the notion of latent behaviour? Why do we care about them? How is it useful to study them?}
-\section{Mutation $F$-coalgebras}
-\section{The Latent Behaviours of $F$-coalgebras}
-Informally, a latent behaviour is a behaviour that a system could display if, for whatever reason, its state is constantly being altered but its dynamics is not. 
+\section{Latent $F$-coalgebras and their Behaviours}
+Informally, a system manifests a latent behaviour if and only if its states are altered but its dynamics are preserved. To alter states, we use a \emph{transformation} function.
 %For the functor $\Functor$, the monad $\Monad=(\MFunctor,\eta,\mu)$, and a $\lambda$-bialgebra $\Bialgebra=(X,a,c)$, we can define the behaviour associated to $\Bialgebra$ by means of the semantic mapping in the category of $\Functor$-coalgebras, i.e., by means of $\TheBehaviourOf{\cdot}\colon \MFunctor(X)\rightarrow \sigma\Functor$. 
-%The \emph{latent behaviour} given a mutation coalgebra $\mathbb{M}=(X,X\xrightarrow{(o_m,\delta_m)} F(X))$, is modelled by the function $\TheLatentBehaviourOf{\cdot}{\mathbb{M}}\colon X\rightarrow \sigma F$, which is coinductively defined, for $i\in I$, by
+%The \emph{latent behaviour} given a transformation coalgebra $\mathbb{M}=(X,X\xrightarrow{(o_m,\delta_m)} F(X))$, is modelled by the function $\TheLatentBehaviourOf{\cdot}{\mathbb{M}}\colon X\rightarrow \sigma F$, which is coinductively defined, for $i\in I$, by
 %\begin{align}
 %o(\TheLatentBehaviourOf{x}{\mathbb{M}})&\triangleq o_m(x)\\
 %\delta(\TheLatentBehaviourOf{x}{\mathbb{M}})(i)&\triangleq \TheLatentBehaviourOf{\delta_m(x)(i)}{\mathbb{M}}.
 %\end{align}
-%The mutation $a$ skews the behaviour of states to reflect the changes to the state. 
-Given a mutation function $m\colon X\rightarrow X$, we can skew the normal behaviour of $\mathbb{X}$ by defining the $F$-coalgebra $\mathbb{X}\circ m=(X,{(o\circ m, \delta\circ m }))$, which we refer to as the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. The \emph{latent behaviour map} of $\mathbb{X}$ under $m$ is given by the function $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}\colon X\rightarrow \sigma F$, which corresponds to the semantic mapping for $\mathbb{X}\circ m$; that is, for $x\in X$, 
+%The transformation $a$ skews the behaviour of states to reflect the changes to the state. 
+
+\begin{definition}[Finitely Supported, Consistent State Transformations]
+Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{transformation} of $X$. A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. A transformation $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. Henceforth, we consider only finitely supported, consistent transformations, unless explicitly mentioned otherwise.
+\end{definition}
+
+
+When we use a transformation function $m\colon X\rightarrow X$ to skew the normal behaviour of $\mathbb{X}$, we manifest the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
+\begin{definition}[Latent Coalgebra]
+Given an $F$-coalgebra $(X,c)$ and a transformation $m$, the \emph{latent coalgebra of $\mathbb{X}$ under $m$}, denoted $\mathbb{X}\circ m$, is defined by
+\begin{align}
+    \mathbb{X}\circ m\triangleq(X,{(o\circ m, \delta\circ m })).
+\end{align}
+The function $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}\colon X\rightarrow \sigma F$ defines the \emph{latent behaviour map} of $\mathbb{X}$ under $m$. The homomorphism $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}$ corresponds to the semantic mapping for $\mathbb{X}\circ m$; that is, for $x\in X$, 
 \begin{align}
 \TheLatentBehaviourOfIn{x}{m}{\mathbb{X}}\triangleq\TheBehaviourOfIn{x}{{\mathbb{X}\circ m}}
 \end{align}
 \todo[inline]{Having functions from $X$ to $X$ without changing their coalgebra is kinda odd. But I think that is the spirit of latent behaviours! If you could do anything (e.g., change the coalgebra), then why would you reuse anything from the original coalgebra? We are questioning how far we can go by just changing the state.}
+\end{definition}
 
 \begin{example}
 \label{ex:LatentBehaviour}
-Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. Figure~\ref{fig:ExampleLatent} shows the automaton corresponding to the $G$-coalgebra $\mathbb{X}$ if $\gamma$ and $\delta$ are defined as follows
-\todo{Uncomment and fix}
-%\begin{align}
-%\gamma(x)=\begin{cases}
-%1, \quad \text{if  $x=1$,}\\
-%0, \quad \text{otherwise;}\\
-%\end{cases},\quad
-%\delta(x)(i)=\begin{cases}
-%\texttt{min}(x+1,2), \quad \text{if  $i=1$,}\\
-%0, \quad \text{otherwise;}\\
-%\end{cases}.
-%\end{align}
-
-This $G$-coalgebra is not minimal. The states $(0,0)$ and $(0,1)$ are bisimilar.
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}
-\node[state] (00) {$(0,0)$};
-\node[state, accepting, below right of=00] (01) {$(0,1)$};
-\node[state, above right  of=00] (10) {$(1,0)$};
-\node[state, below right of=10] (11) {$(1,1)$};
-\draw (00) edge[bend left, above] node{1} (10)
-(00) edge[loop above] node{0} (00)
-(01) edge[bend right, above] node{1} (11)
-(01) edge[loop left] node{0} (01)
-(10) edge[loop above] node{1} (10)
-(10) edge[bend left, above] node{0} (00)
-(11) edge[bend left, above] node{1} (10)
-(11) edge[bend left, above] node{0} (00)
-;\end{tikzpicture}
-\caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
-\label{fig:ExampleLatent}
-\end{figure}
-
+Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. We define said $G$-coalgebra $\mathbb{X}$ by
+\begin{align}
+\gamma(x,y)&\triangleq x \land y;\\
+\delta(x,y)(i)&\triangleq(i,x).
+\end{align}
+Figure~\ref{fig:ExampleLatent} shows the deterministic finite automaton corresponding to this $G$-coalgebra; the coalgebra is not minimal, because the states $(0,0)$ and $(0,1)$ are bisimilar.
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
@@ -84,562 +67,586 @@ This $G$-coalgebra is not minimal. The states $(0,0)$ and $(0,1)$ are bisimilar.
 \label{fig:ExampleLatent}
 \end{figure}
 
-This $G$-coalgebra has 27 mutations, given by the 27 endofunctions in $X$. We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:3.2}--\ref{fig:3.28}. Note that many of these latent coalgebras are not minimal, and many display the same behaviours.
+This $G$-coalgebra has 256 transformations, given by the $4^4$ endofunctions in $X$. We use these transformations to manifest latent behaviours.%, and every consistent transformation $m$ satisfies $m(0,0)~m(0,1)$. 
+\todo[inline]{You can probably graph this with a 3 dimensional graph like a vector field whose axises are input, state, and output. We could use four dimensions so that state is 2-dimensional}
+% We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:3.2}--\ref{fig:3.28}. Note that many of these latent coalgebras are not minimal, and many display the same behaviours.
 
-From 27 endofuctions and three intended behaviours, we can derive the 24 latent behaviours presented in Table~\ref{tab:ExampleLatentBehaviours} as regular expressions. 
+% From 27 endofuctions and three intended behaviours, we can derive the 24 latent behaviours presented in Table~\ref{tab:ExampleLatentBehaviours} as regular expressions. 
+{\color{red}
+\todo[inline]{Rewrite this!!!}
+The existence of latent behaviours opens a new possibility for system repurposing: if we wanted the system to recognise the language $(0+1)^*1$ (i.e., the language of sequences that end in 1), we could mutate our original system using a transformation where $0\mapsto0, 1\mapsto2$ and $2\mapsto2$ (shown in Figure~\ref{fig:3.10}), whilst preserving $0$ as the initial state. Nevertheless, if providing the transformation is within the capabilities of an adversary, it would also mean that they can repurpose our system as well. 
+}
 
-The existence of these latent behaviours opens a new possibility for system repurposing: if we wanted the system to recognise the language $(0+1)^*1$ (i.e., the language of sequences that end in 1), we could mutate our original system using a mutation where $0\mapsto0, 1\mapsto2$ and $2\mapsto2$ (shown in Figure~\ref{fig:3.10}), whilst preserving $0$ as the initial state. Nevertheless, if providing the mutation is within the capabilities of an adversary, it would also mean that they can repurpose our system as well. 
-
-\begin{table}[t]
-\centering
-\begin{tabular}{|l | l | }
-\hline
-$\rho_{\ref{fig:3.2}.0}$ &  $\emptyset$   \\
-$\rho_{\ref{fig:3.4}.2}$ &  $1^*$ \\
-$\rho_{\ref{fig:3.7}.0}$ &  $(0+1)^*111^*$\\%$(0+10+111^*0)^*111^*$ \\
-$\rho_{\ref{fig:3.7}.1}$ &  $\rho_{\ref{fig:3.7}.0}+1$ \\
-$\rho_{\ref{fig:3.7}.2}$ &  $\rho_{\ref{fig:3.7}.0}+1+\varepsilon$ \\
-$\rho_{\ref{fig:3.8}.1}$ &  $(00^*1+10^*1)^*$ \\
-$\rho_{\ref{fig:3.8}.0}$ &  $0^*1\rho_{\ref{fig:3.8}.1}$ \\
-$\rho_{\ref{fig:3.9}.2}$& $(0+1)^*01$\\
-$\rho_{\ref{fig:3.9}.0}$&   $\rho_{\ref{fig:3.9}.2}+1$\\
-$\rho_{\ref{fig:3.9}.1}$&   $\rho_{\ref{fig:3.9}.2}+1+\varepsilon$\\
-$\rho_{\ref{fig:3.10}.0}$ &  $(0+1)^*1$ \\
-$\rho_{\ref{fig:3.10}.1}$ &  $\rho_{\ref{fig:3.10}.0}+\varepsilon$ \\
-$\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
-$\rho_{\ref{fig:3.17}.0}$ &  $(0+10+(11)^+(0+10))^*(11)^+$ \\
-$\rho_{\ref{fig:3.17}.1}$ &  $(11)^*+(0+10)\rho_{\ref{fig:3.17}.0}$ \\
-$\rho_{\ref{fig:3.17}.2}$ &  $0\rho_{\ref{fig:3.17}.0}+1\rho_{\ref{fig:3.17}.1}$ \\
-$\rho_{\ref{fig:3.18}.0}$ &  $\varepsilon$ \\
-$\rho_{\ref{fig:3.20}.1}$ &  $(0+1)^*0$ \\
-$\rho_{\ref{fig:3.20}.0}$ &  $\rho_{\ref{fig:3.20}.1}+\varepsilon$ \\
-$\rho_{\ref{fig:3.22}.0}$ &  $(1+0)^*$ \\
-$\rho_{\ref{fig:3.22}.1}$ &  $1^*0(1+0)^*$ \\
-$\rho_{\ref{fig:3.25}.1}$ &  $1(1+0)^*+0(1+0)^*$ \\
-$\rho_{\ref{fig:3.26}.0}$ &  $(0+10+11)^*$ \\
-$\rho_{\ref{fig:3.26}.2}$ &  $(0+1)\rho_{\ref{fig:3.26}.0}$\\
-\hline
-\end{tabular}
-\caption{Latent behaviours for all mutations for the coalgebra that recognises $(0+1)^*11$. }
-\label{tab:ExampleLatentBehaviours}
-\end{table}
-
-%$\rho_{\ref{fig:3.8}.0}$ &  $$ \\
-%$\rho_{\ref{fig:3.8}.1}$ &  $$ \\
-%$\rho_{\ref{fig:3.8}.2}$ &  $$ \\
-%------------------------------------------------------------------------------------------------------------------------
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop above] node{1} (q2)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$ }
-\label{fig:3.2}
-
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop above] node{1} (q2)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-\label{fig:3.3}
-
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop above] node{1} (q2)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,2)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\emptyset$, $\TheLatentBehaviourOf{2}{m}=1^*$}
-\label{fig:3.4}
+\node[state] (00) {$(0,0)$};
+\node[state, accepting, below right of=00] (01) {$(0,1)$};
+\node[state, above right  of=00] (10) {$(1,0)$};
+\node[state, below right of=10] (11) {$(1,1)$};
+\draw (00) edge[bend left, above] node{1} (10)
+(00) edge[loop above] node{0} (00)
+(01) edge[bend right, above] node{1} (11)
+(01) edge[loop left] node{0} (01)
+(10) edge[loop above] node{1} (10)
+(10) edge[bend left, above] node{0} (00)
+(11) edge[bend left, above] node{1} (10)
+(11) edge[bend left, above] node{0} (00)
+;\end{tikzpicture}
+\caption{Corresponding automaton to the latent $G-$coalgebra under transformation $???$ described in Example~\ref{ex:LatentBehaviour}.}
+\label{fig:ExampleLatent}
 \end{figure}
+    
+% \begin{table}[t]
+% \centering
+% \begin{tabular}{|l | l | }
+% \hline
+% $\rho_{\ref{fig:3.2}.0}$ &  $\emptyset$   \\
+% $\rho_{\ref{fig:3.4}.2}$ &  $1^*$ \\
+% $\rho_{\ref{fig:3.7}.0}$ &  $(0+1)^*111^*$\\%$(0+10+111^*0)^*111^*$ \\
+% $\rho_{\ref{fig:3.7}.1}$ &  $\rho_{\ref{fig:3.7}.0}+1$ \\
+% $\rho_{\ref{fig:3.7}.2}$ &  $\rho_{\ref{fig:3.7}.0}+1+\varepsilon$ \\
+% $\rho_{\ref{fig:3.8}.1}$ &  $(00^*1+10^*1)^*$ \\
+% $\rho_{\ref{fig:3.8}.0}$ &  $0^*1\rho_{\ref{fig:3.8}.1}$ \\
+% $\rho_{\ref{fig:3.9}.2}$& $(0+1)^*01$\\
+% $\rho_{\ref{fig:3.9}.0}$&   $\rho_{\ref{fig:3.9}.2}+1$\\
+% $\rho_{\ref{fig:3.9}.1}$&   $\rho_{\ref{fig:3.9}.2}+1+\varepsilon$\\
+% $\rho_{\ref{fig:3.10}.0}$ &  $(0+1)^*1$ \\
+% $\rho_{\ref{fig:3.10}.1}$ &  $\rho_{\ref{fig:3.10}.0}+\varepsilon$ \\
+% $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
+% $\rho_{\ref{fig:3.17}.0}$ &  $(0+10+(11)^+(0+10))^*(11)^+$ \\
+% $\rho_{\ref{fig:3.17}.1}$ &  $(11)^*+(0+10)\rho_{\ref{fig:3.17}.0}$ \\
+% $\rho_{\ref{fig:3.17}.2}$ &  $0\rho_{\ref{fig:3.17}.0}+1\rho_{\ref{fig:3.17}.1}$ \\
+% $\rho_{\ref{fig:3.18}.0}$ &  $\varepsilon$ \\
+% $\rho_{\ref{fig:3.20}.1}$ &  $(0+1)^*0$ \\
+% $\rho_{\ref{fig:3.20}.0}$ &  $\rho_{\ref{fig:3.20}.1}+\varepsilon$ \\
+% $\rho_{\ref{fig:3.22}.0}$ &  $(1+0)^*$ \\
+% $\rho_{\ref{fig:3.22}.1}$ &  $1^*0(1+0)^*$ \\
+% $\rho_{\ref{fig:3.25}.1}$ &  $1(1+0)^*+0(1+0)^*$ \\
+% $\rho_{\ref{fig:3.26}.0}$ &  $(0+10+11)^*$ \\
+% $\rho_{\ref{fig:3.26}.2}$ &  $(0+1)\rho_{\ref{fig:3.26}.0}$\\
+% \hline
+% \end{tabular}
+% \caption{Latent behaviours for all transformations for the coalgebra that recognises $(0+1)^*11$. }
+% \label{tab:ExampleLatentBehaviours}
+% \end{table}
 
-\begin{figure}[t]
-\captionsetup{singlelinecheck=off}
-\centering
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,0)}$ . $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+% %$\rho_{\ref{fig:3.8}.0}$ &  $$ \\
+% %$\rho_{\ref{fig:3.8}.1}$ &  $$ \\
+% %$\rho_{\ref{fig:3.8}.2}$ &  $$ \\
+% %------------------------------------------------------------------------------------------------------------------------
+% \begin{figure}[t]
+% \centering
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop above] node{1} (q2)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$ }
+% \label{fig:3.2}
 
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,1)}$ . $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop above] node{1} (q2)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+% \label{fig:3.3}
 
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state,accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,2)}$ (i.e. $m=\texttt{id}$). Latent behaviours under $m$ are the original behaviours: 
-\protect\begin{align*}
-	\TheLatentBehaviourOf{0}{m}&=(0+1)^*111^*, \\
-	\TheLatentBehaviourOf{1}{m}&=1+\TheLatentBehaviourOf{0}{m}\\
-	\TheLatentBehaviourOf{2}{m}&=\varepsilon + 1+ \TheLatentBehaviourOf{0}{m}
-\protect\end{align*}
-}
-\label{fig:3.7}
-\end{figure}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop above] node{1} (q2)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,2)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\emptyset$, $\TheLatentBehaviourOf{2}{m}=1^*$}
+% \label{fig:3.4}
+% \end{figure}
 
+% \begin{figure}[t]
+% \captionsetup{singlelinecheck=off}
+% \centering
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,0)}$ . $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
 
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,1)}$ . $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
 
-\begin{figure}[t]
-\captionsetup{singlelinecheck=off}
-\centering
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state,accepting, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,0)}$. 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=0^*1\TheLatentBehaviourOf{1}{m},\\
-\TheLatentBehaviourOf{1}{m}&=(00^*1+10^*1)^*
-\protect\end{align*}
-\label{fig:3.8}
-}
-
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state,accepting, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,1)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=1+\TheLatentBehaviourOf{2}{m},\\
-\TheLatentBehaviourOf{1}{m}&=\varepsilon+1+\TheLatentBehaviourOf{2}{m},\\
-\TheLatentBehaviourOf{2}{m}&=(0+1)^*01
-\protect\end{align*}
-\label{fig:3.9}
-}
-
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state,accepting, right of=q1] (q2) {$1$};
-\node[state, accepting,right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q2)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,2)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon + \TheLatentBehaviourOf{0}{m}
-\protect\end{align*}
-\label{fig:3.10}
-}
-\end{figure}
-
-\begin{figure}[t]
-\captionsetup{singlelinecheck=off}
-\centering
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop right] node{1} (q2)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=
-\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop right] node{1} (q2)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=
-\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state,accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,2)}$ (i.e. $m=\texttt{id}$). Latent behaviours under $m$ are the original behaviours: 
+% \protect\begin{align*}
+% 	\TheLatentBehaviourOf{0}{m}&=(0+1)^*111^*, \\
+% 	\TheLatentBehaviourOf{1}{m}&=1+\TheLatentBehaviourOf{0}{m}\\
+% 	\TheLatentBehaviourOf{2}{m}&=\varepsilon + 1+ \TheLatentBehaviourOf{0}{m}
+% \protect\end{align*}
+% }
+% \label{fig:3.7}
+% \end{figure}
 
 
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state,accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop right] node{1} (q2)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,2)}$. 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
-\TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m},\\
-\TheLatentBehaviourOf{2}{m}&=\varepsilon+\TheLatentBehaviourOf{0}{m}
-%\TheLatentBehaviourOf{2}{m}&=1^*+\TheLatentBehaviourOf{1}{m}
-\protect\end{align*}
-}
-\label{fig:3.13}
-\end{figure}
 
-\begin{figure}[t]
-\captionsetup{singlelinecheck=off}
-\centering
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=
-\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+% \begin{figure}[t]
+% \captionsetup{singlelinecheck=off}
+% \centering
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state,accepting, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,0)}$. 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=0^*1\TheLatentBehaviourOf{1}{m},\\
+% \TheLatentBehaviourOf{1}{m}&=(00^*1+10^*1)^*
+% \protect\end{align*}
+% \label{fig:3.8}
+% }
+
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state,accepting, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,1)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=1+\TheLatentBehaviourOf{2}{m},\\
+% \TheLatentBehaviourOf{1}{m}&=\varepsilon+1+\TheLatentBehaviourOf{2}{m},\\
+% \TheLatentBehaviourOf{2}{m}&=(0+1)^*01
+% \protect\end{align*}
+% \label{fig:3.9}
+% }
+
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state,accepting, right of=q1] (q2) {$1$};
+% \node[state, accepting,right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q2)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,2)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
+% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon + \TheLatentBehaviourOf{0}{m}
+% \protect\end{align*}
+% \label{fig:3.10}
+% }
+% \end{figure}
+
+% \begin{figure}[t]
+% \captionsetup{singlelinecheck=off}
+% \centering
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop right] node{1} (q2)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=
+% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop right] node{1} (q2)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=
+% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
 
 
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=
-\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state,accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop right] node{1} (q2)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,2)}$. 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
+% \TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m},\\
+% \TheLatentBehaviourOf{2}{m}&=\varepsilon+\TheLatentBehaviourOf{0}{m}
+% %\TheLatentBehaviourOf{2}{m}&=1^*+\TheLatentBehaviourOf{1}{m}
+% \protect\end{align*}
+% }
+% \label{fig:3.13}
+% \end{figure}
+
+% \begin{figure}[t]
+% \captionsetup{singlelinecheck=off}
+% \centering
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=
+% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
 
 
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,2)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*1,\\ 
-\TheLatentBehaviourOf{2}{m}&=\TheLatentBehaviourOf{0}{m}+\varepsilon
-\protect\end{align*}
-}
-\end{figure}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=
+% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
 
-\begin{figure}[t]
-\centering
-\captionsetup{singlelinecheck=off}
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state,accepting, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$}; 
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,0)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+10+(11)^+(0+10))^*(11)^+ \\ %(0+1(0+1(11)^*(0+10)))^*11(11)^* ,\\ 
-\TheLatentBehaviourOf{1}{m}&=(11)^*+(0+10)\TheLatentBehaviourOf{0}{m},\\
-\TheLatentBehaviourOf{2}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{1}{m}
-\protect\end{align*}
-\label{fig:3.17}
-}
 
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state,accepting, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,1)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=\emptyset,\\ 
-\TheLatentBehaviourOf{1}{m}&=\varepsilon
-\protect\end{align*}
-\label{fig:3.18}
-}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,2)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*1,\\ 
+% \TheLatentBehaviourOf{2}{m}&=\TheLatentBehaviourOf{0}{m}+\varepsilon
+% \protect\end{align*}
+% }
+% \end{figure}
 
-\begin{tikzpicture}
-\node[state] (q1) {$0$};
-\node[state,accepting, right of=q1] (q2) {$1$};
-\node[state, accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,2)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon+\TheLatentBehaviourOf{0}{m}
-\protect\end{align*}
-}
-\end{figure}
+% \begin{figure}[t]
+% \centering
+% \captionsetup{singlelinecheck=off}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state,accepting, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$}; 
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,0)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+10+(11)^+(0+10))^*(11)^+ \\ %(0+1(0+1(11)^*(0+10)))^*11(11)^* ,\\ 
+% \TheLatentBehaviourOf{1}{m}&=(11)^*+(0+10)\TheLatentBehaviourOf{0}{m},\\
+% \TheLatentBehaviourOf{2}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{1}{m}
+% \protect\end{align*}
+% \label{fig:3.17}
+% }
 
-\begin{figure}[t]
-\captionsetup{singlelinecheck=off}
-\centering
-\begin{tikzpicture}
-\node[state, accepting] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop right] node{1} (q2)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,0)}$. 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
-\TheLatentBehaviourOf{1}{m}&=(0+1)^*0
-\protect\end{align*} 
-\label{fig:3.20}
-}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state,accepting, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,1)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=\emptyset,\\ 
+% \TheLatentBehaviourOf{1}{m}&=\varepsilon
+% \protect\end{align*}
+% \label{fig:3.18}
+% }
 
-\begin{tikzpicture}
-\node[state, accepting] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop right] node{1} (q2)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,1)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
-\TheLatentBehaviourOf{1}{m}&=(0+1)^*0
-\protect\end{align*}
-}
+% \begin{tikzpicture}
+% \node[state] (q1) {$0$};
+% \node[state,accepting, right of=q1] (q2) {$1$};
+% \node[state, accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,2)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\
+% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon+\TheLatentBehaviourOf{0}{m}
+% \protect\end{align*}
+% }
+% \end{figure}
 
-\begin{tikzpicture}
-\node[state, accepting] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[loop right] node{1} (q2)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,2)}$. 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
-\TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
-\protect\end{align*}
-\label{fig:3.22}
-}
-\end{figure}
+% \begin{figure}[t]
+% \captionsetup{singlelinecheck=off}
+% \centering
+% \begin{tikzpicture}
+% \node[state, accepting] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop right] node{1} (q2)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,0)}$. 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
+% \TheLatentBehaviourOf{1}{m}&=(0+1)^*0
+% \protect\end{align*} 
+% \label{fig:3.20}
+% }
 
-\begin{figure}[t]
-\captionsetup{singlelinecheck=off}
-\centering
-\begin{tikzpicture}
-\node[state, accepting] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,0)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
-\protect\end{align*}
-}
+% \begin{tikzpicture}
+% \node[state, accepting] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop right] node{1} (q2)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,1)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
+% \TheLatentBehaviourOf{1}{m}&=(0+1)^*0
+% \protect\end{align*}
+% }
 
-\begin{tikzpicture}
-\node[state, accepting] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,1)}$. 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
-\TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
-\protect\end{align*}
-}
+% \begin{tikzpicture}
+% \node[state, accepting] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[loop right] node{1} (q2)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,2)}$. 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
+% \TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
+% \protect\end{align*}
+% \label{fig:3.22}
+% }
+% \end{figure}
 
-\begin{tikzpicture}
-\node[state, accepting] (q1) {$0$};
-\node[state, right of=q1] (q2) {$1$};
-\node[state, accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,2)}$ . 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
-\TheLatentBehaviourOf{1}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{2}{m}
-\protect\end{align*}
-\label{fig:3.25}
-}
-\end{figure}
+% \begin{figure}[t]
+% \captionsetup{singlelinecheck=off}
+% \centering
+% \begin{tikzpicture}
+% \node[state, accepting] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,0)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
+% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
+% \protect\end{align*}
+% }
 
-\begin{figure}[t]
-\captionsetup{singlelinecheck=off}
-\centering
-\begin{tikzpicture}
-\node[state,accepting] (q1) {$0$};
-\node[state, accepting, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[bend left, above] node{1} (q2)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,0)}$. 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+10+11)^*,\\ 
-\TheLatentBehaviourOf{2}{m}&=(0+1)\TheLatentBehaviourOf{0}{m}
-\protect\end{align*}
-\label{fig:3.26}
-}
+% \begin{tikzpicture}
+% \node[state, accepting] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,1)}$. 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
+% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
+% \protect\end{align*}
+% }
 
-\begin{tikzpicture}
-\node[state,accepting] (q1) {$0$};
-\node[state, accepting, right of=q1] (q2) {$1$};
-\node[state, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,1)}$.
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*0+\varepsilon\\ 
-\TheLatentBehaviourOf{2}{m}&=(0+1)^*0
-\protect\end{align*}
-}
+% \begin{tikzpicture}
+% \node[state, accepting] (q1) {$0$};
+% \node[state, right of=q1] (q2) {$1$};
+% \node[state, accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,2)}$ . 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
+% \TheLatentBehaviourOf{1}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{2}{m}
+% \protect\end{align*}
+% \label{fig:3.25}
+% }
+% \end{figure}
 
-\begin{tikzpicture}
-\node[state,accepting] (q1) {$0$};
-\node[state, accepting, right of=q1] (q2) {$1$};
-\node[state, accepting, right of=q2] (q3) {$2$};
-\draw (q1) edge[loop above] node{0} (q1)
-(q1) edge[bend left, above] node{1} (q3)
-(q2) edge[bend left, above] node{0} (q1)
-(q2) edge[bend left, above] node{1} (q3)
-(q3) edge[loop above] node{1} (q3)
-(q3) edge[bend left, below] node{0} (q1);
-\end{tikzpicture}
-\caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,2)}$. 
-\protect\begin{align*}
-\TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=(0+1)^*
-\protect\end{align*}
-}
-\label{fig:3.28}
-\end{figure}
+% \begin{figure}[t]
+% \captionsetup{singlelinecheck=off}
+% \centering
+% \begin{tikzpicture}
+% \node[state,accepting] (q1) {$0$};
+% \node[state, accepting, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[bend left, above] node{1} (q2)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,0)}$. 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+10+11)^*,\\ 
+% \TheLatentBehaviourOf{2}{m}&=(0+1)\TheLatentBehaviourOf{0}{m}
+% \protect\end{align*}
+% \label{fig:3.26}
+% }
+
+% \begin{tikzpicture}
+% \node[state,accepting] (q1) {$0$};
+% \node[state, accepting, right of=q1] (q2) {$1$};
+% \node[state, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,1)}$.
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*0+\varepsilon\\ 
+% \TheLatentBehaviourOf{2}{m}&=(0+1)^*0
+% \protect\end{align*}
+% }
+
+% \begin{tikzpicture}
+% \node[state,accepting] (q1) {$0$};
+% \node[state, accepting, right of=q1] (q2) {$1$};
+% \node[state, accepting, right of=q2] (q3) {$2$};
+% \draw (q1) edge[loop above] node{0} (q1)
+% (q1) edge[bend left, above] node{1} (q3)
+% (q2) edge[bend left, above] node{0} (q1)
+% (q2) edge[bend left, above] node{1} (q3)
+% (q3) edge[loop above] node{1} (q3)
+% (q3) edge[bend left, below] node{0} (q1);
+% \end{tikzpicture}
+% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,2)}$. 
+% \protect\begin{align*}
+% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=(0+1)^*
+% \protect\end{align*}
+% }
+% \label{fig:3.28}
+% \end{figure}
 
 \end{example}
-\todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the mutation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
+\todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the transformation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
 
 \section{Latent Vulnerabilities}
-Not all behaviours are latent for a given $F$-coalgebra. In Example~\ref{ex:LatentBehaviour}, we see that no mutation can yield the language $0^*$ as a latent behaviour. We see latent behaviours as targets for attackers, and we would like to know if there is a way for an attacker to cause the system to shift to a particular latent behaviour by means of a mutation. For that purpose, we introduce the definition of {latent vulnerability problems}.
+Not all behaviours are latent for a given $F$-coalgebra. In Example~\ref{ex:LatentBehaviour}, we see that no transformation can yield the language $0^*$ as a latent behaviour. We see latent behaviours as targets for attackers, and we would like to know if there is a way for an attacker to cause the system to shift to a particular latent behaviour by means of a transformation. For that purpose, we introduce the definition of {latent vulnerability problems}.
 
 \begin{definition}
-A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebra $\mathbb{X}=(X,c,x_0)$ and a given behaviour $\rho\in \sigma F$. To solve this problem, we need to either 1) find a mutation $m$ which proves that $\rho$ is the latent behaviour of $x_0$ under $m$ or 2) prove that no such $m$ can exist.
+A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebra $\mathbb{X}=(X,c,x_0)$ and a given behaviour $\rho\in \sigma F$. To solve this problem, we need to either 1) find a transformation $m$ which proves that $\rho$ is the latent behaviour of $x_0$ under $m$ or 2) prove that no such $m$ can exist.
 \end{definition}
 
 \todo[inline]{To coinductively define $m$, we would already need to know $\mathbb{X}\circ m$, so that is not an option. Instead, we can play a game with the coalgebra as follows. We start at the initial state $x_0$, and we take turns; we play first, and we are allowed to map $x_0$ to another state (i.e. define $m(x_0)$. Once we do, the coalgebra computes $c(m(x_0))$ and, on input consumed, and if the coalgebra has transition dynamics, we can continue the game from the new state.}
@@ -657,14 +664,15 @@ A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebr
 
  
 \section{Attackers and Attacks}
-There is an attacker model associated with latent vulnerabilities: attackers that can change the value of state variables, but not the program that defines the system. This later attacker would correspond to one that can arbitrarily change the coalgebra, and is in that sense a much stronger attacker. If the attacker can enforce any behaviour they want, it becomes too powerful to defend against; all coalgebras are vulnerable, and no fix is available. However, an attacker that exploits a latent vulnerability is a bit in the middle: it can change the coalgebra by means of a mutation/attack function, but only through those. In that sense, not every behaviour is at the reach of the attacker, only those who are latent.
+There is an attacker model associated with latent vulnerabilities: attackers that can change the value of state variables, but not the program that defines the system. This later attacker would correspond to one that can arbitrarily change the coalgebra, and is in that sense a much stronger attacker. If the attacker can enforce any behaviour they want, it becomes too powerful to defend against; all coalgebras are vulnerable, and no fix is available. However, an attacker that exploits a latent vulnerability is a bit in the middle: it can change the coalgebra by means of a transformation/attack function, but only through those. In that sense, not every behaviour is at the reach of the attacker, only those who are latent.
 
 We can do a further refinement: we can imagine attackers that control particular components of a state by partitioning states into controllable parts and observable parts
-\todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a mutation, and all mutations can be modelled by attackers that control a certain number of components. Right?}
+\todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a transformation, and all transformations can be modelled by attackers that control a certain number of components. Right?}
 
 \begin{definition}[Attack]
-Given an $F$-coalgebra $(X,c)$ for the functor $F$, we define the set of its possible attacks as the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$ (a function $m\colon X \rightarrow X$ has finite support iff $m(x)\neq x$ for a finite number of $x\in X$.) Moreover, an attack $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. Henceforth, whenever we mention an attack, we assume it is consistent, unless explicitly mentioned otherwise.
+Given an $F$-coalgebra $(X,c)$, we define the set of its possible attacks to be the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$; a function $m\colon X \rightarrow X$ has finite support iff $m(x)\neq x$ for a finite number of $x\in X$. An attack $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. Henceforth, we consider only consistent attacks, unless explicitly mentioned otherwise.
 \end{definition}
+
 
 Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
 
@@ -712,7 +720,7 @@ In other words, $A$ has access to the set of attacks that can only affect the co
  
  \subsection{Attacks over Discrete Time Systems}
  \todo[inline]{DO NOT FORGET THAT YOU CAN ASSUME $x(t)\neq x(t+k)$ for all $k$, because otherwise, you would have taken a different decision before!!! it's like going on a loop on a chessboard.}
-Recall that we model discrete time systems with pointed $\DTS$-coalgebras of the functor $\DTS=O\times X^I$ for some fixed sets $O$ and $I$. Instead of describing attacks as some general mapping over the carrier set, we might want to describe attacks as changes in the current state. We call this notion of individual mutation a \emph{strategy}, and it is formalised as follows:
+Recall that we model discrete time systems with pointed $\DTS$-coalgebras of the functor $\DTS=O\times X^I$ for some fixed sets $O$ and $I$. Instead of describing attacks as some general mapping over the carrier set, we might want to describe attacks as changes in the current state. We call this notion of individual transformation a \emph{strategy}, and it is formalised as follows:
 \begin{definition}[Strategy]
 Given a $\DTS$-coalgebra $\TheCoalgebra=(X,\gamma,\delta,x_0)$, a \emph{strategy} $\lambda$ consists of a sequence of attacks...
 \todo[inline]{Why do I want this?? Strategies are useful representations of attacks...but why?}
@@ -729,16 +737,26 @@ For all $\DTS$-coalgebras $\TheCoalgebra=(X,\gamma,\delta,x_0)$ and every strate
 \begin{definition}[Attack Ordering]
 Given two attacks $m_1, m_2$ and an $F$-coalgebra $\TheCoalgebra$, we say that $m_1\lesssim_\TheCoalgebra m_2$ if and only if $\supp(m_1) \subseteq \supp(m_2)$, and $m_1(x)\sim_\TheCoalgebra m_2(x)$ for all $x\in \supp(m_1)$. In other words, any $x$ that $m_1$ mutates can also be mutated by $m_2$ in the same way, in the context of the coalgebra $\TheCoalgebra$. We omit the subscript $\TheCoalgebra$ when it is clear from the context, or it is irrelevant.
 \end{definition}
-This notion of attack ordering is a bit more general than one that uses equality (i.e., requiring $m_1(x)= m_2(x)$ instead of $m_1(x)\sim_\TheCoalgebra m_2(x)$), as it lets us focus directly on behaviour, and not on structure. We recall that if $\TheCoalgebra$ is minimal, then $m_1(x)= m_2(x)$ is equivalent to $m_1(x)\sim_\TheCoalgebra m_2(x)$.
+This notion of attack ordering is a bit more general than one that uses equality (i.e., requiring $m_1(x)= m_2(x)$ instead of $m_1(x)\sim_\TheCoalgebra m_2(x)$), as it lets us focus directly on behaviour, and not on structure. If the coalgebra $\TheCoalgebra$ is minimal, then $m_1(x)= m_2(x)$ if and only if $m_1(x)\sim_\TheCoalgebra m_2(x)$, due to the coinduction proof principle.
 
-\begin{definition}[Attack Replication]
-Given an attacker $A$, an $F$-coalgebra $\TheCoalgebra=(X,c)$, and an arbitrary attack $m\in X_\omega^X$, we say that \emph{$A$ replicates the attack $m$} if and only if there exists an attack $m'\in \texttt{attacks}(A)$ such that $m\lesssim m'$.
+\begin{definition}[Attack Execution]
+Given an attacker $A$, an $F$-coalgebra $\TheCoalgebra=(X,c)$, and an arbitrary attack $m\in X_\omega^X$, we say that \emph{$A$ can execute the attack $m$} if and only if there exists an attack $m'\in \texttt{attacks}(A)$ such that $m\lesssim m'$.
 %\begin{align}
 %m' (x)\sim m (x), \quad \text{for all $x\in \supp(m)$}.
 %\end{align}
 %In such a case, we write $m'\lesssim m$.
 \end{definition}
 
+\begin{definition}[Attacker Ordering]
+Let $\TheCoalgebra$ be an $F$-coalgebra whose components are $\Pi$. The partial order relation $\leq$ in the set of attackers $\TheFinitePowersetOf{\Pi}$ by its set inclusion, i.e. $A_1 \leq A_2$ if and only if $A_1 \subseteq A_2$. 
+\end{definition}
+This attacker ordering is \emph{monotonic} with respect to the \texttt{attacks} function: if $A_1 \leq A_2$, then any attack carried out by $A_1$ can be executed by $A_2$. %With it, we can define minimal attackers.
+
+Monotonicity offers us mainly two advantages: 1) we can plan the order of attackers to be checked, and 2) we can propagate the results in case a solution fails.
+\todo[inline]{Explain this better. You really need to have clear notions of solution and problems.}
+% \begin{definition}[Minimal Attacker]
+% \todo[inline]{Probably one of the most esoteric definitions here. It is wrt a particular problem? a particular attack, a property?}
+% \end{definition}
 
 \todo[inline]{Should we just focus on DTS? NO!  The DTS I wanted to use does not have loops, so it is clear that we can keep doing this in the current modelling.}
 
@@ -753,7 +771,7 @@ We say
 Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ with components in $\Pi$, a \emph{target value} is a proposition $x[\pi]==v$, modelled by the triple $(x,\pi,v)$ where $x\in X$, $\pi\in \Pi$ and $v$ is a value in the range of component $\pi$.
 \end{definition}
  
- \subsection{Exhaustive Search}
+\subsection{Exhaustive Search}
 Given an attacker $A$ of an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a target behaviour $\sigma$, we could perform an exhaustive search over the domain of its attacks if the carrier $X$ is finite.  A naive, exhaustive search would choose an attack $m$, mutate $\TheCoalgebra$, then perform a bisimulation check to see if there exists a state $x$ such that its latent behaviour $\TheLatentBehaviourOfIn{x}{m}{\TheCoalgebra}$ is equal to $\sigma$.
 
 Since the search space is finite, if we cannot find an attack $m$ within the capabilities of $A$, then the system $\TheCoalgebra$ is safe with respect to $A$.
@@ -800,19 +818,19 @@ The main objective of $A_0$ is to reach state $x_{\tau}$ and from there
 
 %\begin{proposition}
 %\label{sec:Incompleteness}
-%Given an arbitrary $F$-coalgebra $\mathbb{X}=(X,c)$ and a behaviour $\rho\in \sigma F$, there may not exist a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$.
+%Given an arbitrary $F$-coalgebra $\mathbb{X}=(X,c)$ and a behaviour $\rho\in \sigma F$, there may not exist a transformation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$.
 %\end{proposition}
 %\begin{proof}
-%We provide a counterexample for the opposite proposition, that is, there exists a mutation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. 
+%We provide a counterexample for the opposite proposition, that is, there exists a transformation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. 
 %Consider, for the functor $F=2\times \texttt{id}^2$, a single-state $F$-coalgebra that accepts all sequences; this $F$-coalgebra cannot display a latent behaviour different from its original behaviour.
 %\end{proof}
 
 We would like to consider two problems related to latent behaviours: 
 \begin{itemize}
-\item How can we use mutations ourselves to repurpose a system that is already been defined?
-\item How can an attacker use mutations to force a behaviour they want?
+\item How can we use transformations ourselves to repurpose a system that is already been defined?
+\item How can an attacker use transformations to force a behaviour they want?
 \end{itemize}
-\todo[inline]{Note that, ultimately, both questions need a method to solve an equation for a mutation. That is, given a target behaviour and an a source coalgebra, how do you solve the problem of finding a mutation that helps you display the behaviour you want? Is it even possible?}
+\todo[inline]{Note that, ultimately, both questions need a method to solve an equation for a transformation. That is, given a target behaviour and an a source coalgebra, how do you solve the problem of finding a transformation that helps you display the behaviour you want? Is it even possible?}
 
 
 
