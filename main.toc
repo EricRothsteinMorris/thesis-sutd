@@ -5,88 +5,31 @@
 \contentsline {chapter}{Abstract}{ii}{section*.3}
 \contentsline {chapter}{Publications}{iii}{section*.4}
 \contentsline {chapter}{Acknowledgements}{iv}{section*.5}
-\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.9}
-\contentsline {section}{\numberline {1.1}Story Time}{1}{section.10}
-\contentsline {subsection}{\numberline {1.1.1}Subsection 1}{1}{subsection.13}
-\contentsline {subsection}{\numberline {1.1.2}Subsection 2}{1}{subsection.14}
-\contentsline {section}{\numberline {1.2}Main Section 2}{2}{section.15}
-\contentsline {chapter}{\numberline {2}Preliminaries and Notation}{3}{chapter.16}
-\contentsline {section}{\numberline {2.1}Notation Glossary}{3}{section.18}
-\contentsline {section}{\numberline {2.2}Sets and Functions}{3}{section.20}
-\contentsline {section}{\numberline {2.3}Universal Coalgebra}{3}{section.21}
-\contentsline {subsection}{\numberline {2.3.1}Categories and Functors}{3}{subsection.23}
-\contentsline {subsection}{\numberline {2.3.2}$F$-coalgebras and their Homomorphisms}{3}{subsection.24}
-\contentsline {subsection}{\numberline {2.3.3}Pointed coalgebras}{4}{subsection.26}
-\contentsline {subsection}{\numberline {2.3.4}States and Components}{4}{subsection.27}
-\contentsline {subsection}{\numberline {2.3.5}Anamorphisms and Final $F$-Coalgebras}{4}{subsection.30}
-\contentsline {section}{\numberline {2.4}Coinduction}{4}{section.31}
-\contentsline {subsection}{\numberline {2.4.1}Coinduction Proof Principle}{4}{subsection.32}
-\contentsline {subsection}{\numberline {2.4.2}Bisimulation}{4}{subsection.34}
-\contentsline {section}{\numberline {2.5}Spectre}{4}{section.35}
-\contentsline {subsection}{\numberline {2.5.1}Spectre V1}{5}{subsection.37}
-\contentsline {subsection}{\numberline {2.5.2}Spectre V2}{5}{subsection.38}
-\contentsline {section}{\numberline {2.6}Cyber-Physical System}{5}{section.39}
-\contentsline {chapter}{\numberline {3}Latent Behaviours}{6}{chapter.41}
-\contentsline {section}{\numberline {3.1}Introduction}{6}{section.43}
-\contentsline {section}{\numberline {3.2}Latent $F$-coalgebras and their Behaviours}{6}{section.45}
-\contentsline {section}{\numberline {3.3}Latent Vulnerabilities}{8}{section.59}
-\contentsline {section}{\numberline {3.4}Attackers and Attacks}{9}{section.67}
-\contentsline {subsection}{\numberline {3.4.1}Attacks over Discrete Time Systems}{10}{subsection.76}
-\contentsline {section}{\numberline {3.5}A Partial Order of Attackers}{11}{section.82}
-\contentsline {section}{\numberline {3.6}Solving Latent Vulnerability Problems}{11}{section.91}
-\contentsline {subsection}{\numberline {3.6.1}Alternative formulations}{11}{subsection.92}
-\contentsline {subsection}{\numberline {3.6.2}Exhaustive Search}{12}{subsection.94}
-\contentsline {subsection}{\numberline {3.6.3}Using SMT Solvers}{12}{subsection.97}
-\contentsline {chapter}{\numberline {4}Side-Channel Repair}{14}{chapter.107}
-\contentsline {section}{\numberline {4.1}General Idea}{14}{section.108}
-\contentsline {section}{\numberline {4.2}Related work and how do we distinguish from them}{14}{section.109}
-\contentsline {section}{\numberline {4.3}CTP (Cryptocoding) Axioms, and our solution}{14}{section.111}
-\contentsline {section}{\numberline {4.4}Formalisation}{16}{section.113}
-\contentsline {paragraph}{}{17}{section*.114}
-\contentsline {subsection}{\numberline {4.4.1}Language-Based Semantics CTP}{17}{subsection.115}
-\contentsline {section}{\numberline {4.5}The IMP Language}{19}{section.131}
-\contentsline {section}{\numberline {4.6}Memory Footprint for the IMP Language}{19}{section.133}
-\contentsline {subsection}{\numberline {4.6.1}Secure Constant Memory}{19}{subsection.134}
-\contentsline {section}{\numberline {4.7}The IMP Language with Division}{20}{section.135}
-\contentsline {subsection}{\numberline {4.7.1}Examples of Side Channel Attacks}{20}{subsection.137}
-\contentsline {subsection}{\numberline {4.7.2}Transformations Rules for CTP in IMP}{20}{subsection.138}
-\contentsline {section}{\numberline {4.8}Taint Analysis}{22}{section.143}
-\contentsline {section}{\numberline {4.9}The Enforcement Algorithm}{22}{section.145}
-\contentsline {subsection}{\numberline {4.9.1}Premises Behind the Enforcement Algorithm}{22}{subsection.147}
-\contentsline {subsection}{\numberline {4.9.2}An LLVM Primer}{23}{subsection.149}
-\contentsline {subsection}{\numberline {4.9.3}The \texttt {Linearise} Algorithm}{23}{subsection.152}
-\contentsline {subsection}{\numberline {4.9.4}A Premise for Efficient Repaired Code}{23}{subsection.156}
-\contentsline {subsection}{\numberline {4.9.5}Enforcing Safe Behaviour}{25}{subsection.157}
-\contentsline {subsection}{\numberline {4.9.6}A GKAT to Correctly Unwind Basic Block Loops}{26}{subsection.162}
-\contentsline {subsection}{\numberline {4.9.7}Types}{26}{subsection.167}
-\contentsline {subsection}{\numberline {4.9.8}Instructions}{27}{subsection.172}
-\contentsline {subsection}{\numberline {4.9.9}Central idea}{27}{subsection.174}
-\contentsline {subsection}{\numberline {4.9.10}Subsection 1}{27}{subsection.176}
-\contentsline {subsection}{\numberline {4.9.11}Subsection 2}{27}{subsection.177}
-\contentsline {section}{\numberline {4.10}Main Section 2}{28}{section.178}
-\contentsline {chapter}{\numberline {5}First chapter $\Sigma _\omega ^i \infty $ }{29}{chapter.179}
-\contentsline {section}{\numberline {5.1}Welcome and Thank You}{29}{section.180}
-\contentsline {section}{\numberline {5.2}Learning \LaTeX {}}{29}{section.181}
-\contentsline {subsection}{\numberline {5.2.1}A (not so short) Introduction to \LaTeX {}}{29}{subsection.182}
-\contentsline {subsection}{\numberline {5.2.2}A Short Math Guide for \LaTeX {}}{30}{subsection.183}
-\contentsline {subsection}{\numberline {5.2.3}Common \LaTeX {} Math Symbols}{30}{subsection.184}
-\contentsline {subsection}{\numberline {5.2.4}\LaTeX {} on a Mac}{30}{subsection.185}
-\contentsline {section}{\numberline {5.3}Getting Started with this Template}{30}{section.186}
-\contentsline {subsection}{\numberline {5.3.1}About this Template}{31}{subsection.187}
-\contentsline {section}{\numberline {5.4}What this Template Includes}{31}{section.188}
-\contentsline {subsection}{\numberline {5.4.1}Folders}{31}{subsection.189}
-\contentsline {subsection}{\numberline {5.4.2}Files}{32}{subsection.190}
-\contentsline {section}{\numberline {5.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{33}{section.191}
-\contentsline {section}{\numberline {5.6}The \texttt {main.tex} File Explained}{33}{section.192}
-\contentsline {section}{\numberline {5.7}Thesis Features and Conventions}{34}{section.193}
-\contentsline {subsection}{\numberline {5.7.1}Printing Format}{34}{subsection.194}
-\contentsline {subsection}{\numberline {5.7.2}Using US Letter Paper}{34}{subsection.195}
-\contentsline {subsection}{\numberline {5.7.3}References}{35}{subsection.196}
-\contentsline {subsubsection}{A Note on bibtex}{35}{section*.198}
-\contentsline {subsection}{\numberline {5.7.4}Tables}{36}{subsection.199}
-\contentsline {subsection}{\numberline {5.7.5}Figures}{36}{subsection.201}
-\contentsline {subsection}{\numberline {5.7.6}Typesetting mathematics}{37}{subsection.203}
-\contentsline {section}{\numberline {5.8}Sectioning and Subsectioning}{38}{section.205}
-\contentsline {section}{\numberline {5.9}In Closing}{38}{section.206}
-\contentsline {chapter}{\numberline {A}Appendix Title Here}{39}{appendix.207}
-\contentsline {chapter}{Bibliography}{40}{appendix*.208}
+\contentsline {chapter}{\numberline {1}Preliminaries and Notation}{1}{chapter.9}
+\contentsline {section}{\numberline {1.1}Notation Glossary}{1}{section.11}
+\contentsline {section}{\numberline {1.2}Sets and Functions}{1}{section.13}
+\contentsline {section}{\numberline {1.3}Universal Coalgebra}{1}{section.14}
+\contentsline {subsection}{\numberline {1.3.1}Categories and Functors}{1}{subsection.16}
+\contentsline {subsection}{\numberline {1.3.2}$F$-coalgebras and their Homomorphisms}{1}{subsection.17}
+\contentsline {subsection}{\numberline {1.3.3}Pointed coalgebras}{2}{subsection.19}
+\contentsline {subsection}{\numberline {1.3.4}States and Components}{2}{subsection.20}
+\contentsline {subsection}{\numberline {1.3.5}Anamorphisms and Final $F$-Coalgebras}{2}{subsection.23}
+\contentsline {section}{\numberline {1.4}Coinduction}{2}{section.24}
+\contentsline {subsection}{\numberline {1.4.1}Coinduction Proof Principle}{2}{subsection.25}
+\contentsline {subsection}{\numberline {1.4.2}Bisimulation}{2}{subsection.27}
+\contentsline {section}{\numberline {1.5}Spectre}{2}{section.28}
+\contentsline {subsection}{\numberline {1.5.1}Spectre V1}{3}{subsection.30}
+\contentsline {subsection}{\numberline {1.5.2}Spectre V2}{3}{subsection.31}
+\contentsline {section}{\numberline {1.6}Cyber-Physical System}{3}{section.32}
+\contentsline {chapter}{\numberline {2}Latent Behaviours}{4}{chapter.34}
+\contentsline {section}{\numberline {2.1}Introduction}{4}{section.36}
+\contentsline {section}{\numberline {2.2}Latent $F$-coalgebras and their Behaviours}{4}{section.38}
+\contentsline {section}{\numberline {2.3}Latent Vulnerabilities}{6}{section.53}
+\contentsline {section}{\numberline {2.4}Attackers and Attacks}{7}{section.61}
+\contentsline {subsection}{\numberline {2.4.1}Attacks over Discrete Time Systems}{8}{subsection.70}
+\contentsline {section}{\numberline {2.5}A Partial Order of Attackers}{9}{section.76}
+\contentsline {section}{\numberline {2.6}Solving Latent Vulnerability Problems}{9}{section.85}
+\contentsline {subsection}{\numberline {2.6.1}Alternative formulations}{9}{subsection.86}
+\contentsline {subsection}{\numberline {2.6.2}Exhaustive Search}{10}{subsection.88}
+\contentsline {subsection}{\numberline {2.6.3}Using SMT Solvers}{10}{subsection.91}
+\contentsline {chapter}{\numberline {A}Appendix Title Here}{12}{appendix.101}

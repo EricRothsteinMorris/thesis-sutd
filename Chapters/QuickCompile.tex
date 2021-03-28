@@ -1,0 +1,314 @@
+\begin{figure}[t]
+    \centering
+    \begin{tikzcd}[column sep=large]
+        X \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] \arrow[d, "c", red] & \sigma F \arrow[d, "\simeq"] \\
+        F(X) \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]     & F(\sigma F)
+    \end{tikzcd}\\
+    \centering
+    \begin{tikzcd}[column sep=large]
+        X \arrow[r, dotted, "\TheBehaviourOf{\cdot}^{m}_{c}=\TheBehaviourOf{\cdot}_{c\circ m}"] \arrow[d, "m", blue] & \sigma F \arrow[dd, "\simeq"] \\
+        X \arrow[d, "c", red] & \  \\
+        F(X) \arrow[r, dotted, "F\left(\TheBehaviourOf{\cdot}_{c\circ m}\right)"]     & F(\sigma F)
+    \end{tikzcd}
+\end{figure}
+\begin{figure}[t]
+    \centering
+    \begin{tikzcd}
+        &X 
+            %\arrow[r, dotted, "\TheBehaviourOf{\cdot}^{m}_{c}=\TheBehaviourOf{\cdot}_{c\circ m}"] 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{c\circ m}"] 
+            \arrow[d, "m", blue] 
+        & \sigma F 
+            \arrow[dd, "\simeq"] 
+        \\
+        \sigma F 
+            \arrow[d, "\simeq"] 
+            \arrow[rru, "w", bend left=45, purple] 
+        & X 
+            \arrow[d, "c", red] 
+            \arrow[l, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[ur, "?", olive]
+            & 
+        \\
+        F(\sigma F)
+        & F(X) 
+            \arrow[l, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[r, dotted, "F\left(\TheBehaviourOf{\cdot}_{c\circ m}\right)"]    
+        & F(\sigma F)
+    \end{tikzcd}
+\end{figure}
+
+\begin{figure}[t]
+    % \begin{tikzcd}[column sep=large]
+    %     X 
+    %         %\arrow[r, dotted, "\TheBehaviourOf{\cdot}^{m}_{c}=\TheBehaviourOf{\cdot}_{c\circ m}"] 
+    %         \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{c\circ m}"] 
+    %         \arrow[d, "m", blue] 
+    %     &\sigma F   
+    %         \arrow[d, "id", olive]
+    %     \\
+    %     X 
+    %         \arrow[d, "c", red] 
+    %         %\arrow[r, "\TheBehaviourOf{\cdot}_c"] 
+    %     &\sigma F 
+    %         \arrow[d, "\simeq"] 
+    %         %\arrow[u, "w", olive]
+    %     \\
+    %     F(X) 
+    %         %\arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+    %         \arrow[r, dotted, "F\left(\TheBehaviourOf{\cdot}_{c\circ m}\right)"]    
+    %     &F(\sigma F)
+    %      %F(\sigma F)
+    % \end{tikzcd}\\
+    % \begin{tikzcd}[column sep=large]
+    %     X 
+    %         \arrow[rd, dotted, "\TheBehaviourOf{\cdot}_{c\circ m}"] 
+    %         \arrow[r, "\TheBehaviourOf{\cdot}_{c}"] 
+    %         \arrow[d, "m", blue] 
+    %     &\sigma F   
+    %         \arrow[d, "w", olive]
+    %     \\
+    %     X 
+    %         \arrow[d, "c", red] 
+    %         %\arrow[r, "\TheBehaviourOf{\cdot}_c"] 
+    %     &\sigma F 
+    %         \arrow[dd, "\simeq"] 
+    %         %\arrow[u, "w", olive]
+    %     \\
+    %     F(X) 
+    %         %\arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+    %         \arrow[rd, dotted, swap, "F\left(\TheBehaviourOf{\cdot}_{c\circ m}\right)"]    
+    %     &
+    %     \\
+    %     &
+    %     F(\sigma F)
+    %      %F(\sigma F)
+    % \end{tikzcd}
+    % \caption{This says $\TheBehaviourOf{\cdot}_{c\circ m}=w\circ\TheBehaviourOf{\cdot}_{c}$}
+    % \begin{tikzcd}[column sep=large]
+    %     X 
+    %         \arrow[r, "\TheBehaviourOf{\cdot}_{c\circ m}"]  
+    %         \arrow[d, "m", blue] 
+    %     &\sigma F   
+    %         %\arrow[d, "w", olive]
+    %     \\
+    %     X 
+    %         \arrow[d, "c", red] 
+    %         \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{c}"]
+    %     &\sigma F 
+    %         \arrow[d, "\simeq"] 
+    %         \arrow[u, "w", olive]
+    %     \\
+    %     F(X) 
+    %         %\arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+    %         \arrow[r, dotted, swap, "F\left(\TheBehaviourOf{\cdot}_{c}\right)"]    
+    %     &F(\sigma F)
+    %     % \\
+    %     % &
+    %     % F(\sigma F)
+    % \end{tikzcd}
+    % \caption{This says $\TheBehaviourOf{\cdot}_{c\circ m}=w\circ\TheBehaviourOf{\cdot}_{c}\circ m$. THIS IS INCORRECT. The thing is: that would be if $m$ is applied only once. }
+    \begin{tikzcd}[column sep=large]
+        X 
+            %\arrow[r, "\TheBehaviourOf{\cdot}_{c\circ m}"]  
+            \arrow[rr, dotted, bend left, "\TheBehaviourOf{\cdot}_{c\circ m}"] 
+            \arrow[d, "m", blue] 
+        &\sigma F   
+            \arrow[d, "m'", olive]
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{\omega\circ m'}"] 
+        &\sigma F
+            \arrow[dd, "\simeq", "\omega"']
+        \\
+        X 
+            \arrow[d, "c", red] 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{c}"]
+        &\sigma F 
+            \arrow[d, "\simeq", "\omega"' ] 
+            %\arrow[ur, "w"]
+            %\arrow[u, "w", olive]
+        &\\
+        F(X) 
+            %\arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+            \arrow[r, dotted, swap, "F\left(\TheBehaviourOf{\cdot}_{c}\right)"]  
+            \arrow[rr, dotted, swap, bend right, "F(\TheBehaviourOf{\cdot}_{c\circ m})"]   
+        &F(\sigma F)
+            \arrow[r, dotted, swap, "F(\TheBehaviourOf{\cdot}_{\omega\circ m'})"]
+        &F(\sigma F)
+        % \\
+        % &
+        % F(\sigma F)
+    \end{tikzcd}
+    %\caption{This says $k\circ \TheBehaviourOf{\cdot}_{c\circ m}=\TheBehaviourOf{\cdot}_{c}\circ m$. }
+\end{figure}
+An example:
+\begin{figure}[t]
+    \begin{tikzpicture}
+        \node[state, accepting] (00) {$(0,0)$};
+        \node[state, accepting, below right of=00] (01) {$(0,1)$};
+        \node[state, accepting, above right  of=00] (10) {$(1,0)$};
+        \node[state, accepting, below right of=10] (11) {$(1,1)$};
+        \draw (00) edge[bend left, above] node{1} (11)
+        (00) edge[bend left, above] node{0} (01)
+        (01) edge[bend left, above] node{1} (11)
+        (01) edge[loop above] node{0} (01)
+        (10) edge[bend left, above] node{1} (11)
+        (10) edge[bend left, above] node{0} (01)
+        (11) edge[loop above] node{1} (11)
+        (11) edge[bend left, above] node{0} (01)
+        ;\end{tikzpicture}\\
+    \begin{tikzcd}[column sep=large]
+        (0,0) 
+            %\arrow[r, "\TheBehaviourOf{\cdot}_{c\circ m}"]  
+            \arrow[rr, mapsto, dotted, bend left, "\TheBehaviourOf{\cdot}_{c\circ m}"] 
+            \arrow[d, mapsto, "{\texttt{const}(1,1)}", blue] 
+        &\sigma F   
+            \arrow[d, "\texttt{const}(\TheBehaviourOf{(1,1)})", olive]
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{\omega\circ w}"] 
+        &(0,1)^*
+            \arrow[dd, "\simeq", "\omega"']
+        \\
+        (1,1) 
+            \arrow[d, "c", red] 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{c}"]
+        &\TheBehaviourOf{(1,1)}%1^*+(0,1)^*111^*
+            \arrow[d, "\simeq", "\omega"' ] 
+            %\arrow[u, "w", olive]
+        &\\
+        {(1,(\cdot,1))} 
+            %\arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+            \arrow[r, dotted, swap, "F\left(\TheBehaviourOf{\cdot}_{c}\right)"]  
+            \arrow[rr, dotted, swap, bend right, "F(\TheBehaviourOf{\cdot}_{c\circ m})"]   
+        &{(1,\TheBehaviourOf{(\cdot,1)}))}
+            \arrow[r, dotted, swap, "F(\TheBehaviourOf{\cdot}_{\omega\circ w})"]
+        &{(1,(0,1)^*))}
+        % \\
+        % &
+        % F(\sigma F)
+    \end{tikzcd}
+    \caption{This says $k\circ \TheBehaviourOf{\cdot}_{c\circ m}=\TheBehaviourOf{\cdot}_{c}\circ m$. }
+\end{figure}
+
+
+% \begin{figure}[t]
+%     \centering
+%     \begin{tikzcd}
+%         X 
+%             \arrow[rrd, dotted, "\TheBehaviourOf{\cdot}^{m}_{c}=\TheBehaviourOf{\cdot}_{c\circ m}", bend left] 
+%             \arrow[dr, "m", blue] 
+%         &
+%         & \\
+%         &X
+%         &\sigma F
+%             %\arrow[dd, "\simeq"] \\
+%         %X \arrow[d, "c", red] \arrow[l, dotted, "\TheBehaviourOf{\cdot}_c"] & \  \\
+%         % F(\sigma F)& F(X) \arrow[l, dotted, "F(\TheBehaviourOf{\cdot}_c)"]    \arrow[r, dotted, "F\left(\TheBehaviourOf{\cdot}_{c\circ m}\right)"]     & F(\sigma F)
+%     \end{tikzcd}
+% \end{figure}
+is $w$ coinductively defined? no. For $w$ to be defined coinductively, it would need to be an $F$-coalgebra homomorphism, between $(\sigma F,\simeq)$ and $(\sigma F,\simeq)$. However, since $(\sigma F,\simeq)$ is final in the category of $F$-coalgebras, the only $F$-homomorphism would be $id_{\sigma F}$, so $w$ can only be defined coinductively if $w=id_{\sigma F}$. It is, instead a transformation of $\sigma F$, defined by 
+\begin{align}
+    w(\TheBehaviourOf{m(x)}_{c})&\triangleq\TheBehaviourOf{x}_{c\circ m}\\
+    \TheBehaviourOf{x}_{c\circ m}&=(w\circ\TheBehaviourOf{-}_{c}\circ m)(x)
+\end{align}
+
+\begin{figure}[t]
+    \begin{tikzcd}[column sep=large]
+        X
+        \arrow[r, "m", blue] 
+        %\arrow[dr, "c \circ m", red]  
+        \arrow[dd, dotted, "\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &X 
+            \arrow[d, "c", red] 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_{c}"]
+        &\sigma F 
+            \arrow[d, "\simeq", "\omega"',red ] 
+            %\arrow[ur, "w"]
+            %\arrow[u, "w", olive]
+        \\
+        &
+        F(X) 
+            %\arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+            \arrow[r, dotted, swap, "F\left(\TheBehaviourOf{\cdot}_{c}\right)"]  
+            \arrow[d, dotted, swap, "F(\TheBehaviourOf{\cdot}_{c \circ m})"]  
+        &F(\sigma F)
+        \\
+        \sigma F
+            \arrow[r, "\simeq", "\omega"',red] 
+        &F(\sigma F)
+        &
+        % &
+        % F(\sigma F)
+    \end{tikzcd}\end{figure}
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[d, "\simeq","\omega"', red] 
+        &X
+            \arrow[r, "m", blue]
+            %\arrow[rd, "c\circ m", red]
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &X 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[d, "c", red] 
+        & \sigma F 
+            \arrow[d, "\simeq","\omega"', red] 
+        \\
+        F(\sigma F)
+        &
+        &F(X) 
+            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
+        &F(\sigma F)
+    \end{tikzcd}
+    %\caption{This says $k\circ \TheBehaviourOf{\cdot}_{c\circ m}=\TheBehaviourOf{\cdot}_{c}\circ m$. }
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[d, "\simeq","\omega"'] 
+        &X
+            \arrow[r, "m"]
+            %\arrow[rd, "c\circ m", red]
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &X 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[d, "c"] 
+        & \sigma F 
+            \arrow[d, "\simeq","\omega"'] 
+        \\
+        F(\sigma F)
+        &
+        &F(X) 
+            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
+        &F(\sigma F)
+    \end{tikzcd}
+    %\caption{This says $k\circ \TheBehaviourOf{\cdot}_{c\circ m}=\TheBehaviourOf{\cdot}_{c}\circ m$. }
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[d, "\simeq","\omega"'] 
+        &X
+            \arrow[r, "m"]
+            %\arrow[rd, "c\circ m", red]
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &X 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[d, "c"] 
+        & \sigma F 
+            \arrow[d, "\simeq","\omega"'] 
+        \\
+        F(\sigma F)
+        &
+        &F(X) 
+            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
+        &F(\sigma F)
+    \end{tikzcd}
+    %\caption{This says $k\circ \TheBehaviourOf{\cdot}_{c\circ m}=\TheBehaviourOf{\cdot}_{c}\circ m$. }
+\end{figure}

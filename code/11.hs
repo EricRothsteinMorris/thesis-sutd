@@ -3,7 +3,7 @@ import Data.List
 import qualified Data.Set as S
 import Control.Arrow
 import qualified Data.Map as M
-import Z3.Monad
+--import Z3.Monad
 
 -- pairApply::(a->b)->(a->c)->a->(b,c)
 -- pairApply = &&&
@@ -13,10 +13,11 @@ states = [(a,b)| a<-[False,True], b<-[False,True]] --the carrier is small, we ca
 
 data F x = F {o::Bool,d::Bool->x }
 
+--F is a Functor
 instance Functor F where
   fmap f (F o d) = (F o (f.d))
 
-
+--This coalgebra is the baseline
 end11::X-> F X
 end11 x = F o d
   where
@@ -27,7 +28,7 @@ accepts::(x->F x)->x->[Bool]->Bool -- from coalgebra to behaviour
 accepts c x ws = (o . c) (foldl' (d.c) x ws)
 
 step::(x->F x)->Bool->x->x
-step c w x = (d.c) x w
+step c = flip (d.c) 
 
 type Behaviour = [Bool]->Bool
 
@@ -36,7 +37,7 @@ bisimilar c1 c2 x y =
   bisimHelper [(x,y)] S.empty 
     where
       bisimHelper todo visited =
-        case todo of 
+        case todo of
           [] -> True
           ((x,y):todo') -> 
             if S.member (x,y) visited then bisimHelper todo' visited

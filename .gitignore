@@ -33,3 +33,8 @@ main.lof
 main.log
 main.pdf
 main.synctex.gz
+main.lot
+main.toc
+*.bbl
+*.aux
+Appendices/.DS_Store

@@ -21,24 +21,73 @@ Informally, a system manifests a latent behaviour if and only if its states are 
 %\end{align}
 %The transformation $a$ skews the behaviour of states to reflect the changes to the state. 
 
-\begin{definition}[Finitely Supported, Consistent State Transformations]
-Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{transformation} of $X$. A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. A transformation $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. Henceforth, we consider only finitely supported, consistent transformations, unless explicitly mentioned otherwise.
+\begin{definition}[Consistent State Transformations]
+Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{transformation} of $X$. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
+A transformation $m$ is \emph{(behaviourally) consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. We denote the set of consistent transformations by $X^X|_\sim$. Henceforth, we consider only consistent transformations, unless explicitly mentioned otherwise.
 \end{definition}
 
 
 When we use a transformation function $m\colon X\rightarrow X$ to skew the normal behaviour of $\mathbb{X}$, we manifest the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
 \begin{definition}[Latent Coalgebra]
-Given an $F$-coalgebra $(X,c)$ and a transformation $m$, the \emph{latent coalgebra of $\mathbb{X}$ under $m$}, denoted $\mathbb{X}\circ m$, is defined by
+Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a transformation $m$, the \emph{latent coalgebra under $m$} is $(X,c\circ m)$. 
+% \begin{align}
+%     \mathbb{X}\circ m\triangleq(X,{(o\circ m, \delta\circ m })).
+% \end{align}
+The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ defines the \emph{latent behaviour} under $m$. The homomorphism $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}$ corresponds to the semantic mapping of the $F$-coalgebra $(X,c\circ m)$; that is, for $x\in X$, 
 \begin{align}
-    \mathbb{X}\circ m\triangleq(X,{(o\circ m, \delta\circ m })).
+\TheLatentBehaviourOfIn{x}{m}{c}\triangleq\TheBehaviourOfIn{x}{{c\circ m}}
 \end{align}
-The function $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}\colon X\rightarrow \sigma F$ defines the \emph{latent behaviour map} of $\mathbb{X}$ under $m$. The homomorphism $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}$ corresponds to the semantic mapping for $\mathbb{X}\circ m$; that is, for $x\in X$, 
-\begin{align}
-\TheLatentBehaviourOfIn{x}{m}{\mathbb{X}}\triangleq\TheBehaviourOfIn{x}{{\mathbb{X}\circ m}}
-\end{align}
-\todo[inline]{Having functions from $X$ to $X$ without changing their coalgebra is kinda odd. But I think that is the spirit of latent behaviours! If you could do anything (e.g., change the coalgebra), then why would you reuse anything from the original coalgebra? We are questioning how far we can go by just changing the state.}
+\todo[inline]{Latent coalgebras are coalgebras with the state space deformed.}
 \end{definition}
-
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[d, "\simeq","\omega"'] 
+        &X
+            \arrow[r, "m"]
+            %\arrow[rd, "c\circ m", red]
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &X 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[d, "c"] 
+        & \sigma F 
+            \arrow[d, "\simeq","\omega"'] 
+        \\
+        F(\sigma F)
+        &
+        &F(X) 
+            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
+        &F(\sigma F)
+    \end{tikzcd}
+    \caption{$(X,c\circ s)$ is an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Geometrically, $s$ is a deformation of the state space.}
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[d, "\simeq","\omega"'] 
+        &&X
+            \arrow[r, "s"]
+            \arrow[d, "t\circ c\circ s"] 
+            %\arrow[rd, "c\circ m", red]
+            \arrow[ll, dotted, swap,"\TheBehaviourOf{\cdot}_{t\circ c\circ s}"]
+        &X 
+            \arrow[rr, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[d, "c"] 
+        && \sigma F 
+            \arrow[d, "\simeq","\omega"'] 
+        \\
+        F(\sigma F) 
+        &&F(X) \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{t\circ c\circ s})"]
+        &F(X) 
+            \arrow[rr, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[l, "t"]     
+        &&F(\sigma F)
+    \end{tikzcd}
+    \caption{Latency using both $s$ and $t$ to manifest latent behaviours: $(X,t\circ c\circ s)$ is still an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Poetically, $s$ corresponds to a deformation of  space, and $t$ corresponds to a deformation of time}
+\end{figure}
 \begin{example}
 \label{ex:LatentBehaviour}
 Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. We define said $G$-coalgebra $\mathbb{X}$ by
@@ -56,10 +105,10 @@ Figure~\ref{fig:ExampleLatent} shows the deterministic finite automaton correspo
 \node[state, accepting, below right of=10] (11) {$(1,1)$};
 \draw (00) edge[bend left, above] node{1} (10)
 (00) edge[loop above] node{0} (00)
-(01) edge[bend left, above] node{1} (10)
+(01) edge[bend left, above] node[left]{1} (10)
 (01) edge[bend left, above] node{0} (00)
 (10) edge[bend left, above] node{1} (11)
-(10) edge[bend left, above] node{0} (01)
+(10) edge[bend left, above] node[right]{0} (01)
 (11) edge[loop above] node{1} (11)
 (11) edge[bend left, above] node{0} (01)
 ;\end{tikzpicture}
@@ -76,6 +125,7 @@ This $G$-coalgebra has 256 transformations, given by the $4^4$ endofunctions in 
 \todo[inline]{Rewrite this!!!}
 The existence of latent behaviours opens a new possibility for system repurposing: if we wanted the system to recognise the language $(0+1)^*1$ (i.e., the language of sequences that end in 1), we could mutate our original system using a transformation where $0\mapsto0, 1\mapsto2$ and $2\mapsto2$ (shown in Figure~\ref{fig:3.10}), whilst preserving $0$ as the initial state. Nevertheless, if providing the transformation is within the capabilities of an adversary, it would also mean that they can repurpose our system as well. 
 }
+
 
 \begin{figure}[t]
 \centering
@@ -670,9 +720,9 @@ We can do a further refinement: we can imagine attackers that control particular
 \todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a transformation, and all transformations can be modelled by attackers that control a certain number of components. Right?}
 
 \begin{definition}[Attack]
-Given an $F$-coalgebra $(X,c)$, we define the set of its possible attacks to be the set of endofunctions in $X$ with finite support, denoted $X^X_\omega$; a function $m\colon X \rightarrow X$ has finite support iff $m(x)\neq x$ for a finite number of $x\in X$. An attack $m$ is \emph{consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. Henceforth, we consider only consistent attacks, unless explicitly mentioned otherwise.
+Given an $F$-coalgebra $(X,c)$, the set of its possible attacks corresponds to the set of consistent transformations of $X$, i.e., $X^X_\sim$. 
 \end{definition}
-
+Different $F$-coalgebras have different sets of attacks. In our framework, a minimal $F$-coalgebra $(X,c)$ has as many attacks as $|X|^{|X|}$.
 
 Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
 
