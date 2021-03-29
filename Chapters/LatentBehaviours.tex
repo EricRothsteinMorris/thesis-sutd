@@ -86,8 +86,14 @@ The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ 
             \arrow[l, "t"]     
         &&F(\sigma F)
     \end{tikzcd}
-    \caption{Latency using both $s$ and $t$ to manifest latent behaviours: $(X,t\circ c\circ s)$ is still an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Poetically, $s$ corresponds to a deformation of  space, and $t$ corresponds to a deformation of time}
+    \caption{Latency using both $m$ and $b$ to manifest latent behaviours: $(X,b\circ c\circ m)$ is still an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Consider the following metaphore: we are grading a test, and $c$ is the grading scheme; $c(x)$ is the grade assigned to $x$. A transformation $m$ would correspond to changing the answers before grading, while a transformation $b$ corresponds to changing the grade after the answers have been graded. The transformation $b$ needs not respect the properties of $c$, since it is applied after it. Thus, it would be possible to change the grade through $b$ to some value that is impossible to obtain by any possible combination of answers (i.e. for every $m$ that changes answers).}
 \end{figure}
+
+{\color{red}The deformation $b$ is not that interesting because it is too flexible. If $F=\id$ then $t$ has the same type as $s$ and they compose, so we can approximate $t.c.s$ with $c.s'$, where $s'=s.t$. If $F(X)$ has only one component, then $t=const \phi$ forces the system to have the behaviour that the attacker wants. More precisely, it can manifest any $F$-coalgebra for that carrier set. The balance would be to allow the attacker of $t$ to influence only a set of components in $F(X)$, just like we do with $s$. Consider the $F$-coalgebras of $()$ for the functor $2x\id^2$; there are only two: $c_0(())=(False,const ())$ and $c_1(())=(True,const ())$. Using state transformations we cannot manifest new behaviours given $c_0$ or $c_1$, but with with behaviour transformations we can: $t=(\texttt{not},\id)$ causes $t.c_0=c_1$ and $t.c_1=c_0$ so you can strictly do more. The question is, do we need more? 
+
+Poetically, $m$ corresponds to a deformation of space, and $b$ corresponds to a deformation of causality.
+}
+
 \begin{example}
 \label{ex:LatentBehaviour}
 Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. We define said $G$-coalgebra $\mathbb{X}$ by
