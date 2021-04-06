@@ -15,11 +15,10 @@ allWords = concat $ [getListsOfSize i [False,True]| i<-[0..6]]
 
 allLanguages = [ zip allWords image | image <- (getListsOfSize (length allWords) [False,True])] --[(w,b)| w<-allWords,b<-[False,True]]
 
-{-
+{- 
   In a way s:(x->x) deforms space, and t:(F x-> F x) deforms time.
   Ok, 
 -}
-
 
 type X = (Bool, Bool) -- Easy enough.
 states = [(a,b)| a<-[False,True], b<-[False,True]] --the carrier is small, we can enumerate them.
@@ -27,10 +26,33 @@ allX = states
 
 data Cont x = Cont {onTrue::x, onFalse::x} deriving (Eq,Ord)
 
+flipComponents::X->X
+flipComponents (a,b)=(b,a)
+
+shiftR::X->X
+shiftR (a,b)=(False,a)
+
+mini::X->X
+mini x = 
+  if x == (False,True) then
+    (False,False)
+  else if x == (False,False) then
+    (False,True)
+  else
+    x
+
+test::X->X
+test x = 
+  case x of 
+    (False,_)-> (False,False)
+    (True,_)-> (True,True)
+
 instance (Show x)=> Show (Cont x) where 
   show (Cont t f)="{True:"++(show t)++",False:"++(show f)++"}"
 
-data F x = F {o::Bool,d::Cont x}
+data F x = F {o::Bool,d::Cont x} deriving (Eq, Ord)
+
+data FCoalgX = Behaviour {of00::(F X), of01::F X, of10::F X, of11::F X} deriving (Eq,Ord,Show)
 
 instance (Show x)=> Show (F x) where
   show (F o d) = show (o,d)

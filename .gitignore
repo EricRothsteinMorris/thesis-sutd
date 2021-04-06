@@ -39,3 +39,6 @@ main.toc
 *.aux
 Appendices/.DS_Store
 main.toc
+main.lot
+main.out
+main.run.xml

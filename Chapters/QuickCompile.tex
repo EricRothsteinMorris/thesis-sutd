@@ -1,3 +1,245 @@
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[d, "\simeq","\omega"'] 
+        &X
+            \arrow[r, "m"]
+            \arrow[rr, bend left, "\TheBehaviourOf{\cdot}_{c}"]
+            %\arrow[rd, "c\circ m"]
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &X 
+            %\arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[d, "c"] 
+        & \sigma F  
+            \arrow[r, "w"]
+            %\arrow[rd,"\rho"]
+            %\arrow[d, "\simeq","\omega"']
+        & \sigma F 
+            \arrow[d, "\simeq","\omega"']
+        \\
+        F(\sigma F)
+        &
+        &F(X) 
+            %\arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"] 
+            \arrow[rr, bend right, "F(\TheBehaviourOf{\cdot}_{c})"]    
+        &%F(\sigma F)
+            %\arrow[r, "F(w)"] 
+        &F(\sigma F)
+    \end{tikzcd}
+    \caption{This commutes if $w(\TheBehaviourOf{x}_{c})= \TheBehaviourOf{x}_{c\circ m}$.}
+\end{figure}
+\newpage
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[dd, "\simeq","\omega"'] 
+        & X
+            \arrow[d, "m"]
+            \arrow[r, "\TheBehaviourOf{\cdot}_{c}"]
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &\sigma F
+            \arrow[d,"\tau"']
+        \\ 
+            %\arrow[d, "c"] 
+        & X   
+            \arrow[d, "c"] 
+        & \sigma F 
+            \arrow[d, "\simeq","\omega"']
+        \\
+        F(\sigma F)
+            %
+        &F(X) 
+            \arrow[r, "F(\TheBehaviourOf{\cdot}_{c})"]    
+            \arrow[l, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"] 
+        &F(\sigma F)
+    \end{tikzcd}
+    \caption{This commutes if $\tau(\TheBehaviourOf{x}_{c})= \TheBehaviourOf{x}_{c\circ m}$.}
+\end{figure}
+\newpage
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large, row sep=large]
+        & X
+            \arrow[d, swap, "m"]
+            \arrow[r, "\TheBehaviourOf{\cdot}_{c}"]
+            \arrow[drr,dotted, swap, "\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &\sigma F
+            \arrow[dr,swap,"\delta_m"']
+        &
+        \\ 
+        \sigma F
+            \arrow[d, "\simeq","\omega"'] 
+            %\arrow[d, "c"] 
+        & X  
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c}"]
+            \arrow[d,swap, "c"] 
+        & 
+        &\sigma F 
+            \arrow[dd, "\simeq","\omega"']
+        \\
+        F(\sigma F)
+            %
+        &F(X) 
+            \arrow[r, "F(\TheBehaviourOf{\cdot}_{c})"]    
+            \arrow[l, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c})"]
+            \arrow[drr, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"] 
+        &F(\sigma F)
+            \arrow[dr, "F(\delta_m)"]
+        \\
+        &
+        &
+        &F(\sigma F)
+    \end{tikzcd}
+    \caption{This commutes if $\delta_m(\TheBehaviourOf{x}_{c})= \TheBehaviourOf{x}_{c\circ m}$.}
+\end{figure}
+\newpage
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=2cm, row sep=1cm]
+        & 
+        &\sigma F
+            \arrow[dr,swap,"\Delta^m_b"']
+        &
+        \\ 
+        \sigma F
+            %\arrow[dd, "\simeq","\omega"'] 
+            \arrow[dd, "\simeq"', "!"]
+            %\arrow[d, "c"] 
+        & X  
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c}"]
+            \arrow[dd,"c"] 
+        & X
+            \arrow[l, swap, "m"]
+            \arrow[u, "\TheBehaviourOf{\cdot}_{c}"]
+            \arrow[r,dotted, swap, "\TheBehaviourOf{\cdot}_{b\circ c\circ m}"]
+        &\sigma F 
+            %\arrow[dd, "\simeq","\omega"']
+            \arrow[dd, "!"]
+            \arrow[dr, "\textbf{id}"]
+        \\
+        &&&&\sigma(F)
+        \\
+        F(\sigma F)
+            %
+        &F(X)     
+            \arrow[l, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+            \arrow[r, swap, "b"]
+        &F(X)
+            \arrow[d, swap, "F(\TheBehaviourOf{\cdot}_{c})"]
+            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{b\circ c\circ m})"] 
+        &
+        F(\sigma F)
+            %\arrow[ur, swap, "\omega^{-1}"]
+            \arrow[ur, swap, "!^{-1}"]
+        \\
+        &
+        &F(\sigma F)
+            \arrow[ru, swap, "F(\Delta^m_b)"]
+        &
+    \end{tikzcd}
+    \caption{Latent Behaviours}
+\end{figure}
+\newpage
+
+Let $w$ be the transformation in $\sigma F$ defined by 
+\begin{align}
+    w(\TheBehaviourOf{x}_{c})= \TheBehaviourOf{x}_{c\circ m},
+\end{align}
+Actually, $w$ is the solution to some behavioural equation; $w$ has type $\sigma F \rightarrow \sigma F$, but $\sigma F\simeq F(\sigma F)$, so we can define a $F$-coalgebra $\rho\colon \sigma F\rightarrow F(\sigma F)$ such that $w=\omega^{-1}\circ\rho$, equivalently $\rho= \omega \circ w$.
+
+Question: is $h$ a homomorphism from $(X, c \circ m)$ to $(\sigma F, F(w)\circ \omega )$?
+
+We need to prove then that 
+\begin{align}
+    F(w)\circ \omega \circ h = F(h)\circ c\circ m
+\end{align}  
+Ok, so, for this to be true, we need to define what $h$ is, let us consider a couple of candidates. Assume $h=\TheBehaviourOf{\cdot}_{c}$. 
+
+\begin{align}
+    F(w)\circ \omega \circ \TheBehaviourOf{\cdot}_{c} &= F(\TheBehaviourOf{\cdot}_{c})\circ c\circ m\\
+    F(w)\circ F(\TheBehaviourOf{\cdot}_{c}) \circ c &= F(\TheBehaviourOf{\cdot}_{c})\circ c\circ m\\
+    F(w\circ \TheBehaviourOf{\cdot}_{c}) \circ c &= F(\TheBehaviourOf{\cdot}_{c})\circ c\circ m\\
+    F(\TheBehaviourOf{x}_{c\circ m}) \circ c &= F(\TheBehaviourOf{\cdot}_{c})\circ c\circ m\\
+\end{align} 
+Noppers. 
+\newpage
+Let us just manipulate. 
+\begin{align}
+    F(w)\circ \omega \circ h 
+\end{align}  
+Assume $h=\TheBehaviourOf{\cdot}_{c}\circ m$. Then
+\begin{align}
+    F(w)\circ \omega \circ (\TheBehaviourOf{\cdot}_{c}\circ m) &=
+    F(w)\circ (\omega \circ \TheBehaviourOf{\cdot}_{c})\circ m \\
+    &=F(w)\circ F(\TheBehaviourOf{\cdot}_{c})\circ c \circ m \\
+    &=F(w\circ \TheBehaviourOf{\cdot}_{c})\circ c \circ m \\
+    &=F(\TheBehaviourOf{\cdot}_{c\circ m})\circ c \circ m\\
+    &=\omega \circ (\TheBehaviourOf{\cdot}_{c\circ m})
+\end{align} 
+This looks nicer....
+
+\newpage
+Let us just manipulate. 
+\begin{align}
+    \omega \circ w \circ h 
+\end{align}  
+Assume $h=\TheBehaviourOf{\cdot}_{c}$. Then
+
+\begin{align}
+    (\omega \circ w \circ \TheBehaviourOf{\cdot}_{c})(x) &=
+    (\omega \circ \TheBehaviourOf{\cdot}_{c\circ m })(x)\\
+    &= F(\TheBehaviourOf{\cdot}_{c\circ m })\circ c \circ m\\
+\end{align} 
+\newpage
+However, we know that 
+
+\begin{align}
+    F(\TheBehaviourOf{\cdot}_{c\circ m})\circ c\circ m =\omega \circ \TheBehaviourOf{\cdot}_{c\circ m}
+\end{align} 
+so $w$ would have to be the identity for this diagram to commute. If we instead try $h=\TheBehaviourOf{\cdot}_{c}$, then we need to prove that 
+\begin{align}
+    \omega \circ w \circ \TheBehaviourOf{\cdot}_{c} = F(\TheBehaviourOf{\cdot}_{c})\circ c\circ m
+\end{align} 
+we know that
+
+\begin{align}
+    \omega \circ \TheBehaviourOf{\cdot}_{c} = F(\TheBehaviourOf{\cdot}_{c})\circ c
+\end{align} 
+so we can substitute
+\begin{align}
+    \omega \circ w \circ \TheBehaviourOf{\cdot}_{c} = \omega \circ \TheBehaviourOf{\cdot}_{c} \circ m
+\end{align} 
+Now, the intuition of $w$ is that it corresponds to the change of behaviour, so we can substitute
+\begin{align}
+    \omega \circ \TheBehaviourOf{\cdot}_{c\circ m} = \omega \circ \TheBehaviourOf{\cdot}_{c} \circ m
+\end{align} 
+but this is not nice, because this corresponds to applying $m$ and then the original behaviour yields the latent behaviour. This is not true. 
+
+Let us now consider $h=\TheBehaviourOf{\cdot}_{c}\circ m$. To prove
+\begin{align}
+    \omega \circ w \circ h = F(h)\circ c\circ m
+\end{align}  
+we need to prove 
+\begin{align}
+    \omega \circ w \circ \TheBehaviourOf{\cdot}_{c}\circ m = F(\TheBehaviourOf{\cdot}_{c}\circ m)\circ c\circ m
+\end{align}
+Now, let us first resolve $F(\TheBehaviourOf{\cdot}_{c}\circ m)$
+\begin{align}
+    \omega \circ w \circ \TheBehaviourOf{\cdot}_{c}\circ m = F(\TheBehaviourOf{\cdot}_{c})\circ F(m)\circ c\circ m
+\end{align}
+definition of $w$
+\begin{align}
+    \omega \circ\TheBehaviourOf{\cdot}_{c\circ m}\circ m = F(\TheBehaviourOf{\cdot}_{c})\circ F(m)\circ c\circ m
+\end{align}
+We substitute $ \omega \circ\TheBehaviourOf{\cdot}_{c\circ m}$ because $\TheBehaviourOf{\cdot}_{c\circ m}$ is a homomorphism
+\begin{align}
+    F(\TheBehaviourOf{\cdot}_{c\circ m})\circ c\circ m \circ m = F(\TheBehaviourOf{\cdot}_{c})\circ F(m)\circ c\circ m
+\end{align}
+This makes even less sense.
+\newpage
 \begin{figure}[t]
     \centering
     \begin{tikzcd}[column sep=large]

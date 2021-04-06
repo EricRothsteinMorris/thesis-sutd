@@ -12,7 +12,7 @@ If you only do what you can do, you will never be more than what you are now.
 \section{Introduction}
 \todo[inline]{Give an interesting motivational example: What is the notion of latent behaviour? Why do we care about them? How is it useful to study them?}
 \section{Latent $F$-coalgebras and their Behaviours}
-Informally, a system manifests a latent behaviour if and only if its states are altered but its dynamics are preserved. To alter states, we use a \emph{transformation} function.
+Informally, a system reveals a latent behaviour if and only if its states are altered but its dynamics are preserved. To alter states, we use a \emph{transformation} function.
 %For the functor $\Functor$, the monad $\Monad=(\MFunctor,\eta,\mu)$, and a $\lambda$-bialgebra $\Bialgebra=(X,a,c)$, we can define the behaviour associated to $\Bialgebra$ by means of the semantic mapping in the category of $\Functor$-coalgebras, i.e., by means of $\TheBehaviourOf{\cdot}\colon \MFunctor(X)\rightarrow \sigma\Functor$. 
 %The \emph{latent behaviour} given a transformation coalgebra $\mathbb{M}=(X,X\xrightarrow{(o_m,\delta_m)} F(X))$, is modelled by the function $\TheLatentBehaviourOf{\cdot}{\mathbb{M}}\colon X\rightarrow \sigma F$, which is coinductively defined, for $i\in I$, by
 %\begin{align}
@@ -27,7 +27,7 @@ A transformation $m$ is \emph{(behaviourally) consistent} if and only if, whenev
 \end{definition}
 
 
-When we use a transformation function $m\colon X\rightarrow X$ to skew the normal behaviour of $\mathbb{X}$, we manifest the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
+When we use a transformation function $m\colon X\rightarrow X$ to skew the normal behaviour of $\mathbb{X}$, we reveal the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
 \begin{definition}[Latent Coalgebra]
 Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a transformation $m$, the \emph{latent coalgebra under $m$} is $(X,c\circ m)$. 
 % \begin{align}
@@ -61,7 +61,7 @@ The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ 
             \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
         &F(\sigma F)
     \end{tikzcd}
-    \caption{$(X,c\circ s)$ is an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Geometrically, $s$ is a deformation of the state space.}
+    \caption{$(X,c\circ m)$ is an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Geometrically, $m$ is a transformation of the state space, so some preserve certain structural properties (e.g. a permutation) while others do not (e.g. a collapsing function to some fixed $x$).}
 \end{figure}
 \begin{figure}
     \centering
@@ -69,10 +69,10 @@ The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ 
         \sigma F
             \arrow[d, "\simeq","\omega"'] 
         &&X
-            \arrow[r, "s"]
-            \arrow[d, "t\circ c\circ s"] 
+            \arrow[r, "m"]
+            \arrow[d, "b\circ c\circ m"] 
             %\arrow[rd, "c\circ m", red]
-            \arrow[ll, dotted, swap,"\TheBehaviourOf{\cdot}_{t\circ c\circ s}"]
+            \arrow[ll, dotted, swap,"\TheBehaviourOf{\cdot}_{b\circ c\circ m}"]
         &X 
             \arrow[rr, dotted, "\TheBehaviourOf{\cdot}_c"] 
             \arrow[d, "c"] 
@@ -80,16 +80,41 @@ The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ 
             \arrow[d, "\simeq","\omega"'] 
         \\
         F(\sigma F) 
-        &&F(X) \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{t\circ c\circ s})"]
+        &&F(X) \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{b\circ c\circ m})"]
         &F(X) 
             \arrow[rr, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
-            \arrow[l, "t"]     
+            \arrow[l, "b"]     
         &&F(\sigma F)
     \end{tikzcd}
-    \caption{Latency using both $m$ and $b$ to manifest latent behaviours: $(X,b\circ c\circ m)$ is still an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Consider the following metaphore: we are grading a test, and $c$ is the grading scheme; $c(x)$ is the grade assigned to $x$. A transformation $m$ would correspond to changing the answers before grading, while a transformation $b$ corresponds to changing the grade after the answers have been graded. The transformation $b$ needs not respect the properties of $c$, since it is applied after it. Thus, it would be possible to change the grade through $b$ to some value that is impossible to obtain by any possible combination of answers (i.e. for every $m$ that changes answers).}
+    \caption{Latency using both $m$ and $b$ to reveal latent behaviours: $(X,b\circ c\circ m)$ is still an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Metaphorically, consider the function $c$ as a causal model which transforms the cause $x$ into the consequence $c(x)$; the transformation $m$ corresponds to a change of cause, while a transformation $b$ corresponds to a change of consequence. In a more concrete example, assume that we are grading a test, and $c$ is the grading rules. The value $c(x)$ is the grade assigned to the answers $x$. A transformation $m$ would correspond to changing the answers before grading, while a transformation $b$ corresponds to changing the grade after the answers have been graded. Now, if $F(X)$ is the The transformation $b$ needs not respect the properties of $c$, since it is applied after it. Thus, it would be possible to change the grade through $b$ to some value that is impossible to obtain by any possible combination of answers (i.e. for every $m$ that changes answers).}
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{tikzcd}[column sep=large]
+        \sigma F
+            \arrow[d, "\simeq","\omega"'] 
+        &X
+            \arrow[r, "m"]
+            %\arrow[rd, "c\circ m", red]
+            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
+        &X 
+            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
+            \arrow[d, "c"] 
+        & \sigma F 
+            \arrow[d, "\simeq","\omega"'] 
+        \\
+        F(\sigma F)
+        &
+        &F(X) 
+            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
+            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
+        &F(\sigma F)
+    \end{tikzcd}
+    \caption{$(X,T(X)\xrightarrow{c\circ a}F(X))$ is an $FT$-coalgebra, (not quite a bialgebra, but it could be). $T(X)$ defines specifications for $X$, so we could mutate those instead of $X$ directly. This is what the paper by Harrison and Goldstein does \cite{DoJudgeATestByItsCover}}
 \end{figure}
 
-{\color{red}The deformation $b$ is not that interesting because it is too flexible. If $F=\id$ then $t$ has the same type as $s$ and they compose, so we can approximate $t.c.s$ with $c.s'$, where $s'=s.t$. If $F(X)$ has only one component, then $t=const \phi$ forces the system to have the behaviour that the attacker wants. More precisely, it can manifest any $F$-coalgebra for that carrier set. The balance would be to allow the attacker of $t$ to influence only a set of components in $F(X)$, just like we do with $s$. Consider the $F$-coalgebras of $()$ for the functor $2x\id^2$; there are only two: $c_0(())=(False,const ())$ and $c_1(())=(True,const ())$. Using state transformations we cannot manifest new behaviours given $c_0$ or $c_1$, but with with behaviour transformations we can: $t=(\texttt{not},\id)$ causes $t.c_0=c_1$ and $t.c_1=c_0$ so you can strictly do more. The question is, do we need more? 
+
+{\color{red}The deformation $b$ is not that interesting because it is too flexible. If $F=\id$ then $t$ has the same type as $s$ and they compose, so we can approximate $t.c.s$ with $c.s'$, where $s'=s.t$. If $F(X)$ has only one component, then $t=const \phi$ forces the system to have the behaviour that the attacker wants. More precisely, it can reveal any $F$-coalgebra for that carrier set. The balance would be to allow the attacker of $t$ to influence only a set of components in $F(X)$, just like we do with $s$. Consider the $F$-coalgebras of $()$ for the functor $2x\id^2$; there are only two: $c_0(())=(False,const ())$ and $c_1(())=(True,const ())$. Using state transformations we cannot reveal new behaviours given $c_0$ or $c_1$, but with with behaviour transformations we can: $t=(\texttt{not},\id)$ causes $t.c_0=c_1$ and $t.c_1=c_0$ so you can strictly do more. The question is, do we need more? 
 
 Poetically, $m$ corresponds to a deformation of space, and $b$ corresponds to a deformation of causality.
 }
@@ -102,27 +127,47 @@ Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(
 \delta(x,y)(i)&\triangleq(i,x).
 \end{align}
 Figure~\ref{fig:ExampleLatent} shows the deterministic finite automaton corresponding to this $G$-coalgebra; the coalgebra is not minimal, because the states $(0,0)$ and $(0,1)$ are bisimilar.
+% \begin{figure}[t]
+% \centering
+% \begin{tikzpicture}
+% \node[state] (00) {$(0,0)$};
+% \node[state, below right of=00] (01) {$(0,1)$};
+% \node[state, above right  of=00] (10) {$(1,0)$};
+% \node[state, accepting, below right of=10] (11) {$(1,1)$};
+% \draw (00) edge[bend left, above] node{1} (10)
+% (00) edge[loop above] node{0} (00)
+% (01) edge[bend left, above] node[left]{1} (10)
+% (01) edge[bend left, above] node{0} (00)
+% (10) edge[bend left, above] node{1} (11)
+% (10) edge[bend left, above] node[right]{0} (01)
+% (11) edge[loop above] node{1} (11)
+% (11) edge[bend left, above] node{0} (01)
+% ;\end{tikzpicture}
+% \caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
+% \label{fig:ExampleLatent}
+% \end{figure}
+
 \begin{figure}[t]
-\centering
-\begin{tikzpicture}
-\node[state] (00) {$(0,0)$};
-\node[state, below right of=00] (01) {$(0,1)$};
-\node[state, above right  of=00] (10) {$(1,0)$};
-\node[state, accepting, below right of=10] (11) {$(1,1)$};
-\draw (00) edge[bend left, above] node{1} (10)
-(00) edge[loop above] node{0} (00)
-(01) edge[bend left, above] node[left]{1} (10)
-(01) edge[bend left, above] node{0} (00)
-(10) edge[bend left, above] node{1} (11)
-(10) edge[bend left, above] node[right]{0} (01)
-(11) edge[loop above] node{1} (11)
-(11) edge[bend left, above] node{0} (01)
-;\end{tikzpicture}
-\caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
-\label{fig:ExampleLatent}
+    \centering
+    \begin{tikzpicture}
+        \node[state] (00) {$(0,0)$};
+        \node[state, below right of=00] (01) {$(0,1)$};
+        \node[state, above right  of=00] (10) {$(1,0)$};
+        \node[state, accepting, below right of=10] (11) {$(1,1)$};
+        \draw (00) edge[bend left, above] node{1} (10)
+        (00) edge[loop above] node{0} (00)
+        (01) edge[bend left, above] node{1} (10)
+        (01) edge[bend left, above] node{0} (00)
+        (10) edge[bend left, above] node{1} (11)
+        (10) edge[bend left, above] node{0} (01)
+        (11) edge[loop above] node{1} (11)
+        (11) edge[bend left, above] node{0} (01)
+        ;\end{tikzpicture}
+    \caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
+    \label{fig:ExampleLatent}
 \end{figure}
 
-This $G$-coalgebra has 256 transformations, given by the $4^4$ endofunctions in $X$. We use these transformations to manifest latent behaviours.%, and every consistent transformation $m$ satisfies $m(0,0)~m(0,1)$. 
+This $G$-coalgebra has 256 transformations, given by the $4^4$ endofunctions in $X$. We use these transformations to reveal latent behaviours.%, and every consistent transformation $m$ satisfies $m(0,0)~m(0,1)$. 
 \todo[inline]{You can probably graph this with a 3 dimensional graph like a vector field whose axises are input, state, and output. We could use four dimensions so that state is 2-dimensional}
 % We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:3.2}--\ref{fig:3.28}. Note that many of these latent coalgebras are not minimal, and many display the same behaviours.
 
@@ -136,22 +181,42 @@ The existence of latent behaviours opens a new possibility for system repurposin
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
-\node[state] (00) {$(0,0)$};
-\node[state, accepting, below right of=00] (01) {$(0,1)$};
-\node[state, above right  of=00] (10) {$(1,0)$};
-\node[state, below right of=10] (11) {$(1,1)$};
-\draw (00) edge[bend left, above] node{1} (10)
-(00) edge[loop above] node{0} (00)
-(01) edge[bend right, above] node{1} (11)
-(01) edge[loop left] node{0} (01)
-(10) edge[loop above] node{1} (10)
-(10) edge[bend left, above] node{0} (00)
-(11) edge[bend left, above] node{1} (10)
-(11) edge[bend left, above] node{0} (00)
-;\end{tikzpicture}
-\caption{Corresponding automaton to the latent $G-$coalgebra under transformation $???$ described in Example~\ref{ex:LatentBehaviour}.}
-\label{fig:ExampleLatent}
+    \node[state] (00) {$(0,0)$};
+    \node[state, below right of=00] (01) {$(0,1)$};
+    \node[state, above right  of=00] (10) {$(1,0)$};
+    \node[state, accepting, below right of=10] (11) {$(1,1)$};
+    \draw (00) edge[bend left, above] node{1} (10)
+    (00) edge[loop above] node{0} (00)
+    (01) edge[bend left, above] node{1} (11)
+    (01) edge[loop above] node{0} (01)
+    (10) edge[loop above] node{1} (10)
+    (10) edge[bend left, above] node{0} (00)
+    (11) edge[loop above] node{1} (11)
+    (11) edge[bend left, above] node{0} (01)
+    ;\end{tikzpicture}
+\caption{Corresponding automaton to the latent $G-$coalgebra under transformation $(a,b)\mapsto(b,a)$. This transformation is not consistent, since $(0,0)\sim (0,1)$ in the original $F$-coalgebra, but $(0,0)$ and $(1,0)$ are no longer bisimilar}% described in Example~\ref{ex:LatentBehaviour}.}
+\label{fig:ExampleInconsistentLatent}
 \end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+    \node[state] (00) {$(0,0)$};
+    \node[state, below right of=00] (01) {$(0,1)$};
+    \node[state, accepting, above right  of=00] (10) {$(1,0)$};
+    \node[state, accepting, below right of=10] (11) {$(1,1)$};
+    \draw (00) edge[bend left, above] node{1} (10)
+    (00) edge[loop above] node{0} (00)
+    (01) edge[bend left, above] node{1} (10)
+    (01) edge[bend left, above] node{0} (00)
+    (10) edge[bend left, above] node{1} (11)
+    (10) edge[bend left, above] node{0} (01)
+    (11) edge[loop above] node{1} (11)
+    (11) edge[bend left, above] node{0} (01)
+    ;\end{tikzpicture}
+\caption{Corresponding automaton to the latent $G-$coalgebra under transformation $(0,x)\mapsto (0,0)$ and $(1,x)\mapsto (1,1)$. This transformation is consistent, and reveals a new behaviour from the state $(0,0)$, more precisely, the language $(0,1)^*1$ of sequences that end in $1$.}% described in Example~\ref{ex:LatentBehaviour}.}
+\label{fig:ExampleConsistentLatent}
+\end{figure} 
     
 % \begin{table}[t]
 % \centering
@@ -705,18 +770,14 @@ Not all behaviours are latent for a given $F$-coalgebra. In Example~\ref{ex:Late
 A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebra $\mathbb{X}=(X,c,x_0)$ and a given behaviour $\rho\in \sigma F$. To solve this problem, we need to either 1) find a transformation $m$ which proves that $\rho$ is the latent behaviour of $x_0$ under $m$ or 2) prove that no such $m$ can exist.
 \end{definition}
 
-\todo[inline]{To coinductively define $m$, we would already need to know $\mathbb{X}\circ m$, so that is not an option. Instead, we can play a game with the coalgebra as follows. We start at the initial state $x_0$, and we take turns; we play first, and we are allowed to map $x_0$ to another state (i.e. define $m(x_0)$. Once we do, the coalgebra computes $c(m(x_0))$ and, on input consumed, and if the coalgebra has transition dynamics, we can continue the game from the new state.}
-
-\todo[inline]{Can we define  $\mathbb{X}\circ m$ based on what we know?. Let us consider the functor $O\times X^I$. We can try to solve the problem in two ways: based on bisimilarity or based on backpropagation (which are somewhat connected).}
-
 
 \begin{align}
 \gamma(m(x))&=\gamma_\omega(\rho)\\
 \delta(m(x))(i)&\sim \delta_\omega(\rho)(i), \forall i\in I
 \end{align}
 
-\todo[inline]{This means that the problem becomes a "searching for the next candidate at every step" problem. Alternatively, you could learn to compose solutions too. }
-\todo[inline]{Maybe we can also do something exciting: eventuality -> at some point in time, the behaviour you want becomes apparent, i.e. $\TheBehaviourOf{x_0}^w=\rho$ for some $w$}
+% \todo[inline]{This means that the problem becomes a "searching for the next candidate at every step" problem. Alternatively, you could learn to compose solutions too. }
+% \todo[inline]{Maybe we can also do something exciting: eventuality -> at some point in time, the behaviour you want becomes apparent, i.e. $\TheBehaviourOf{x_0}^w=\rho$ for some $w$}
 
  
 \section{Attackers and Attacks}
