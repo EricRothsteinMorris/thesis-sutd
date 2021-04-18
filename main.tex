@@ -121,7 +121,7 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand{\DTS}{DTS}
 \newcommand{\MFunctor}{T}
 \newcommand{\TheLatentBehaviourOf}[2]{{\TheBehaviourOf{#1}^{#2}}}%{{{#1}_{beh}}}
-\newcommand{\TheLatentBehaviourOfIn}[3]{{{\llbracket#1\rrbracket}}^{#2}_{#3}}%{{{#1}_{beh}}}
+\newcommand{\TheLatentBehaviourOfIn}[3]{{{\llbracket#1\rrbracket}}_{({#2},{#3})}}%{{{#1}_{beh}}}
 \newcommand{\TheBehavioursOf}[1]{{{\llbracket\TheFinalCoalgebraOf{#1}\rrbracket}}}
 \newcommand{\TheBehaviourOf}[1]{{{\llbracket#1\rrbracket}}}%{{{#1}_{beh}}}
 \newcommand{\TheBehaviourOfIn}[2]{{{\llbracket#1\rrbracket}}_{#2}}%{{{#1}_{beh}}}
@@ -152,6 +152,7 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand*{\1}{{1_\AsCategory{Set}}}
 
 \newtheorem{example}{Example}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
 %\newenvironment{haskell}[1]{\begin{minted}{haskell}#1}{\end{minted}}
 
 %----------------------------------------------------------------------------------------
@@ -207,44 +208,77 @@ initial text=$ $, % sets the text that appears on the start arrow
 % \hfill\break\\[1cm]%[2.3cm]
 % \begin{figure}[!h]
 	\centering
-    \begin{tikzcd}[column sep=1.75cm, row sep=1cm]
-        & 
+    % \begin{tikzcd}[column sep=1.75cm, row sep=1cm]
+    %     & 
+    %     &\sigma F
+    %         \arrow[dr,swap,"\Delta^m_b"']
+    %     &
+    %     \\ 
+    %     \sigma F
+    %         %\arrow[dd, "\simeq","\omega"'] 
+    %         %\arrow[dd, "\simeq"', "!"]
+	% 		\arrow[dd, "1"]
+    %         %\arrow[d, "c"] 
+    %     & X  
+    %         \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c}"]
+    %         \arrow[dd,"c"] 
+    %     & X
+    %         \arrow[l, swap, "m"]
+    %         \arrow[u, "\TheBehaviourOf{\cdot}_{c}"]
+    %         \arrow[r,dotted, swap, "\TheBehaviourOf{\cdot}_{b\circ c\circ m}"]
+    %     &\sigma F 
+    %         %\arrow[dd, "\simeq","\omega"']
+    %         \arrow[dd, "1"]
+    %         \arrow[dr, "\textbf{id}"]
+    %     \\
+    %     &&&&\sigma(F)
+    %     \\
+    %     F(\sigma F)
+    %         %
+    %     &F(X)     
+    %         \arrow[l, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+    %         \arrow[r, swap, "b"]
+    %     &F(X)
+    %         \arrow[d, swap, "F(\TheBehaviourOf{\cdot}_{c})"]
+    %         \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{b\circ c\circ m})"] 
+    %     &
+    %     F(\sigma F)
+    %         %\arrow[ur, swap, "\omega^{-1}"]
+    %         \arrow[ur, swap, "1^{-1}"]
+    %     \\
+    %     &
+    %     &F(\sigma F)
+    %         \arrow[ru, swap, "F(\Delta^m_b)"]
+    %     &
+    % \end{tikzcd} 
+	\begin{tikzcd}[column sep=1.75cm, row sep=1cm]
         &\sigma F
             \arrow[dr,swap,"\Delta^m_b"']
         &
         \\ 
-        \sigma F
-            %\arrow[dd, "\simeq","\omega"'] 
-            \arrow[dd, "\simeq"', "!"]
-            %\arrow[d, "c"] 
-        & X  
-            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c}"]
+        X  
             \arrow[dd,"c"] 
         & X
             \arrow[l, swap, "m"]
-            \arrow[u, "\TheBehaviourOf{\cdot}_{c}"]
-            \arrow[r,dotted, swap, "\TheBehaviourOf{\cdot}_{b\circ c\circ m}"]
+            \arrow[u, "!_{c}"]
+            \arrow[r,dotted, swap, "!_{b\circ c\circ m}"]
         &\sigma F 
             %\arrow[dd, "\simeq","\omega"']
-            \arrow[dd, "!"]
+            \arrow[dd, "1"]
             \arrow[dr, "\textbf{id}"]
         \\
-        &&&&\sigma(F)
+        &&&\sigma(F)
         \\
-        F(\sigma F)
-            %
-        &F(X)     
-            \arrow[l, dotted, "F(\TheBehaviourOf{\cdot}_{c})"]
+        F(X)     
             \arrow[r, swap, "b"]
         &F(X)
-            \arrow[d, swap, "F(\TheBehaviourOf{\cdot}_{c})"]
-            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_{b\circ c\circ m})"] 
+            \arrow[d, swap, "F(!_{c})"]
+            \arrow[r, dotted, "F(!_{b\circ c\circ m})"] 
         &
         F(\sigma F)
             %\arrow[ur, swap, "\omega^{-1}"]
-            \arrow[ur, swap, "!^{-1}"]
+            \arrow[ur, swap, "1^{-1}"]
         \\
-        &
         &F(\sigma F)
             \arrow[ru, swap, "F(\Delta^m_b)"]
         &
@@ -448,8 +482,8 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %\include{Chapters/Introduction}
 
 %\include{Chapters/Preliminaries}
-%\include{Chapters/LatentBehaviours}
-\include{Chapters/QuickCompile}
+\include{Chapters/LatentBehaviours}
+%\include{Chapters/QuickCompile}
 %\include{Chapters/Chapter1} 
 %\include{Chapters/Chapter2}
 %\include{Chapters/Chapter3}

@@ -35,9 +35,131 @@ Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a transformation $m$, the \emph
 % \end{align}
 The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ defines the \emph{latent behaviour} under $m$. The homomorphism $\TheLatentBehaviourOfIn{\cdot}{m}{\mathbb{X}}$ corresponds to the semantic mapping of the $F$-coalgebra $(X,c\circ m)$; that is, for $x\in X$, 
 \begin{align}
-\TheLatentBehaviourOfIn{x}{m}{c}\triangleq\TheBehaviourOfIn{x}{{c\circ m}}
-\end{align}
+\TheLatentBehaviourOfIn{x}{c}{m}\triangleq\TheBehaviourOfIn{x}{{c\circ m}}
+\end{align} 
+
+\paragraph{Space-Time Duality} 
+We now define the set $m(X)\triangleq\{m(x)\ |\ x\in X\}$. We define a dynamical system $(m(X),m\circ c\colon m(X)\rightarrow m(X))$, whose associated set of behaviours is $(m\circ c)_{m(X)}^\infty$.
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzcd}%[column sep=1.75cm, row sep=1cm]
+        (X\times m(X), (c \circ m,m \circ c))
+            \arrow[d,swap,"\fst"]
+            \arrow[r,swap,"\snd"]
+        & (m(X), m \circ c)
+            \arrow[d,swap,"m\circ c_{(\cdot)}^\infty"']
+        \\ 
+        (X,c \circ m)
+            \arrow[r,swap,"(c\circ m)_{(\cdot)}^\infty"]
+        &  (X^\infty, (\cdot)')
+    \end{tikzcd} 
+    \caption{Pullback relating $c\circ m$ and $m\circ c$, describing the space-time duality of dynamical systems defined by $\id$-coalgebras.}
+\end{figure}
+
+\begin{theorem}[Fundamental Theorem of Latent Behaviour Analysis]
+    \label{theo:Fundamental}
+    The semantic map-ping of the $F$-coalgebra $(X,c\circ m\colon X\rightarrow F(X))$ factors through the semantic mapping of the $F$-coalgerba $(m(X),c\colon m(X)\rightarrow F(m(X)))$
+    \todo[inline]{This probably needs to use bounded functors.}
+\end{theorem}
+\begin{proof}
+    The Epi-mono factorisation from Universal Coalgebra uses the kernel of homomorphisms as the quotient. Here, we replace it by $\equiv_m$, enforcing bisimilarity between $x$ and $m(x)$. Note that $\equiv_{\id}$ is normal bisimilarity.
+
+    The transformation $m\colon X\rightarrow X$ forces the appearances of equivalence classes $\equiv_m\subseteq X\times X$ with respect to $c$, where $x_1\equiv_m x_2$ iff $m(x_1)\sim m(x_2)$, which overrides bisimilarity in $X$ with respect to $c$. The set $X/\equiv_m$ is isomorphic to $m(X)$.
+\end{proof}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/Epi-monofactorisation.png}
+    \caption{Reason why the fundamental theorem works.}
+    \label{fig:LambdaCurves}
+    \end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/FundamentalTheo.png}
+    \caption{Reason why the fundamental theorem works.}
+    \label{fig:LambdaCurves}
+    \end{figure}
+
+\begin{proposition}[Behavioural Change]
+For any dynamical system described by an $F$-coalgebra 
+$(X,c\circ m\colon X\rightarrow F(X))$, where $m\colon X\rightarrow X$, and  $c\colon X\rightarrow F(X)$, there exists a \emph{unique} transformation function $\Delta_m\colon \sigma F\rightarrow \sigma F$ which maps $\TheBehaviourOfIn{x}{c}$ to $\TheLatentBehaviourOfIn{x}{c}{m}$, describing the \emph{behavioural change} of $x$, for all $x\in X$.
+\end{proposition}
+\begin{proof}
+    The function $\Delta_{m}\colon \sigma F\rightarrow \sigma F$ is an $F$-coalgebra since $F(\sigma F)\simeq \sigma F$, so it has a behaviour. 
+coinductively defined by 
+{\color{red}
+\todo[inline]{Transform this into a commutative diagram?}
+\begin{align*}
+    \Delta_{m}(\TheBehaviourOfIn{x}{c}) \sim_{(c \circ m)} (x)\\
+    %\Delta_{m}(c^\infty_x)[1]&\triangleq c^\infty_{m(x)}[1]\\
+    \Delta_{m}(c^\infty_x)[t+1]&\triangleq \Delta_{m}\left(c^\infty_{(c\circ m)(x)}\right)[t]
+\end{align*}
+}
+\end{proof}
+
+\section{Dynamical Systems of the $\id$ Functor}
+% Theorem~\ref{theo:Fundamental} is a far stretch from the fundamental theorem of arithmetic, which states that every natural number can be decomposed into a multiplication of primes, but it follows a similar reasoning. Normally, we ignore this decomposition, so $\delta=c$ and $m=\id$. 
+% \todo[inline]{It would be nice to have ``primes" here, and they may exist. They'll probably }
+
+
+
+The \emph{fundamental theorem of latent behaviour analysis} implies the existence of unique transformation function $\Delta_m\colon X^\infty\rightarrow X^\infty$ which maps $c_{x}^\infty$ to both $\delta_{x}^\infty$ and $c_{m(x)}^\infty$ for all $x\in X$. The function $\Delta_m$ models the behavioural change induced by $m$ when applied to the $F$-coalgebra $(X,c)$. This unique function $\delta_{x}^\infty$ and $c_{m(x)}^\infty$ is 
+coinductively defined by 
+% \todo[inline]{BE CAREFUL HOW YOU DEFINE THE INDICES and if you want behaviours to include $x$, in coalgberas that is not very common.}
+\begin{align*}
+    \Delta_{m}(c^\infty_x)[0]&\triangleq (c \circ m)(x)\\
+    %\Delta_{m}(c^\infty_x)[1]&\triangleq c^\infty_{m(x)}[1]\\
+    \Delta_{m}(c^\infty_x)[t+1]&\triangleq \Delta_{m}\left(c^\infty_{(c\circ m)(x)}\right)[t]
+\end{align*}
+This definition compounds the effect of $m$ over time.
+% \begin{align}
+%     \Delta_m(c_{x}^\infty)\triangleq(m\circ c)_{x}^\infty
+% \end{align}
+% which is not a very useful definition. However, if $m$ satisfies some linearity properties, then this function $\Delta_m(c_{x}^\infty)$ can be defined (co)inductively.
+
+For example, consider the system $(\mathbb{N},c=(+1))$ and the operator $m=(*3)$. The corresponding definition is $\Delta_{m}$ by
+\begin{align*}
+    \Delta_{m}(c^\infty_x)[0]&=1\\%(+1)^\infty_{2x}[1]\\
+    (\Delta_{m}(c^\infty_x))[t+1]&=\Delta_{m}(c^\infty_{3x+1})[t]
+\end{align*}
+%This definition compounds the effect of the operator $(*2)$. 
+From $(1,2,3,\ldots)=(+1)^\infty_0$, we obtain the sequence $(1,7,13,40,121,\ldots)$. 
+% Now, $\Delta_{(*2)}(\omega)[0]=0$. %, so $((+1)\circ (*2))^\infty_0[0]=0$. 
+% Next, $\Delta_{(*2)}(((+1)\circ (*2))^\infty_{1})[0]=1$
+
+%$\Delta_{(*2)}(\omega)[t+1]$ since $\omega=(+1)^\infty_{(2*0)+1}$
+\begin{definition}
+The operator $m$ is \emph{linear with respect to $c$} if and only if
+\begin{align}
+    (c\circ m)^\infty_x[t]= (m \circ c)^\infty_x[t].
+\end{align}    
+\end{definition}
+
+%Functorial operators are quite rare. It means that their effects do not compound over time. 
+% (Linear operators have a deep relation to bialgebras of the identity functor, where $c\circ m= m\circ c $.)
+% The operator $(*2)$ is not linear with respect to $(+1)$, but the operator $+3$ is. $(0,4,8,)$.
+
+Depending on the properties of $m$ and $\Delta_m$, we might infer whether some behavioural property was preserved for all sequences, i.e., if $P(c^\infty_x)$, then $P((c\circ m)^\infty_x)$. For example, for $m=(*3)$, and $c=(+1)$, the sequence is still strictly increasing. 
+
+
+
+%We say that thefunction $\Delta^m$ has a solution if it can be written
+
+
+
+
+
+
+
+
+THe usefulness of latent behaviour analysis is that you can decompose a behaviour-defining into several components. Each of those components 
+
+
+
 \todo[inline]{Latent coalgebras are coalgebras with the state space deformed.}
+\todo[inline]{THESE DIAGRAMS ARE WRONG. THE BEH OF C CANNOT APPEAR LIKE THISOR YOU CAN GO VIA M to the end of c}
 \end{definition}
 \begin{figure}
     \centering
