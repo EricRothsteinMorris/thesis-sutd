@@ -32,6 +32,9 @@ flipComponents (a,b)=(b,a)
 shiftR::X->X
 shiftR (a,b)=(False,a)
 
+firstIsAlwaysOne::X->X
+firstIsAlwaysOne (_,b)=(True,b)
+
 mini::X->X
 mini x = 
   if x == (False,True) then

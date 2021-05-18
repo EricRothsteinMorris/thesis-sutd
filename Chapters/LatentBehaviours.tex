@@ -5,12 +5,98 @@
 \chapter{Latent Behaviours} % Main chapter title
 \label{ch:LatentBehaviours} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 \todo[inline]{Find a suitable quote?}
-\begin{quote}
-If you only do what you can do, you will never be more than what you are now.
-\end{quote}
+\begin{quote} 
+%If you only do what you can do, you will never be more than what you are now.
+"As you adequately put, the problem is choice. But we already know what you are going to do, don't we?" -- The Architect.
+\end{quote} 
 
 \section{Introduction}
 \todo[inline]{Give an interesting motivational example: What is the notion of latent behaviour? Why do we care about them? How is it useful to study them?}
+
+\section{Motivation: Faulty Systems}
+\todo[inline]{Small intro to faulty systems}
+
+\subsection{A Faulty Automaton}
+Consider the automaton shown in Figure~\ref{fig:ExampleLatent}, which recognises the language of sequences of zeroes and ones that end in two consecutive ones; i.e., the language $(0+1)^*111^*$. The automaton is defined by the tuple $(\vec{X},\vec{x}_0,\delta,F)$, where the carrier is $\vec{X}=2\times2$, the initial state is $\vec{x}_0=(0,0)$, the transition function $\delta\colon 2\rightarrow\vec{X}\rightarrow \vec{X}$ is defined for $\vec{x}\in \vec{X}$ and $i \in 2$ by $\delta(i)(\vec{x})=(i,\vec{x}[0]),$ and the set of final states is $F=\set{(1,1)}$.
+
+Now, assume that we use a two-bit system to keep track of the current state for the implementation; the first bit corresponds to the first coordinate, and the second bit to the second coordinate. However, the first bit is faulty, and it always registers one; e.g., instead of state $(0,0)$, we obtain $(1,0)$, and instead of $(0,1)$ we obtain $(1,1)$. %This fault causes states $(0,0)$ and $(1,0)$ to collide, and similarly for states $(0,1)$ and $(1,1)$. 
+Figure~\ref{fig:Transformed} shows a model of the faulty system; %the initial state is now $(1,0)$ because $m(0,0)=(1,0)$, and 
+This automaton recognises the language of non-empty sequences of zeroes and ones; i.e., $(0+1)(0+1)^*$. 
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}
+        \node[state,initial] (00) {$(0,0)$};
+        \node[state, below right of=00] (01) {$(0,1)$};
+        \node[state, above right  of=00] (10) {$(1,0)$};
+        \node[state, accepting, below right of=10] (11) {$(1,1)$};
+        \draw (00) edge[bend left, above] node{1} (10)
+        (00) edge[loop above] node{0} (00)
+        (01) edge[bend left, above] node{1} (10)
+        (01) edge[bend left, above] node{0} (00)
+        (10) edge[bend left, above] node{1} (11)
+        (10) edge[bend left, above] node{0} (01)
+        (11) edge[loop above] node{1} (11)
+        (11) edge[bend left, above] node{0} (01)
+        ;\end{tikzpicture}
+    \caption{An automaton which recognises the language $(0+1)^*111^*$.}
+    \label{fig:ExampleLatent}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}
+        \node[state,initial] (00) {$(0,0)$};
+        \node[state, accepting, below right of=00] (01) {$(0,1)$};
+        \node[state, above right  of=00] (10) {$(1,0)$};
+        \node[state, accepting, below right of=10] (11) {$(1,1)$};
+        \draw (00) edge[bend left, above] node[near end]{1} (11)
+        (00) edge[bend right, below] node{0} (01)
+        (01) edge[bend left, above] node{1} (11)
+        (01) edge[loop above] node{0} (01)
+        (10) edge[bend left, above] node{1} (11)
+        (10) edge[bend right, above] node[left, near end]{0} (01)
+        (11) edge[loop above] node{1} (11)
+        (11) edge[bend left, above] node{0} (01)
+        ;
+    \end{tikzpicture}
+    \caption{Automaton that models the faulty implementation.}
+    \label{fig:Transformed}
+\end{figure}
+
+Before we explain why the automaton Figure~\ref{fig:Transformed} models the faulty system, we can test that the faulty system indeed recognises $(0+1)(0+1)^*$. 
+To do so, let us consider pairs of states $[\vec{x},\vec{y}]$ where $\vec{x}=(x_1,x_2)$ and $\vec{y}=(y_1,y_2)$; 
+the pair $\vec{x}$ has the original view, unaware of the faulty bit, while $\vec{y}$ models the faulty implementation (the first component of $\vec{y}$ is always one). 
+The initial state is thus $[(0,0),(1,0)]$. The trace of the sequence $00$ is 
+\begin{align*}
+   [(0,0),(1,0)]\xrightarrow{\delta(0)\times\delta(0)}[(0,0),(1,1)]\xrightarrow{\delta(0)\times\delta(0)}[(0,0),(1,1)],
+\end{align*}
+so $00$ is rejected by the original automaton, but accepted by the faulty one. 
+% If we receive the sequence $10$, the resulting state trace is 
+% \begin{align*}
+%     %[(0,0),(1,0)]\xrightarrow{\delta(0)\times\delta(0)}
+%     [(0,0),(1,0)]\xrightarrow{\delta(1)\times\delta(1)}[(1,0),(1,1)]\xrightarrow{\delta(0)\times\delta(0)}[(0,1),(1,1)];
+% \end{align*}
+% the faulty automaton accepts $10$, but the original automaton does not. 
+Now, the trace of the sequence $11$ is 
+\begin{align*}
+   [(0,0),(1,0)]\xrightarrow{\delta(1)\times\delta(1)}[(1,0),(1,1)]\xrightarrow{\delta(1)\times\delta(1)}[(1,1),(1,1)],
+\end{align*}
+so $11$ is accepted by both automata. 
+If we receive the sequence $110$, the resulting state trace is 
+\begin{align*}
+    %[(0,0),(1,0)]\xrightarrow{\delta(0)\times\delta(0)}
+    [(0,0),(1,0)]\xrightarrow{\delta(1)\times\delta(1)}[(1,0),(1,1)]\xrightarrow{\delta(1)\times\delta(1)}[(1,1),(1,1)]\xrightarrow{\delta(0)\times\delta(0)}[(0,1),(1,1)];
+\end{align*}
+the faulty automaton accepts $110$, but the original automaton does not. Finally, both automata reject the empty sequence $\varepsilon$ because neither $(0,0)$ or $(1,0)$ are accepting states.
+
+\subsection{Modelling the Faulty System}
+The fault in the original system implicitly defines a map $m\colon \vec{X}\rightarrow\vec{X}$, where $m(\vec{x})=(1,\vec{x}[1])$, for $\vec{x}\in \vec{X}$. The map $m$ pairs each state with its corresponding implementation bit pair. If there were no faults, the map $m$ would be the identity map. 
+%There are now two final states: $(1,1)$ and $(0,1)$ since both states are preimages of $(1,1)$ under $m$.
+We obtain the automaton shown in Figure~\ref{fig:Transformed} by ``copying'' the original behaviour from images of $m$ to their preimages. 
+In other words, since $m(0,0)=(1,0)$, we copy the original behaviour of $(1,0)$ and we give it to $(0,0)$; similarly, since $m(0,1)=(1,1)$ we copy the original behaviour of $(1,1)$ to $(1,0)$, including that $(1,1)$ is an accepting state. 
+
+\todo[inline]{Say in this context about revealing latent behaviours and how you are going to generalise this phenomenon to coalgebras}
 \section{Latent $F$-coalgebras and their Behaviours}
 Informally, a system reveals a latent behaviour if and only if its states are altered but its dynamics are preserved. To alter states, we use a \emph{transformation} function.
 %For the functor $\Functor$, the monad $\Monad=(\MFunctor,\eta,\mu)$, and a $\lambda$-bialgebra $\Bialgebra=(X,a,c)$, we can define the behaviour associated to $\Bialgebra$ by means of the semantic mapping in the category of $\Functor$-coalgebras, i.e., by means of $\TheBehaviourOf{\cdot}\colon \MFunctor(X)\rightarrow \sigma\Functor$. 
@@ -24,6 +110,7 @@ Informally, a system reveals a latent behaviour if and only if its states are al
 \begin{definition}[Consistent State Transformations]
 Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{transformation} of $X$. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
 A transformation $m$ is \emph{(behaviourally) consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. We denote the set of consistent transformations by $X^X|_\sim$. Henceforth, we consider only consistent transformations, unless explicitly mentioned otherwise.
+\todo[inline]{Do we need to enforce behaviourally consistent transformations? I mean we can just focus on the case of minimal coalgebras for simplicity, but it should not be discarded right away.}
 \end{definition}
 
 
@@ -57,15 +144,15 @@ We now define the set $m(X)\triangleq\{m(x)\ |\ x\in X\}$. We define a dynamical
     \caption{Pullback relating $c\circ m$ and $m\circ c$, describing the space-time duality of dynamical systems defined by $\id$-coalgebras.}
 \end{figure}
 
-\begin{theorem}[Fundamental Theorem of Latent Behaviour Analysis]
+\begin{theorem}[Fundamental Theorem of Latent-Behaviour Analysis]
     \label{theo:Fundamental}
     The semantic map-ping of the $F$-coalgebra $(X,c\circ m\colon X\rightarrow F(X))$ factors through the semantic mapping of the $F$-coalgerba $(m(X),c\colon m(X)\rightarrow F(m(X)))$
     \todo[inline]{This probably needs to use bounded functors.}
 \end{theorem}
 \begin{proof}
-    The Epi-mono factorisation from Universal Coalgebra uses the kernel of homomorphisms as the quotient. Here, we replace it by $\equiv_m$, enforcing bisimilarity between $x$ and $m(x)$. Note that $\equiv_{\id}$ is normal bisimilarity.
+    The Epi-mono factorisation from Universal Coalgebra uses the kernel of homomorphisms as the quotient. Here, we replace it by $\equiv_m$, enforcing bisimilarity between $x$ and $m(x)$. Note that $\equiv_{\id}$ results in normal bisimilarity, because no enforcement takes place.
 
-    The transformation $m\colon X\rightarrow X$ forces the appearances of equivalence classes $\equiv_m\subseteq X\times X$ with respect to $c$, where $x_1\equiv_m x_2$ iff $m(x_1)\sim m(x_2)$, which overrides bisimilarity in $X$ with respect to $c$. The set $X/\equiv_m$ is isomorphic to $m(X)$.
+    The transformation $m\colon X\rightarrow X$ forces the appearances of equivalence classes $\equiv_m\subseteq X\times X$ with respect to $c$, where $x_1\equiv_m x_2$ iff $m(x_1)\sim m(x_2)$, which overrides bisimilarity in $X$ with respect to $c$. The set $X/\equiv_m$ is isomorphic to $m(X)$. In other words, 
 \end{proof}
 
 \begin{figure}[t]
@@ -243,7 +330,9 @@ Poetically, $m$ corresponds to a deformation of space, and $b$ corresponds to a 
 
 \begin{example}
 \label{ex:LatentBehaviour}
-Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ that can be used to recognise sequences of zeroes and ones that end in two consecutive ones when started at state 0., i.e. the language $(0+1)^*111^*$. We define said $G$-coalgebra $\mathbb{X}$ by
+Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ 
+\todo[inline]{Match with the right automaton}
+. We define said $G$-coalgebra $\mathbb{X}$ by
 \begin{align}
 \gamma(x,y)&\triangleq x \land y;\\
 \delta(x,y)(i)&\triangleq(i,x).
@@ -268,26 +357,6 @@ Figure~\ref{fig:ExampleLatent} shows the deterministic finite automaton correspo
 % \caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
 % \label{fig:ExampleLatent}
 % \end{figure}
-
-\begin{figure}[t]
-    \centering
-    \begin{tikzpicture}
-        \node[state] (00) {$(0,0)$};
-        \node[state, below right of=00] (01) {$(0,1)$};
-        \node[state, above right  of=00] (10) {$(1,0)$};
-        \node[state, accepting, below right of=10] (11) {$(1,1)$};
-        \draw (00) edge[bend left, above] node{1} (10)
-        (00) edge[loop above] node{0} (00)
-        (01) edge[bend left, above] node{1} (10)
-        (01) edge[bend left, above] node{0} (00)
-        (10) edge[bend left, above] node{1} (11)
-        (10) edge[bend left, above] node{0} (01)
-        (11) edge[loop above] node{1} (11)
-        (11) edge[bend left, above] node{0} (01)
-        ;\end{tikzpicture}
-    \caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
-    \label{fig:ExampleLatent}
-\end{figure}
 
 This $G$-coalgebra has 256 transformations, given by the $4^4$ endofunctions in $X$. We use these transformations to reveal latent behaviours.%, and every consistent transformation $m$ satisfies $m(0,0)~m(0,1)$. 
 \todo[inline]{You can probably graph this with a 3 dimensional graph like a vector field whose axises are input, state, and output. We could use four dimensions so that state is 2-dimensional}

@@ -9,9 +9,29 @@
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
-\section{Notation Glossary}
+\section{Notation}
+\subsection{Glossary}
 \todo[inline]{Graph of a function}
-\section{Sets and Functions}
+
+\section{Categories}
+\begin{definition}[Categories, Objects and Arrows]
+    A \emph{category} $\AsCategory{C}$ is a mathematical concept similar to a graph, comprised of two aspects: a collection of \emph{objects}, denoted $Obj(\AsCategory{C})$, and a collection of \emph{arrows} among those objects, denoted $Arr(\AsCategory{C})$. Each category satisfies the following simple rules:
+    \begin{itemize}
+        \item Every object $o$ has an identity arrow that maps $o$ to itself, denoted $\id_o$
+        \item Arrows can be composed
+    \end{itemize}
+\end{definition}
+
+\section{The Category of Sets and Functions}
+\begin{definition}[The Category of Sets and Functions $\AsCategory{Set}$]
+    The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. 
+\end{definition}
+
+\subsection{Set, Functions, and Types}
+We denote sets by upper-case letters $X,Y,Z,\ldots$ and we denote functions by lower-case letters $f,g,h,\ldots$. We say that a function is of type $f\colon X\rightarrow Y$ to imply that it maps elements from the set $X$ to the set $Y$. Alternatively, we say that $f\in Y^X$
+
+Through this document we are rather informal with the difference between between sets and types.  
+
 We say that an endofunction $f\colon X \rightarrow X$ has finite support iff $f(x)\neq x$ for a finite number of $x$ in $X$.
 \section{Universal Coalgebra}
 \label{sec:Preliminaries:Coalgebras}
@@ -81,11 +101,11 @@ Formally, for the functor $F=O\times \texttt{id}^I$, given an $F$-coalgebra $\ma
 \subsection{Coinduction Proof Principle}
 \todo[inline]{Coinductive Definitions?}
 \subsection{Bisimulation}
-\section{Spectre}
-\label{sec:Preliminaries:Spectre}
-\todo[inline]{And Meltdown?}
-\subsection{Spectre V1}
-%\todo[inline]{}
-\subsection{Spectre V2}
+% \section{Spectre}
+% \label{sec:Preliminaries:Spectre}
+% \todo[inline]{And Meltdown?}
+% \subsection{Spectre V1}
+% %\todo[inline]{}
+% \subsection{Spectre V2}
 \section{Cyber-Physical System} 
 \todo[inline]{This section probably makes more sense in its own chapter, when we explain what the latent behaviour of a CPS is.}
