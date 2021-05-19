@@ -35,6 +35,12 @@ shiftR (a,b)=(False,a)
 firstIsAlwaysOne::X->X
 firstIsAlwaysOne (_,b)=(True,b)
 
+notX::X->X
+notX (a,b)=(not a,not b)
+
+notFirst::X->X
+notFirst (a,b)=(not a,b)
+
 mini::X->X
 mini x = 
   if x == (False,True) then
