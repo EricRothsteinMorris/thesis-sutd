@@ -207,12 +207,13 @@ Coalgebras offer an interesting perspective for the study of systems. Given an $
 In terms of types, we can always compose the function $c$ with any carrier transformation $m$; the composition $c \circ m\colon X\rightarrow F(X)$ exists and is well defined. However, the behaviour of elements might be greatly affected. In particular, states which are bisimilar under $c$ might no longer be bisimilar under $c \circ m$. If $m$ preserves bisimilarity, then we say that $m$ is \emph{(behaviourally) consistent}.
 
 \begin{definition}[Consistent Spatial Transformations]
-Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{spatial transformation} of $X$. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
-A spatial transformation $m$ is \emph{(behaviourally) consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. %We denote the set of consistent transformations by $X^X|_\sim$. %
+Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{spatial transformation}. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
+A spatial transformation $m$ is \emph{(behaviourally) consistent} if and only if, whenever $x\sim_c y$, then $m(x)\sim_{c} m(y)$, for all $x,y \in X$. %We denote the set of consistent transformations by $X^X|_\sim$. %
 \end{definition}
 Henceforth, we consider only minimal systems, unless explicitly mentioned otherwise. 
 \begin{corollary}
-    If $(X,c)$ is a minimal $F$-coalgebra, then every transformation $m\colon X\rightarrow X$ is consistent. 
+    If $(X,c)$ is a minimal $F$-coalgebra, then every spatial transformation %$m\colon X\rightarrow X$ 
+    is consistent. 
 \end{corollary}
 A transformation function $m\colon X\rightarrow X$ changes the normal behaviour of $\mathbb{X}$, and it reveals the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
 \begin{definition}[Latent Coalgebra]
@@ -224,69 +225,10 @@ The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ 
 \begin{align}
 \TheLatentBehaviourOfIn{x}{c}{m}\triangleq\TheBehaviourOfIn{x}{{c\circ m}}
 \end{align} 
-LBA is the study of the effect that the spatial transformation $m$ has over the behaviour of states. It is also possible to change behaviour by composing $c$ with a \emph{behaviour transformation} $b\colon F(X)\rightarrow F(X)$ on the left, i.e., $(X,b\circ c\colon X\rightarrow F(X))$ is also an $F$-coalgebra, and so is $(X,b\circ c\circ m\colon X\rightarrow F(X))$. However, these the effect of those transformations are beyond the scope of this work. Nevertheless, there are systems where behaviour transformations and spatial transformations
 
-\paragraph{Space-Time Duality} 
-We now define the set $m(X)\triangleq\{m(x)\ |\ x\in X\}$. We define a dynamical system $(m(X),m\circ c\colon m(X)\rightarrow m(X))$, whose associated set of behaviours is $(m\circ c)_{m(X)}^\infty$.
+A LBA of an $F$-coalgebra $(X,X\xrightarrow{c} F(X))$ is the study of the effect that a spatial transformation $m\colon X\rightarrow X$ has over the behaviour of states in $X$, i.e., the shift in semantics from $c$ to $c\circ m$. It is also possible to change behaviour by composing $c$ with a \emph{behaviour transformation} $b\colon F(X)\rightarrow F(X)$ on the left. Both $(X,b\circ c\colon X\rightarrow F(X))$ and $(X,b\circ c\circ m\colon X\rightarrow F(X))$ are $F$-coalgebras, since the type requirement is satisfied. The effect of behaviour transformations in arbitrary systems are beyond the scope of this work. Nevertheless, there are systems where behaviour transformations and spatial transformations coincide: final $F$-coalgebras.
 
-\begin{figure}[t]
-    \centering
-    \begin{tikzcd}%[column sep=1.75cm, row sep=1cm]
-        (X\times m(X), (c \circ m,m \circ c))
-            \arrow[d,swap,"\fst"]
-            \arrow[r,swap,"\snd"]
-        & (m(X), m \circ c)
-            \arrow[d,swap,"m\circ c_{(\cdot)}^\infty"']
-        \\ 
-        (X,c \circ m)
-            \arrow[r,swap,"(c\circ m)_{(\cdot)}^\infty"]
-        &  (X^\infty, (\cdot)')
-    \end{tikzcd} 
-    \caption{Pullback relating $c\circ m$ and $m\circ c$, describing the space-time duality of dynamical systems defined by $\id$-coalgebras.}
-\end{figure}
-
-\begin{theorem}[Fundamental Theorem of Latent-Behaviour Analysis]
-    \label{theo:Fundamental}
-    The semantic map-ping of the $F$-coalgebra $(X,c\circ m\colon X\rightarrow F(X))$ factors through the semantic mapping of the $F$-coalgerba $(m(X),c\colon m(X)\rightarrow F(m(X)))$
-    \todo[inline]{This probably needs to use bounded functors.}
-\end{theorem}
-\begin{proof}
-    The Epi-mono factorisation from Universal Coalgebra uses the kernel of homomorphisms as the quotient. Here, we replace it by $\equiv_m$, enforcing bisimilarity between $x$ and $m(x)$. Note that $\equiv_{\id}$ results in normal bisimilarity, because no enforcement takes place.
-
-    The transformation $m\colon X\rightarrow X$ forces the appearances of equivalence classes $\equiv_m\subseteq X\times X$ with respect to $c$, where $x_1\equiv_m x_2$ iff $m(x_1)\sim m(x_2)$, which overrides bisimilarity in $X$ with respect to $c$. The set $X/\equiv_m$ is isomorphic to $m(X)$. In other words, 
-\end{proof}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=1\textwidth]{Figures/Epi-monofactorisation.png}
-    \caption{Reason why the fundamental theorem works.}
-    \label{fig:LambdaCurves}
-    \end{figure}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=1\textwidth]{Figures/FundamentalTheo.png}
-    \caption{Reason why the fundamental theorem works.}
-    \label{fig:LambdaCurves}
-    \end{figure}
-
-\begin{proposition}[Behavioural Change]
-For any dynamical system described by an $F$-coalgebra 
-$(X,c\circ m\colon X\rightarrow F(X))$, where $m\colon X\rightarrow X$, and  $c\colon X\rightarrow F(X)$, there exists a \emph{unique} transformation function $\Delta_m\colon \sigma F\rightarrow \sigma F$ which maps $\TheBehaviourOfIn{x}{c}$ to $\TheLatentBehaviourOfIn{x}{c}{m}$, describing the \emph{behavioural change} of $x$, for all $x\in X$.
-\end{proposition}
-\begin{proof}
-    The function $\Delta_{m}\colon \sigma F\rightarrow \sigma F$ is an $F$-coalgebra since $F(\sigma F)\simeq \sigma F$, so it has a behaviour. 
-coinductively defined by 
-{\color{red}
-\todo[inline]{Transform this into a commutative diagram?}
-\begin{align*}
-    \Delta_{m}(\TheBehaviourOfIn{x}{c}) \sim_{(c \circ m)} (x)\\
-    %\Delta_{m}(c^\infty_x)[1]&\triangleq c^\infty_{m(x)}[1]\\
-    \Delta_{m}(c^\infty_x)[t+1]&\triangleq \Delta_{m}\left(c^\infty_{(c\circ m)(x)}\right)[t]
-\end{align*}
-}
-\end{proof}
-\section{Latent Behaviours of Final $F$-coalgebras}
+\subsection{Latent Behaviours of Final $F$-coalgebras}
 A final $F$-coalgebra $(\sigma F, 1)$ has a behaviour function $1\colon \sigma F \rightarrow \sigma F$ that is an isomorphism. Since $\sigma F \simeq F(\sigma F)$, it naturally follows that 
 \begin{align}
     \sigma F\rightarrow \sigma F \simeq \sigma F\rightarrow F(\sigma F) \simeq F(\sigma F)\rightarrow F(\sigma F).    
@@ -303,9 +245,25 @@ Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should corres
 \begin{corollary}
     Every $F$-coalgebra $(\sigma F, c)$ is a latent coalgebra of $(\sigma F, 1)$ under some spatial transformation $m\colon \sigma F\rightarrow \sigma F$.
 \end{corollary}
-This property is exclusive to the carrier of the final coalgebra, because the behaviour of the state is given by the state itself. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by transformations $m\colon X\rightarrow X$. Depending on the carrier we choose, we can give more flexibility to the generation of latent coalgebras.%The premise is then the following: if the behaviour of a system is completely determined by its current state, then transforming the current state yields a new behaviour. 
+This property is exclusive to the carrier of the final coalgebra, because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$, and such a set of revealed behaviours is determined by the available \emph{gadgets}.
 
-\begin{figure}[t]
+\section{Gadgets}
+In the context of return-oriented programming~(\cite{ROP}), a \emph{gadget} is a code snipped that is part of the original program, and it is exploited by attackers to hijack the control flow once they affect the return addresses of functions. In the context of LBA, given an $F$-coalgebra $(X,c)$, if $c$ defines the program, then the set of \emph{gadgets} we can use to change the behaviour of the system are the behaviours in $F(X)$ that are available through $c$.
+\begin{definition}[Gadgets]
+    Let $\mathbb{X}=(X,c)$ be an $F$-coalgebra; %, and $m\colon X\rightarrow X$ be a spatial transformation
+    we define the set of \emph{gadgets of $\mathbb{X}$} by $c(X)$. 
+\end{definition}
+\begin{corollary}
+    In minimal systems, there is one gadget per state.
+\end{corollary}
+A gadget is a behavioural building block that we can exploit via spatial transformations. The intuition is to think of gadgets as just functions that take one state and produce another state and an observation.
+Gadgets respond differently to different inputs (which, in this case, are states).
+
+%Depending on the carrier we choose, we can give more flexibility to the generation of latent coalgebras.%The premise is then the following: if the behaviour of a system is completely determined by its current state, then transforming the current state yields a new behaviour. 
+
+In the following, we work on arbitrary $F$-coalgebras $(X,c)$ and only consider spatial transformations to
+
+\begin{figure}[t] 
     \centering
     \begin{tikzcd}[column sep=1.5cm, row sep=1.5cm]
          \sigma F
@@ -323,6 +281,68 @@ This property is exclusive to the carrier of the final coalgebra, because the be
     \caption{Every $F$-coalgebra $(\sigma F, c)$ can be revealed from the final coalgebra $(\sigma F,1)$ by means of a transformation $m$ or a transformation $b$. In other words, it suffices to use spatial transformations $m$ and the final $F$-coalgebra to reveal all $F$-coalgebras of $\sigma F$, so behavioural transformations $b$ are unnecessary.}
     \label{fig:FinalEquivalence} 
 \end{figure}
+
+
+% \paragraph{Space-Time Duality} 
+% We now define the set $m(X)\triangleq\{m(x)\ |\ x\in X\}$. We define a dynamical system $(m(X),m\circ c\colon m(X)\rightarrow m(X))$, whose associated set of behaviours is $(m\circ c)_{m(X)}^\infty$.
+
+% \begin{figure}[t]
+%     \centering
+%     \begin{tikzcd}%[column sep=1.75cm, row sep=1cm]
+%         X\times X
+%             \arrow[d,swap,"\id\circ \fst"]
+%             \arrow[r,swap,"m\circ \snd"']
+%         & X
+%             \arrow[d,swap,"c"']
+%         \\ 
+%         X
+%             \arrow[r,swap,"c\circ m"]
+%         &  F(X)
+%     \end{tikzcd} 
+%     \caption{WRONG PULLBACK IDIOT. The pullback we want is between $c$ and }
+% \end{figure}
+
+% \begin{theorem}[Fundamental Theorem of Latent-Behaviour Analysis]
+%     \label{theo:Fundamental}
+%     The semantic map-ping of the $F$-coalgebra $(X,c\circ m\colon X\rightarrow F(X))$ factors through the semantic mapping of the $F$-coalgerba $(m(X),c\colon m(X)\rightarrow F(m(X)))$
+%     \todo[inline]{This probably needs to use bounded functors.}
+% \end{theorem}
+% \begin{proof}
+%     The Epi-mono factorisation from Universal Coalgebra uses the kernel of homomorphisms as the quotient. Here, we replace it by $\equiv_m$, enforcing bisimilarity between $x$ and $m(x)$. Note that $\equiv_{\id}$ results in normal bisimilarity, because no enforcement takes place.
+
+%     The transformation $m\colon X\rightarrow X$ forces the appearances of equivalence classes $\equiv_m\subseteq X\times X$ with respect to $c$, where $x_1\equiv_m x_2$ iff $m(x_1)\sim m(x_2)$, which overrides bisimilarity in $X$ with respect to $c$. The set $X/\equiv_m$ is isomorphic to $m(X)$. In other words, 
+% \end{proof}
+
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=1\textwidth]{Figures/Epi-monofactorisation.png}
+%     \caption{Reason why the fundamental theorem works.}
+%     \label{fig:LambdaCurves}
+%     \end{figure}
+
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=1\textwidth]{Figures/FundamentalTheo.png}
+%     \caption{Reason why the fundamental theorem works.}
+%     \label{fig:LambdaCurves}
+%     \end{figure}
+
+\begin{proposition}[Behavioural Change]
+For any dynamical system described by an $F$-coalgebra 
+$(X,c\circ m\colon X\rightarrow F(X))$, where $m\colon X\rightarrow X$, and  $c\colon X\rightarrow F(X)$, there exists a \emph{unique} transformation function $\Delta_m\colon \sigma F\rightarrow \sigma F$ which maps $\TheBehaviourOfIn{x}{c}$ to $\TheLatentBehaviourOfIn{x}{c}{m}$, describing the \emph{behavioural change} of $x$, for all $x\in X$.
+\end{proposition}
+\begin{proof}
+    The function $\Delta_{m}\colon \sigma F\rightarrow \sigma F$ is an $F$-coalgebra since $F(\sigma F)\simeq \sigma F$, so it has a behaviour. 
+coinductively defined by 
+{\color{red}
+\todo[inline]{Transform this into a commutative diagram?}
+\begin{align*}
+    \Delta_{m}(\TheBehaviourOfIn{x}{c}) \sim_{(c \circ m)} (x)\\
+    %\Delta_{m}(c^\infty_x)[1]&\triangleq c^\infty_{m(x)}[1]\\
+    \Delta_{m}(c^\infty_x)[t+1]&\triangleq \Delta_{m}\left(c^\infty_{(c\circ m)(x)}\right)[t]
+\end{align*}
+}
+\end{proof}
 
 \section{Dynamical Systems of the $\id$ Functor}
 % Theorem~\ref{theo:Fundamental} is a far stretch from the fundamental theorem of arithmetic, which states that every natural number can be decomposed into a multiplication of primes, but it follows a similar reasoning. Normally, we ignore this decomposition, so $\delta=c$ and $m=\id$. 
@@ -460,93 +480,6 @@ THe usefulness of latent behaviour analysis is that you can decompose a behaviou
     \caption{$(X,T(X)\xrightarrow{c\circ a}F(X))$ is an $FT$-coalgebra, (not quite a bialgebra, but it could be). $T(X)$ defines specifications for $X$, so we could mutate those instead of $X$ directly. This is what the paper by Harrison and Goldstein does \cite{DoJudgeATestByItsCover}}
 \end{figure}
 
-
-{\color{red}The deformation $b$ is not that interesting because it is too flexible. If $F=\id$ then $t$ has the same type as $s$ and they compose, so we can approximate $t.c.s$ with $c.s'$, where $s'=s.t$. If $F(X)$ has only one component, then $t=const \phi$ forces the system to have the behaviour that the attacker wants. More precisely, it can reveal any $F$-coalgebra for that carrier set. The balance would be to allow the attacker of $t$ to influence only a set of components in $F(X)$, just like we do with $s$. Consider the $F$-coalgebras of $()$ for the functor $2x\id^2$; there are only two: $c_0(())=(False,const ())$ and $c_1(())=(True,const ())$. Using state transformations we cannot reveal new behaviours given $c_0$ or $c_1$, but with with behaviour transformations we can: $t=(\texttt{not},\id)$ causes $t.c_0=c_1$ and $t.c_1=c_0$ so you can strictly do more. The question is, do we need more? 
-
-Poetically, $m$ corresponds to a deformation of space, and $b$ corresponds to a deformation of causality.
-}
-
-\begin{example}
-\label{ex:LatentBehaviour}
-Consider the functor $G=2\times \texttt{id}^2$ and a $G$-coalgebra $\mathbb{X}=(2\times2,(\gamma,\delta))$ 
-\todo[inline]{Match with the right automaton}
-. We define said $G$-coalgebra $\mathbb{X}$ by
-\begin{align}
-\gamma(x,y)&\triangleq x \land y;\\
-\delta(x,y)(i)&\triangleq(i,x).
-\end{align}
-Figure~\ref{fig:ExampleLatent} shows the deterministic finite automaton corresponding to this $G$-coalgebra; the coalgebra is not minimal, because the states $(0,0)$ and $(0,1)$ are bisimilar.
-% \begin{figure}[t]
-% \centering
-% \begin{tikzpicture}
-% \node[state] (00) {$(0,0)$};
-% \node[state, below right of=00] (01) {$(0,1)$};
-% \node[state, above right  of=00] (10) {$(1,0)$};
-% \node[state, accepting, below right of=10] (11) {$(1,1)$};
-% \draw (00) edge[bend left, above] node{1} (10)
-% (00) edge[loop above] node{0} (00)
-% (01) edge[bend left, above] node[left]{1} (10)
-% (01) edge[bend left, above] node{0} (00)
-% (10) edge[bend left, above] node{1} (11)
-% (10) edge[bend left, above] node[right]{0} (01)
-% (11) edge[loop above] node{1} (11)
-% (11) edge[bend left, above] node{0} (01)
-% ;\end{tikzpicture}
-% \caption{Corresponding automaton to the $G-$coalgebra described in Example~\ref{ex:LatentBehaviour}.}
-% \label{fig:ExampleLatent}
-% \end{figure}
-
-This $G$-coalgebra has 256 transformations, given by the $4^4$ endofunctions in $X$. We use these transformations to reveal latent behaviours.%, and every consistent transformation $m$ satisfies $m(0,0)~m(0,1)$. 
-\todo[inline]{You can probably graph this with a 3 dimensional graph like a vector field whose axises are input, state, and output. We could use four dimensions so that state is 2-dimensional}
-% We present the automata that correspond to latent $G-$coalgebras in Figures~\ref{fig:3.2}--\ref{fig:3.28}. Note that many of these latent coalgebras are not minimal, and many display the same behaviours.
-
-% From 27 endofuctions and three intended behaviours, we can derive the 24 latent behaviours presented in Table~\ref{tab:ExampleLatentBehaviours} as regular expressions. 
-{\color{red}
-\todo[inline]{Rewrite this!!!}
-The existence of latent behaviours opens a new possibility for system repurposing: if we wanted the system to recognise the language $(0+1)^*1$ (i.e., the language of sequences that end in 1), we could mutate our original system using a transformation where $0\mapsto0, 1\mapsto2$ and $2\mapsto2$ (shown in Figure~\ref{fig:3.10}), whilst preserving $0$ as the initial state. Nevertheless, if providing the transformation is within the capabilities of an adversary, it would also mean that they can repurpose our system as well. 
-}
-
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}
-    \node[state] (00) {$(0,0)$};
-    \node[state, below right of=00] (01) {$(0,1)$};
-    \node[state, above right  of=00] (10) {$(1,0)$};
-    \node[state, accepting, below right of=10] (11) {$(1,1)$};
-    \draw (00) edge[bend left, above] node{1} (10)
-    (00) edge[loop above] node{0} (00)
-    (01) edge[bend left, above] node{1} (11)
-    (01) edge[loop above] node{0} (01)
-    (10) edge[loop above] node{1} (10)
-    (10) edge[bend left, above] node{0} (00)
-    (11) edge[loop above] node{1} (11)
-    (11) edge[bend left, above] node{0} (01)
-    ;\end{tikzpicture}
-\caption{Corresponding automaton to the latent $G-$coalgebra under transformation $(a,b)\mapsto(b,a)$. This transformation is not consistent, since $(0,0)\sim (0,1)$ in the original $F$-coalgebra, but $(0,0)$ and $(1,0)$ are no longer bisimilar}% described in Example~\ref{ex:LatentBehaviour}.}
-\label{fig:ExampleInconsistentLatent}
-\end{figure}
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}
-    \node[state] (00) {$(0,0)$};
-    \node[state, below right of=00] (01) {$(0,1)$};
-    \node[state, accepting, above right  of=00] (10) {$(1,0)$};
-    \node[state, accepting, below right of=10] (11) {$(1,1)$};
-    \draw (00) edge[bend left, above] node{1} (10)
-    (00) edge[loop above] node{0} (00)
-    (01) edge[bend left, above] node{1} (10)
-    (01) edge[bend left, above] node{0} (00)
-    (10) edge[bend left, above] node{1} (11)
-    (10) edge[bend left, above] node{0} (01)
-    (11) edge[loop above] node{1} (11)
-    (11) edge[bend left, above] node{0} (01)
-    ;\end{tikzpicture}
-\caption{Corresponding automaton to the latent $G-$coalgebra under transformation $(0,x)\mapsto (0,0)$ and $(1,x)\mapsto (1,1)$. This transformation is consistent, and reveals a new behaviour from the state $(0,0)$, more precisely, the language $(0,1)^*1$ of sequences that end in $1$.}% described in Example~\ref{ex:LatentBehaviour}.}
-\label{fig:ExampleConsistentLatent}
-\end{figure} 
-    
 % \begin{table}[t]
 % \centering
 % \begin{tabular}{|l | l | }
@@ -1089,7 +1022,6 @@ The existence of latent behaviours opens a new possibility for system repurposin
 % \label{fig:3.28}
 % \end{figure}
 
-\end{example}
 \todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the transformation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
 
 \section{Latent Vulnerabilities}
