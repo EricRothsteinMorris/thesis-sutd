@@ -12,11 +12,52 @@
 
 \section{Introduction}
 \todo[inline]{Give an interesting motivational example: What is the notion of latent behaviour? Why do we care about them? How is it useful to study them?}
+The objective of this section is to explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as ``The Arrow of Latent Behaviours,'' illustrates how spatial and behavioural transformations affect the behaviour of an $F$-coalgebra $(X,c)$ by changing the behaviour map from $!_c$ to $!_{b\circ c\circ m}$. 
+
+\begin{figure}[h]
+        \centering
+        \begin{tikzcd}[column sep=1.75cm, row sep=1cm]
+            &\sigma F
+                \arrow[dr,swap,"\Delta^m_b"']
+            &
+            \\ 
+            X  
+                \arrow[dd,"c"] 
+            & X
+                \arrow[l, swap, "m"]
+                \arrow[u, "!_{c}"]
+                \arrow[r,dotted, swap, "!_{b\circ c\circ m}"]
+            &\sigma F 
+                %\arrow[dd, "\simeq","\omega"']
+                \arrow[dd, "1"]
+                \arrow[dr, "\textbf{id}"]
+            \\
+            &&&\sigma(F)
+            \\
+            F(X)     
+                \arrow[r, swap, "b"]
+            &F(X)
+                \arrow[d, swap, "F(!_{c})"]
+                \arrow[r, dotted, "F(!_{b\circ c\circ m})"] 
+            &
+            F(\sigma F)
+                %\arrow[ur, swap, "\omega^{-1}"]
+                \arrow[ur, swap, "1^{-1}"]
+            \\
+            &F(\sigma F)
+                \arrow[ru, swap, "F(\Delta^m_b)"]
+            &
+        \end{tikzcd}
+        \caption{``The Arrow of Latent Behaviours.'' This commutative diagram summarises the effect of spatial and behavioural transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the behaviour map changes from $!_c$ to $!_{b\circ c\circ m}$. Latent behaviour analysis assumes $b=\id$.}
+        \label{fig:TheArrow} 
+    \end{figure}
 
 \section{Motivation: Fault Injection via Carrier Transformations}
-\todo[inline]{Small intro to faulty systems}
+\todo[inline]{Small intro to faulty systems. You should have mentioned already somewhere in the intro that there are two ways to mutate the behaviour of a system in the coalgebra world: by transforming the carrier or by transforming the co-carrier. We only study transformations of the carrier.}
+\todo[inline]{I feel like we are missing some stuff? How are we going to structure the introduction?}
 
-Consider the automaton shown in Figure~\ref{fig:ExampleLatent}, which recognises the language of sequences of zeroes and ones that end in two consecutive ones; i.e., the language $(0+1)^*11$. this automaton is defined by the tuple $(\vec{X},\vec{x}_0,\delta,F)$, where the carrier is $\vec{X}=2\times2$, the initial state is $\vec{x}_0\colon1\rightarrow \vec{X}$ with $\vec{x}_0(\star)=(0,0)$, the transition function $\delta\colon \vec{X}\rightarrow 2\rightarrow\vec{X}$ is defined for $\vec{x}\in \vec{X}$ and $i \in 2$ by $\delta(\vec{x})(i)=(i,\vec{x}[0]),$ and the characteristic predicate of the set of accepting states is $F\colon\vec{X}\rightarrow 2$, where $F(1,1)=1$ and $F(x,y)=0$ otherwise; i.e. $(1,1)$ is the only accepting state.
+Consider the automaton shown in Figure~\ref{fig:ExampleLatent}, which recognises the language of sequences of zeroes and ones that end in two consecutive ones; i.e., the language $(0+1)^*11$. 
+This automaton is defined by the tuple $(\vec{X},\vec{x}_0,\delta,F)$, where the carrier is $\vec{X}=2\times2$, the initial state is $\vec{x}_0\colon1\rightarrow \vec{X}$ with $\vec{x}_0(\star)=(0,0)$, the transition function $\delta\colon \vec{X}\rightarrow 2\rightarrow\vec{X}$ is defined for $\vec{x}\in \vec{X}$ and $i \in 2$ by $\delta(\vec{x})(i)=(i,\vec{x}[0]),$ and the characteristic predicate of the set of accepting states is $F\colon\vec{X}\rightarrow 2$, where $F(1,1)=1$ and $F(x,y)=0$ otherwise; i.e. $(1,1)$ is the only accepting state. This automaton is not minimal, since the states $(0,0)$ and $(0,1)$ are bisimilar.
 
 \begin{figure}[t]
     \centering
@@ -38,8 +79,10 @@ Consider the automaton shown in Figure~\ref{fig:ExampleLatent}, which recognises
     \label{fig:ExampleLatent}
 \end{figure}
 
-Now, assume that the programmer is malicious, and they purposely deform the state space by mutating the current state from $(a,b)$ to $(\lnot a, \lnot b)$. More precisely, the programmer applies a transformation $m\colon \vec{X}\rightarrow\vec{X}$ to the carrier set $\vec{X}$, where $m(\vec{x})=(\lnot \vec{x}[0],\lnot \vec{x}[1])$, for $\vec{x}\in \vec{X}$.
-Thus, if the current state is $\vec{x}=(a,b)$, when we intend to check whether $\vec{x}$ is accepting, we actually check whether $(\lnot a, \lnot b)$ is accepting, and when we intend to compute $\delta(i)(\vec{x})$, we instead compute $\delta(i)(\lnot a, \lnot b)$. 
+Now, %assume that the programmer is malicious, and they purposely 
+consider a symmetry in the state space which maps $(a,b)$ to $(\lnot a, \lnot b)$. This transformation models some fault which could be introduced by a malicious programmer. Formally, %the programmer applies a 
+we define the transformation $m\colon \vec{X}\rightarrow\vec{X}$ for $\vec{x}\in \vec{X}$ by $m(\vec{x})=(\lnot \vec{x}[0],\lnot \vec{x}[1])$. 
+State transformations are applied before behaviour is computed; thus, if the current state is $\vec{x}=(a,b)$, when we intend to check whether $\vec{x}$ is accepting, we instead check whether $(\lnot a, \lnot b)$ is accepting, and when we intend to compute $\delta(i)(\vec{x})$, we instead compute $\delta(i)(\lnot a, \lnot b)$. 
 
 \begin{figure}[t]
     \centering
@@ -61,7 +104,7 @@ Thus, if the current state is $\vec{x}=(a,b)$, when we intend to check whether $
 \label{fig:Transformed}
 \end{figure}
 Figure~\ref{fig:Transformed} shows a model of the faulty system. This automaton recognises the language of sequences of zeroes and ones that are either empty or end in 10; i.e., $\varepsilon+(0+1)^*10$. 
-Before we explain why the automaton in Figure~\ref{fig:Transformed} models the faulty system, we can test that the faulty system indeed recognises $\varepsilon+(0+1)^*10$. %$(0+1)(0+1)^*$. 
+Before we explain why the automaton in Figure~\ref{fig:Transformed} models the faulty system, we can test if this system recognises sequences $\varepsilon+(0+1)^*10$. %$(0+1)(0+1)^*$. 
 To do so, let us consider pairs of states $[\vec{x},\vec{y}]$ where $\vec{x}=(x_1,x_2)$ and $\vec{y}=(y_1,y_2)$ such that the pair $\vec{x}$ follows the original behaviour, i.e., without faults, while $\vec{y}$ follows the faulty behaviour. 
 The initial state is $[(0,0),(0,0)]$. %, since $(1,1)$ replaces $(0,0)$ due to the fault. 
 The trace of the sequence $00$ is 
@@ -84,26 +127,36 @@ The trace of the sequence $11$ is
    &\xrightarrow{\id\times m}[(1,0),(0,0)]\xrightarrow{\delta(1)\times\delta(1)}[(1,1),(1,0)]\\
    &\xrightarrow{\id\times m}[(1,1),(0,1)]\xrightarrow{F\times F}[1,0],
 \end{align*}
-so $11$ is accepted by the original automaton, but rejected by the faulty automaton. If we receive the sequence $110$, the resulting state trace is 
+so $11$ is accepted by the original automaton, but rejected by the faulty automaton. 
+For the sequence $110$, the resulting state trace is 
 \begin{align*}
     [(0,0),(0,0)]&\xrightarrow{\id\times m}[(0,0),(1,1)]\xrightarrow{\delta(1)\times\delta(1)}[(1,0),(1,1)]\\
    &\xrightarrow{\id\times m}[(1,0),(0,0)]\xrightarrow{\delta(1)\times\delta(1)}[(1,1),(1,0)]\\
    &\xrightarrow{\id\times m}[(1,0),(0,1)]\xrightarrow{\delta(0)\times\delta(0)}[(0,1),(0,0)]\\
-   &\xrightarrow{\id\times m}[(0,1),(1,1)]\xrightarrow{F\times F}[0,1],
+   &\xrightarrow{\id\times m}[(0,1),(1,1)]\xrightarrow{F\times F}[0,1];
 \end{align*}
 the faulty automaton accepts $110$, but the original automaton does not. Finally, the original automaton rejects the empty sequence $\varepsilon$, but the faulty automaton accepts it, since 
 \begin{align*}
     [(0,0),(0,0)]\xrightarrow{\id\times m}[(0,0),(1,1)]\xrightarrow{F\times F}[0,1].
 \end{align*} 
 
-The map $m$ pairs each state with its corresponding faulty representation. %If there were no faults, the map $m$ would be the identity map. 
-The fault forces the state $(0,0)$ to behave like its image under $m$, i.e., the behaviour of $(0,0)$ in the faulty system should behave like $(1,1)$. Similarly, the state $(1,1)$ should behave $(0,0)$. 
+% The map $m$ pairs each state with its corresponding faulty representation. %If there were no faults, the map $m$ would be the identity map. 
+% The fault forces the state $(0,0)$ to behave like its image under $m$, i.e., the behaviour of $(0,0)$ in the faulty system should behave like $(1,1)$. Similarly, the state $(1,1)$ should behave $(0,0)$. 
 %(We can alternatively see the function $m$ as a bad abstraction from the implementation.)
 
 %There are now two final states: $(1,1)$ and $(0,1)$ since both states are preimages of $(1,1)$ under $m$.
-We obtain the automaton shown in Figure~\ref{fig:Transformed} by ``copying'' the original behaviour from images of $m$ to their preimages. 
-In other words, since $m(0,0)=(1,1)$, we copy the original behaviour of $(1,1)$ and we give it to $(0,0)$, including that $(1,1)$ is an accepting state; similarly, since $m(1,1)=(0,0)$ we copy the original behaviour of $(0,0)$ to $(1,1)$. 
-We do not change the initial state because 
+We obtain the automaton shown in Figure~\ref{fig:Transformed} by ``copying'' the original behaviour from images of $m$ to their preimages. Figure~\ref{fig:ExampleWithFaults} shows this procedure for $(0,0)$ and $(1,1)$. This includes copying the behaviour under $\delta$ and under $F$. 
+
+We preserve the initial state because $\vec{x}_0$ is a selection/construction/algebraic operation, not a behavioural/semantic/coalgebraic operation. We do not apply transformations to the results of algebraic operations to avoid aggregating the transformation erroneously due to composition of algebraic and coalgebraic operations. Consider the followign: the initial state $\vec{x}_0$ is of type $1\rightarrow\vec{X}$ which is algebraic, so the only way to apply $m$ to $\vec{x}_0$ is by composing it on the left, i.e., $m\circ \vec{x}_0(\star)$. Checking if the initial state is accepting in the original automaton corresponds to the expression $(F\circ\vec{x}_0)(*)$; however, the expression
+\begin{align*}
+    (F\circ m)\circ (m\circ\vec{x}_0)(\star)= (F\circ m)(1,1)=F(0,0)=0,
+\end{align*}
+applies $m$ twice, and it fails to properly check if the initial state of the faulty automaton is final. Instead, the correct expression is 
+\begin{align*}
+    (F\circ m)(\vec{x}_0)= (F\circ m)(0,0)=F(1,1)=1.
+\end{align*}
+% In other words, since $m(0,0)=(1,1)$, we copy the original behaviour of $(1,1)$ and we give it to $(0,0)$, including that $(1,1)$ is an accepting state; similarly, since $m(1,1)=(0,0)$ we copy the original behaviour of $(0,0)$ to $(1,1)$. 
+% We do not change the initial state because 
 
 \begin{figure}[t]
     \centering
@@ -134,32 +187,36 @@ We do not change the initial state because
         % (11) edge[above] node{1} (1,0)
         % (11) edge[bend right, above] node[near start]{0} (00)
         ;\end{tikzpicture}
-    \caption{Composition of faults and original behaviour for the states $(0,0)$ and $(1,1)$. The dotted, gray, bidirectional arrow in the centre models the effect of the fault. The original behaviours appear as dashed, grey lines. The behaviour which results from the composition appears as solid, red lines.}
+    \caption{Composition of the fault $m$ and the original behaviour for the states $(0,0)$ and $(1,1)$. The dotted, gray, bidirectional arrow in the centre models the effect of the fault $m$. The original behaviours appear as dashed, grey lines. The behaviour which results from the composition appears as solid, red lines.}
     \label{fig:ExampleWithFaults}
 \end{figure}
+We say that the faulty system is \emph{latent} with respect to the original system, since the application of the transformation $m$ reveals it, and $m$ is not the identity function. 
+We cannot model every fault using transformations of the state space. The set of behaviours that we can obtain is limited; e.g., the behaviour of an automaton that accepts every sequence cannot be transformed by just transforming the state space. 
+To transform an automaton which accepts all sequences into one that can reject some or all, we need a transformation of the \emph{behaviour}. 
+Those transformations correspond to the arrow $F(X)\xrightarrow{b}F(X)$ in Figure~\ref{fig:TheArrow}. 
+\todo[inline]{the final coalgebra is the place where spatial, behavioural, and coalgebras meet. Spatial transformations abstract a behaviour acting concurrently with the one we are currently studying, and that's why they are interesting to study.}
+%However, systems revealed by transformations of type $F(X)\xrightarrow{b}F(X)$ are not latent by definition. %In this thesis, we are interested in seeing how far we can go with just carrier transformations; i.e., with latent behaviours.
 
-\todo[inline]{Say in this context about revealing latent behaviours and how you are going to generalise this phenomenon to coalgebras}
+We now present a general treatment for carrier transformations and latent behaviours in the context of $F$-coalgebras. 
+
 \todo[inline]{Remark eventually that we cannot model every malicious behaviour of the programmer, only those that affect state, not functionality.}
-\section{Latent $F$-coalgebras and their Behaviours}
-Informally, a system reveals a latent behaviour if and only if its states are altered but its dynamics are preserved. To alter states, we use a \emph{transformation} function.
-%For the functor $\Functor$, the monad $\Monad=(\MFunctor,\eta,\mu)$, and a $\lambda$-bialgebra $\Bialgebra=(X,a,c)$, we can define the behaviour associated to $\Bialgebra$ by means of the semantic mapping in the category of $\Functor$-coalgebras, i.e., by means of $\TheBehaviourOf{\cdot}\colon \MFunctor(X)\rightarrow \sigma\Functor$. 
-%The \emph{latent behaviour} given a transformation coalgebra $\mathbb{M}=(X,X\xrightarrow{(o_m,\delta_m)} F(X))$, is modelled by the function $\TheLatentBehaviourOf{\cdot}{\mathbb{M}}\colon X\rightarrow \sigma F$, which is coinductively defined, for $i\in I$, by
-%\begin{align}
-%o(\TheLatentBehaviourOf{x}{\mathbb{M}})&\triangleq o_m(x)\\
-%\delta(\TheLatentBehaviourOf{x}{\mathbb{M}})(i)&\triangleq \TheLatentBehaviourOf{\delta_m(x)(i)}{\mathbb{M}}.
-%\end{align}
-%The transformation $a$ skews the behaviour of states to reflect the changes to the state. 
+\section{Latent $F$-coalgebras}
+\todo[inline]{First write about the coalgebras and how they connect behaviours... then come back to this section.}
+Coalgebras offer an interesting perspective for the study of systems. Given an $F$-coalgebra $(X,c\colon X\rightarrow F(X))$, each state $x\in X$ has an associated behaviour $c(x)\in F(X)$. In this section, we study the effect of a state transformation $m\colon X\rightarrow X$ over the $F$-coalgebra $(X,c)$. 
 
-\begin{definition}[Consistent State Transformations]
-Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{transformation} of $X$. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
-A transformation $m$ is \emph{(behaviourally) consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. We denote the set of consistent transformations by $X^X|_\sim$. Henceforth, we consider only consistent transformations, unless explicitly mentioned otherwise.
-\todo[inline]{Do we need to enforce behaviourally consistent transformations? I mean we can just focus on the case of minimal coalgebras for simplicity, but it should not be discarded right away.}
+In terms of types, we can always compose the function $c$ with any carrier transformation $m$; the composition $c \circ m\colon X\rightarrow F(X)$ exists and is well defined. However, the behaviour of elements might be greatly affected. In particular, states which are bisimilar under $c$ might no longer be bisimilar under $c \circ m$. If $m$ preserves bisimilarity, then we say that $m$ is \emph{(behaviourally) consistent}.
+
+\begin{definition}[Consistent Spatial Transformations]
+Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{spatial transformation} of $X$. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
+A spatial transformation $m$ is \emph{(behaviourally) consistent} if and only if, whenever $x\sim y$, then $m(x)\sim m(y)$, for all $x,y \in X$. %We denote the set of consistent transformations by $X^X|_\sim$. %
 \end{definition}
-
-
-When we use a transformation function $m\colon X\rightarrow X$ to skew the normal behaviour of $\mathbb{X}$, we reveal the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
+Henceforth, we consider only minimal systems, unless explicitly mentioned otherwise. 
+\begin{corollary}
+    If $(X,c)$ is a minimal $F$-coalgebra, then every transformation $m\colon X\rightarrow X$ is consistent. 
+\end{corollary}
+A transformation function $m\colon X\rightarrow X$ changes the normal behaviour of $\mathbb{X}$, and it reveals the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
 \begin{definition}[Latent Coalgebra]
-Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a transformation $m$, the \emph{latent coalgebra under $m$} is $(X,c\circ m)$. 
+Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a transformation $m$, the \emph{latent coalgebra of $\mathbb{X}$ under $m$} is $(X,c\circ m)$. 
 % \begin{align}
 %     \mathbb{X}\circ m\triangleq(X,{(o\circ m, \delta\circ m })).
 % \end{align}
@@ -167,6 +224,7 @@ The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ 
 \begin{align}
 \TheLatentBehaviourOfIn{x}{c}{m}\triangleq\TheBehaviourOfIn{x}{{c\circ m}}
 \end{align} 
+LBA is the study of the effect that the spatial transformation $m$ has over the behaviour of states. It is also possible to change behaviour by composing $c$ with a \emph{behaviour transformation} $b\colon F(X)\rightarrow F(X)$ on the left, i.e., $(X,b\circ c\colon X\rightarrow F(X))$ is also an $F$-coalgebra, and so is $(X,b\circ c\circ m\colon X\rightarrow F(X))$. However, these the effect of those transformations are beyond the scope of this work. Nevertheless, there are systems where behaviour transformations and spatial transformations
 
 \paragraph{Space-Time Duality} 
 We now define the set $m(X)\triangleq\{m(x)\ |\ x\in X\}$. We define a dynamical system $(m(X),m\circ c\colon m(X)\rightarrow m(X))$, whose associated set of behaviours is $(m\circ c)_{m(X)}^\infty$.
@@ -228,6 +286,43 @@ coinductively defined by
 \end{align*}
 }
 \end{proof}
+\section{Latent Behaviours of Final $F$-coalgebras}
+A final $F$-coalgebra $(\sigma F, 1)$ has a behaviour function $1\colon \sigma F \rightarrow \sigma F$ that is an isomorphism. Since $\sigma F \simeq F(\sigma F)$, it naturally follows that 
+\begin{align}
+    \sigma F\rightarrow \sigma F \simeq \sigma F\rightarrow F(\sigma F) \simeq F(\sigma F)\rightarrow F(\sigma F).    
+\end{align}
+In other words, in the carrier of the final $F$-coalgebra, spatial transformations ($\sigma F\rightarrow \sigma F$), behavioural transformations ($F(\sigma F)\rightarrow F(\sigma F)$) and $F$-coalgebras ($\sigma F\rightarrow F(\sigma F)$) are in a one-to-one correspondence. 
+
+Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should correspond to $\id_{\sigma F}\colon \sigma F\rightarrow \sigma F$ and should correspond to $\id_{F(\sigma F)}\colon F(\sigma F)\rightarrow F(\sigma F)$. The general form is given by the following proposition.
+\begin{proposition}
+    For every $F$-coalgebra $(\sigma F, c)$, there are transformations $m\colon \sigma F\rightarrow \sigma F$ and $b\colon F(\sigma F)\rightarrow F(\sigma F)$ such that the diagram in Figure~\ref{fig:FinalEquivalence} commutes.
+\end{proposition}
+\begin{proof}
+    Since $1\colon \sigma F\rightarrow F(\sigma F)$ is an isomorphism, by taking $m=1^{-1}\circ c$ and $b=c\circ 1^{-1}$, the diagram in Figure~\ref{fig:FinalEquivalence} commutes.
+\end{proof}
+\begin{corollary}
+    Every $F$-coalgebra $(\sigma F, c)$ is a latent coalgebra of $(\sigma F, 1)$ under some spatial transformation $m\colon \sigma F\rightarrow \sigma F$.
+\end{corollary}
+This property is exclusive to the carrier of the final coalgebra, because the behaviour of the state is given by the state itself. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by transformations $m\colon X\rightarrow X$. Depending on the carrier we choose, we can give more flexibility to the generation of latent coalgebras.%The premise is then the following: if the behaviour of a system is completely determined by its current state, then transforming the current state yields a new behaviour. 
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzcd}[column sep=1.5cm, row sep=1.5cm]
+         \sigma F
+            \arrow[r,"m"]
+            \arrow[dr,"c"]
+            \arrow[d,"1"']
+        &\sigma F
+            \arrow[d,"1"]
+        \\
+         F(\sigma F)
+            \arrow[r,"b"']
+        &F(\sigma F)
+            %\arrow[u,"1^{-1}"']
+    \end{tikzcd}
+    \caption{Every $F$-coalgebra $(\sigma F, c)$ can be revealed from the final coalgebra $(\sigma F,1)$ by means of a transformation $m$ or a transformation $b$. In other words, it suffices to use spatial transformations $m$ and the final $F$-coalgebra to reveal all $F$-coalgebras of $\sigma F$, so behavioural transformations $b$ are unnecessary.}
+    \label{fig:FinalEquivalence} 
+\end{figure}
 
 \section{Dynamical Systems of the $\id$ Functor}
 % Theorem~\ref{theo:Fundamental} is a far stretch from the fundamental theorem of arithmetic, which states that every natural number can be decomposed into a multiplication of primes, but it follows a similar reasoning. Normally, we ignore this decomposition, so $\delta=c$ and $m=\id$. 
@@ -998,6 +1093,7 @@ The existence of latent behaviours opens a new possibility for system repurposin
 \todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the transformation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
 
 \section{Latent Vulnerabilities}
+\todo[inline]{This should go on a different chapter}
 Not all behaviours are latent for a given $F$-coalgebra. In Example~\ref{ex:LatentBehaviour}, we see that no transformation can yield the language $0^*$ as a latent behaviour. We see latent behaviours as targets for attackers, and we would like to know if there is a way for an attacker to cause the system to shift to a particular latent behaviour by means of a transformation. For that purpose, we introduce the definition of {latent vulnerability problems}.
 
 \begin{definition}
@@ -1015,6 +1111,7 @@ A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebr
 
  
 \section{Attackers and Attacks}
+\todo[inline]{This should go on a different chapter}
 There is an attacker model associated with latent vulnerabilities: attackers that can change the value of state variables, but not the program that defines the system. This later attacker would correspond to one that can arbitrarily change the coalgebra, and is in that sense a much stronger attacker. If the attacker can enforce any behaviour they want, it becomes too powerful to defend against; all coalgebras are vulnerable, and no fix is available. However, an attacker that exploits a latent vulnerability is a bit in the middle: it can change the coalgebra by means of a transformation/attack function, but only through those. In that sense, not every behaviour is at the reach of the attacker, only those who are latent.
 
 We can do a further refinement: we can imagine attackers that control particular components of a state by partitioning states into controllable parts and observable parts
@@ -1082,6 +1179,7 @@ For all $\DTS$-coalgebras $\TheCoalgebra=(X,\gamma,\delta,x_0)$ and every strate
 \end{proposition}
  
  \section{A Partial Order of Attackers}
+ \todo[inline]{This should go on a different chapter}
 \todo[inline]{We know how to quantify attackers in terms of exact latent behaviours, but latent behaviours themselves have an order (they are languages i.e. sets). What about the relationship among them? Do stronger attackers need to recognise more languages, what if a language implies another? how do attackers relate there then?}
 \todo[inline]{Introduce the emulation problem.}
 
@@ -1111,60 +1209,60 @@ Monotonicity offers us mainly two advantages: 1) we can plan the order of attack
 
 \todo[inline]{Should we just focus on DTS? NO!  The DTS I wanted to use does not have loops, so it is clear that we can keep doing this in the current modelling.}
 
-\begin{definition}[Emulation Problem]
-We say 
-\end{definition}
+% \begin{definition}[Emulation Problem]
+% We say 
+% \end{definition}
  
- \section{Solving Latent Vulnerability Problems}
+%  \section{Solving Latent Vulnerability Problems}
  
- \subsection{Alternative formulations}
- \begin{definition}[Target Value]
-Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ with components in $\Pi$, a \emph{target value} is a proposition $x[\pi]==v$, modelled by the triple $(x,\pi,v)$ where $x\in X$, $\pi\in \Pi$ and $v$ is a value in the range of component $\pi$.
-\end{definition}
+%  \subsection{Alternative formulations}
+%  \begin{definition}[Target Value]
+% Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ with components in $\Pi$, a \emph{target value} is a proposition $x[\pi]==v$, modelled by the triple $(x,\pi,v)$ where $x\in X$, $\pi\in \Pi$ and $v$ is a value in the range of component $\pi$.
+% \end{definition}
  
-\subsection{Exhaustive Search}
-Given an attacker $A$ of an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a target behaviour $\sigma$, we could perform an exhaustive search over the domain of its attacks if the carrier $X$ is finite.  A naive, exhaustive search would choose an attack $m$, mutate $\TheCoalgebra$, then perform a bisimulation check to see if there exists a state $x$ such that its latent behaviour $\TheLatentBehaviourOfIn{x}{m}{\TheCoalgebra}$ is equal to $\sigma$.
+% \subsection{Exhaustive Search}
+% Given an attacker $A$ of an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a target behaviour $\sigma$, we could perform an exhaustive search over the domain of its attacks if the carrier $X$ is finite.  A naive, exhaustive search would choose an attack $m$, mutate $\TheCoalgebra$, then perform a bisimulation check to see if there exists a state $x$ such that its latent behaviour $\TheLatentBehaviourOfIn{x}{m}{\TheCoalgebra}$ is equal to $\sigma$.
 
-Since the search space is finite, if we cannot find an attack $m$ within the capabilities of $A$, then the system $\TheCoalgebra$ is safe with respect to $A$.
+% Since the search space is finite, if we cannot find an attack $m$ within the capabilities of $A$, then the system $\TheCoalgebra$ is safe with respect to $A$.
 
-\begin{example}
-\todo[inline]{For the example we can show that it can be solved}
-\end{example}
-
-
-\subsection{Using SMT Solvers}
-Due to our formulation, we have a perfect information deterministic game, like Chomp~\cite{Chomp}. Our idea is to leverage an SMT solver to give us a winning move for the attacker, or prove that such move does not exist. For the remainder of this section, we focus on $\DTS$-coalgebras.
-
-\todo[inline]{Rephrase this as a reachability problem. i.e. instead of a target value, use a set of goal states defined by the target values.}
-\todo[inline]{HERE I AM}
-\begin{definition}[Winning Latency Games]
-Let $A$ be an  attacker, $\TheCoalgebra=(X,\gamma,\delta,x_0)$ be a pointed $\DTS$-coalgebra, and consider a set of target values $(\pi_1,v_1),...,(\pi_n,v_n)$. We say that the attacker $A$ \emph{wins the latency game in zero steps} if and only if there exists an attack $m$ in $\texttt{attacks}(A)$ such that $m(x_0)[p_k]=v_k$, for $k=1..n$. If a solution is found in zero steps, then all target components $\pi_1$ to $\pi_n$ must be in control of $A$, i.e., $\set{\pi_1, \ldots, \pi_n}\subseteq A$.
-
-The attacker $A$ \emph{wins the latency game in $\tau$ steps given the inputs $(i_1, \ldots, i_\tau)$ with the attack $m$ at state $x_{\tau}$} if and only if there exists a sequence of states $(x_1, \ldots, x_\tau)$, where
-\begin{align}
-%m_{\tau+1}(x_{\tau +1})=x_\tau(
-x_{t+1}=\delta(m (x_{t}))(i_t), \quad \text{for $t=0..{\tau-1}$}
-\end{align}
-and
-\begin{align}
-m(x_\tau)[p_k]=v_k,\quad \text{ for $k=1..n$.}
-\end{align}
-\end{definition}
+% \begin{example}
+% \todo[inline]{For the example we can show that it can be solved}
+% \end{example}
 
 
-\begin{proposition}[Composition through Emulation]
-\todo[inline]{There are several ways to compose attackers: through $\delta$ and through $m$. The message I want to carry across is the following: if you know that you can solve a latency game from a state $x$, then 
- I already have a notion of winning over time, so I just need to emulate the attack of other attackers to reach my goal.}
-If an attacker $A$ can win a latency game in $\tau$ steps given the inputs $i_1, \ldots i_{\tau}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{0})$ with an attack $m$, then an attacker $A'$ can win the same latency game in $\tau+t$ steps given the input $i_1, i_2, \ldots i_{\tau+1}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{-t})$ if and only if 
-\begin{align}
-\delta
-\end{align}
+% \subsection{Using SMT Solvers}
+% Due to our formulation, we have a perfect information deterministic game, like Chomp~\cite{Chomp}. Our idea is to leverage an SMT solver to give us a winning move for the attacker, or prove that such move does not exist. For the remainder of this section, we focus on $\DTS$-coalgebras.
 
-%Given a pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_0)$, an attacker $A_0$ can win a given latency game in ${\tau+1}$ steps given the inputs $(i_1, \ldots, i_\tau, i_{\tau+1})$ with some attack $m$ at some state $x_{\tau+1}$ if and only if there exists an attacker $A_{\tau}$ that can win the given latency game in one step in the pointed $\DTS$-coalgebra $(X,m\gamma,\delta, x_{\tau})$.
-\end{proposition}
-\begin{proof}
-The main objective of $A_0$ is to reach state $x_{\tau}$ and from there 
-\end{proof}
+% \todo[inline]{Rephrase this as a reachability problem. i.e. instead of a target value, use a set of goal states defined by the target values.}
+% \todo[inline]{HERE I AM}
+% \begin{definition}[Winning Latency Games]
+% Let $A$ be an  attacker, $\TheCoalgebra=(X,\gamma,\delta,x_0)$ be a pointed $\DTS$-coalgebra, and consider a set of target values $(\pi_1,v_1),...,(\pi_n,v_n)$. We say that the attacker $A$ \emph{wins the latency game in zero steps} if and only if there exists an attack $m$ in $\texttt{attacks}(A)$ such that $m(x_0)[p_k]=v_k$, for $k=1..n$. If a solution is found in zero steps, then all target components $\pi_1$ to $\pi_n$ must be in control of $A$, i.e., $\set{\pi_1, \ldots, \pi_n}\subseteq A$.
+
+% The attacker $A$ \emph{wins the latency game in $\tau$ steps given the inputs $(i_1, \ldots, i_\tau)$ with the attack $m$ at state $x_{\tau}$} if and only if there exists a sequence of states $(x_1, \ldots, x_\tau)$, where
+% \begin{align}
+% %m_{\tau+1}(x_{\tau +1})=x_\tau(
+% x_{t+1}=\delta(m (x_{t}))(i_t), \quad \text{for $t=0..{\tau-1}$}
+% \end{align}
+% and
+% \begin{align}
+% m(x_\tau)[p_k]=v_k,\quad \text{ for $k=1..n$.}
+% \end{align}
+% \end{definition}
+
+
+% \begin{proposition}[Composition through Emulation]
+% \todo[inline]{There are several ways to compose attackers: through $\delta$ and through $m$. The message I want to carry across is the following: if you know that you can solve a latency game from a state $x$, then 
+%  I already have a notion of winning over time, so I just need to emulate the attack of other attackers to reach my goal.}
+% If an attacker $A$ can win a latency game in $\tau$ steps given the inputs $i_1, \ldots i_{\tau}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{0})$ with an attack $m$, then an attacker $A'$ can win the same latency game in $\tau+t$ steps given the input $i_1, i_2, \ldots i_{\tau+1}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{-t})$ if and only if 
+% \begin{align}
+% \delta
+% \end{align}
+
+% %Given a pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_0)$, an attacker $A_0$ can win a given latency game in ${\tau+1}$ steps given the inputs $(i_1, \ldots, i_\tau, i_{\tau+1})$ with some attack $m$ at some state $x_{\tau+1}$ if and only if there exists an attacker $A_{\tau}$ that can win the given latency game in one step in the pointed $\DTS$-coalgebra $(X,m\gamma,\delta, x_{\tau})$.
+% \end{proposition}
+% \begin{proof}
+% The main objective of $A_0$ is to reach state $x_{\tau}$ and from there 
+% \end{proof}
 
 
 %\begin{proposition}
@@ -1175,7 +1273,7 @@ The main objective of $A_0$ is to reach state $x_{\tau}$ and from there
 %We provide a counterexample for the opposite proposition, that is, there exists a transformation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. 
 %Consider, for the functor $F=2\times \texttt{id}^2$, a single-state $F$-coalgebra that accepts all sequences; this $F$-coalgebra cannot display a latent behaviour different from its original behaviour.
 %\end{proof}
-
+\section{Future work?}
 We would like to consider two problems related to latent behaviours: 
 \begin{itemize}
 \item How can we use transformations ourselves to repurpose a system that is already been defined?

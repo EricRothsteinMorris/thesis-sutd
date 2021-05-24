@@ -9,35 +9,51 @@
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
+\todo[inline]{The first thing we need to do is describe why latent behaviours are interesting. This requires a historical context. }
+\section{A Brief History of Coalgebras}
+\todo[inline]{This section explains the importance of coalgebras as a modelling system, why they are so compatible with computability (monads), and in general why they are useful.}
+\todo[inline]{I could probably be inspired on how to structure this section by publications on coalgebras. There is a large body of literature I can use.}
+\todo[inline]{At least cover that systems are of a form $\delta\colon X\rightarrow D$ where $D$ is some domain, and that there is a way to go from $D$ back to $X$ to continue computation.}
+\todo[inline]{Final coalgebras are important because $D=X$, so it is obvious how to continue.}
 
-\section{Story Time}
-We model systems based on what they are supposed to do, but what can we say about the things that they \emph{could} do?
-
-\todo[inline]{Actually, the thesis would be super interesting if potential behaviour problems are presented in terms of a game between the system and the attacker, with the attacker following some sort of reactive strategy, and the system as well. At some point, one or the other wins because it is a deterministic game if the system is deterministic. }
+\section{Latent Behaviours}
+\todo[inline]{Explain that in this document we explore the notion of creating new behaviours through transformations of the state space of systems.}
+\subsection{Intuition}
+\todo[inline]{We present a light version of latent behaviours: you normally start at $X$, then you go to $D$ and then back to $X$, but what if we transformed $X$?}
+In latent behaviours we use a transformation $X\rightarrow X$ to affect the behaviour of the system. This transformation is an abstraction; the original system naturally transforms to a system $X\rightarrow D \rightarrow X$ using composition, also of type $X\rightarrow X$. Each function $X\rightarrow X$ can be seen as a black-box of some behaviour. Their interweaving means that they are acting simultaneously. 
+\section{Applications}
+\subsection{Attacker Classification}
 How can we model attackers? How can we model their actions? How can we prepare against them?
-
+\subsection{Cyber-Physical System Redesign}
 Many attacks are discovered through testing: an experienced hacker creates a proof of concept to illustrate how some system may be attacked. Then, an abstraction is created to explain why the attack works, and to suggest countermeasures against it. 
-\todo[inline]{You can probably show several papers that display this pattern.} 
+\subsection{Program Repair}
+%Fuzzing is probably one of the most popular techniques for system transformations. 
 
-Fuzzing is probably one of the most popular techniques for system transformations. 
-%-----------------------------------
-%	SUBSECTION 1
-%-----------------------------------
-\subsection{Subsection 1}
+% \todo[inline]{Actually, the thesis would be super interesting if potential behaviour problems are presented in terms of a game between the system and the attacker, with the attacker following some sort of reactive strategy, and the system as well. At some point, one or the other wins because it is a deterministic game if the system is deterministic. }
 
-Nunc posuere quam at lectus tristique eu ultrices augue venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam erat volutpat. Vivamus sodales tortor eget quam adipiscing in vulputate ante ullamcorper. Sed eros ante, lacinia et sollicitudin et, aliquam sit amet augue. In hac habitasse platea dictumst.
 
-%-----------------------------------
-%	SUBSECTION 2
-%-----------------------------------
 
-\subsection{Subsection 2}
-Morbi rutrum odio eget arcu adipiscing sodales. Aenean et purus a est pulvinar pellentesque. Cras in elit neque, quis varius elit. Phasellus fringilla, nibh eu tempus venenatis, dolor elit posuere quam, quis adipiscing urna leo nec orci. Sed nec nulla auctor odio aliquet consequat. Ut nec nulla in ante ullamcorper aliquam at sed dolor. Phasellus fermentum magna in augue gravida cursus. Cras sed pretium lorem. Pellentesque eget ornare odio. Proin accumsan, massa viverra cursus pharetra, ipsum nisi lobortis velit, a malesuada dolor lorem eu neque.
+% \todo[inline]{You can probably show several papers that display this pattern.} 
 
-%----------------------------------------------------------------------------------------
-%	SECTION 2
-%----------------------------------------------------------------------------------------
 
-\section{Main Section 2}
+% %-----------------------------------
+% %	SUBSECTION 1
+% %-----------------------------------
+% \subsection{Subsection 1}
 
-Sed ullamcorper quam eu nisl interdum at interdum enim egestas. Aliquam placerat justo sed lectus lobortis ut porta nisl porttitor. Vestibulum mi dolor, lacinia molestie gravida at, tempus vitae ligula. Donec eget quam sapien, in viverra eros. Donec pellentesque justo a massa fringilla non vestibulum metus vestibulum. Vestibulum in orci quis felis tempor lacinia. Vivamus ornare ultrices facilisis. Ut hendrerit volutpat vulputate. Morbi condimentum venenatis augue, id porta ipsum vulputate in. Curabitur luctus tempus justo. Vestibulum risus lectus, adipiscing nec condimentum quis, condimentum nec nisl. Aliquam dictum sagittis velit sed iaculis. Morbi tristique augue sit amet nulla pulvinar id facilisis ligula mollis. Nam elit libero, tincidunt ut aliquam at, molestie in quam. Aenean rhoncus vehicula hendrerit.
+% Nunc posuere quam at lectus tristique eu ultrices augue venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam erat volutpat. Vivamus sodales tortor eget quam adipiscing in vulputate ante ullamcorper. Sed eros ante, lacinia et sollicitudin et, aliquam sit amet augue. In hac habitasse platea dictumst.
+
+% %-----------------------------------
+% %	SUBSECTION 2
+% %-----------------------------------
+
+% \subsection{Subsection 2}
+% Morbi rutrum odio eget arcu adipiscing sodales. Aenean et purus a est pulvinar pellentesque. Cras in elit neque, quis varius elit. Phasellus fringilla, nibh eu tempus venenatis, dolor elit posuere quam, quis adipiscing urna leo nec orci. Sed nec nulla auctor odio aliquet consequat. Ut nec nulla in ante ullamcorper aliquam at sed dolor. Phasellus fermentum magna in augue gravida cursus. Cras sed pretium lorem. Pellentesque eget ornare odio. Proin accumsan, massa viverra cursus pharetra, ipsum nisi lobortis velit, a malesuada dolor lorem eu neque.
+
+% %----------------------------------------------------------------------------------------
+% %	SECTION 2
+% %----------------------------------------------------------------------------------------
+
+% \section{Main Section 2}
+
+% Sed ullamcorper quam eu nisl interdum at interdum enim egestas. Aliquam placerat justo sed lectus lobortis ut porta nisl porttitor. Vestibulum mi dolor, lacinia molestie gravida at, tempus vitae ligula. Donec eget quam sapien, in viverra eros. Donec pellentesque justo a massa fringilla non vestibulum metus vestibulum. Vestibulum in orci quis felis tempor lacinia. Vivamus ornare ultrices facilisis. Ut hendrerit volutpat vulputate. Morbi condimentum venenatis augue, id porta ipsum vulputate in. Curabitur luctus tempus justo. Vestibulum risus lectus, adipiscing nec condimentum quis, condimentum nec nisl. Aliquam dictum sagittis velit sed iaculis. Morbi tristique augue sit amet nulla pulvinar id facilisis ligula mollis. Nam elit libero, tincidunt ut aliquam at, molestie in quam. Aenean rhoncus vehicula hendrerit.

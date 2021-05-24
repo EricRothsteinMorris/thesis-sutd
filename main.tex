@@ -342,6 +342,7 @@ initial text=$ $, % sets the text that appears on the start arrow
 \MakeRobust{\SomeCategory}
 \newcommand{\TheCategory}{{\SomeCategory{1}}}
 \newcommand{\AsCategory}[1]{{\SomeCategory{#1}}}
+\newcommand{\Obj}{{\SomeCategory{Obj}}}
 
 %Notation for Functors
 \newcommand{\AsFunctor}[1]{\mathpzc{#1}} 
@@ -728,6 +729,7 @@ initial text=$ $, % sets the text that appears on the start arrow
 
 \newtheorem{example}{Example}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
 %\newenvironment{haskell}[1]{\begin{minted}{haskell}#1}{\end{minted}}
 
 %----------------------------------------------------------------------------------------
@@ -1054,8 +1056,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 % Include the chapters of the thesis as separate files from the Chapters folder
 % Uncomment the lines as you write the chapters
 
-%\include{Chapters/Introduction}
-
+\include{Chapters/Introduction}
 \include{Chapters/Preliminaries}
 \include{Chapters/LatentBehaviours}
 %\include{Chapters/QuickCompile}

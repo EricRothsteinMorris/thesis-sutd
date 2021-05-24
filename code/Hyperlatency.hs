@@ -35,6 +35,14 @@ shiftR (a,b)=(False,a)
 firstIsAlwaysOne::X->X
 firstIsAlwaysOne (_,b)=(True,b)
 
+rotateRight::X->X
+rotateRight (a,b)=
+  case (a,b) of
+    (False,False)->(False,True)
+    (False,True)->(True,True)
+    (True,True)->(True,False)
+    (True,False)->(False,False)
+
 notX::X->X
 notX (a,b)=(not a,not b)
 
