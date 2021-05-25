@@ -53,6 +53,7 @@ The objective of this section is to explain the commutative diagram presented in
     \end{figure}
 
 \section{Motivation: Fault Injection via Carrier Transformations}
+\label{sec:Latent:Motivation}
 \todo[inline]{Small intro to faulty systems. You should have mentioned already somewhere in the intro that there are two ways to mutate the behaviour of a system in the coalgebra world: by transforming the carrier or by transforming the co-carrier. We only study transformations of the carrier.}
 \todo[inline]{I feel like we are missing some stuff? How are we going to structure the introduction?}
 
@@ -245,23 +246,51 @@ Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should corres
 \begin{corollary}
     Every $F$-coalgebra $(\sigma F, c)$ is a latent coalgebra of $(\sigma F, 1)$ under some spatial transformation $m\colon \sigma F\rightarrow \sigma F$.
 \end{corollary}
-This property is exclusive to the carrier of the final coalgebra, because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$, and such a set of revealed behaviours is determined by the available \emph{gadgets}.
+This property is exclusive to the carrier of the final coalgebra, because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$.
 
-\section{Gadgets}
-In the context of return-oriented programming~(\cite{ROP}), a \emph{gadget} is a code snipped that is part of the original program, and it is exploited by attackers to hijack the control flow once they affect the return addresses of functions. In the context of LBA, given an $F$-coalgebra $(X,c)$, if $c$ defines the program, then the set of \emph{gadgets} we can use to change the behaviour of the system are the behaviours in $F(X)$ that are available through $c$.
-\begin{definition}[Gadgets]
-    Let $\mathbb{X}=(X,c)$ be an $F$-coalgebra; %, and $m\colon X\rightarrow X$ be a spatial transformation
-    we define the set of \emph{gadgets of $\mathbb{X}$} by $c(X)$. 
-\end{definition}
-\begin{corollary}
-    In minimal systems, there is one gadget per state.
-\end{corollary}
-A gadget is a behavioural building block that we can exploit via spatial transformations. The intuition is to think of gadgets as just functions that take one state and produce another state and an observation.
-Gadgets respond differently to different inputs (which, in this case, are states).
+\section{A Fundamental Theorem}
+Given a final $F$-coalgebra $(\sigma F, 1)$ and an arbitrary coalgebra $(\sigma F, c)$, we can naturally construct a spatial transformation $m\colon \sigma F\rightarrow \sigma F$ by $m\triangleq 1^{-1}\circ c$ which implements $c$. The identity spatial transformation implements $1$. This treatment simplifies the composition of $F$-coalgebras in $\sigma F$. 
 
-%Depending on the carrier we choose, we can give more flexibility to the generation of latent coalgebras.%The premise is then the following: if the behaviour of a system is completely determined by its current state, then transforming the current state yields a new behaviour. 
+When we compose $F$-coalgebras we are applying their behaviour functions sequentially. Given two $F$-coalgebras $(\sigma F, c_1)$ and $(\sigma F, c_2)$ whose respective spatial transformation implementations are $m_1$ and $m_2$, the composition $m_2\circ m_1$ can be equivalently interpreted as:
+\begin{itemize}
+    \item the $F$-coalgebra $(\sigma F, 1\circ c_2\circ c_1)$,
+    \item the latent behaviour of $(\sigma F, 1\circ c_2)$ under $m_1$,
+    \item the latent behaviour of $(\sigma F, 1)$ under $m_2\circ m_1$.
+\end{itemize}
+%This composition is in general not commutative.
 
-In the following, we work on arbitrary $F$-coalgebras $(X,c)$ and only consider spatial transformations to
+Consider an example in automata: we define $m\colon \sigma F\rightarrow \sigma F$ such that 
+\begin{align*}
+    m(\phi)(w)=
+\begin{cases}
+    \phi(w), \quad \text{if $w$ ends in 1},\\
+    0,\quad \text{otherwise}.
+    % \lnot \phi(w), \quad \text{if $w\varepsilon$}\\
+    % \phi(w), \quad \text{otherwise}.
+\end{cases}
+\end{align*}
+In other words, $m$ removes all sequences that do not end in $1$ from the language characterised by $\phi$. We obtain $c=1\circ m$
+
+In the case of automata, what does it mean for $c(L)=L'$ Normally what we have is $L\mapsto (0|1, 0\mapsto L_0, 1\mapsto L_1)$. 
+
+\todo[inline]{Something is not right: In the case of automata, }
+
+
+% , and such a set of revealed behaviours is determined by the available \emph{gadgets}.
+
+% \section{Gadgets}
+% In the context of return-oriented programming~(\cite{ROP}), a \emph{gadget} is a code snipped that is part of the original program, and it is exploited by attackers to hijack the control flow once they affect the return addresses of functions. In the context of LBA, given an $F$-coalgebra $(X,c)$, if $c$ defines the program, then the components of $c$ define the set of \emph{gadgets} we can use to change the behaviour of the system.
+% \begin{definition}[Gadgets]
+%     Let $\mathbb{X}=(X,c)$ be an $F$-coalgebra. 
+%     A \emph{gadget of $\mathbb{X}$} is a pair $(x,c)$ where $x\in X$. %The set of \emph{gadgets of $\mathbb{X}$} by the graph of $c$. 
+% \end{definition}
+
+% A gadget $(x,c)$ is a behavioural building block. We can interpret the gadget $(x,c)$ as the action of applying $c$ at $x$, so $(m(x),c)$ models the action of applying $c$ to $m(x)$. 
+
+% In the example presented in Section~\ref{sec:Latent:Motivation}, there are four gadgets. Each gadget gives each spatial transformation $m$ a chance to further alter the behaviour of the system. 
+% \todo[inline]{Where do you want to go with this? It looks interesting, but not useful. }
+
+% In the following, we work on arbitrary $F$-coalgebras $(X,c)$ and only consider spatial transformations to
 
 \begin{figure}[t] 
     \centering

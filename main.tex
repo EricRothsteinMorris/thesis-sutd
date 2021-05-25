@@ -63,7 +63,12 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{mdsymbol}
 \usepackage{algorithmicx}
 %\usepackage{algorithmicx/algorithmicx}
-\usepackage{algorithm}
+% \usepackage{algorithm}
+\usepackage[]{algorithm2e}
+\LinesNumbered
+\SetKwRepeat{Do}{do}{while}
+\SetKw{Break}{break}
+\SetKw{Input}{Input:}
 \usepackage{algpseudocode}
 \usepackage{tikz-cd}
 \usepackage{tikz}
@@ -655,7 +660,11 @@ initial text=$ $, % sets the text that appears on the start arrow
 %TIKZ
 \usepackage{tikz}
 \usepackage{tikz-cd}
-\usetikzlibrary{arrows,automata}
+\usetikzlibrary{arrows,automata, positioning, petri, shapes, snakes}
+% \usetikzlibrary{arrows}
+% \usetikzlibrary{positioning}
+% \usetikzlibrary{petri}
+% \usetikzlibrary{shapes,snakes}
 
 
 %DashedArrows
@@ -731,6 +740,26 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{corollary}{Corollary}[chapter]
 %\newenvironment{haskell}[1]{\begin{minted}{haskell}#1}{\end{minted}}
+
+
+%-----------NOTATION FOR CLASSIFICATION--------------
+\usepackage{lscape}
+\usepackage{wrapfig}
+\usepackage{framed}
+
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{amssymb} 
+\usepackage{todonotes} 
+\usepackage{multirow}
+\usepackage{mathrsfs}
+\usepackage{soul}
+\setcounter{tocdepth}{3}
+
+\newcommand{\Always}{{\Globally}}%{{\mathbf{G}}}
+\newcommand{\Globally}{{\square}}%{{\mathbf{G}}}
+\newcommand{\vect}[1]{\ensuremath{\overrightarrow{\bf{#1}}}}
+\newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}
 
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
@@ -1059,6 +1088,9 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \include{Chapters/Introduction}
 \include{Chapters/Preliminaries}
 \include{Chapters/LatentBehaviours}
+\include{Chapters/Classification}
+%\include{Chapters/CPSRedesign}
+%\include{Chapters/SideChannels}
 %\include{Chapters/QuickCompile}
 %\include{Chapters/Chapter1} 
 %\include{Chapters/Chapter2}
