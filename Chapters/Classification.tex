@@ -1,5 +1,6 @@
 %!TEX root = ../main.tex
 \chapter{Systematic Classification of Attacker Models}
+\label{ch:Classification}
 \todo[inline]{This chapter needs to be readapted to align better with latent behaviours, but it is probably the easiest to align: if the attacker can find a spatial transformation that triggers a requirement failure, then there is an attack that the attacker can use.}
 \todo[inline]{This section is in red because it needs to be rewritten into context}
 {\color{red}
@@ -121,6 +122,7 @@ According to the classification, attacker $\set{g_2}$ is as powerful as the atta
 \begin{figure}[!t]
 \centering
 \begin{minipage}{0.45\textwidth}
+	\centering
 {
 \scriptsize
 \begin{framed}
@@ -153,6 +155,7 @@ edge [post](g2);
 
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
+	\centering
 {\scriptsize
 \begin{framed}
 \begin{tikzpicture}[node distance=1cm,>=stealth',auto, pin distance=0.1cm]
@@ -307,7 +310,7 @@ each of which has a size of at least $\mathcal{O}\left({|C|\times t}\right)$ on 
 \begin{figure}[!t]
 \centering
 {
-\begin{framed}
+%\begin{framed}
 \begin{algorithm}[H]
  \KwData{system $S=(W,V,G)$, a time step $t\geq 0$, a set of requirements $R$.}
  \KwResult{A map that maps the attacker $A$ to $A[R]$.}
@@ -326,7 +329,7 @@ Map $\mathcal{H}$\;
  \caption{Naive attacker classification algorithm.}
  \label{alg:BadQuantification}
 \end{algorithm}
-\end{framed}
+%\end{framed}
 }
 \end{figure}
 
@@ -371,7 +374,7 @@ From monotonicity and isolation (cf. Propositions \ref{theo:monotonicity} and \r
 \begin{figure}[!h]
 \centering
 {
-\begin{framed}
+%\begin{framed}
 \begin{algorithm}[H]
  \KwData{system $S$, a requirement $r$, and a time step $t\geq 0$. }
 \KwResult{set $M$ of \emph{minimal} attackers for $r$, bounded by $t$.}
@@ -406,7 +409,8 @@ Set: $P=\set{\emptyset}$, $M= \emptyset$; \quad /\!/($P$ contains the empty atta
  \caption{The $\mathtt{MinimalAttackers}$ algorithm.}
  \label{alg:CheckRequirement}
 \end{algorithm}
-\end{framed}}
+%\end{framed}
+}
 \vspace{-0.5cm}
 \end{figure}
 \subsubsection{Finding Minimal Attackers.} 
@@ -430,7 +434,7 @@ For the motivational example in Section~\ref{sec:Example}, Algorithm~\ref{alg:Mi
 \vspace{-0.5cm}
 
 \begin{figure}[!t]
-\begin{framed}
+%\begin{framed}
 \centering
 {
 \begin{algorithm}[H]
@@ -438,9 +442,9 @@ For the motivational example in Section~\ref{sec:Example}, Algorithm~\ref{alg:Mi
  \KwResult{Set of all minimal attackers $\mathcal{M}$ and an initial classification map $\mathcal{H}$.}
 Set: $\mathcal{M}=\emptyset$\;
 Map: $\mathcal{H}$\;
-\For{\!\!\textbf{each} $r \in R$}
+\For{$r \in R$}
 	{
-		\For{\!\!\textbf{each} $A \in \mathtt{MinimalAttackers}(S,t,r)$}
+		\For{$A \in \mathtt{MinimalAttackers}(S,t,r)$}
 		{
 			insert $r$ in $\mathcal{H}(A)$\;
 			insert $A$ in $\mathcal{M}$\;
@@ -450,7 +454,7 @@ Map: $\mathcal{H}$\;
  \caption{The $\mathtt{AllMinimalAttackers}$ algorithm. }
  \label{alg:MinimalAttackers}
 \end{algorithm}}
-\end{framed}
+%\end{framed}
 \vspace{-0.5cm}
 \end{figure}
 
@@ -458,7 +462,7 @@ Map: $\mathcal{H}$\;
 \begin{figure}[!t]
 \centering
 {
-\begin{framed}
+%\begin{framed}
 \begin{algorithm}[H]
  \KwData{system $S=(W,V,G)$, a time step $t\geq 0$, a set of requirements $R$.}
  \KwResult{A map $\mathcal{H}$ that maps the attacker $A$ to $A[R]$.}
@@ -478,7 +482,8 @@ $(\mathcal{M},\mathcal{H})=\mathtt{AllMinimalAttackers}(S,t,R)$\;
  \caption{Improved classification algorithm. We assume that $\mathcal{H}$ initially maps every $A$ to the empty set.}
  \label{alg:GoodQuantification}
 \end{algorithm}
-\end{framed}}
+%\end{framed}
+}
 \vspace{-0.5cm}
 \end{figure}
 

@@ -2,7 +2,7 @@
 % Chapter Template
 
 
-\chapter{Latent Behaviours} % Main chapter title
+\chapter{Latent-Behaviour Analysis, Coalgebraically} % Main chapter title
 \label{ch:LatentBehaviours} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 \todo[inline]{Find a suitable quote?}
 \begin{quote} 
@@ -18,7 +18,7 @@ The objective of this section is to explain the commutative diagram presented in
         \centering
         \begin{tikzcd}[column sep=1.75cm, row sep=1cm]
             &\sigma F
-                \arrow[dr,swap,"\Delta^m_b"']
+                \arrow[dr,swap,"\omega"']
             &
             \\ 
             X  
@@ -45,7 +45,7 @@ The objective of this section is to explain the commutative diagram presented in
                 \arrow[ur, swap, "1^{-1}"]
             \\
             &F(\sigma F)
-                \arrow[ru, swap, "F(\Delta^m_b)"]
+                \arrow[ru, swap, "F(\omega)"]
             &
         \end{tikzcd}
         \caption{``The Arrow of Latent Behaviours.'' This commutative diagram summarises the effect of spatial and behavioural transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the behaviour map changes from $!_c$ to $!_{b\circ c\circ m}$. Latent behaviour analysis assumes $b=\id$.}
@@ -101,7 +101,7 @@ State transformations are applied before behaviour is computed; thus, if the cur
     (11) edge[bend right, above] node{1} (10)
     (11) edge[bend right, above] node{0} (00)
     ;\end{tikzpicture}
-\caption{Automaton that models the faulty implementation.}
+\caption{Automaton that models the faulty implementation, which now recognises $\varepsilon+(0+1)^*10$.}
 \label{fig:Transformed}
 \end{figure}
 Figure~\ref{fig:Transformed} shows a model of the faulty system. This automaton recognises the language of sequences of zeroes and ones that are either empty or end in 10; i.e., $\varepsilon+(0+1)^*10$. 
@@ -219,6 +219,7 @@ Henceforth, we consider only minimal systems, unless explicitly mentioned otherw
 A transformation function $m\colon X\rightarrow X$ changes the normal behaviour of $\mathbb{X}$, and it reveals the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
 \begin{definition}[Latent Coalgebra]
 Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a transformation $m$, the \emph{latent coalgebra of $\mathbb{X}$ under $m$} is $(X,c\circ m)$. 
+\end{definition}
 % \begin{align}
 %     \mathbb{X}\circ m\triangleq(X,{(o\circ m, \delta\circ m })).
 % \end{align}
@@ -227,9 +228,27 @@ The function $\TheLatentBehaviourOfIn{\cdot}{m}{c}\colon X\rightarrow \sigma F$ 
 \TheLatentBehaviourOfIn{x}{c}{m}\triangleq\TheBehaviourOfIn{x}{{c\circ m}}
 \end{align} 
 
-A LBA of an $F$-coalgebra $(X,X\xrightarrow{c} F(X))$ is the study of the effect that a spatial transformation $m\colon X\rightarrow X$ has over the behaviour of states in $X$, i.e., the shift in semantics from $c$ to $c\circ m$. It is also possible to change behaviour by composing $c$ with a \emph{behaviour transformation} $b\colon F(X)\rightarrow F(X)$ on the left. Both $(X,b\circ c\colon X\rightarrow F(X))$ and $(X,b\circ c\circ m\colon X\rightarrow F(X))$ are $F$-coalgebras, since the type requirement is satisfied. The effect of behaviour transformations in arbitrary systems are beyond the scope of this work. Nevertheless, there are systems where behaviour transformations and spatial transformations coincide: final $F$-coalgebras.
+\begin{example}
+\label{ex:Latent:TheExample}
+Consider the automaton from Section~\ref{sec:Latent:Motivation} which recognises the language $(0+1)^*11$. Let $F$ be the functor $F(X)=2\times X^2$; we model this system with the $F$-coalgebra $(X,(F,\delta))$, where $X=2\times2$ and $(F,\delta)\colon X\rightarrow 2\times X^2$, defined for $(x,y\in X$ by
+\begin{align}
+    F(x,y)&\triangleq x \land y\\
+    \delta(x,y)(i)&\triangleq (i,x).
+\end{align}
+Just like its automaton counterpart, this $F$-coalgebra is not minimal, since $(0,0)$ and $(0,1)$ are bisimilar
+There are $|X|^{|X|}=256$ different spatial transformations, but that does not imply the existence of 256 different latent coalgebras; e.g., the transformations $\Delta_{(0,0)}$ and $\Delta_{(0,1)}$ yield isomorphic latent coalgebras. 
+The transformation $m(x,y)=(\lnot x,\lnot y)$ reveals the latent coalgebra where 
+\begin{align}
+    (F\circ m)(x,y)&= \lnot x \land lnot y\\
+    (\delta\circ m)(x,y)(i)&= (i,\lnot x).
+\end{align}
+The behaviour of states change when $m$ acts on $X$. In particular, the image of state $(0,0)$ under the semantic mapping is no longer the language $(0+1)^*11$ but $\varepsilon +(0+1)^*10$.
+\end{example}
+% \todo[inline]{There is no notion of distance or how different behaviours are in this setting. Things either are equal/isomorphic or they are not.}
 
-\subsection{Latent Behaviours of Final $F$-coalgebras}
+LBA of an $F$-coalgebra $(X,X\xrightarrow{c} F(X))$ is the study of the effect that a spatial transformation $m\colon X\rightarrow X$ has over the behaviour of states in $X$, i.e., the shift in semantics from $c$ to $c\circ m$. It is also possible to change behaviour by composing $c$ with a \emph{behaviour transformation} $b\colon F(X)\rightarrow F(X)$ on the left. Both $(X,b\circ c\colon X\rightarrow F(X))$ and $(X,b\circ c\circ m\colon X\rightarrow F(X))$ are $F$-coalgebras, since the type requirement is satisfied. The effect of behaviour transformations in arbitrary systems are beyond the scope of this work. Nevertheless, there are systems where behaviour transformations and spatial transformations coincide: final $F$-coalgebras.
+
+%\subsection{Latent Coalgebras of Final $F$-coalgebras}
 A final $F$-coalgebra $(\sigma F, 1)$ has a behaviour function $1\colon \sigma F \rightarrow \sigma F$ that is an isomorphism. Since $\sigma F \simeq F(\sigma F)$, it naturally follows that 
 \begin{align}
     \sigma F\rightarrow \sigma F \simeq \sigma F\rightarrow F(\sigma F) \simeq F(\sigma F)\rightarrow F(\sigma F).    
@@ -246,51 +265,6 @@ Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should corres
 \begin{corollary}
     Every $F$-coalgebra $(\sigma F, c)$ is a latent coalgebra of $(\sigma F, 1)$ under some spatial transformation $m\colon \sigma F\rightarrow \sigma F$.
 \end{corollary}
-This property is exclusive to the carrier of the final coalgebra, because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$.
-
-\section{A Fundamental Theorem}
-Given a final $F$-coalgebra $(\sigma F, 1)$ and an arbitrary coalgebra $(\sigma F, c)$, we can naturally construct a spatial transformation $m\colon \sigma F\rightarrow \sigma F$ by $m\triangleq 1^{-1}\circ c$ which implements $c$. The identity spatial transformation implements $1$. This treatment simplifies the composition of $F$-coalgebras in $\sigma F$. 
-
-When we compose $F$-coalgebras we are applying their behaviour functions sequentially. Given two $F$-coalgebras $(\sigma F, c_1)$ and $(\sigma F, c_2)$ whose respective spatial transformation implementations are $m_1$ and $m_2$, the composition $m_2\circ m_1$ can be equivalently interpreted as:
-\begin{itemize}
-    \item the $F$-coalgebra $(\sigma F, 1\circ c_2\circ c_1)$,
-    \item the latent behaviour of $(\sigma F, 1\circ c_2)$ under $m_1$,
-    \item the latent behaviour of $(\sigma F, 1)$ under $m_2\circ m_1$.
-\end{itemize}
-%This composition is in general not commutative.
-
-Consider an example in automata: we define $m\colon \sigma F\rightarrow \sigma F$ such that 
-\begin{align*}
-    m(\phi)(w)=
-\begin{cases}
-    \phi(w), \quad \text{if $w$ ends in 1},\\
-    0,\quad \text{otherwise}.
-    % \lnot \phi(w), \quad \text{if $w\varepsilon$}\\
-    % \phi(w), \quad \text{otherwise}.
-\end{cases}
-\end{align*}
-In other words, $m$ removes all sequences that do not end in $1$ from the language characterised by $\phi$. We obtain $c=1\circ m$
-
-In the case of automata, what does it mean for $c(L)=L'$ Normally what we have is $L\mapsto (0|1, 0\mapsto L_0, 1\mapsto L_1)$. 
-
-\todo[inline]{Something is not right: In the case of automata, }
-
-
-% , and such a set of revealed behaviours is determined by the available \emph{gadgets}.
-
-% \section{Gadgets}
-% In the context of return-oriented programming~(\cite{ROP}), a \emph{gadget} is a code snipped that is part of the original program, and it is exploited by attackers to hijack the control flow once they affect the return addresses of functions. In the context of LBA, given an $F$-coalgebra $(X,c)$, if $c$ defines the program, then the components of $c$ define the set of \emph{gadgets} we can use to change the behaviour of the system.
-% \begin{definition}[Gadgets]
-%     Let $\mathbb{X}=(X,c)$ be an $F$-coalgebra. 
-%     A \emph{gadget of $\mathbb{X}$} is a pair $(x,c)$ where $x\in X$. %The set of \emph{gadgets of $\mathbb{X}$} by the graph of $c$. 
-% \end{definition}
-
-% A gadget $(x,c)$ is a behavioural building block. We can interpret the gadget $(x,c)$ as the action of applying $c$ at $x$, so $(m(x),c)$ models the action of applying $c$ to $m(x)$. 
-
-% In the example presented in Section~\ref{sec:Latent:Motivation}, there are four gadgets. Each gadget gives each spatial transformation $m$ a chance to further alter the behaviour of the system. 
-% \todo[inline]{Where do you want to go with this? It looks interesting, but not useful. }
-
-% In the following, we work on arbitrary $F$-coalgebras $(X,c)$ and only consider spatial transformations to
 
 \begin{figure}[t] 
     \centering
@@ -310,797 +284,140 @@ In the case of automata, what does it mean for $c(L)=L'$ Normally what we have i
     \caption{Every $F$-coalgebra $(\sigma F, c)$ can be revealed from the final coalgebra $(\sigma F,1)$ by means of a transformation $m$ or a transformation $b$. In other words, it suffices to use spatial transformations $m$ and the final $F$-coalgebra to reveal all $F$-coalgebras of $\sigma F$, so behavioural transformations $b$ are unnecessary.}
     \label{fig:FinalEquivalence} 
 \end{figure}
+This property is exclusive to the carrier of the final coalgebra, because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$.
 
+%\subsection{$F$-Coalgebras as Endofunctions}
+Given a final $F$-coalgebra $(\sigma F, 1)$ and an arbitrary coalgebra $(\sigma F, c)$, the spatial transformation $\omega\colon \sigma F\rightarrow \sigma F$ defined by $\omega\triangleq 1^{-1}\circ c$ implements $c$. The identity spatial transformation implements $1$. This duality between $F$-coalgebras and spatial transformations in $\sigma F$ enables the composition of $F$-coalgebras in $\sigma F$.
+%This treatment simplifies the composition of $F$-coalgebras in $\sigma F$. 
 
-% \paragraph{Space-Time Duality} 
-% We now define the set $m(X)\triangleq\{m(x)\ |\ x\in X\}$. We define a dynamical system $(m(X),m\circ c\colon m(X)\rightarrow m(X))$, whose associated set of behaviours is $(m\circ c)_{m(X)}^\infty$.
+%When we compose $F$-coalgebras we are applying their behaviour functions sequentially. 
+Given two $F$-coalgebras $(\sigma F, c_1)$ and $(\sigma F, c_2)$ whose respective spatial transformation implementations are $\omega_1$ and $\omega_2$, the composition $\omega_2\circ \omega_1$ gives rise to the following equivalent concepts:
+\begin{itemize}
+    \item the $F$-coalgebra $(\sigma F, c_2\circ 1^{-1}\circ\omega_1)$,
+    \item the latent coalgebra of $(\sigma F, c_2)$ under $\omega_1$,
+    \item the latent coalgebra of $(\sigma F, 1)$ under $\omega_2\circ \omega_1$.
+\end{itemize}
+In summary, we can represent $F$-coalgebras whose carrier is $\sigma F$ by endofunctions in $\sigma F$, and we can reason about their composition as we would with functions in the monoid of endofunctions $(\sigma F\rightarrow \sigma F, \circ, \id)$.
 
-% \begin{figure}[t]
-%     \centering
-%     \begin{tikzcd}%[column sep=1.75cm, row sep=1cm]
-%         X\times X
-%             \arrow[d,swap,"\id\circ \fst"]
-%             \arrow[r,swap,"m\circ \snd"']
-%         & X
-%             \arrow[d,swap,"c"']
-%         \\ 
-%         X
-%             \arrow[r,swap,"c\circ m"]
-%         &  F(X)
-%     \end{tikzcd} 
-%     \caption{WRONG PULLBACK IDIOT. The pullback we want is between $c$ and }
-% \end{figure}
+\todo[inline]{Explain that this corresponds to the point of The Arrow: $!c$ takes you from $X$ to $\sigma F$, and you can use $\omega$ to reveal a latent coalgebra of $(\sigma F, 1)$. This arrow $\omega$ models the behavioural change from $!c$ to $!_{b\circ c\circ m}$.}
+In the following, we return to arbitrary $F$-coalgebras $(X,c)$, but we keep in mind the following: when we reveal a latent coalgebra of $(X,c)$ under a spatial transformation $m$, we are implicitly sequentially composing the behaviour function $c$ with the behaviour function of the $F$-coalgebra implemented by $m$; first we apply $m$ and then we apply $c$.
 
+\section{Latent-Behaviour Analysis}
+\todo[inline]{Describe in terms of coalgebras an introduction for the three application topics we have: attacker classification, CPS redesign and Side-channel repair.}
+LBA is the study of the effects that spatial transformations have on the behaviour of the system. Just like in geometry, some spatial transformations may preserve some properties, while others may completely destroy the functionality of the system. In this section, we present three ideas for LBA to study three aspects of systems: \emph{attacks and counter-attacks}, \emph{attacker classification}, and \emph{side-channel repair}.
+
+Consider the system from Section~\ref{sec:Latent:Motivation} and it coalgebraic equivalent presented in Example~\ref{ex:Latent:TheExample}. This example has 256 different spatial transformations, which we can use to model attacks on the system. 
+\todo[inline]{I dunno where I was going with this}
+
+% {\color{blue} Working with endofunctions is nice because you can study e.g. those with finite support. Endofunctions with finite support finitely compose nicely, and you can use them to model incremental changes to behaviour.
+
+% What I need to do though is to hint towards potential applications. This section describes that in final coalgebras it suffices to compose endofunctions to model behaviours. In arbitrary coalgebras however, we can 
+% }
+% Composition of $F$-coalgebras is non-commutative. 
 % \begin{theorem}[Fundamental Theorem of Latent-Behaviour Analysis]
 %     \label{theo:Fundamental}
-%     The semantic map-ping of the $F$-coalgebra $(X,c\circ m\colon X\rightarrow F(X))$ factors through the semantic mapping of the $F$-coalgerba $(m(X),c\colon m(X)\rightarrow F(m(X)))$
+%     The semantic map-ping of the $F$-coalgebra $(X,c\circ m\colon X\rightarrow F(X))$ factors through the semantic mapping of the $F$-coalgebra $(m(X),c\colon m(X)\rightarrow F(m(X)))$
 %     \todo[inline]{This probably needs to use bounded functors.}
 % \end{theorem}
-% \begin{proof}
-%     The Epi-mono factorisation from Universal Coalgebra uses the kernel of homomorphisms as the quotient. Here, we replace it by $\equiv_m$, enforcing bisimilarity between $x$ and $m(x)$. Note that $\equiv_{\id}$ results in normal bisimilarity, because no enforcement takes place.
+%This composition is in general not commutative.
 
-%     The transformation $m\colon X\rightarrow X$ forces the appearances of equivalence classes $\equiv_m\subseteq X\times X$ with respect to $c$, where $x_1\equiv_m x_2$ iff $m(x_1)\sim m(x_2)$, which overrides bisimilarity in $X$ with respect to $c$. The set $X/\equiv_m$ is isomorphic to $m(X)$. In other words, 
-% \end{proof}
+% Consider an example in automata: we define $m\colon \sigma F\rightarrow \sigma F$ such that 
+% \begin{align*}
+%     m(\phi)(w)=
+% \begin{cases}
+%     \phi(w), \quad \text{if $w$ ends in 1},\\
+%     0,\quad \text{otherwise}.
+%     % \lnot \phi(w), \quad \text{if $w\varepsilon$}\\
+%     % \phi(w), \quad \text{otherwise}.
+% \end{cases}
+% \end{align*}
+% In other words, $m$ removes all sequences that do not end in $1$ from the language characterised by $\phi$. We obtain $c=1\circ m$
 
-% \begin{figure}[t]
-%     \centering
-%     \includegraphics[width=1\textwidth]{Figures/Epi-monofactorisation.png}
-%     \caption{Reason why the fundamental theorem works.}
-%     \label{fig:LambdaCurves}
-%     \end{figure}
+% In the case of automata, what does it mean for $c(L)=L'$ Normally what we have is $L\mapsto (0|1, 0\mapsto L_0, 1\mapsto L_1)$. 
 
-% \begin{figure}[t]
-%     \centering
-%     \includegraphics[width=1\textwidth]{Figures/FundamentalTheo.png}
-%     \caption{Reason why the fundamental theorem works.}
-%     \label{fig:LambdaCurves}
-%     \end{figure}
+% \todo[inline]{Something is not right: In the case of automata, }
 
-\begin{proposition}[Behavioural Change]
-For any dynamical system described by an $F$-coalgebra 
-$(X,c\circ m\colon X\rightarrow F(X))$, where $m\colon X\rightarrow X$, and  $c\colon X\rightarrow F(X)$, there exists a \emph{unique} transformation function $\Delta_m\colon \sigma F\rightarrow \sigma F$ which maps $\TheBehaviourOfIn{x}{c}$ to $\TheLatentBehaviourOfIn{x}{c}{m}$, describing the \emph{behavioural change} of $x$, for all $x\in X$.
-\end{proposition}
-\begin{proof}
-    The function $\Delta_{m}\colon \sigma F\rightarrow \sigma F$ is an $F$-coalgebra since $F(\sigma F)\simeq \sigma F$, so it has a behaviour. 
-coinductively defined by 
-{\color{red}
-\todo[inline]{Transform this into a commutative diagram?}
-\begin{align*}
-    \Delta_{m}(\TheBehaviourOfIn{x}{c}) \sim_{(c \circ m)} (x)\\
-    %\Delta_{m}(c^\infty_x)[1]&\triangleq c^\infty_{m(x)}[1]\\
-    \Delta_{m}(c^\infty_x)[t+1]&\triangleq \Delta_{m}\left(c^\infty_{(c\circ m)(x)}\right)[t]
-\end{align*}
-}
-\end{proof}
 
-\section{Dynamical Systems of the $\id$ Functor}
-% Theorem~\ref{theo:Fundamental} is a far stretch from the fundamental theorem of arithmetic, which states that every natural number can be decomposed into a multiplication of primes, but it follows a similar reasoning. Normally, we ignore this decomposition, so $\delta=c$ and $m=\id$. 
-% \todo[inline]{It would be nice to have ``primes" here, and they may exist. They'll probably }
+% , and such a set of revealed behaviours is determined by the available \emph{gadgets}.
 
+% \section{Gadgets}
+% In the context of return-oriented programming~(\cite{ROP}), a \emph{gadget} is a code snipped that is part of the original program, and it is exploited by attackers to hijack the control flow once they affect the return addresses of functions. In the context of LBA, given an $F$-coalgebra $(X,c)$, if $c$ defines the program, then the components of $c$ define the set of \emph{gadgets} we can use to change the behaviour of the system.
+% \begin{definition}[Gadgets]
+%     Let $\mathbb{X}=(X,c)$ be an $F$-coalgebra. 
+%     A \emph{gadget of $\mathbb{X}$} is a pair $(x,c)$ where $x\in X$. %The set of \emph{gadgets of $\mathbb{X}$} by the graph of $c$. 
+% \end{definition}
 
+% A gadget $(x,c)$ is a behavioural building block. We can interpret the gadget $(x,c)$ as the action of applying $c$ at $x$, so $(m(x),c)$ models the action of applying $c$ to $m(x)$. 
 
-The \emph{fundamental theorem of latent behaviour analysis} implies the existence of unique transformation function $\Delta_m\colon X^\infty\rightarrow X^\infty$ which maps $c_{x}^\infty$ to both $\delta_{x}^\infty$ and $c_{m(x)}^\infty$ for all $x\in X$. The function $\Delta_m$ models the behavioural change induced by $m$ when applied to the $F$-coalgebra $(X,c)$. This unique function $\delta_{x}^\infty$ and $c_{m(x)}^\infty$ is 
-coinductively defined by 
-% \todo[inline]{BE CAREFUL HOW YOU DEFINE THE INDICES and if you want behaviours to include $x$, in coalgberas that is not very common.}
-\begin{align*}
-    \Delta_{m}(c^\infty_x)[0]&\triangleq (c \circ m)(x)\\
-    %\Delta_{m}(c^\infty_x)[1]&\triangleq c^\infty_{m(x)}[1]\\
-    \Delta_{m}(c^\infty_x)[t+1]&\triangleq \Delta_{m}\left(c^\infty_{(c\circ m)(x)}\right)[t]
-\end{align*}
-This definition compounds the effect of $m$ over time.
-% \begin{align}
-%     \Delta_m(c_{x}^\infty)\triangleq(m\circ c)_{x}^\infty
-% \end{align}
-% which is not a very useful definition. However, if $m$ satisfies some linearity properties, then this function $\Delta_m(c_{x}^\infty)$ can be defined (co)inductively.
+% In the example presented in Section~\ref{sec:Latent:Motivation}, there are four gadgets. Each gadget gives each spatial transformation $m$ a chance to further alter the behaviour of the system. 
+% \todo[inline]{Where do you want to go with this? It looks interesting, but not useful. }
 
-For example, consider the system $(\mathbb{N},c=(+1))$ and the operator $m=(*3)$. The corresponding definition is $\Delta_{m}$ by
-\begin{align*}
-    \Delta_{m}(c^\infty_x)[0]&=1\\%(+1)^\infty_{2x}[1]\\
-    (\Delta_{m}(c^\infty_x))[t+1]&=\Delta_{m}(c^\infty_{3x+1})[t]
-\end{align*}
-%This definition compounds the effect of the operator $(*2)$. 
-From $(1,2,3,\ldots)=(+1)^\infty_0$, we obtain the sequence $(1,7,13,40,121,\ldots)$. 
-% Now, $\Delta_{(*2)}(\omega)[0]=0$. %, so $((+1)\circ (*2))^\infty_0[0]=0$. 
-% Next, $\Delta_{(*2)}(((+1)\circ (*2))^\infty_{1})[0]=1$
+% In the following, we work on arbitrary $F$-coalgebras $(X,c)$ and only consider spatial transformations to
 
-%$\Delta_{(*2)}(\omega)[t+1]$ since $\omega=(+1)^\infty_{(2*0)+1}$
-\begin{definition}
-The operator $m$ is \emph{linear with respect to $c$} if and only if
-\begin{align}
-    (c\circ m)^\infty_x[t]= (m \circ c)^\infty_x[t].
-\end{align}    
-\end{definition}
-
-%Functorial operators are quite rare. It means that their effects do not compound over time. 
-% (Linear operators have a deep relation to bialgebras of the identity functor, where $c\circ m= m\circ c $.)
-% The operator $(*2)$ is not linear with respect to $(+1)$, but the operator $+3$ is. $(0,4,8,)$.
-
-Depending on the properties of $m$ and $\Delta_m$, we might infer whether some behavioural property was preserved for all sequences, i.e., if $P(c^\infty_x)$, then $P((c\circ m)^\infty_x)$. For example, for $m=(*3)$, and $c=(+1)$, the sequence is still strictly increasing. 
-
-
-
-%We say that thefunction $\Delta^m$ has a solution if it can be written
-
-
-
-
-
-
-
-
-THe usefulness of latent behaviour analysis is that you can decompose a behaviour-defining into several components. Each of those components 
-
-
-
-\todo[inline]{Latent coalgebras are coalgebras with the state space deformed.}
-\todo[inline]{THESE DIAGRAMS ARE WRONG. THE BEH OF C CANNOT APPEAR LIKE THISOR YOU CAN GO VIA M to the end of c}
-\end{definition}
-\begin{figure}
-    \centering
-    \begin{tikzcd}[column sep=large]
-        \sigma F
-            \arrow[d, "\simeq","\omega"'] 
-        &X
-            \arrow[r, "m"]
-            %\arrow[rd, "c\circ m", red]
-            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
-        &X 
-            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
-            \arrow[d, "c"] 
-        & \sigma F 
-            \arrow[d, "\simeq","\omega"'] 
-        \\
-        F(\sigma F)
-        &
-        &F(X) 
-            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
-            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
-        &F(\sigma F)
-    \end{tikzcd}
-    \caption{$(X,c\circ m)$ is an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Geometrically, $m$ is a transformation of the state space, so some preserve certain structural properties (e.g. a permutation) while others do not (e.g. a collapsing function to some fixed $x$).}
-\end{figure}
-\begin{figure}
-    \centering
-    \begin{tikzcd}[column sep=large]
-        \sigma F
-            \arrow[d, "\simeq","\omega"'] 
-        &&X
-            \arrow[r, "m"]
-            \arrow[d, "b\circ c\circ m"] 
-            %\arrow[rd, "c\circ m", red]
-            \arrow[ll, dotted, swap,"\TheBehaviourOf{\cdot}_{b\circ c\circ m}"]
-        &X 
-            \arrow[rr, dotted, "\TheBehaviourOf{\cdot}_c"] 
-            \arrow[d, "c"] 
-        && \sigma F 
-            \arrow[d, "\simeq","\omega"'] 
-        \\
-        F(\sigma F) 
-        &&F(X) \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{b\circ c\circ m})"]
-        &F(X) 
-            \arrow[rr, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
-            \arrow[l, "b"]     
-        &&F(\sigma F)
-    \end{tikzcd}
-    \caption{Latency using both $m$ and $b$ to reveal latent behaviours: $(X,b\circ c\circ m)$ is still an $F$-coalgebra, so it has a unique $F$-homomorphism to the final $F$-coalgebra $(\sigma F, \omega)$. Metaphorically, consider the function $c$ as a causal model which transforms the cause $x$ into the consequence $c(x)$; the transformation $m$ corresponds to a change of cause, while a transformation $b$ corresponds to a change of consequence. In a more concrete example, assume that we are grading a test, and $c$ is the grading rules. The value $c(x)$ is the grade assigned to the answers $x$. A transformation $m$ would correspond to changing the answers before grading, while a transformation $b$ corresponds to changing the grade after the answers have been graded. Now, if $F(X)$ is the The transformation $b$ needs not respect the properties of $c$, since it is applied after it. Thus, it would be possible to change the grade through $b$ to some value that is impossible to obtain by any possible combination of answers (i.e. for every $m$ that changes answers).}
-\end{figure}
-\begin{figure}
-    \centering
-    \begin{tikzcd}[column sep=large]
-        \sigma F
-            \arrow[d, "\simeq","\omega"'] 
-        &X
-            \arrow[r, "m"]
-            %\arrow[rd, "c\circ m", red]
-            \arrow[l, dotted, swap,"\TheBehaviourOf{\cdot}_{c\circ m}"]
-        &X 
-            \arrow[r, dotted, "\TheBehaviourOf{\cdot}_c"] 
-            \arrow[d, "c"] 
-        & \sigma F 
-            \arrow[d, "\simeq","\omega"'] 
-        \\
-        F(\sigma F)
-        &
-        &F(X) 
-            \arrow[r, dotted, "F(\TheBehaviourOf{\cdot}_c)"]
-            \arrow[ll, dotted, swap,"F(\TheBehaviourOf{\cdot}_{c\circ m})"]     
-        &F(\sigma F)
-    \end{tikzcd}
-    \caption{$(X,T(X)\xrightarrow{c\circ a}F(X))$ is an $FT$-coalgebra, (not quite a bialgebra, but it could be). $T(X)$ defines specifications for $X$, so we could mutate those instead of $X$ directly. This is what the paper by Harrison and Goldstein does \cite{DoJudgeATestByItsCover}}
-\end{figure}
-
-% \begin{table}[t]
-% \centering
-% \begin{tabular}{|l | l | }
-% \hline
-% $\rho_{\ref{fig:3.2}.0}$ &  $\emptyset$   \\
-% $\rho_{\ref{fig:3.4}.2}$ &  $1^*$ \\
-% $\rho_{\ref{fig:3.7}.0}$ &  $(0+1)^*111^*$\\%$(0+10+111^*0)^*111^*$ \\
-% $\rho_{\ref{fig:3.7}.1}$ &  $\rho_{\ref{fig:3.7}.0}+1$ \\
-% $\rho_{\ref{fig:3.7}.2}$ &  $\rho_{\ref{fig:3.7}.0}+1+\varepsilon$ \\
-% $\rho_{\ref{fig:3.8}.1}$ &  $(00^*1+10^*1)^*$ \\
-% $\rho_{\ref{fig:3.8}.0}$ &  $0^*1\rho_{\ref{fig:3.8}.1}$ \\
-% $\rho_{\ref{fig:3.9}.2}$& $(0+1)^*01$\\
-% $\rho_{\ref{fig:3.9}.0}$&   $\rho_{\ref{fig:3.9}.2}+1$\\
-% $\rho_{\ref{fig:3.9}.1}$&   $\rho_{\ref{fig:3.9}.2}+1+\varepsilon$\\
-% $\rho_{\ref{fig:3.10}.0}$ &  $(0+1)^*1$ \\
-% $\rho_{\ref{fig:3.10}.1}$ &  $\rho_{\ref{fig:3.10}.0}+\varepsilon$ \\
-% $\rho_{\ref{fig:3.13}.1}$ &  $1^*0\rho_{\ref{fig:3.10}.0}$ \\
-% $\rho_{\ref{fig:3.17}.0}$ &  $(0+10+(11)^+(0+10))^*(11)^+$ \\
-% $\rho_{\ref{fig:3.17}.1}$ &  $(11)^*+(0+10)\rho_{\ref{fig:3.17}.0}$ \\
-% $\rho_{\ref{fig:3.17}.2}$ &  $0\rho_{\ref{fig:3.17}.0}+1\rho_{\ref{fig:3.17}.1}$ \\
-% $\rho_{\ref{fig:3.18}.0}$ &  $\varepsilon$ \\
-% $\rho_{\ref{fig:3.20}.1}$ &  $(0+1)^*0$ \\
-% $\rho_{\ref{fig:3.20}.0}$ &  $\rho_{\ref{fig:3.20}.1}+\varepsilon$ \\
-% $\rho_{\ref{fig:3.22}.0}$ &  $(1+0)^*$ \\
-% $\rho_{\ref{fig:3.22}.1}$ &  $1^*0(1+0)^*$ \\
-% $\rho_{\ref{fig:3.25}.1}$ &  $1(1+0)^*+0(1+0)^*$ \\
-% $\rho_{\ref{fig:3.26}.0}$ &  $(0+10+11)^*$ \\
-% $\rho_{\ref{fig:3.26}.2}$ &  $(0+1)\rho_{\ref{fig:3.26}.0}$\\
-% \hline
-% \end{tabular}
-% \caption{Latent behaviours for all transformations for the coalgebra that recognises $(0+1)^*11$. }
-% \label{tab:ExampleLatentBehaviours}
-% \end{table}
-
-% %$\rho_{\ref{fig:3.8}.0}$ &  $$ \\
-% %$\rho_{\ref{fig:3.8}.1}$ &  $$ \\
-% %$\rho_{\ref{fig:3.8}.2}$ &  $$ \\
-% %------------------------------------------------------------------------------------------------------------------------
-% \begin{figure}[t]
-% \centering
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop above] node{1} (q2)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$ }
-% \label{fig:3.2}
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop above] node{1} (q2)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-% \label{fig:3.3}
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop above] node{1} (q2)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,0),(2,2)}$. $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\emptyset$, $\TheLatentBehaviourOf{2}{m}=1^*$}
-% \label{fig:3.4}
-% \end{figure}
-
-% \begin{figure}[t]
-% \captionsetup{singlelinecheck=off}
-% \centering
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,0)}$ . $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,1)}$ . $\TheLatentBehaviourOf{0}{m}=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state,accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,1),(2,2)}$ (i.e. $m=\texttt{id}$). Latent behaviours under $m$ are the original behaviours: 
-% \protect\begin{align*}
-% 	\TheLatentBehaviourOf{0}{m}&=(0+1)^*111^*, \\
-% 	\TheLatentBehaviourOf{1}{m}&=1+\TheLatentBehaviourOf{0}{m}\\
-% 	\TheLatentBehaviourOf{2}{m}&=\varepsilon + 1+ \TheLatentBehaviourOf{0}{m}
-% \protect\end{align*}
-% }
-% \label{fig:3.7}
-% \end{figure}
-
-
-
-% \begin{figure}[t]
-% \captionsetup{singlelinecheck=off}
-% \centering
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state,accepting, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,0)}$. 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=0^*1\TheLatentBehaviourOf{1}{m},\\
-% \TheLatentBehaviourOf{1}{m}&=(00^*1+10^*1)^*
-% \protect\end{align*}
-% \label{fig:3.8}
-% }
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state,accepting, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,1)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=1+\TheLatentBehaviourOf{2}{m},\\
-% \TheLatentBehaviourOf{1}{m}&=\varepsilon+1+\TheLatentBehaviourOf{2}{m},\\
-% \TheLatentBehaviourOf{2}{m}&=(0+1)^*01
-% \protect\end{align*}
-% \label{fig:3.9}
-% }
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state,accepting, right of=q1] (q2) {$1$};
-% \node[state, accepting,right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q2)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,0),(1,2),(2,2)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
-% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon + \TheLatentBehaviourOf{0}{m}
-% \protect\end{align*}
-% \label{fig:3.10}
-% }
-% \end{figure}
-
-% \begin{figure}[t]
-% \captionsetup{singlelinecheck=off}
-% \centering
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop right] node{1} (q2)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=
-% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop right] node{1} (q2)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=
-% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state,accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop right] node{1} (q2)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,0),(2,2)}$. 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\ 
-% \TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m},\\
-% \TheLatentBehaviourOf{2}{m}&=\varepsilon+\TheLatentBehaviourOf{0}{m}
-% %\TheLatentBehaviourOf{2}{m}&=1^*+\TheLatentBehaviourOf{1}{m}
-% \protect\end{align*}
-% }
-% \label{fig:3.13}
-% \end{figure}
-
-% \begin{figure}[t]
-% \captionsetup{singlelinecheck=off}
-% \centering
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,0)}$. $\TheLatentBehaviourOf{0}{m}=
-% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,1)}$. $\TheLatentBehaviourOf{0}{m}=
-% \TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=\emptyset$}
-
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,1),(2,2)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*1,\\ 
-% \TheLatentBehaviourOf{2}{m}&=\TheLatentBehaviourOf{0}{m}+\varepsilon
-% \protect\end{align*}
-% }
-% \end{figure}
-
-% \begin{figure}[t]
-% \centering
-% \captionsetup{singlelinecheck=off}
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state,accepting, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$}; 
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,0)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+10+(11)^+(0+10))^*(11)^+ \\ %(0+1(0+1(11)^*(0+10)))^*11(11)^* ,\\ 
-% \TheLatentBehaviourOf{1}{m}&=(11)^*+(0+10)\TheLatentBehaviourOf{0}{m},\\
-% \TheLatentBehaviourOf{2}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{1}{m}
-% \protect\end{align*}
-% \label{fig:3.17}
-% }
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state,accepting, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,1)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=\emptyset,\\ 
-% \TheLatentBehaviourOf{1}{m}&=\varepsilon
-% \protect\end{align*}
-% \label{fig:3.18}
-% }
-
-% \begin{tikzpicture}
-% \node[state] (q1) {$0$};
-% \node[state,accepting, right of=q1] (q2) {$1$};
-% \node[state, accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,1),(1,2),(2,2)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+1)^*1,\\
-% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=\varepsilon+\TheLatentBehaviourOf{0}{m}
-% \protect\end{align*}
-% }
-% \end{figure}
-
-% \begin{figure}[t]
-% \captionsetup{singlelinecheck=off}
-% \centering
-% \begin{tikzpicture}
-% \node[state, accepting] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop right] node{1} (q2)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,0)}$. 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
-% \TheLatentBehaviourOf{1}{m}&=(0+1)^*0
-% \protect\end{align*} 
-% \label{fig:3.20}
-% }
-
-% \begin{tikzpicture}
-% \node[state, accepting] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop right] node{1} (q2)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,1)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon ,\\ 
-% \TheLatentBehaviourOf{1}{m}&=(0+1)^*0
-% \protect\end{align*}
-% }
-
-% \begin{tikzpicture}
-% \node[state, accepting] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[loop right] node{1} (q2)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,0),(2,2)}$. 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
-% \TheLatentBehaviourOf{1}{m}&=1^*0\TheLatentBehaviourOf{0}{m}
-% \protect\end{align*}
-% \label{fig:3.22}
-% }
-% \end{figure}
-
-% \begin{figure}[t]
-% \captionsetup{singlelinecheck=off}
-% \centering
-% \begin{tikzpicture}
-% \node[state, accepting] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,0)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
-% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
-% \protect\end{align*}
-% }
-
-% \begin{tikzpicture}
-% \node[state, accepting] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,1)}$. 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=(0+1)^*0+\varepsilon,\\ 
-% \TheLatentBehaviourOf{1}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*0\\
-% \protect\end{align*}
-% }
-
-% \begin{tikzpicture}
-% \node[state, accepting] (q1) {$0$};
-% \node[state, right of=q1] (q2) {$1$};
-% \node[state, accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,1),(2,2)}$ . 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{2}{m}=(0+1)^*,\\ 
-% \TheLatentBehaviourOf{1}{m}&=0\TheLatentBehaviourOf{0}{m}+1\TheLatentBehaviourOf{2}{m}
-% \protect\end{align*}
-% \label{fig:3.25}
-% }
-% \end{figure}
-
-% \begin{figure}[t]
-% \captionsetup{singlelinecheck=off}
-% \centering
-% \begin{tikzpicture}
-% \node[state,accepting] (q1) {$0$};
-% \node[state, accepting, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[bend left, above] node{1} (q2)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,0)}$. 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+10+11)^*,\\ 
-% \TheLatentBehaviourOf{2}{m}&=(0+1)\TheLatentBehaviourOf{0}{m}
-% \protect\end{align*}
-% \label{fig:3.26}
-% }
-
-% \begin{tikzpicture}
-% \node[state,accepting] (q1) {$0$};
-% \node[state, accepting, right of=q1] (q2) {$1$};
-% \node[state, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,1)}$.
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=(0+1)^*0+\varepsilon\\ 
-% \TheLatentBehaviourOf{2}{m}&=(0+1)^*0
-% \protect\end{align*}
-% }
-
-% \begin{tikzpicture}
-% \node[state,accepting] (q1) {$0$};
-% \node[state, accepting, right of=q1] (q2) {$1$};
-% \node[state, accepting, right of=q2] (q3) {$2$};
-% \draw (q1) edge[loop above] node{0} (q1)
-% (q1) edge[bend left, above] node{1} (q3)
-% (q2) edge[bend left, above] node{0} (q1)
-% (q2) edge[bend left, above] node{1} (q3)
-% (q3) edge[loop above] node{1} (q3)
-% (q3) edge[bend left, below] node{0} (q1);
-% \end{tikzpicture}
-% \caption{Latent coalgebra under graph $G(m)=\set{(0,2),(1,2),(2,2)}$. 
-% \protect\begin{align*}
-% \TheLatentBehaviourOf{0}{m}&=\TheLatentBehaviourOf{1}{m}=\TheLatentBehaviourOf{2}{m}=(0+1)^*
-% \protect\end{align*}
-% }
-% \label{fig:3.28}
-% \end{figure}
-
-\todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the transformation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
-
-\section{Latent Vulnerabilities}
-\todo[inline]{This should go on a different chapter}
-Not all behaviours are latent for a given $F$-coalgebra. In Example~\ref{ex:LatentBehaviour}, we see that no transformation can yield the language $0^*$ as a latent behaviour. We see latent behaviours as targets for attackers, and we would like to know if there is a way for an attacker to cause the system to shift to a particular latent behaviour by means of a transformation. For that purpose, we introduce the definition of {latent vulnerability problems}.
-
-\begin{definition}
-A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebra $\mathbb{X}=(X,c,x_0)$ and a given behaviour $\rho\in \sigma F$. To solve this problem, we need to either 1) find a transformation $m$ which proves that $\rho$ is the latent behaviour of $x_0$ under $m$ or 2) prove that no such $m$ can exist.
-\end{definition}
-
-
-\begin{align}
-\gamma(m(x))&=\gamma_\omega(\rho)\\
-\delta(m(x))(i)&\sim \delta_\omega(\rho)(i), \forall i\in I
-\end{align}
+% \todo[inline]{If we want $a$ to change with time there is no need to do anything fancy! We can enhance the carrier by doing $X'=X\times \mathbb{N}$ or $X'=X\times [X\rightarrow 2]$; with this, $X$ is enhanced by a natural number counter or a set of conditions to make the dynamics of the transformation coalgebra more interesting. Maybe there is even no need to do changes, it all depends on how informative $X$ is. let's see}
 
 % \todo[inline]{This means that the problem becomes a "searching for the next candidate at every step" problem. Alternatively, you could learn to compose solutions too. }
 % \todo[inline]{Maybe we can also do something exciting: eventuality -> at some point in time, the behaviour you want becomes apparent, i.e. $\TheBehaviourOf{x_0}^w=\rho$ for some $w$}
 
- 
-\section{Attackers and Attacks}
-\todo[inline]{This should go on a different chapter}
+\subsection{Quantifying Robustness}
+\todo[inline]{The idea is that if we can design attacks, that yield new systems, we can design counter attacks that perhaps return the original system back. This is an introduction to the TOPS papers and the one we worked with Martin before}
+\begin{definition}[Behavioural Property]
+    \label{def:Latent:BehaviouralProperty}
+    Let $F$ be a functor for which a final $F$-coalgebra $(\sigma F, 1)$ exists. A \emph{behavioural property} $P$ is a function $P\colon \sigma F\rightarrow 2$. Given an arbitrary $F$-coalgebra $(X,c)$, we say that $x\in X$ satisfies the behavioural property $P$ if and only if $(P\circ !_c)(x)=1$.
+\end{definition}
+Behavioural properties come in all shapes and forms, and are often described using logics like LTL~\cite{LTL}. CTL~\cite{CTL}, and $\mu$ calculus~\cite{MuCalculus}. Let us for now assume that we have a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ which model both functional and security requirements of the system. We discuss concrete ways to define these behavioural properties in Chapters~\ref{ch:Classification} and \ref{ch:CPSRobustness}.
+
+Consider the following problem: we are given an arbitrary $F$-coalgebra $(X,c)$, an initial state $x_0\in X$, and a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$. Normally, we would check if $x_0$ satisfies all behavioural properties in $\mathcal{R}$, but now we consider a spatial transformation $m\colon X\rightarrow X$, and we want to check if $x_0$ still satisfies all the given behavioural properties in the resulting latent coalgebra revealed by $m$.
+
+We might think that it suffices to check whether $(R_i\circ !_c)(m(x_0))=1$ for each requirement $R_i$, but that would be incorrect as illustrated by the following example.
+\begin{example}[Wrong Verification]
+    In the context of Example~\ref{ex:Latent:TheExample}, the functor is $F(X)=2\times X^2$ has a final $F$-coalgebra $(2^{2^*},(\varepsilon?,(\cdot)'))$ where $\varepsilon? \colon 2^{2^*}\rightarrow 2$ checks whether the empty sequence $\varepsilon$ belongs to the language and $(\cdot)'\colon 2^{2^*}\rightarrow (2\rightarrow {2^{2^*}})$ computes the Brzozowski derivative~\cite{BrzozowskiDerivative} of the language.  
+    \todo[inline]{Maybe move to preliminaries?}
+    Consider the behavioural property $R\colon 2^{2^*}\rightarrow 2$ defined by $R(\phi)\triangleq \phi \sim \varepsilon+(0+1)^*10$, for $\phi \in 2^{2^*}$. This property $R$ is not satisfied by any state of the original $F$-coalgebra, so $(R\circ !_c)(m(x_0))=0$, but $R$ is satisfied by $x_0$ in the latent coalgebra revealed by the spatial transformation $m$, since that is the language it recognises in the latent coalgebra. 
+\end{example}
+
+By separating state from behaviour, we can focus on attacks that affect state. 
+\begin{definition}[Attacks]
+    Given an $F$-coalgebra $(X,c)$, we define the set of its \emph{state-based attacks} corresponds to be the set of its spatial transformations, i.e., $X^X$. 
+    We also define the set of its \emph{behaviour-based attacks} by $F(X)^{F(X)}$. 
+    \end{definition}
+In this context, LBA studies the effect of state-based attacks. Henceforth, when we refer to an attack, we implicitly mean a state-based attack (unless stated otherwise). In the particular case of final $F$-coalgebras, their state-based attacks coincide with their behaviour-based attacks. 
+
+We know that an attack $m$ reveals a latent coalgebra $(X, c\circ m)$ which may or may not satisfy the same behavioural properties that $(X, c)$ satisfies. 
+% Different $F$-coalgebras have different sets of attacks. In our framework, a minimal $F$-coalgebra $(X,c)$ has as many attacks as $|X|^{|X|}$.
+
+
+\subsection{Classification of Attackers}
+Not all spatial transformations affect behavioural properties in the same way. 
+\todo[inline]{rewrite the following, it is outdated. Here we should provide a small introduction, not definitions and all that, right?}
+
+Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
+    \begin{definition}[Attacker]
+    Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a {finite} subset of $\Pi$ whose semantics is a set of attacks defined by the function $\texttt{attacks}\colon \TheFinitePowersetOf{\Pi}\rightarrow\ThePowersetOf{X^X_\omega}$ as follows. 
+    For $j\in \set{1, \ldots,  n}$ and all $x\in X$,
+    \begin{align}
+    %\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ $f$ is consistent, and if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
+    \texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
+    \end{align}
+    %{\color{red}
+    %equivalently
+    %\begin{align}
+    %\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
+    %\end{align}
+    %}
+    In other words, $A$ has access to the set of attacks that can only affect the components that $A$ has direct control of.
+     \end{definition}
+ \begin{example}[Attackers of the system from Section~\ref{sec:Latent:Motivation} and their Semantics]
+ The carrier $2\times 2$ has two components, $\fst$ and $\snd$, so there are four attacker models: $\emptyset$, $\set{\fst}$, $\set{\snd}$ and $\set{\fst,\snd}$. The attacks of the attacker $\emptyset$ do not mutate any component, i.e., $\texttt{attacks}(\emptyset)=\set{\id}$, and the attacks of $\set{\fst}$ and $\set{\snd}$ only affect the first/second component, respectively. The attacker $\set{\fst,\snd}$ has access to all attacks.
+ \end{example}
+
+{\color{red}
 There is an attacker model associated with latent vulnerabilities: attackers that can change the value of state variables, but not the program that defines the system. This later attacker would correspond to one that can arbitrarily change the coalgebra, and is in that sense a much stronger attacker. If the attacker can enforce any behaviour they want, it becomes too powerful to defend against; all coalgebras are vulnerable, and no fix is available. However, an attacker that exploits a latent vulnerability is a bit in the middle: it can change the coalgebra by means of a transformation/attack function, but only through those. In that sense, not every behaviour is at the reach of the attacker, only those who are latent.
 
 We can do a further refinement: we can imagine attackers that control particular components of a state by partitioning states into controllable parts and observable parts
 \todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a transformation, and all transformations can be modelled by attackers that control a certain number of components. Right?}
 
-\begin{definition}[Attack]
-Given an $F$-coalgebra $(X,c)$, the set of its possible attacks corresponds to the set of consistent transformations of $X$, i.e., $X^X_\sim$. 
-\end{definition}
-Different $F$-coalgebras have different sets of attacks. In our framework, a minimal $F$-coalgebra $(X,c)$ has as many attacks as $|X|^{|X|}$.
-
-Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
-
-\begin{definition}[Attacker]
-Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a {finite} subset of $\Pi$ whose semantics is a set of attacks defined by the function $\texttt{attacks}\colon \TheFinitePowersetOf{\Pi}\rightarrow\ThePowersetOf{X^X_\omega}$ as follows. 
-For $j\in \set{1, \ldots,  n}$ and all $x\in X$,
-\begin{align}
-%\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ $f$ is consistent, and if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
-\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
-\end{align}
-%{\color{red}
-%equivalently
-%\begin{align}
-%\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
-%\end{align}
-%}
-In other words, $A$ has access to the set of attacks that can only affect the components that $A$ has direct control of.
- \end{definition}
- \todo[inline]{Commented is the definition with ranges, but it is kinda complicated. For spectre, we define the strategy first, then we think of what attacker we are, and for vulnerabilities, we will define the attacker first, and then we find the strategy.}
+%  \todo[inline]{Commented is the definition with ranges, but it is kinda complicated. For spectre, we define the strategy first, then we think of what attacker we are, and for vulnerabilities, we will define the attacker first, and then we find the strategy.}
 % 
 % \begin{definition}[Attacker]
 %Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a pairing of a {finite} subset of $\Pi$, namely $A[\Pi]$, and a map $A[\texttt{range}]$ that associates each component in $A[\Pi]$ with a range of possible values; formally, $A[\texttt{range}(\pi_j)]\subseteq \Pi_j$, for all $\pi_j \in A[\Pi]$. %Formally, the type of attackers is $\TheFinitePowersetOf{\Pi} \times \ThePowersetOf{\Pi \times \vec{X}}$
@@ -1121,28 +438,25 @@ In other words, $A$ has access to the set of attacks that can only affect the co
 % \end{definition}
 % 
 % 
- \todo[inline]{We can refine this definition of attackers with $(\pi_j, Y_j)$, with $Y_j\subseteq X_j$, instead of just $\pi_j$. HoWEVER, I highly encourage against this, because it overcomplicates things unnecessarily.}
- \todo[inline]{I love writing $j\in n$, but this means enumeration should start from 0...I can probably use that in my language though}
- \begin{example}[Attackers of Example~\ref{ex:LatentBehaviour} and their Semantics]
- The carrier $2\times 2$ has two components, $\fst$ and $\snd$, so there are four attackers: $\emptyset$, $\set{\fst}$, $\set{\snd}$ and $\set{\fst,\snd}$. The attacks of the attacker $\emptyset$ do not mutate any component, i.e., $\texttt{attacks}(\emptyset)=\set{\id}$, and the attacks of $\set{\fst}$ and $\set{\snd}$ only affect the first/second component, respectively. The attacker $\set{\fst,\snd}$ has access to all attacks.
- \end{example}
- 
- \subsection{Attacks over Discrete Time Systems}
- \todo[inline]{DO NOT FORGET THAT YOU CAN ASSUME $x(t)\neq x(t+k)$ for all $k$, because otherwise, you would have taken a different decision before!!! it's like going on a loop on a chessboard.}
-Recall that we model discrete time systems with pointed $\DTS$-coalgebras of the functor $\DTS=O\times X^I$ for some fixed sets $O$ and $I$. Instead of describing attacks as some general mapping over the carrier set, we might want to describe attacks as changes in the current state. We call this notion of individual transformation a \emph{strategy}, and it is formalised as follows:
-\begin{definition}[Strategy]
-Given a $\DTS$-coalgebra $\TheCoalgebra=(X,\gamma,\delta,x_0)$, a \emph{strategy} $\lambda$ consists of a sequence of attacks...
-\todo[inline]{Why do I want this?? Strategies are useful representations of attacks...but why?}
-\end{definition}
+%  \todo[inline]{We can refine this definition of attackers with $(\pi_j, Y_j)$, with $Y_j\subseteq X_j$, instead of just $\pi_j$. HoWEVER, I highly encourage against this, because it overcomplicates things unnecessarily.}
+%  \todo[inline]{I like writing $j\in n$, but this means enumeration should start from 0...I can probably use that in my language though}
 
-\begin{proposition}[Every Strategy is an Attack]
-For all $\DTS$-coalgebras $\TheCoalgebra=(X,\gamma,\delta,x_0)$ and every strategy $\lambda\in\Lambda$\todo{complete}
-\end{proposition}
+
+% %  \subsection{Attacks over Discrete Time Systems}
+% %  \todo[inline]{DO NOT FORGET THAT YOU CAN ASSUME $x(t)\neq x(t+k)$ for all $k$, because otherwise, you would have taken a different decision before!!! it's like going on a loop on a chessboard.}
+% % Recall that we model discrete time systems with pointed $\DTS$-coalgebras of the functor $\DTS=O\times X^I$ for some fixed sets $O$ and $I$. Instead of describing attacks as some general mapping over the carrier set, we might want to describe attacks as changes in the current state. We call this notion of individual transformation a \emph{strategy}, and it is formalised as follows:
+% % \begin{definition}[Strategy]
+% % Given a $\DTS$-coalgebra $\TheCoalgebra=(X,\gamma,\delta,x_0)$, a \emph{strategy} $\lambda$ consists of a sequence of attacks...
+% % \todo[inline]{Why do I want this?? Strategies are useful representations of attacks...but why?}
+% % \end{definition}
+
+% \begin{proposition}[Every Strategy is an Attack]
+% For all $\DTS$-coalgebras $\TheCoalgebra=(X,\gamma,\delta,x_0)$ and every strategy $\lambda\in\Lambda$\todo{complete}
+% \end{proposition}
  
- \section{A Partial Order of Attackers}
+ \subsubsection{A Partial Order of Attackers}
  \todo[inline]{This should go on a different chapter}
 \todo[inline]{We know how to quantify attackers in terms of exact latent behaviours, but latent behaviours themselves have an order (they are languages i.e. sets). What about the relationship among them? Do stronger attackers need to recognise more languages, what if a language implies another? how do attackers relate there then?}
-\todo[inline]{Introduce the emulation problem.}
 
 \begin{definition}[Attack Ordering]
 Given two attacks $m_1, m_2$ and an $F$-coalgebra $\TheCoalgebra$, we say that $m_1\lesssim_\TheCoalgebra m_2$ if and only if $\supp(m_1) \subseteq \supp(m_2)$, and $m_1(x)\sim_\TheCoalgebra m_2(x)$ for all $x\in \supp(m_1)$. In other words, any $x$ that $m_1$ mutates can also be mutated by $m_2$ in the same way, in the context of the coalgebra $\TheCoalgebra$. We omit the subscript $\TheCoalgebra$ when it is clear from the context, or it is irrelevant.
@@ -1156,7 +470,7 @@ Given an attacker $A$, an $F$-coalgebra $\TheCoalgebra=(X,c)$, and an arbitrary 
 %\end{align}
 %In such a case, we write $m'\lesssim m$.
 \end{definition}
-
+ 
 \begin{definition}[Attacker Ordering]
 Let $\TheCoalgebra$ be an $F$-coalgebra whose components are $\Pi$. The partial order relation $\leq$ in the set of attackers $\TheFinitePowersetOf{\Pi}$ by its set inclusion, i.e. $A_1 \leq A_2$ if and only if $A_1 \subseteq A_2$. 
 \end{definition}
@@ -1168,8 +482,8 @@ Monotonicity offers us mainly two advantages: 1) we can plan the order of attack
 % \todo[inline]{Probably one of the most esoteric definitions here. It is wrt a particular problem? a particular attack, a property?}
 % \end{definition}
 
-\todo[inline]{Should we just focus on DTS? NO!  The DTS I wanted to use does not have loops, so it is clear that we can keep doing this in the current modelling.}
-
+%\todo[inline]{Should we just focus on DTS? NO!  The DTS I wanted to use does not have loops, so it is clear that we can keep doing this in the current modelling.}
+}
 % \begin{definition}[Emulation Problem]
 % We say 
 % \end{definition}
@@ -1234,7 +548,13 @@ Monotonicity offers us mainly two advantages: 1) we can plan the order of attack
 %We provide a counterexample for the opposite proposition, that is, there exists a transformation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. 
 %Consider, for the functor $F=2\times \texttt{id}^2$, a single-state $F$-coalgebra that accepts all sequences; this $F$-coalgebra cannot display a latent behaviour different from its original behaviour.
 %\end{proof}
-\section{Future work?}
+
+
+\subsection{System Repair}
+\todo[inline]{Enforcement is one of those problems where you have an original system and you want to still preserve the essence while changing the properties. What we do with side channels is this: we take a program, we slightly modify it, and we prove that we enforced something. I have to change things a bit here, because the program has to be the state, but that's ok, since I can model a coalgebra that counts the number of memory accesses and all that. }
+
+\section{Future work}
+\todo[inline]{This should go in the last chapter!}
 We would like to consider two problems related to latent behaviours: 
 \begin{itemize}
 \item How can we use transformations ourselves to repurpose a system that is already been defined?

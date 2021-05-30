@@ -60,7 +60,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{ mathrsfs }
 \usepackage{ upgreek }
 \usepackage{proof}
-\usepackage{mdsymbol}
+%\usepackage{mdsymbol}
 \usepackage{algorithmicx}
 %\usepackage{algorithmicx/algorithmicx}
 % \usepackage{algorithm}
@@ -761,6 +761,41 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand{\vect}[1]{\ensuremath{\overrightarrow{\bf{#1}}}}
 \newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}
 
+
+ 
+%------------NOTATION FOR REPAIR------------------------------
+\newcommand{\iteration}[2]{\ensuremath{{#2}^{\left(#1\right)}}}
+%\newcommand{\bexp}[0]{\ensuremath{ \mathscr{B}}}
+
+
+% \newcommand{\sat}[0]{\ensuremath{\mathtt{sat}}}
+% \newcommand{\sg}[0]{\ensuremath{\text{s}}}
+% \newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
+% \newcommand{\lbl}[0]{\ensuremath{\text{lbl}}}
+% \newcommand{\Real}[0]{\ensuremath{\mathbb{R}}}
+% \newcommand{\Bool}[0]{\ensuremath{\mathbb{B}}}
+% \newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
+% \newcommand{\letter}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z}\right)}}
+% \newcommand{\Atom}[0]{\ensuremath{\text{At}}}
+% \newcommand{\GuardedString}[0]{\ensuremath{\text{GS}}}
+% \newcommand{\RC}[0]{\ensuremath{\texttt{RC}}}
+\newcommand{\sel}[0]{\ensuremath{\textbf{sel}}}
+% \newcommand{\Low}[0]{\ensuremath{\text{Low}}}
+\newcommand{\cache}[0]{\ensuremath{\texttt{mem}}}
+\newcommand{\Variables}[0]{\ensuremath{\mathscr{V}}}
+\newcommand{\Structures}[0]{\ensuremath{\mathscr{S}}}
+% \newcommand{\Integer}[0]{\ensuremath{\mathbb{Z}}} 
+% \newcommand{\alphanumeric}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9}\right)}}
+% \newcommand{\alphanumericP}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z\ |\ 0-9\ |\ .\ |\ \_\ |\ \$}\right)}}
+%\newcommand{\semantics}[1]{\ensuremath{\left\llbracket #1\right\rrbracket}}
+\newcommand{\irsemantics}[1]{\ensuremath{\semantics{#1}_{\texttt{IR}}}}
+\newcommand{\gkatsemantics}[1]{\ensuremath{\semantics{#1}_{\texttt{exp}}}}
+%\newcommand{\valuation}[0]{\ensuremath{\Gamma}}
+%\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+%\newcolumntype{R}{>{$}r<{$}} % math-mode version of "r" column type
+%\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+\newcommand{\hourglass}[0]{}%{\LARGE\fontspec{Cambria}^^^^231b}
+\makeatletter
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
 %----------------------------------------------------------------------------------------
@@ -817,7 +852,7 @@ initial text=$ $, % sets the text that appears on the start arrow
     % \begin{tikzcd}[column sep=1.75cm, row sep=1cm]
     %     & 
     %     &\sigma F
-    %         \arrow[dr,swap,"\Delta^m_b"']
+    %         \arrow[dr,swap,"\omega"']
     %     &
     %     \\ 
     %     \sigma F
@@ -854,12 +889,12 @@ initial text=$ $, % sets the text that appears on the start arrow
     %     \\
     %     &
     %     &F(\sigma F)
-    %         \arrow[ru, swap, "F(\Delta^m_b)"]
+    %         \arrow[ru, swap, "F(\omega)"]
     %     &
     % \end{tikzcd} 
 	\begin{tikzcd}[column sep=1.75cm, row sep=1cm]
         &\sigma F
-            \arrow[dr,swap,"\Delta^m_b"']
+            \arrow[dr,swap,"\omega"']
         &
         \\ 
         X  
@@ -886,7 +921,7 @@ initial text=$ $, % sets the text that appears on the start arrow
             \arrow[ur, swap, "1^{-1}"]
         \\
         &F(\sigma F)
-            \arrow[ru, swap, "F(\Delta^m_b)"]
+            \arrow[ru, swap, "F(\omega)"]
         &
     \end{tikzcd} 
 \end{figure}
@@ -1010,6 +1045,14 @@ Journal Papers, Conference Presentations, etc...
 
 \begin{acknowledgements}
 \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+I don't know who to thank, but I know I should thank everyone. It's the weirdest feeling in the world. Not to mention that maybe I should not specify what should I thank them for. 
+
+My family provide constant support.
+My friends keep my grip on reality.
+My advisor guides me.
+Is that how I see people? by their relationships with me and not by who they are individually? Man, I need to talk to someone... 
+
+Maybe writing this helps. 
 
 The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
 
@@ -1089,8 +1132,9 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \include{Chapters/Preliminaries}
 \include{Chapters/LatentBehaviours}
 \include{Chapters/Classification}
-%\include{Chapters/CPSRedesign}
-%\include{Chapters/SideChannels}
+\include{Chapters/CPSRedesign}
+\include{Chapters/SideChannels} 
+\include{Chapters/Conclusion}
 %\include{Chapters/QuickCompile}
 %\include{Chapters/Chapter1} 
 %\include{Chapters/Chapter2}

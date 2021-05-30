@@ -1,0 +1,1132 @@
+%!TEX root = ../main.tex
+\chapter{Timing Side-Channel Repair}
+\todo[inline]{Here comes the paper we sent to CSF. It needs to be re-written for consistency}
+{\color{red}
+\section{Introduction}
+\label{sec:introduction} 
+% \todo[inline]{Candidate conferences: FM 2021 (abs 30 apr/6 may), CSF 2022 (may 14)}
+\paragraph*{What are timing side-channel attacks?} Timing attacks are among the best known side-channel attacks~\cite{timing-channel-survey} 
+to ex-filtrate secret information from a program. %The basic idea behind timing attacks is to first observe the execution time of a program. Subsequently, such timing information is used to compute or constrain the values of a secret input processed by the program. 
+Basic timing side-channel attacks aim to establish a relationship between inputs and execution time, which can be done by attackers who have a copy of the program. After running the program with different inputs, the attacker has a model of this input to execution-time relationship. Attackers then observe the total execution time of the same program run by the victim, and can infer the value of the secret input. 
+
+More advanced timing attacks exploit micro-architectural features, e.g. caches, and they require the attacker be able to interact with these micro-architectural aspects in the machine where the victim executes the vulnerable program. Spectre style attacks~\cite{Spectre}, as discovered in 2018, are sophisticated attacks where the attacker exploits timing covert channels to ex-filtrate secret information loaded by speculative execution in the cache by reverse engineering the value of a secret input after observing cache hit/miss timings~\cite{timing-cache} or by computing the cache lines being accessed~\cite{prime-probe}. While Spectre attacks rely on speculative execution to load secrets into the cache, poorly implemented cryptographic software could directly leak secrets via memory access patterns, even when speculative execution is disabled.
+%Therefore, closing the timing channels in programs is of critical importance.
+
+%\textbf{} 
+\paragraph*{Repairing Leakage due to Memory Access Patterns (MAP)} 
+If we assume that attackers can only infer information from the behaviour of the program counter, then the automatic repair of programs with timing side-channel vulnerabilities is a well understood problem; moreover, existing solutions \cite{SCEliminator,MSESC,Racoon} do an acceptable job at closing timing side-channels while preserving functionality and preventing the appearance of undesired side-effects (e.g. unsafe memory accesses). %minimising the risk of exploitation. 
+However, once we empower the attacker to manipulate micro-architectural aspects, especially those that breach memory isolation like the ones used for Spectre~\cite{Spectre} and Meltdown~\cite{Meltdown}, the repairing of vulnerable programs remains an open problem \cite{timing-channel-survey}. 
+%heavily relying on \emph{bitslicing}. 
+
+In this work, we are particularly interested in repairing programs that leak information when a data structures is accessed using a secret value. These programs are vulnerable to an attacker that cannot read the contents of the cache directly but can manipulate and observe the state of the cache using attacks like Flush+Reload~\cite{Flush+Reload} or Prime+Probe\cite{prime-probe} to infer secrets.
+
+Consider the example program \textbf{P}, defined by%\verb+if A[s] then x:=1 else x:=0+
+% \begin{verbatim}
+    \begin{align*}
+        \text{if $A[s]$ then $x:=1$ else $y:=0$,}
+    \end{align*}
+% \end{verbatim} 
+which reveals $A[s]$ under the \emph{baseline leakage model}, because the attacker can infer the value of $A[s]$ by following the program counter. The baseline leakage model assumes that the valuations of branch conditions are exposed to attackers (see \cite[\S3, Example 1]{usenix_ctp_verification}), so the program \textbf{P} is unsafe if \texttt{A[s]} is a secret, but it is safe if \texttt{A[s]} is public (e.g. if \texttt{A[s]} is declassified data)%for every possible value of the secret $s$
+. Existing repair tools \cite{SCEliminator,MSESC,Racoon} offer strong security guarantees against the baseline leakage model, and can repair the program \textbf{P} with respect to this leakage model, yielding the linear-code program \textbf{T(P)}, defined by
+\begin{align*}
+    x:=CTSel(A[s],1,x);y:=CTSel(A[s],y,0),
+\end{align*}
+% \begin{verbatim}
+%                 x:=CTSel(A[s],1,x)
+%                 y:=CTSel(A[s],y,0),
+% \end{verbatim} 
+where $CTSel(c,a,b)$ is a constant-time selector which returns $a$ if $c$ is true, or $b$ otherwise. The program \textbf{T(P)} is arguably safer with respect to the baseline leakage model, since the behaviour of the program counter no longer reveals the value of $A[s]$. 
+
+Now, if we consider a leakage model which considers Memory Access Patterns (MAP), then the program \textbf{T(P)} leaks $s$, because the attacker can still infer $s$ by probing the cache. 
+% \todo[inline]{I am not going to touch Spectre as motivation, more like related work. }
+% This leakage model suits Spectre V1 attacks \cite{Spectre}, since it uses speculative loads to execute \texttt{A[s]}. 
+% \todo[inline]{/I am not going to touch Spectre as motivation, more like related work. }
+Existing compiler-based repair tools \cite{SCEliminator,MSESC,Racoon} offer weak, inefficient, or no guarantees at all against this leakage model: Racoon \cite{Racoon} implements ORAM, which is quite taxing in terms of performance (it induces an overhead with geometric mean ~16x), \textsc{Sc-Eliminator} uses data structure preloading, but it is an unsound repair if the attacker can manipulate the cache, and the methodology presented in \cite{MSESC} does not repair against this leakage model. %, 
+%and existing language-based repair approaches~\cite{FaCT} simply reject programs that access data structures with secrets. 
+This lack of effective and efficient repair guarantees is the main motivation for our work. 
+
+%The repair procedure from \cite{MSESC} only offers security guarantees if the \textbf{P} has the same memory footprint (it does not, because)\texttt{SC-eliminator} offers some guarantees 
+% Existing repair solution address the program above under the baseline leakage model, but do not repair it under the memory access patterns leakage model.
+
+\paragraph*{Our Contributions}
+The authors of ~\cite{WhatYouCisWhatYouGet} describe a philosophy which aims to delegate the compiler the enforcement of timing side-channel freedom. We follow this philosophy, and we propose a set of repair rules to close the timing side-channel created by accessing fixed-size data structures indexed by secret information. Our repair rules offer strong security guarantees with respect to the leakage model that accounts for memory access patterns. In a nutshell, we replace each read access $y:=A[x]$ and each write access $A[x]:=y$ by a linear program that explores $A$, systematically loading it in memory, guaranteeing that $y=A[x]$ in the case of a read, and that $A[x]=y$ in the case of a write. These operations are similar to \emph{fold} high-order functions, which is why we name our repair rules ORIGAMI.
+
+We implement ORIGAMI as an LLVM opt pass to make it compatible with other target-independent compiler optimizations. The tool lets the compiler first perform optimisations, and then the tool applies the ORIGAMI repair rules to the resulting intermediate representation code. Our pass ensures that compiled programs have a constant memory footprint when indexing fixed-size array-like data structures using secrets. Our proposed solution only requires minimal annotation to the source code (i.e., to inform the compiler which variables and function arguments are secrets, and for loops whose bounds cannot be automatically derived by the compiler) and provides theoretical guarantees that the transformed code is secure under the memory access pattern leakage model. 
+
+There are a couple of clear limitations when repairing programs with ORIGAMI, (e.g. ORIGAMI can obfuscate a read access to a data structure whose values are secret pointers, but fails to protect the program if such resulting pointer is later used to load or store a value) which we discuss in Section~\ref{sec:Limitations}. These limitations illustrate the impossibility of repairing every program program with respect to the the memory access patterns leakage model while keeping the program functional, efficient, and secure. 
+
+%These l if the secrets to be protected are pointers, or the if the secrets have unbounded values and we use them to access a dynamic data structure. To improve efficiency, we suggest a couple of optimisations that increase efficiency at the cost of security.
+
+% This rule is embedded by the compiler as part of an optimisation pass.
+% %is often translated to \verb+x:=ctSel(A[s],1,0)+ by the enforcement rules used for basic timing side-channel attacks. 
+% While this repair rule protects the value of \texttt{A[s]}, it does not protect value of $s$. Reading or writing \texttt{A[s]} loads it in the cache, but that does not mean that the other parts of $A$ are loaded. This technique is used in the typical Spectre V1 from \cite{Spectre}
+% \begin{verbatim}
+%     PUT EXAMPLE HERE
+% \end{verbatim}
+% To solve this problem, whenever you access a data structure using a secret, you must do it in a way that its memory access pattern is constant. One way to solve it is by \emph{bit-slicing} the data structure A. 
+
+% \todo[inline]{Here, examples from Section 3 of the USENIX paper are quite good, but they do not say how to solve them.}
+
+
+
+% To provide a formal foundation in reasoning about TSCF in arbitrary programs, we use  
+% Guarded Kleene Algebra with Tests (GKAT). Specifically, the axioms and rules for GKAT 
+% expressions let us reason about the equivalence of programs. In this setting, the notion of 
+% semantic equivalence is defined over uninterpreted actions using languages of \emph{guarded strings}. Guarded strings 
+% are an intercalation of a logical atom and an action, which can be seen as the concatenation 
+% of $\set{\texttt{pre}}\set{\texttt{action}}\set{\texttt{pos}}$ elements, where \texttt{pre} and \texttt{pos} represent the precondition and postcondition of the \texttt{action} (any \texttt{pre} and any \texttt{pos} as we work with uninterpreted actions, but a \texttt{pos} and a \texttt{pre} need to be compatible to be concatenated). 
+% GKAT has been used to reason about compiler optimizations~\cite{KATForCompilers}. 
+{
+This paper is structured as follows. We first provide a brief background in Section~\ref{sec:Preliminaries}. In Section~\ref{sec:TSCF}, we formally define timing side-channel freedom (TSCF) under the MAP leakage model, which is the property that we want to enforce. We present the ORIGAMI repair rules in Section~\ref{sec:ORIGAMI}, and we prove that they enforce TSCF under MAP for a language of while programs; we also discuss the limitations of this enforcement. In section ~\ref{sec:Evaluation}, we evaluate an implementation of the ORIGAMI rules as LLVM optimization passes; we use these passes to enforce TSCF in LLVM-IR after all other compiler optimizations have taken place. We apply ORIGAMI to a small toy example and to real cryptographic ciphers from OpenSSL~\cite{OpenSSL} and to GDK library routines~\cite{gdklib,gdklib}, and we evaluate all the repaired programs using GEM5 -- a cycle accurate simulator for x86 processor -- to empirically show that all repaired programs satisfy TSCF with respect to MAP leakage. We then compare ORIGAMI against related work  in Section~\ref{sec:RelatedWork}, and we conclude in 
+Section~\ref{sec:Conclusion}. 
+%\section{Motivational Example}
+}
+\section{Preliminaries}
+\label{sec:Preliminaries}
+In this section, we provide the definitions and notation that we use through this work. 
+ 
+\subsection{Timing Side Channel Freedom Enforcement}
+\paragraph*{Why are timing side-channel vulnerabilities so hard to fix?}
+Both the programming languages and the computer security communities understand fairly well where timing differences could be introduced during the compilation and execution processes of software, and they tackle the problem of enforcing \emph{timing side-channel freedom (TSCF)} using a layered approach. 
+Unfortunately,
+timing differences can be (unintentionally) introduced at every step of the compilation process, and they propagate to the following stages. %Moreover, all TSCF enforcement machinery relies on assumptions of the m
+
+For illustration purposes, let us consider a simplified version of the compilation and execution process. A program starts out as \emph{source code}, which is then given to a compiler. 
+The compiler often creates an \emph{intermediate representation} (IR) of the program (e.g. a control flow graph (CFG)), which the compiler then optimises by using %(usually idempotent)
+transformation rules that can be applied to \emph{any} IR (e.g. dead-code elimination). We call the entity in charge of creation and optimisation of the IR the \emph{front-end} of the compiler. The \emph{back-end} of the compiler then compiles the optimised IR into a microarchitecture-dependent \emph{low-level representation} (LLR), performs microarchitecture-dependent optimisations, and then creates the executable. Finally, the executable runs on the microarchitecture by following the sequence of instructions in the executable. 
+
+At the \emph{source code} level, a developer who does not follow constant-time programming guidelines, e.g., CryptoCoding~\cite{CryptoCoding}, can introduce timing differences by, e.g., using loops with input-dependent bounds, or by terminating early if a branch condition is satisfied, e.g. in a base case of a recursive functions. 
+At the \emph{IR} level, %since there are no CTP guidelines for compilers to follow, and 
+since compilers often optimise for performance, they may introduce timing differences via optimisations at the IR level, just like a programmer would at source level. To make matters more complicated, the compiler may even remove TSCF countermeasures introduced at the source code level if it deems them non-optimal, which is why developers of crypto algorithms disable compiler optimisations, or even choose to avoid compilers altogether and instead directly implement crypto routines in assembly \cite{timing-channel-survey}.
+
+Then, the back-end repeats the story of the front-end: it creates the LLR, optimises it and creates the executable, but its own optimisations may remove any TSCF enforcement introduced in the IR, and it may itself introduce timing differences. 
+Finally, even if the back-end does not itself introduce timing differences or removes countermeasures added at the previous stages, the microarchitecture may manifest timing differences during program execution; this may be because a micro-architectural instruction can vary its execution time depending on its parameters (e.g. multiplication), or due to out-of-order execution and speculative execution. In that sense, any TSCF enforcement introduced at early stages can be made irrelevant at later stages.  
+
+% \todo[inline]{All sources of timing differences: executions that vary on instructions due to branching, and executions that use instructions that vary on inputs. The other one is not because of instructions but because of the microarchitectural state during execution, in particular the cache. }
+\subsection{Leakage Models}
+We find the notion of leakage models used in \texttt{ct-verif}~\cite{usenix_ctp_verification} particularly enlightening. Although their leakage models are defined based on LLVM rather than machine code, %their tool \texttt{ct-verif} provides empirical evidence of their usefulness, and t
+they argue in~\cite[\S5]{usenix_ctp_verification} that ``LLVM
+assembly code produced just before code generation [is] sufficiently
+similar to \emph{any} target-machine's assembly code to
+provide a high level of confidence.'' 
+
+In the following, we provide the intuition behind three useful leakage models, what it means for a program to leak secrets with respect to them, and insights on what repairing a program with respect to each model entails.
+
+\paragraph*{Baseline Leakage Model} This leakage model reveals to the attacker the valuations of branch conditions. More precisely, the program 
+%\begin{verbatim}
+\begin{align*}
+    \text{if $c$ then $p_1$ else $p_2$}
+\end{align*}
+%\end{verbatim} 
+reveals the valuation of $c$, and the program
+% \begin{verbatim}
+%     while c do p,
+% \end{verbatim} 
+\begin{align*}
+    \text{while $c$ do $p$}
+\end{align*}
+reveals the valuation of $c$. This is the \emph{baseline} leakage model because it is implied by all other leakage models.
+
+A program leaks secrets with respect to this model if secrets influence the behaviour of the \emph{program counter}, which is why it is also known as the \emph{program counter security model} \cite{Molnar}. To repair a program with respect to this model, secret-dependent branches are linearised by replacing conditionals with constant-time selectors and loops are fully unrolled. This causes the behaviour of the program counter to be independent of value of secrets.
+
+\paragraph*{Memory Access Patterns Leakage Model (MAP)}
+in addition to revealing the valuation of branch conditions, the MAP model reveals the indices used to access data structures. More precisely, the programs
+% \begin{verbatim}
+%     A[x]:=B[y]
+% \end{verbatim} 
+\begin{align*}
+    A[x]:=y,\quad \text{and} \quad y:=A[x]
+\end{align*}
+each reveals $x$ because different indices may have different memory access patterns (e.g. when the cache lines for $A[x]$ and $A[x']$ are different), and the attacker can infer this information. Thus, a program leaks secrets under the MAP model if they are used to access data structures \cite{usenix_ctp_verification}. This leakage model is related to {memory trace obliviousness} \cite{MemoryTraceOblivious}, which requires constant behaviour of the memory for all public-equivalent traces. To avoid leakage under the MAP model, we must not use secrets when accessing data structures, and we must enforce a secret-independent behaviour on the program counter (to avoid leakage following the baseline model).
+
+\textsc{SC-Eliminator} proposes the use of preloading and must-hit analysis to repair programs so that they satisfy TSCF under the MAP leakage model. 
+Unfortunately, this repair implicitly assumes that the state of the cache during must-hit analysis is the same as when the program executes, which is a problematic assumption if we consider that the attacker can also manipulate the cache using Prime+Probe and Flush+Reload attacks. 
+Instead of preloading, we propose a new repair rule where instructions accessing data structures using secrets, i.e.$A[x]:=y$ and $y:=A[x]$, have the constant memory access patterns, thus preventing leaks under the MAP. The details of this solution are explained in detail in Section~\ref{sec:ORIGAMI}.
+ 
+\paragraph*{Operand Sensitive Leakage Model (OS)} For completeness, we include the leakage model that distinguishes operations whose execution time are sensitive to inputs. The program $y:=f(x)$ leaks its parameter $x$ if its total execution time depends on $x$. This leakage model is the most general of the three models presented, as it implies the MAP and baseline models. Repairing programs with respect to the OS model at the source or compiler level is extremely challenging, because some operations offered by the micro-architecture leak their parameters (e.g. division and multiplication); thus, solutions for the OS model may need to be target dependent. Enforcing TSCF with respect to this leakage model is outside the scope of this work.
+
+\subsection{TSCF Under MAP Leakage - Informally}
+\label{sec:MAP}
+The MAP leakage model represents an attacker that is able to use the timing of hits and misses in the cache to indirectly obtain values from the cache, similar to what attackers relying on Spectre attacks do to recover the secrets loaded in memory. More precisely, if an array-like structure $A$ is large enough to require several cache lines for it to be fully loaded in the cache, then caching $A[s]$ only fills the cache line that corresponds to the index $s$ and its neighbouring values. An attacker can gain information about $s$ by probing the cache, testing which parts of $A$ result in a cache hits and which ones do not. 
+
+For example, under the MAP leakage model, the program 
+\begin{align*}
+    \text{if $s<size_A$ then $x:=B[A[s]]$}
+\end{align*} 
+%\verb+if s<size_A then x:=B[A[s]]+ 
+reveals both $s$ and $A[s]$, because the state of the cache is different for different values of $s$. This program does not reveal $B[A[s]]$, only the indices used to access it.
+
+% \todo[inline]{Do we really want to do GKAT expressions? They did help me solve an engineering problem in LLVM, but they might not be super justified here. We can probably benefit better from a small imperative language.}
+\subsection{Guarded Kleene Algebra with Tests (GKAT)}
+\emph{Guarded Kleene Algebra with Tests} (GKAT) is a modern formalism that offers a propositional abstraction of imperative while programs with uninterpreted actions~\cite{GKAT}. The specialty of GKAT is to enable reasoning about properties of programs \emph{by merely looking at their structure and not at their (functional) semantics}. This makes GKAT interesting for modelling transformations at the compiler level~\cite{KATForCompilers}, because a general-purpose compiler should not need know the exact semantics of a program to optimise it; in general, the compiler should look for structural patterns which enable optimisations, just as GKAT does for reasoning. 
+
+We use GKAT to provide a formal foundation in reasoning about TSCF for arbitrary programs. Specifically, the axioms and rules for GKAT 
+expressions help us reason about the equivalence of programs. In this setting, the notion of 
+semantic equivalence is defined over uninterpreted actions using languages of \emph{guarded strings}, defined using \emph{actions} and \emph{tests}. 
+
+% Through this work, we use GKAT expressions play the role of intermediate representations of programs, and rules defined over them model optimisation passes run by a compiler.
+%This which makes them an ideal formalism for reasoning about optimizations in a compiler~\cite{KATForCompilers}. 
+ %We also use GKAT to formalise abstract leakage models.
+% \todo[inline]{Should we work with the small imperative language presented in GKAT? I think we should} 
+\paragraph*{Actions, Tests and Expressions}
+Every GKAT is parametrised by a set of abstract \emph{actions} $\Sigma$ and a finite set of abstract \emph{primitive tests} $T$. We assume $T$ and $\Sigma$ are disjoint and non-empty. A test $t\in T$ is an atomic proposition about the state of the program, and the execution of an action $p \in \Sigma$ can affect the state. We form \emph{GKAT expressions} (GKATx) with the grammar presented in Figure~\ref{tab:GKAT}. 
+
+% For example, the expression 
+% \begin{align*}
+% \branch{\left(x<a1\_size\right)}{\left(\texttt{temp }\&=\texttt{ a2[a1[x] * 512]}\right)}{1}
+% \end{align*}
+% models the example program of Section~\ref{sec:Spectre}.
+% , and the expression
+% \begin{align*}
+% i:=0\cdot r:=1\cdot \iteration{i<n}{\left(\left(\branch{$s$[i]\neq\texttt{g}[i]}{(r:=0)}{1}\right)\cdot (i:=i+1)\right)}\cdot r
+% \end{align*}
+% models the example program of Section~\ref{sec:TimingAttacks}, where $r$ is the variable that would be returned. %We remark that there no notion of \texttt{break} for GKATx, however, we can defer 
+
+%$\branch{b}{p}{1}$ models \textbf{if} $b$ \textbf{then} $p$ and $\iteration{b}{\left(p\cdot q\right)}$ models \textbf{while} $b$ \textbf{do} $p;q$ \textbf{end}.
+
+\paragraph*{Atoms}
+An \emph{atom} is a truth assignment of all the tests in $T$.  %Formally, an atom is a non-zero minimal element in the free boolean algebra in $T$ \cite{KAT}.
+We denote atoms by $\alpha, \beta,$ and $\gamma$, and the set of atoms by $\Atom$. For example, if $T=\set{t_1,t_2}$, the boolean expressions $\alpha=\overline{t_1}\cdot \overline{t_2}$, $\beta=\overline{t_1}\cdot {t_2}$, $\gamma=t_1\cdot \overline{t_2}$, and $\delta=t_1\cdot {t_2}$ are all the atoms, where $\overline{t_i}$ is the complement of $t_i$, for $i\in \set{1,2}$.
+
+Guarded strings 
+are an intercalation of a logical atom and an action, which can be seen as the concatenation 
+of $\set{\texttt{pre}}\set{\texttt{action}}\set{\texttt{pos}}$ elements, where \texttt{pre} and \texttt{pos} represent the precondition and postcondition of the \texttt{action} (any \texttt{pre} and any \texttt{pos} as we work with uninterpreted actions, but a \texttt{pos} and a \texttt{pre} need to be compatible to be concatenated). 
+
+\paragraph*{Guarded Strings} A \emph{guarded string} %is an interleaved sequence of \emph{atoms} and actions, which models how actions change the state of the system. Formally, a \emph{guarded string} 
+$g$ is an element of the set $\GuardedString := \Atom \cdot \left(\Sigma\cdot \Atom\right)^{*}$, and it models a trace of an abstract program. %A language of guarded strings $L\subseteq \GuardedString$ has \emph{determinacy} iff for all $x,y\in L$, if $x$ and $y$ agree on their first $n$ atoms, then they agree on their first $n$ actions.
+%\begin{example}
+ %\end{example}
+To compose guarded strings, we use \emph{fusion product} $\diamond\colon \GuardedString\times\GuardedString\rightarrow\GuardedString$, a partial function defined by
+\begin{align}
+w\alpha \diamond \beta v \triangleq 
+	\begin{cases}
+		w \alpha v, & \text{if $\alpha=\beta$};\\
+		\text{undefined,}& \text{otherwise.}
+	\end{cases}
+\end{align}
+The fusion product of sets $L_1,L_2\subseteq \GuardedString$ is defined by $L_1\diamond L_2 \triangleq \set{g_1\diamond g_2\ |\ g_1\in L_1,g_2\in L_2,\text{ and $g_1\diamond g_2$ is defined}}.$ 
+\paragraph*{Language-based Semantics}
+The \emph{language-based semantics} of a GKATx is a {set of guarded strings} (i.e., a language) defined by%and it can be found in \cite[\S2.2]{GKAT}.\todo{Is this ok?}
+\begin{align*}
+\semantics{p} &\triangleq \set{\alpha p \beta\ |\ \alpha,\beta\in \Atom},\\
+%
+\semantics{b} &\triangleq  \set{\alpha\ |\ \alpha\in \Atom \text{ and }\alpha \Rightarrow b},\\
+%
+\semantics{f\cdot g} &\triangleq \semantics{f}\diamond\semantics{g},\\
+%\irsemantics{\branch{b}{f}{g}} &\triangleq \irsemantics{f}\xleftarrow{b}\irsemantics{1}\xrightarrow{\bar{b}}\irsemantics{g}\\
+%
+%
+\semantics{\branch{b}{f}{g}} &\triangleq (\semantics{b}\diamond\semantics{f})\cup ((\Atom-\semantics{b})\diamond \semantics{g}),\\
+%
+%
+\semantics{ \iteration{b}{e}} &\triangleq  \bigcup_{n\geq 0}\left(\semantics{b}\diamond\semantics{e}\right)^{n}\diamond (\Atom-\semantics{b}),
+%
+%
+\end{align*}
+where $L^0\triangleq\Atom$ and $L^{n+1}\triangleq L^{n} \diamond L$, for $L \subseteq \GuardedString$. Since actions in GKATx are uninterpreted, language-based semantics are an over-approximation of functional semantics. %i.e., once actions and tests are instantiated, they are guaranteed to exist within the abstract semantics.
+% \paragraph*{Axiom}
+% A \emph{GKAT axiom} establishes equivalences between syntactically different GKATx.  yet semantically equivalent; e.g., $b\cdot\left(\branch{b}{e}{f} \right) \equiv b\cdot e$.
+\paragraph*{Rules}
+A \emph{GKAT rule} is an equivalence that lets us transform an arbitrary GKATx into a GKATx that is syntactically different, yet semantically equivalent; e.g., $b\cdot\left(\branch{b}{e}{f} \right) \equiv b\cdot e$.
+
+\begin{figure}[t]
+\centering
+\begin{tabular}{lr}
+\begin{tabular}{rcll}
+%\begin{tabular}{RCLL}
+\multicolumn{4}{l}{$b,c,d, \in \bexp::=$} \\
+  &    $|$   &   0   		&  \textbf{False}   \\
+  &    $|$   &   1   		&   \textbf{True}   \\
+  &    $|$   &    $t\in T$  		&   $t$  \\
+  &    $|$   &    $b \cdot c$  	&  $b\ \textbf{and}\ c$   \\
+  &    $|$   &    $b+c$  		&  $b\ \textbf{or}\ c $  \\
+  &    $|$   &    $\bar{b}$  	& $\textbf{not}\ b$
+\end{tabular}&
+%\caption{Boolean expressions}
+%\label{tab:GKAT_Boolean_Expressions}
+%\end{table}
+%\end{minipage}%
+%\begin{minipage}{.25\textwidth}
+%\begin{tabular}{RCLL}
+%\begin{table}[t]
+\begin{tabular}{rcll}
+\multicolumn{4}{l}{$e,f,g, \in \gexp::=$} \\
+  &    $|$   &  $p \in \Sigma$  		&  \textbf{do} $p$ \\
+  &    $|$   &  $ b \in \bexp$   		& \textbf{assert} $b$ \\
+  &    $|$   &  $  e \cdot f $ 			& $e${;}$f$   \\
+  &    $|$   &  $ \branch{b}{f}{g}$ 	& \textbf{if} $b$ \textbf{then}$f$\textbf{else} $g$\\
+  &    $|$   &  $  \iteration{b}{e} $		& \textbf{while} $b$ \textbf{do} $e$
+\end{tabular}
+\end{tabular}
+\caption{\textbf{Left:} boolean expressions.  \textbf{Right:} GKAT expressions (from \cite{GKAT}).}
+\label{tab:GKAT}
+\end{figure}
+\section{Formalising TSCF with MAP}
+\label{sec:TSCF}
+Informally, TSCF means that all secret-dependent program traces have very similar \emph{execution time}. If we model program traces using guarded strings, then the execution time of a program trace is the sum of the execution time required by each of its actions. To quantify the execution time of actions, we use a \emph{time metric}.  %A program is secure if all its secret-dependent program traces have very similar time consumption patterns. 
+%We formally capture the notion of time consumption using \emph{time metrics}. 
+
+A \emph{time metric} associates each actions in a program trace with a time consumption. Under the MAP leakage model, an action $p$ may consume different amounts of time depending on the state of the cache when $p$ is executed: if $a$ results in several cache hits then it consumes less time than it would if $a$ resulted in several cache misses. Thus, the memory access pattern of a program trace directly impacts its execution time. We formalise this notion with the{ metric} $\cache$.
+
+%\end{definition
+
+\paragraph*{The $\cache$ Time Metric}
+%|a|$ where $|a|$ is the number of arithmetic operations required to evaluate the arithmetic expression $a$. 
+Let $\Variables(p)$ be the variables used in the action $p$, let $\omega\colon \GuardedString\times \Variables\rightarrow \Bool$ be a function where $\omega(g,v)$ states if the variable $v$ is in the cache after executing $g$ (or after executing nothing if $g\in \Atom$), let $\texttt{hit}_g(p)\triangleq\set{v\in \Variables(p)| \omega(g,v)}$ be the set of variables in $p$ that are present in the cache, and let $\texttt{miss}_g(p)\triangleq\set{v\not\in \Variables(p)| \omega(g,v)}$; we define $\cache(g)(p)$, the \emph{MAP of $p$ (with respect to $g$)}, %\colon \GuardedString\rightarrow\Sigma\rightarrow \Real^+$
+by
+\begin{align*}
+\cache(g)(p)=%\begin{cases}
+%\texttt{time}(p)+{\eta}*(|\Variables(p)-\texttt{hit}(p)|)%, & \text{if $x\in \Atom$}\\
+%{}*(
+    % \begin{cases}
+    %     \eta\times\texttt{miss}_g(p)+\mu\times\texttt{hit}_g(p)&\text{ if $g\in \Atom$}\\
+        \eta\times\texttt{miss}_g(p)+\mu\times\texttt{hit}_g(p) 
+    %     &\text{ otherwise}.
+    % \end{cases}
+%)%, & \text{if $x\in \Atom$}\\
+%\end{cases}
+\end{align*}
+where $\eta,\mu\in \Real^+$ are constants with $\eta$ being much greater than $\mu$, respectively modelling the time to load a variable from memory and the time to load a variable from the cache.
+
+Given a GS $g$, the \emph{MAP of $g$}, denoted $\RC_\cache(g)$, is the accumulated MAP of its actions; formally,
+\begin{align*}
+\RC_\cache(g)&\triangleq 
+\begin{cases}
+0, &\ \text{if $g \in\Atom$;}\\
+\RC_\cache(h)+\cache(h)(p),&\ \text{if $g=h \cdot p\cdot \alpha $;}\\
+\end{cases}
+\end{align*}
+The metric $\cache$ is \emph{causal}, since the resource consumption of actions depends on the history of the execution. 
+
+Now, consider two values for a secret $s$, say $s=0$ and $s=n$; the $\cache$ values of $x:=A[s]$ is 
+\begin{align*}
+    \cache(1)(x:=A[s])&=\eta\times\set{x,A[0],s}+\mu\times\emptyset,\text{   if $s=0$},\\
+    \cache(1)(x:=A[s])&=\eta\times\set{x,A[n],s}+\mu\times\emptyset,\text{   if $s=n$}.
+\end{align*}
+The secret $s$ leaks because the MAP of the expression $x:=A[s]$ depends on the value of $s$.When $A[0]$ and $A[n]$ are loaded into the cache, and they are placed in different regions of the cache; thus, the attacker can infer the value of $s$ by looking at which regions corresponding to $A$ are loaded. %Only in very specific conditions (e.g. $A$ fits entirely in a cache line), the attacker 
+% Due to its causal nature, the metric \cache is not compositional; i.e., $\RC_\cache(g\cdot h)\neq \RC_\cache(g)+\RC_\cache(h)$. This means we cannot compute the MAP of a program by just adding the independently computed MAPs parts.
+% \todo[inline]{This is interesting but not very helpful.}
+% %\todo[inline]{This part in red... are there relevant cases where this is not true? Answer: actually, yes, the memory footprint may probably be one of these cases (more precisely, memory footprint should also consider the interaction environment in shared caches... it can get really complicated if we want to model everything...)}
+% For example, consider a swapping program %\texttt{swap(x,y)}, 
+% defined by %\verb+
+% \begin{verbatim}
+%         swap(x,y)= z:=x; x:=y; y:=z.   
+% \end{verbatim}
+% The first action \verb+z:=x+ has a time consumption of $\cache(\varepsilon)(z:=x)=\eta\times\set{x,z}$. The second action has a time consumption of $\cache(z:=x)(x:=y)=\eta\times\set{y}+\mu\times\set{x}$, since $x$ is a hit and \texttt{y} is a miss. Finally, $\cache(z:=x; x:=y)(y:=z)=\mu\times\set{y,z}$. The time consumption of \texttt{swap(x,y)} under the \cache metric is $\RC_\cache(\texttt{swap(x,y)})$, which is equal to the sequence 
+% \begin{align*}
+%     [\eta\times\set{x,z}+\mu\times\emptyset,\eta\times\set{y}+\mu\times\set{x},\eta\times\emptyset+\mu\times\set{y,z}]
+% \end{align*}
+% However, $\RC_\cache(\texttt{swap(x,y)}\cdot \texttt{swap(x,y)})$ is equal to the sequence 
+% \begin{align*}
+%     &[\eta\times\set{x,z},\eta\times\set{y}+\mu\times\set{x},\mu\times\set{y,z}]\\
+%     &+[\mu\times\set{x,z}, \mu\times\set{x,y}, \mu\times\set{y,z}],
+% \end{align*}
+% which illustrates the non-compositional nature of the metric \cache.
+
+
+
+\paragraph*{Constant MAPs}     
+Given a language of guarded strings $L\subseteq \GuardedString$, we say that $L$ has \emph{constant resource consumption with respect to $\cache$} if and only if $\RC_\cache(g_1)=\RC_\cache(g_2)$ for all $g_1, g_2 \in L$. 
+
+Constant resource consumption in its current form requires \emph{all} GS in the language $L$ to have the same resource consumption. However, a program that has no secret values trivially satisfy this property, since there are no secrets that could be leaked. Thus, we need to enrich the current definition of constant resource consumption so that we only require traces that exclusively differ on secret values have the same resource consumption. As it is standard (see e.g., \cite{Molnar,usenix_ctp_verification}), we introduce a notion of \emph{public equality}. 
+
+Let $\Variables$ be the set of public variables, and let $\semantics{\Variables}$ be the set of valuation functions which map variables to values; we extend the notion of guarded strings so that they are now generated by the grammar
+\begin{align*}
+\GuardedString := \left(\semantics{\Variables}\times\Atom\right) \cdot \left(\Sigma\cdot \left(\semantics{\Variables}\times\Atom\right)\right)^{*}.
+\end{align*}
+Now, guarded strings satisfy either the pattern $(\valuation,\alpha)$ or the pattern $(\valuation,\alpha)\cdot p\cdot g$, where $\valuation$ is a valuation of the public variables, $\alpha$ is an atom and $g$ is a guarded string.
+
+\paragraph%\begin{definition}[
+    {Public Equality}
+%Whenever two valuations $\valuation_1$ and $\valuation_2$ are equal on their public variables, we denote it by $\valuation_1=_p\valuation_2$. 
+Two guarded strings $g_1$ and $g_2$ are equal on their public variables, denoted $g_1=_p g_2$, if and only if their \emph{initial} valuations are equal on public variables. 
+%\end{definition}
+
+%\todo[inline]{There is an important notion in GSLangs that is called determinacy. In a few words, determinacy of a language is: if any two words in the language coincide on their first $n$ atoms, then they also coincide on their first $n$ actions (or their lack of them). This makes sense for deterministic programs because the initial state (represented by the initial atom), should determine the entire trace (hence the name, determinacy). Languages generated by GKATx satisfy determinacy.  Thus, it is not necessary to require variable assignments to be equal on the first $k$ step.}
+We now define a formal notion of constant resource consumption, which we apply to the $\cache$ metric.
+\begin{definition}[TSCF with MAP]
+    \label{def:MemoryTSCF}
+Given a language of guarded strings $L\subseteq \GuardedString$, we say that $L$ has \emph{secure constant time consumption guarantees with respect to $\cache$} if and only if, for all $g_1, g_2 \in L:$
+\begin{align*}
+\label{eq:WSRC}
+g_1=_p g_2\Rightarrow\RC_{\cache}(g_1)=\RC_{\cache}(g_2).
+\end{align*}
+Equivalently, we say that $L$ satisfies TSCF.
+\end{definition}
+This definition naturally extends to GKATx. A GKATx $e$ satisfies TSCF if and only if $\semantics{e}$ satisfies TSCF. 
+%\begin{definition}[
+
+%\end{definition}
+% Constant resource consumption lets us model attackers that can measure the resource consumption of prefixes of the execution trace. These are very powerful attackers, because they can stop the execution of the victim program, measure the current resource consumption, let the victim program execute again, stop it again and measure the new resource consumption. 
+
+
+\paragraph*{Attacker model} Definition \ref{def:MemoryTSCF} characterises an attacker model where 
+%The \emph{attacker models} respective to these metrics are the following: 
+% For \texttt{time}, we consider an attacker that can manipulate public inputs and, at the end of the execution, measure the total number of instructions. For \cache, we consider an 
+the attacker that can choose all the values of public variable before execution of every GKATx and, at the end of the execution of the GKATx, can measure the total number of hits and misses to the cache. Additionally, the attacker can execute Prime+Probe~\cite{prime-probe} or Flush+Reload~\cite{Flush+Reload} attacks, either remotely or locally. More precisely, this attacker can see which addresses are loaded in the cache but cannot see their contents, and can flush the cache at will. This attacker is similar to the attacker which exploits a Spectre V1 vulnerability to extract secrets via the cache, but our attacker does not rely on speculative execution (speculative execution is beyond the scope of this work). 
+
+In the following sections, we provide a concrete GKAT for an enriched language of while programs. Using this GKAT, we describe existing repair rules used by other repair tools to enforce TSCF under the baseline leakage model. We discuss why these rules are not enough to enforce TSCF under the MAP leakage model, and we propose our own set of rules to fill this gap.
+
+% We use the GKAT to characterise a couple of non-TSCF expressions, and , we discuss why they are not enough when studied under Definition~\ref{def:MemoryTSCF}, and we propose a set of rules of our own to fill this gap.%\emph{weak} 
+%constant resource consumption for the two metrics. 
+%We want the $\cache$ metric to depend on previous actions, since it is enough to model the behaviour of a cache memory with a capacity proportional to $k$.
+
+%\todo[inline]{@Sudipta: Formally, TSCF is one of either weak or strong secure resource consumption when the RC function is execution time. I have not chosen which because there is a notable difference: a program with an infinite loop is always weak secure, but could fail to be strong secure.}
+%{\color{red}We are going to choose weak resource consumption for the implementation, which is the standard notion in several works. We remark that it is important to make this distinction, because strategies to secure against weak attackers might not work for stronger attackers.}
+%\end{minipage}
+
+%\section{A Concrete GKAT for LLVM-IR}
+ %\cache
+\section{Repairing TSCF under MAP with ORIGAMI}
+\label{sec:ORIGAMI}
+Existing program repair solutions for TSCF \cite{Racoon,SCEliminator,MSESC} offer high-overhead, unsound guarantees, or no guarantees at all with respect to the MAP leakage model. Racoon \cite{Racoon} implements ORAM to enforce TSCF in the MAP leakage model. While secure, the use of ORAM is quite taxing in terms of performance overhead. This overhead is unfortunate, which is why we look for other software/compiler-based alternatives to repair TSCF for the MAP model. \textsc{SC-Eliminator} \cite{SCEliminator} uses must-hit analysis and data structure preloading to enforce TSCF in the MAP leakage model. However, the solution presented is unsound when we consider that the attacker can manipulate the cache. More precisely, \textsc{SC-Eliminator} implicitly assumes that the state of the cache during the must-hit analysis is maintained through execution, which is not true since the attacker can flush the cache after data structures have been preloaded, rendering the must-hit assumptions invalid. Finally, the methodology presented in \cite{MSESC} only offers security guarantees with respect to the baseline leakage model, and not with respect to the MAP leakage model.
+
+In the following, we present an enriched language of while programs, and we study the possible causes for different MAPs. First, we define a concrete GKAT and give more precise definitions about what their time consumption means. Then, we formally present the ORIGAMI program transformation rules, and we justify their soundness formally; i.e., we prove that they enforce TSCF for the MAP leakage model. Then, given that the MAP model implies the baseline model, we include for completeness the well-known repair rules used to repair branches and loops. We proceed to discuss limitations of enforcement, and finally we show a natural extension of ORIGAMI from arrays to multidimensional fixed-size data structures.
+
+\subsection{A Concrete GKAT}
+We want to keep the GKAT as abstract as possible, but we do need to define when a variable hits or misses the cache. 
+
+We start small by considering uni-dimensional arrays. Let $\Variables$ be the set of variables names; let $\Structures$ be the set of names of arrays. We define the set of \emph{atomic expressions} $\mathscr{A}$ by the grammar
+{\small{\begin{align*}      
+a\in \mathscr{A}::=
+\ &x\in \Variables\ |\ %i \in {\vec{\Bool}}\ |\ 
+ n \in \mathbb{N}
+ %\ |\ \vec{S}[a]\text{ with $\vec{S}\in \Structures, a\in \mathscr{A}$}
+ \ |\ \\
+ &\vec{S}[x]\text{ with $\vec{S}\in \Structures, x\in \Variables$}
+ \ |\ \\
+ &\vec{S}[n]\text{ with $\vec{S}\in \Structures, n\in \mathbb{N}$}.
+%\ |\ a_1>>a_2%\text{ (if $a\not\in \vec{\Bool}$)} 
+%  &|\ a_1+a_2\ |\ a_1-a_2\ |\ a_1\times a_2\ |\ a_1 \div a_2\ |\ a_1 \textbf{ mod } a_2\\
+% & |\ a_1<<a_2 \ |\ a_1>>a_2%\ |\ a_1\land a_2 \ |\ a_1\lor a_2 \ |\ a_1\oplus a_2 .
+\end{align*}}}
+
+We define the set of \emph{tests} $T$ by the grammar 
+{\small{\begin{align*}
+    t\in T&::=\ \   a_1=a_2, \text{ with $a_1,a_2\in \mathscr{A}$.}
+    %\textbf{false}\ |\ \textbf{true}\ |\ 
+    % %& |\ a_1<a_2\ |\ a_1>a_2\ |\ 
+    % & |\ \textbf{not } b\ |\ b_1 \textbf{ and } b_2\ |\ b_1 \textbf{ or } b_2\ |\ b_1 \textbf{ xor } b_2
+    \end{align*}}}
+% {\small{\begin{align*}
+% b\in \mathscr{B}&::= \textbf{false}\ |\ \textbf{true}\ |\ 
+% %& |\ a_1<a_2\ |\ a_1>a_2\ |\ 
+% a_1=a_2 \text{ with $a_1,a_2\in \mathscr{A}$}\  \\
+% & |\ \textbf{not } b\ |\ b_1 \textbf{ and } b_2\ |\ b_1 \textbf{ or } b_2\ |\ b_1 \textbf{ xor } b_2
+% \end{align*}}}
+
+We define the set of \emph{actions} $\Sigma$ by the grammar
+{\small{\begin{align*}      
+p\in \Sigma::=
+%&\text{ where $a_1,a_2\in \mathscr{A}$}\ |\ \\
+a_1&:=a_2& &\text{ where $a_1,a_2\in \mathscr{A}$}\ |\ \\
+%a&:=x &\text{ where $x\in \Variables, k\in \Variables\cup\mathbb{N}$}\ |\ \\
+a&:=\sel(b,a_1,a_2)&&\text{ where $a_1,a_2,a_3\in \mathscr{A}, b\in \mathscr{B}$} 
+%  &|\ a_1+a_2\ |\ a_1-a_2\ |\ a_1\times a_2\ |\ a_1 \div a_2\ |\ a_1 \textbf{ mod } a_2\\
+% & |\ a_1<<a_2 \ |\ a_1>>a_2%\ |\ a_1\land a_2 \ |\ a_1\lor a_2 \ |\ a_1\oplus a_2 .
+\end{align*}}}
+% We instantiate the set of actions and the set of tests by
+% \begin{align*}
+% \Sigma\triangleq\mathscr{E}, \quad\text{and}\quad 
+% T\triangleq\mathscr{B}.%\set{b |\ a_1,a_2\in \mathscr{A}}.
+% \end{align*}
+
+The semantics of the language is standard, and we omit the details since they are largely irrelevant for the purposes of enforcing TSCF under the MAP leakage model. More precisely, we care when and where we load elements in the cache, independently of the functional semantics of an action. Nevertheless, we assume that the compiler discards expressions that are not well-formed (e.g. $1:=A[x]$). We consider nested expressions to be using syntactic sugar; e.g. $A[x]:=B[C[x]]$ is equivalent to
+\begin{align*}
+    x_1:=C[x]\cdot x_2:=B[x_1]\cdot A[x]:=x_2.
+\end{align*}
+
+
+%\subsection{\texttt{cache} Values }
+
+% The essence of GKAT axioms  can replace expressions as long as they are semantically equivalent. For example, the sequencing axiom~\cite{GKAT} states that $e\cdot 1 \equiv e$. 
+% \begin{align*}
+%     %\texttt{cache}(
+%         A[x]:=B[C[x]]\equiv %\texttt{cache}(
+%             x_1:=C[x]\cdot x_2:=B[x_1]\cdot A[x]=x_2
+% \end{align*}
+
+%Given a variable name $\vec{x}\in \Variables$ and an  arithmetic expression $a \in \mathscr{A}$, t
+% We use the expression $\vec{n}[a]$ to denote standard array notation. The exact semantics of the language are not critical for the purposes of enforcing TSCF under the MAP model, which is why we leave them abstract. More precisely, we only care when and when we load elements in the cache, and not about the functional semantics of an action. 
+% Note that $\vec{n}[0],\vec{n}[1],$ etc. can be considered independent variables, since all operations are defined on elements of ${\vec{\Bool}}$.
+
+
+% We define the set of \emph{select expressions} $\mathscr{S}$ by the grammar
+% {\small{\begin{align*}
+% s\in \mathscr{S} ::= \textbf{sel}(b,e_1,e_2)%\textbf{skip} \ |\ 
+% \end{align*}}}
+% with $e_1,e_2 \in  \mathscr{A}\cup\mathscr{B}\cup\mathscr{S}$ (they both have the same type).
+
+% %ogether, $\mathscr{A}$, $\mathscr{B}$ and $\mathscr{S}$ form t
+% The \emph{set of expressions} is $\mathscr{E}\triangleq\mathscr{A}\cup\mathscr{B}\cup\mathscr{S}$. %Now that we have expressions, we can
+% Finally, we instantiate the set of actions and the set of tests with
+% \begin{align*}
+% \Sigma\triangleq\set{x:=e\ |\ x\in \Variables, e\in \mathscr{E}},\text{ and } T\triangleq\mathscr{B}.%\set{b |\ a_1,a_2\in \mathscr{A}}.
+% \end{align*}
+
+% The exact semantics of the language are not critical for the purposes of enforcing TSCF, since sound transformation rules guarantee that rules preserve semantics. However, we need resource metrics to formally define TSCF for LLVM-IR.
+\subsection{ORIGAMI Rules}
+It is impossible to repair programs that are not TSCF with traditional GKAT rules. Since GKAT rules preserve semantics, non-TSCF expressions are never transformed into TSCF expressions via these rules. 
+%when the semantics of a GKATx is a non-TSCF language of GSs, then no matter how we transform the GKATx using GKAT rules, the semantics of the resulting GKATx is the same as the original GKATx. 
+Thus, for the purposes of enforcing TSCF, we assume two equivalences between actions and GKATX: the \emph{read equivalence} $(y:=A[x])\equiv\ \mathscr{O}(y:=A[x])$ and the \emph{write equivalence} $(A[x]:=y)\equiv\ \mathscr{O}(A[x]:=y)$, where 
+%To justify the soundness of the following repair rules,  one that lets us prove the soundness of the ORIGAMI rule $(y:=A[x])\leadsto\ \mathscr{O}(y:=A[x])$, 
+\begin{align*}
+    \mathscr{O}(y:=A[x])\triangleq\  
+    &acc:=\sel(x=0,A[0],acc)\cdot \\
+    &acc:=\sel(x=1,A[1],acc)\cdot \\
+    &\ldots\\
+    &acc:=\sel(x=n,A[n],acc)\cdot \\
+    &y:=acc,
+\end{align*} and 
+\begin{align*}
+    \mathscr{O}(A[x]:=y)\triangleq\  
+    &A[0]:=\sel(x=0,y,A[0])\cdot \\
+    &A[1]:=\sel(x=1,y,A[1])\cdot \\
+    &\ldots\\
+    &A[n]:=\sel(x=n,y,A[n]).
+\end{align*}
+and $A$ has a fixed size of $n+1$. The \emph{read ORIGAMI rule} is transforming $(y:=A[x])$ into $\mathscr{O}(y:=A[x])$, denoted 
+\begin{align}
+    (y:=A[x])\leadsto\ \mathscr{O}(y:=A[x]),
+\end{align}
+and the \emph{write ORIGAMI rule} is 
+\begin{align}
+    (A[x]:=y)\leadsto\ \mathscr{O}(A[x]:=y).
+\end{align}
+
+Functionally, these read and write rules are sound: $\mathscr{O}(y:=A[x])$ implements an iteration over $A$, loading every value $A[i]$ but only storing it in $acc$ if $i=x$, and $\mathscr{O}(A[x]:=y)$ also implements an iteration, which loads $A[i]$ and stores it back at $A[i]$ if $i\neq x$, or loads $A[i]$ but stores $y$ otherwise.
+
+We now provide an argument for why these rules are sound with respect to TSCF. We assume that $0\leq x \leq n$, which we consider a reasonable assumption since in many languages the semantics of the expression $A[x]$ where $x>n$ is undefined or triggers an exception. 
+% For the read equivalence, independently of the original value of $acc$, the action $acc:=\sel(x=i,A[i],acc)$ works as an identity over $acc$, i.e., $sel(x=i,A[i],acc)=acc$, if and only if $x\neq i$; since $0\leq x \leq n$, there is one and only one index $i$ for which $sel(x=i,A[i],acc)=A[i]$, i.e., when $x=i$. Thus, $acc$ preserves its initial value until $x=i$, when it gets updated to $A[x]$; this new value is preserved until the end of the execution, since we do not update the value of $x$ through the expression. 
+To show why $\mathscr{O}(y:=A[x])$ is TSCF with respect to the MAP leakage, we do a proof by induction on the size of $A$.
+\begin{theorem}
+    \label{theo:read}
+    Let $A$ be an array-like data structure of size $n+1$ with $n\in \mathbb{N}$, then $\semantics{\mathscr{O}(y:=A[x])}$ satisfies TSCF with MAP.
+\end{theorem}
+\begin{proof}
+    The intuition behind the proof is the following: this ORIGAMI rule expands a single access to the data structure $A$ into a constant sequence of accesses to $A$ with fixed parameters, folding a $\sel$ instruction to accumulate the value that would be computed by the access $A[x]$; since the new sequence of accesses to $A$ is independent of $x$, the MAP of $\mathscr{O}(y:=A[x])$ does not leak $x$. 
+
+    %Assume a cache configuration set by an adversary. 
+    To prove that $\semantics{\mathscr{O}(y:=A[x])}$ satisfies TSCF, we do a proof by induction.
+    For $n=0$, $\mathscr{O}(y:=A[x])$ is equal to $acc:=\sel(x=0,A[x],acc)\cdot y:=acc$. Now, since $\cache$ only depends on the actions of GSs and not on its atoms, we can take the symbolic GS $g=\alpha\cdot acc:=\sel(x=0,A[x],acc)\cdot \beta \cdot y:=acc\cdot \gamma$, where $\alpha, \beta$ and $\gamma$ are symbolic variables for atoms, and compute $\RC_{\cache}(g)$. Assume that $h=\alpha\cdot acc:=\sel(x=0,A[x],acc)\cdot \beta$,  the value of $\RC_{\cache}(g)$ in the base case where $n=0$ is
+    \begin{align*}
+        \RC_{\cache}(g)&=\RC_{\cache}(h)+\cache(h)(y:=acc) \\
+        &=\cache(\alpha)(acc:=\sel(x=0,A[x],acc))\\
+        &+\cache(h)(y:=acc)
+    \end{align*}
+which is given by the sequence
+    \begin{align*}
+        \RC_{\cache}(g)&=[\eta\times\set{acc,x,A[0]}+\mu\times \emptyset,\\
+        &\eta\times\set{y}+\mu\times\set{acc}].
+    \end{align*}
+In the inductive case where $n>0$, we have
+    \begin{align*}
+        \RC_{\cache}(g)&=[\eta\times\set{acc,x,A[0]}+\mu\times \emptyset,\\
+        &\eta\times\set{A[1]}+\mu\times \set{acc,x},\\
+        &\eta\times\set{A[2]}+\mu\times \set{acc,x},\\
+        &\ldots\\
+        &\eta\times\set{A[n]}+\mu\times \set{acc,x},\\
+        &\eta\times\set{y}+\mu\times\set{acc}]
+    \end{align*}
+We remark that if the attacker clears the cache before the $i$-th instruction $acc:=\sel(x=i+1,A[x],acc)$, then the MAP changes from $\eta\times\set{A[2]}+\mu\times \set{acc,x}$ to $\eta\times\set{acc,x,A[i]}+\mu\times \emptyset$, as if it were a base case; the secret $x$ does not leak because we are loading $A[i]$ and not $A[x]$, and the attacker cannot decide whether $i=x$ (the attacker can only observe whether $i$ and $x$ are loaded, but not their values). We conclude that the MAP is indistinguishable for all values of $x$, and only depends on the size of $A$ (i.e., $n+1$). 
+%     
+%     \begin{align*}
+%         &\semantics{acc:=\sel(x=0,A[x],acc)\cdot y:=acc}\\
+%         &=\semantics{acc:=\sel(x=0,A[x],acc)}\diamond\semantics{y:=acc}
+%     \end{align*} 
+    
+\end{proof}
+%A detailed proof can be found in the Appendix. 
+
+A similar argument to Theorem~\ref{theo:read} can be made for rules of the form $\mathscr{O}(A[x]:=y)$.
+\begin{theorem}
+    \label{theo:write}
+    Let $A$ be an array-like data structure of size $n+1$ with $n\in \mathbb{N}$, then $\semantics{\mathscr{O}(A[x]:=y)}$ satisfies TSCF with MAP.
+\end{theorem}
+\begin{proof}
+    This ORIGAMI rule also expands the single access $A[x]$ into a constant sequence of accesses to $A$ with fixed parameters, but this time it loads from every position of $A$, and it stores a value chosen via a $\sel$; again, since this new sequence of accesses to $A$ is independent of $x$, the MAP of $\mathscr{O}(A[x]:=y)$ does not leak $x$. 
+
+    %Assume a cache configuration set by an adversary. 
+    To prove that $\semantics{\mathscr{O}(A[x]:=y)}$ satisfies TSCF, we do a proof by induction.
+    For $n=0$, $\mathscr{O}(A[x]:=y)$ is equal to $A[0]:=\sel(x=0,y,A[x])$. We take symbolic GS $g=\alpha\cdot A[0]:=\sel(x=0,y,A[x])\cdot \beta$, where $\alpha$ and $\beta$ are symbolic variables for atoms, and we compute $\RC_{\cache}(g)$ in the base case where $n=0$ as follows;
+    \begin{align*}
+        \RC_{\cache}(g)
+        &=\cache(\alpha)(A[0]:=\sel(x=0,y,A[0]))
+    \end{align*}
+which is given by the sequence
+    \begin{align*}
+        \RC_{\cache}(g)&=[\eta\times\set{x,y,A[0]}+\mu\times \set{A[0]}].
+    \end{align*}
+In the inductive case where $n>0$, we have
+    \begin{align*}
+        \RC_{\cache}(g)&=[\eta\times\set{x,y,A[0]}+\mu\times \set{A[0]},\\
+        &\eta\times\set{A[1]}+\mu\times \set{x,y,A[1]},\\
+        &\eta\times\set{A[2]}+\mu\times \set{x,y,A[2]},\\
+        &\ldots\\
+        &\eta\times\set{A[n]}+\mu\times \set{x,y,A[n]}]
+    \end{align*}
+If the attacker clears the cache before the $i$-th instruction $A[i]:=\sel(x=i,y,A[i])$, then the MAP changes from $\eta\times\set{A[i]}+\mu\times \set{x,y,A[i]}$ to $\eta\times\set{x,y,A[i]}+\mu\times \set{A[i]}$, as if it were a base case. We again conclude that the MAP is indistinguishable for all values of $x$, and only depends on the size of $A$
+%     
+%     \begin{align*}
+%         &\semantics{acc:=\sel(x=0,A[x],acc)\cdot y:=acc}\\
+%         &=\semantics{acc:=\sel(x=0,A[x],acc)}\diamond\semantics{y:=acc}
+%     \end{align*} 
+    
+\end{proof}
+%A detailed proof can be found in the Appendix. 
+
+\subsection{Repair Rules for the Baseline Model}
+Since the MAP implies the baseline model, we must repair programs also with respect to the baseline model. The baseline repair rules are well known, but we briefly mention them here for completeness. Existing repair tools, including \cite{Racoon,SCEliminator,MSESC}, are in general capable of repairing programs with respect to the baseline leakage model using the following repair rules, whose basic strategy consists of removing branches via {predication} and by unrolling loops once they have been fixed to have a constant number of iterations. 
+
+\paragraph*{Branch predication} Given a program of the form 
+% \begin{verbatim}
+\begin{align*}
+    \text{if $b$ then $x:=e_1$ else $x:=e_2$}
+\end{align*}
+% \end{verbatim}
+whose corresponding GKATx is $\branch{b}{(x:=e_1)}{(x:=e_2)}$, the \emph{predication repair rule} replaces the branch by the select instruction $x:=\sel(b,e_1,e_2)$. The tools \cite{Racoon,SCEliminator,MSESC} implement this rule to remove leaks due to branching.
+There are a couple of minor complications; repairing the GKATx $\branch{c\neq0}{(a:=b/c)}{1}$
+% \begin{verbatim}
+%     if c!=0 then a:=b/c else a:=a
+% \end{verbatim}
+% and
+% \begin{verbatim}
+%     if n<size_A then x:=A[n] else x:=x
+% \end{verbatim}
+could introduce runtime exceptions that were previously prevented by the conditional (e.g. division by zero or accessing an array out of bounds). However, it suffices to take a couple extra precautions before repair, as shown in \cite{Racoon} and \cite{MSESC}. 
+%We remark that ORIGAMI rules remove all sensitive out-of-bounds accesses: by rep
+
+%The predication rule linearises the branch. 
+
+% The semantics of the expression \verb+CTSel(c,e1,e2)+ are as follows. First, the expressions \texttt{e1} and \texttt{e2} are fully evaluated; then,  it returns \texttt{e1} if \texttt{c} holds or \texttt{e2} if it does not. 
+
+% 
+
+\paragraph*{Loop Unrolling} Given a program of the form 
+\begin{align*}
+    \text{while $b$ do $e$}
+\end{align*}
+% \begin{verbatim}
+    
+% \end{verbatim}
+which corresponds to the GKATx $\iteration{b}{e}$, the \emph{loop unrolling rule} replaces the program with a sequence of linearisable branches 
+\begin{align*}
+    \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times}.
+    \end{align*}
+where $k$ is the maximum number of iterations that the loop could execute for all secrets. 
+
+The major complication to apply the loop unrolling rule is determining $k$. Racoon does not protect information leaks from loop trip counts \cite{Racoon}, so they cannot repair programs with loops whose trip count is originally secret dependent. \texttt{SC-eliminator} arbitrarily chooses a value from a list of fixed sizes (e.g. 64, 128, 256) depending on static analysis, \cite{MSESC} assumes that loops are already unrolled, and \cite{Racoon} do not protect against information leaks from loop trip counts. 
+
+\paragraph*{Limitations of Predication and Unrolling}
+Neither predication nor unrolling repair programs with respect to the MAP leakage model. The loopless and branchless program $x:=A[s]$ where $s$ is a secret and $A$ is a data structure has different memory access patterns for the different values of $s$; this limitation is the main motivation for ORIGAMI.
+
+\paragraph*{Vulnerable to OS Leakage} Since the MAP leakage model is weaker than the OS leakage model, ORIGAMI does not repair timing side-channel vulnerabilities that arise by the use of operations whose execution time varies depending on their parameters. We only repair leakage that occurs due to accesses to data structures using secret indices.
+
+\subsection{Limitations of ORIGAMI}
+\label{sec:Limitations}
+There are a couple of limitations and side effects to applying the ORIGAMI rules. 
+
+\paragraph*{Secret Pointers} While we can fold a data structure whose data are secret pointers without revealing the value of the resulting pointer or the value used to access it, once this resulting pointer is loaded, it is leaked to the attacker via the cache. Thus, ORIGAMI should not be used to repair programs which contain secret pointers that are naively accessed. %Fixed-size multi-dimensional data structures do not perform intermediate pointer %This does not occur when folding a multi-dimensional data-structures; accessing these multi-dimensional data structures can be soundly repaired without leaking information using ORIGAMI.
+
+\paragraph*{Secret Data Structure Sizes} The MAP of $\mathscr{O}(y:=A[x])$ and of $\mathscr{O}(A[x]:=y)$ depends on the size of $A$. This adds a caveat for using ORIGAMI to enforce TSCF under MAP: the size of data structures indexed by secrets must be public, since the size of $A$ can be inferred via timing. We believe this caveat is acceptable, since several cryptographic algorithms fix the size of the data structures that hold secrets (e.g. AES has key sizes 128, 192 or 256 bits). We also believe this case is dual to trying to repair a loop by unrolling it if the loop bound depends on an unbounded secret: it is impossible to repair without compromising its functionality\cite{SCEliminator,MSESC}.
+
+\paragraph*{Out-of-bounds Accesses} As a side-effect of applying the ORIGAMI rules, accessing a data structure $A$ of size $n$ using a sensitive index $x$ such that $x>n$ no longer results in a runtime error. The repaired version of $y:=A[x]$ simply sets $y$ to the initial value of the accumulator $acc$ if $x>n$. Similarly, a repaired version of $A[x]:=y$ where $x>n$ never stores $y$; it simply loads all $A[i]$ and writes them back. Consequently, these new behaviours leak to the attacker the information $x>n$, assuming that $n$ is public. This limitation is arguably artificial, since the original program possibly also leaks this information through a runtime error.
+
+\paragraph*{Vulnerabilities Beyond MAP} As we previously stated, ORIGAMI does not offer security guarantees for programs that are vulnerable due to speculative execution or that are vulnerable in the OS leakage model, since these have leakage and attacker models that are beyond the scope of this work.
+% and we focused on protecting the value of the secret when it is leaked via timing under the MAP leakage model, not via runtime errors.
+
+% \todo[inline]{Probably the most important section, where we blame the parts we could not do to the general problem of enforcement. Pointers CANNOT be secrets, since their value leaks when you read them from memory. Structures whose values are pointers can be folded, but the value of the secret (i.e., the pointer) leaks once we resolve the pointer and load the pointee in memory.}
+
+\subsection{Multidimensional ORIGAMI}
+So far, we presented and illustrated ORIGAMI using array-like data structures $A$ of fixed size $n$. However, ORIGAMI can be applied to repair programs that use any iterable structure of fixed size. These data structures include, e.g., C structures and multidimensional arrays. 
+
+For example, we can apply ORIGAMI to a fixed-size multidimensional structure $A$ of size $(n+1)\times (m+1)$ by systematically folding all of its $(n+1)\times (m+1)$ elements. More precisely, to repair $y:=A[i][j]$, we compute
+\begin{align*}
+    \mathscr{O}(y:=A[i][j])\triangleq\  
+    &acc:=\sel(i=0\land j=0,A[0][0],acc)\cdot \\
+    &acc:=\sel(i=0\land j=1,A[0][1],acc)\cdot \\
+    &\ldots\\
+    &acc:=\sel(i=0\land j=m,A[0][m],acc)\cdot \\
+    &acc:=\sel(i=1\land j=0,A[1][0],acc)\cdot \\
+    &\ldots\\
+    &acc:=\sel(i=1\land j=m,A[1][m],acc)\cdot \\
+    &\ldots\\
+    % &acc:=\sel(i=n\land j=0,A[n][0],acc)\cdot \\
+    % &\ldots\\
+    &acc:=\sel(i=n\land j=m,A[n][m],acc)\cdot \\
+    &y:=acc.
+\end{align*}
+Similarly, to repair $A[i][j]:=y$, we compute
+\begin{align*}
+    \mathscr{O}(A[i][j]:=y)\triangleq\  
+    &A[0][0]:=\sel(i=0\land j=0,y,A[0][0])\cdot \\
+    &A[0][1]:=\sel(i=0\land j=1,y,A[0][1])\cdot \\
+    &\ldots\\
+    &A[0][m]:=\sel(i=0\land j=m,y,A[0][m])\cdot \\
+    &A[1][0]:=\sel(i=1\land j=0,y,A[1][0])\cdot \\
+    &\ldots\\
+    &A[1][m]:=\sel(i=1\land j=m,y,A[1][m)\cdot \\
+    &\ldots\\
+    % &A[n][0]:=\sel(i=n\land j=0,y,A[n][0])\cdot \\
+    % &\ldots\\
+    &A[n][m]:=\sel(i=n\land j=m,y,A[n][m]).
+\end{align*}
+
+For higher dimensions the ORIGAMI rules extend similarly, and they can be customised if some indices are secrets and some are not. Informally, we only need to fold those indices that hold secrets, e.g., if a read access $y:=A[i][k]$ uses a secret $i$ and a public value $k$, it suffices to fold as follows,
+\begin{align*}
+    \mathscr{O}(y:=A[i][k])\triangleq\  
+    &acc:=\sel(i=0,A[0][k],acc)\cdot \\
+    &acc:=\sel(i=1,A[1][k],acc)\cdot \\
+    &\ldots\\
+    &acc:=\sel(i=n,A[n][k],acc)\cdot \\
+    &y:=acc.
+\end{align*}
+We can use the index $k$ directly because it is public, i.e., if it leaks via the cache, the attacker does not learn any new information about the secret $i$.
+
+\section{Evaluation}
+\label{sec:Evaluation}
+Three research questions motivate an empirical evaluation:
+\paragraph*{RQ1} How effectively can we enforce TSCF?
+\paragraph*{RQ2} How efficiently can we enforce TSCF?
+\paragraph*{RQ3} How do our enforcement results vary when compiler optimizations are considered?
+%We recall the research questions that motivate this work:
+%
+% \todo[inline]{i.e., what is the variance in the repaired executables} 
+%\paragraph*{RQ2}  How efficient is our transformation to eliminate side channels?
+%\
+
+%We implement our repair rules as LLVM 12 \texttt{opt} passes. 
+We divide the evaluation of ORIGAMI in two sections: 1), a simple litmus tests written in C which illustrates what to expect when repairing programs with ORIGAMI, and 2) a set of five test programs from representative libraries (also written in C): we test two cryptographic libraries (AES from basic crypto \cite{AESBasic}, DES and RC4 from OpenSSL \cite{OpenSSL}), the functions \texttt{gdk-keyname} and \texttt{gdk-keyuni} from the GDK Linux library.%, and nine different instances of the STAC suite \cite{STACBenchmarks} from six of its benchmarks.
+
+\subsection{Implementation}
+\label{sec:Tool} 
+We implement the ORIGAMI repair rules presented in Section~\ref{sec:ORIGAMI} using LLVM (version 13) as optimisation passes that we can apply with the LLVM \texttt{opt} tool. With this, we can let Clang perform code optimisations to the C programs, and then we apply the ORIGAMI rules, so that they are not undone by further code optimisation. 
+
+We rely on annotations to inform ORIGAMI which variables are secret. We provide the details of the tainting procedure in Section~\ref{sec:taint}. 
+
+The compilation chain is as follows: using \texttt{clang} with either the \texttt{-\texttt{O0}} or the \texttt{-\texttt{O3}} optimisation flag, we create an intermediate representation in LLVM-IR. This IR representation has been already optimised by \texttt{clang}, so we can apply the ORIGAMI rules without fearing them being optimised out. Finally, to obtain an executable, we use \texttt{llc} with disabled optimizations (i.e., using the \texttt{-\texttt{O0}} flag) to compile and link the repaired LLVM-IR into the repaired executable. This is arguably the weakest link in our compilation chain, but our experiments evidence that ORIGAMI rules are preserved by this final compilation step.
+%\todo[inline]{Can remove next parag if spectre example is clear after repair and division by zero is also clear.}
+%Division by zero and reading from non-allocated memory are side effects that occur when predication of statements is used. Because we did not want to change the implementation of LLVM-IR instructions directly, we countered those side effects by adding additional checks. In the case of division by zero, we first check if the denominator is zero, and if it is, we replace it by one. In the case of accessing an element outside of an array, we rely on the \texttt{inbounds} parameter of the \texttt{GetElementPtr} instruction, which returns a \texttt{poison} value (i.e., an error value) if the indices lie outside of the array, if it is a poison value, we replace the invalid pointer for one that points to the first position of the array. Thus, our tool cannot repair cases where sensitive arrays are empty. 
+
+\subsection{Experimental Setup}
+To evaluate the ORIGAMI repair rules, we use Gem5 \cite{gem5}. Gem5 is a highly-configurable simulator which encompasses system-level architecture and processor microarchitecture. The setup for the simulated environment in Gem5 consists of a single simple timing CPU with a 1Gz processor, possessing only a level one 2-set associative cache with a cache-line size of 64 bytes, the data cache has size 8kB and the instruction cache has size 16kB and is 2-set associative.
+
+Gem5 provides statistical data of the execution, including the number of CPU cycles, the number of committed instructions, and the number of hits and misses on both data and instruction caches (among other metrics). We measure the variance of these metrics to evaluate RQ1. We use the growth factor $m_{repaired}/m_{original}$ of each metric $m$ to evaluate RQ2. Finally, to address RQ3, we repair executables compiled with \texttt{O0} and with \texttt{O3} to see if there are any significant differences.
+
+ %We use a tournament type branch predictor for speculative execution.
+%  We remark that we also ran our experiments without branch speculation, but it did not show any significant changes to the metrics presented with branch speculation enabled, and thus we decided to omit them.
+
+For each benchmark, we generate a set of five random secret inputs. %four random secret inputs, and we craft a fixed, worst case secret input. 
+We use these five instances of the secret to obtain the following metrics: the number of CPU cycles, the number of committed instructions, and the number of hits and misses on both data and instruction caches. An implementation is \emph{vulnerable with respect to the baseline leakage model} if it shows variance in the numbers of committed instructions. An implementation is \emph{vulnerable with respect to the MAP leakage model} if it shows variance in the numbers of cache hits or misses.  Finally, an implementation is \emph{vulnerable with respect to the OS leakage model} if it shows variance in the numbers of CPU cycles. 
+
+%\todo[inline]{Technically, you would need to know which sections of the cache are loaded to prove that you are always loading the same.}
+We say that the ORIGAMI rules are effective at repairing programs with respect to the MAP leakage model if for all original programs that are vulnerable with respect to MAP, they are no longer vulnerable with respect to MAP after repair. We remark that ORIGAMI does not repair with respect to the OS leakage model, so we do not expect the variance of CPU cycles in repaired programs to be zero.
+
+\subsection{About taint analysis} 
+\label{sec:taint}
+% We implement basic taint propagation at the IR level to identify which portions of the program need to be repaired; i.e., which variables depend on a secret either via data dependence or control dependence. That way, we can identify which data structures are being accessed using secret indices.
+We follow the philosophy presented by the authors of ~\cite{WhatYouCisWhatYouGet}, where the programmer collaborates with the compiler to enforce TSCF. Thus, the programmer must provide the information that the compiler cannot derive on its own. Unfortunately, we did not find any reliable tool to perform taint propagation and analysis from the source language C to LLVM-IR, which is why we implement one. %Due to the complexity of performing adequate taint analysis, we insist that the tool used in this evaluation issimply a prototype and not a fully fledged repair tool.
+
+The programmer needs to do the following annotations to the source code: 1) annotate secret variables at their declaration, 2) annotate sensitive loops by giving them a maximum \emph{constant integer} loop bound, and 3) annotate functions that manipulate secrets such that the compiler does not inline. For the latter, the programmer uses the annotation
+\begin{quote}
+    \texttt{\_\_attribute\_\_((noinline))}. 
+\end{quote}
+
+To implement taint propagation from C to LLVM-IR, we use the annotation 
+\begin{quote}
+    \texttt{\_\_attribute\_\_(annotate("secret"))} 
+\end{quote}
+to mark variables that contain secrets. We refer to these annotated variables as \emph{taint sources}. At the IR level, we identify the taint sources, and we propagate the taint using both data and control flow dependencies, which we obtain from analysis passes offered directly by LLVM (which we assume are reliable). Our taint analysis is not inter-procedural, so programmers must annotate variables and parameters in each function.
+
+Because ORIGAMI not only applies the ORIGAMI rules but also branch linearisation and loop unrolling, whenever ORIGAMI finds a loop whose bound depends on a secret, ORIGAMI rejects the program and asks the programmer to provide the annotation 
+\begin{quote}
+    \texttt{\_\_attribute\_\_(annotate("bound=N"))}    
+\end{quote}
+ on the respective taint source, where $N$ is the maximum number of times the loop could iterate given any secret. 
+
+ %This is not ideal because it increases the number of points of failure (i.e., the number of places where the programmer needs to annotate variables).  %, but we aimed to over-approximate tainting: in the worst case where we over-taint, public variables are marked as secret by the programmer, and the program is repaired unnecessarily.
+
+%is more control over the granularity of secrets
+%
+%we can repair functions individually and not entire programs, yielding a compositional solution. 
+
+%\todo[inline]{Check that this corresponds to the final metrics.}
+
+\subsection{Litmus Test}
+We consider a small program to show how ORIGAMI repairs programs with iterated array reads and writes. In the following, let $A[10][10]$ be a two-dimensional data structure of size $10\times10$ with randomly generated integer values; now, consider the program
+{
+\begin{verbatim}
+    int secret1 = N % 10, secret2 = M % 10;
+    for (int i=0; i<secret1; i++)
+        for (int j=0; j<secret2; j++)
+            A[j][i]=A[i][j];
+\end{verbatim}
+}
+where \texttt{N} and \texttt{M} are randomly generated secret integers. This program accesses $A$ to read and write different portions of it, which is what ORIGAMI aims to repair.
+%This program performs copies and transposes the submatrix \texttt{A[0][0]} to \texttt{A[N][M]} onto. 
+
+This program is vulnerable with respect to both the baseline leakage model and the MAP leakage model. The loop bound of the outer loop depends on \texttt{N} and loop bound of the inner loop depends on \texttt{M}. Moreover, the first access we perform in the data structure is \texttt{A[N][M]}, which leaks both \texttt{N} and \texttt{M} according to the MAP leakage model. ORIGAMI needs to fix both the dependence of loop bounds on secrets and the MAPs for this program so that it is constant. 
+
+We remark that Racoon does not repair programs with sensitive loop trip counts like this litmus test, so we believe that their mean 16x performance overhead only applies when repairing programs which do not have sensitive loops. Thus, we cannot conclusively compare ORIGAMI to Racoon in terms of performance overhead for this litmus test; we postpone the comparison with Racoon for the following benchmarks, which require little or no loop unrolling to be repaired. We present the results of the repair in Table~\ref{tab:Litmus}. 
+
+\begin{table}[t]
+    \caption{Simulation Results for the litmus test}
+    \label{tab:Litmus}
+       \centering
+       \resizebox{\linewidth}{!}{
+          \begin{tabular}{|l||l|l|l|l|l||l|l|l|l|l|}
+       \hline
+           &  \multicolumn{5}{|c||}{\texttt{O0}} &  \multicolumn{5}{|c|}{\texttt{O3}} \\ 
+            {Metric} &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c||}{Variance}  &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c|}{Variance} \\ 
+            & Original & Repair & Factor & Original & Repair & Original & Repair & Factor & Original & Repair \\ \hline
+            \hline
+Size            & 16504    & 884856  & 53.615 & 0         & 0 & 16504    & 6082680  & 368.558 & 0        & 0 \\ \hline
+NumCycles       & 606469.2 & 3098976 & 5.11   & 1908459.2 & 0 & 604672.8 & 18269050 & 30.213  & 169281.2 & 0 \\ \hline
+Commited Insts  & 84967    & 299321  & 3.523  & 75442.5   & 0 & 84677    & 1283111  & 15.153  & 9292     & 0 \\ \hline
+Icache hits     & 114734.2 & 397059  & 3.461  & 197395.7  & 0 & 114214.2 & 1829849  & 16.021  & 13854.2  & 0 \\ \hline
+Icache misses   & 931      & 14535   & 15.612 & 0         & 0 & 930.6    & 95739    & 102.879 & 0.8      & 0 \\ \hline
+Icache accesses & 115665.2 & 411594  & 3.558  & 197395.7  & 0 & 115144.8 & 1925588  & 16.723  & 14011.2  & 0 \\ \hline
+Dcache hits     & 114734.2 & 397059  & 3.461  & 197395.7  & 0 & 114214.2 & 1829849  & 16.021  & 13854.2  & 0 \\ \hline
+Dcache misses   & 931      & 14535   & 15.612 & 0         & 0 & 930.6    & 95739    & 102.879 & 0.8      & 0 \\ \hline
+Dcache accesses & 115665.2 & 411594  & 3.558  & 197395.7  & 0 & 115144.8 & 1925588  & 16.723  & 14011.2  & 0 \\ \hline
+       \end{tabular}
+       }
+       \vspace{-0.2cm}
+   \end{table}
+
+\paragraph{Results Analysis}
+From the metrics of the original programs, both in \texttt{O0} and \texttt{O3}, the program displays high variance in all metrics except the number of cache misses. After applying ORIGAMI, the variance is zero in all metrics, which confirms that the repair tool is homogenising accesses to $A$, and it is ensuring that no information leaks due to MAPs. 
+
+We remark that the number of CPU cycles (column \texttt{NumCycles}) has a variance of zero because the repaired program does not use operations whose execution time depends on parameters. 
+In the following benchmarks, we see that ORIGAMI cannot always induce a variance of zero for this metric, since ORIGAMI does not repair the cause of this leakage (i.e., use of functions whose execution time varies with their parameters).
+
+We also remark that the overhead factor of repairing the litmus test program (column \texttt{Factor}) is extraordinary: 5.11x for \texttt{O0} and ~30.2x for \texttt{O3}. This large overhead factor is understandable; to repair this program, ORIGAMI must force both loops to have the same number of iterations independently of the secret given, so the program transforms from one with an average of 25 assignments per execution to a program which always performs 100 assignments per execution. By applying loop unrolling, ORIGAMI prevents secrets from leaking via the program counter. Then, ORIGAMI folds each of those 100 assignments over $A$, otherwise the secrets leak via the cache under the MAP leakage model. 
+
+We remark that the excessive overhead incurred by repairing the program is mainly due to loop unrolling and not due to the ORIGAMI rules. To confirm this claim, we apply ORIGAMI to the following benchmarks, which require little to no loop unrolling to be repaired. Without loop unrolling, we can better observe the effective impact of only applying the ORIGAMI rules to repair a program.
+
+% In the following, we present a set of five test programs from representative libraries, which should also be in the domain of programs that Racoon can repair, and we compare the ORIGAMI tool with Racoon.
+
+% \todo[inline]{Complete this analysis.}
+% On an average case, we expect the original program to perform $4\times4$ reads and writes. However, the fixed program should perform a read and a write for every position in the array, so $8\times8$ reads and writes. However, a fold must be performed for each read and one fold for each write, so the repaired program will access memory at least $(8\times8)\times(8\times8)\times(8\times8)$ times. Nevertheless, the performance penalty is only a factor of ??x in the \texttt{O0} case, and of ??x in the \texttt{O3} case.
+
+% originally, the program executes $(16-\texttt{N})\times(16-\texttt{M})$ times 
+
+
+
+% \subsection{Summary of Results for the Litmus Tests}
+% \label{sec:LismusSummary}
+
+% For all studied STAC benchmarks and both optimization levels, our repair rules produce a binary that shows no variance in any of the relevant metrics that concern the resource metrics \texttt{time} and $\cache$. This empirically shows that our repair rules are sound for programs that can be modelled by the GKAT presented in Section~\ref{sec:LLVM-IRGKAT}.
+
+
+
+% Again, we remark that instructions at the microarchitectural level may take different time for different inputs (e.g. multiplication), and our repair rules assume all micro-architectural instructions take constant time (except load and store), which is why we use the amount of committed instructions instead of the number of CPU cycles when we evaluate the repair rules for the \texttt{time} metric.}
+% \todo[inline]{Maybe we should move the vulnerable benchmarks up first. It makes the evaluation more interesting, I feel.}
+\subsection{AES, OpenSSL and GDK}
+We now describe the other examples that we used for benchmarking, and briefly explain the results of the experiments for each of them. 
+
+\subsubsection{Advanced Encryption Standard (AES)}
+AES is a specification for data encryption to establish secure communication. AES receives a plaintext message % $m$
+ and as an array of size 16 bytes % $k$
+  as secret inputs. These settings are enough to produce variations in the number of CPU instructions and hits/misses in the cache \cite{Chalice}. We repair the AES implementation available at \cite{AESBasic}. %for the key expansion and encryption functions. 
+  We present the results of the repair in Table~\ref{tab:AESResult}. 
+
+\paragraph*{Results analysis} since we are repairing a cryptographic encryption function, it is expected that it was developed using CTP guidelines; thus, the original version satisfies TSCF with respect to the MAP leakage model. However, the repair procedure slightly affects the program positively in terms of performance for the \texttt{O0} case, where compiler optimisations are disabled. The reason behind it is that our implementation of ORIGAMI requires the control flow graph (CFG) to match the structure of GKAT expressions, and during this transformation, the LLVM pass manager might optimise some parts of the code, and this optimisation compensates the overhead.
+
+In the \texttt{O3} case, when compiler optimisations are enabled, we see that ORIGAMI does impact the performance of optimised code, although only by a factor of $3.2\%$ if we consider the number of CPU committed instructions to quantify time (following the baseline leakage model). At the least, ORIGAMI does not add significant overhead to MAP TSCF compliant code.
+
+\subsubsection{OpenSSL Data Encryption Standard (DES)}
+DES is a symmetric-key algorithm for data encryption which receives as secret inputs a plaintext % $m$
+ and an array of 8 bytes% $k$
+. %Similarly to AES, we generate 5 random secret $k$ inputs, but leave the secret plaintext input $m$ fixed. 
+We repair the OpenSSL implementation of DES available at \cite{OpenSSL} and present the results of the repair in Table~\ref{tab:DESResult}. %We repair the functions \texttt{DES\_set_key_unchecked} and \texttt{DES\_set_key_unchecked}
+
+\paragraph*{Results analysis} unlike the AES \texttt{O0} case, the modifications introduced by ORIGAMI are not compensated by the slight optimisations used when transforming the CFG. We see a performance impact of $37\%$ in the \texttt{O0} case and an impact of $1.7\%$ in the \texttt{O3} case. This benchmark illustrates the benefits of having the compiler be the one in charge of enforcing TSCF, and how repair rules benefit from compiler optimisations. In particular, \texttt{O3} combines pointer computation operations (\texttt{GetElementPtr} instructions); e.g., to compute the pointer of $A[i][j]$, \texttt{O0} would first try to compute the pointer of $A[i]$ and then compute $A[i][j]$ relative to the pointer of $A[i][0]$, while \texttt{O3} would directly compute $A[i][j]$ relative to the pointer of $A[0][0]$. Due to implementation details, ORIGAMI in \texttt{O0} aggregates the partial pointer computations, heavily impacting performance. However, in the \texttt{O3} case, ORIGAMI need not aggregate partial computations, and the repair has a smaller performance impact.
+ 
+\subsubsection{OpenSSL RC4}
+This benchmark is a stream cipher that can be used for data encryption. Although simple, several vulnerabilities have been reported, and the use of RC4 been prohibited in standard implementations of TLS \cite{rfc7465}. RC4 receives as secret inputs an array of 10 bytes % $k$
+and a plaintext% $m$
+ .% Again, we leave the plaintext $m$ fixed, and we generate 5 random secrets $k$.
+  We repair the OpenSSL implementation of RC4 available at \cite{OpenSSL} and present the results of the repair in Table~\ref{tab:RC4Result}. 
+ 
+\paragraph*{Results analysis} the original program of RC4 satisfies the OS leakage model, so it needs no repair. This case illustrates how applying ORIGAMI to safe code preserves TSCF with respect to the original program, and it does not add significant performance penalties, since the only transformation the ORIGAMI tool is doing is some CFG restructuring so that it matches a GKAT. In this case, the penalty is $3.6\%$ for \texttt{O0} and $5.1\%$ for \texttt{O3}. Arguably, these type of programs do not benefit from ORIGAMI, and are better off being validated by a TSCF verifier like \cite{usenix_ctp_verification} and compiled using a certified compiler like CompCert \cite{CompCert}.
+
+\subsubsection{GDK Library - \texttt{gdk\_unicode\_to\_keyval}}
+We study the function \texttt{gdk\_unicode\_to\_keyval} of the Linux GDK library. This function converts a secret ISO10646 character to a key symbol~\cite{gdklib}. The secret input % $k$
+is a single unsigned integer value. This benchmark uses a binary search that depends on a secret input, and it loads from a structure using a secret index during that binary search.
+ % We generate 5 random secret $k$ inputs for this experiment.
+  The results of the repair of this benchmark appear in Table~\ref{tab:gdklibResult}.
+
+\paragraph*{Results analysis} the original program is not secure with respect to the baseline model, but even if we fix with respect to the baseline leakage model, we still have to deal with the MAP difference for each secret. ORIGAMI repairs both vulnerabilities. Interestingly, in the \texttt{O0} case, ORIGAMI shows that the number of CPU cycles is constant, while in the \texttt{O3} case, there are variations. However, this is just a coincidence, since ORIGAMI does not repair programs with respect to the OS leakage model. %We attribute this difference that in the \texttt{O0} case, only constant operations are being used, or variable operations are used but they are used in all cases. In the \texttt{O3} case, it may be that non-constant operations are called, and their parameters are different through the executions. Nevertheless, 
+
+\subsubsection{GDK Library - \texttt{gdk\_keyval\_name}}
+Lastly, we simulate the function \texttt{gdk\_keyval\_name} of the Linux GDK library. This function converts a key value into a symbolic name \cite{gdklib}. The secret input $k$ is a single unsigned integer value. 
+%This function converts a secret GDK key symbol $k$ to the corresponding ISO10646 Unicode character \cite{gdklib}. 
+Again, for this test case, we generate 5 random secret $k$ inputs. The results of repairing appear in Table~\ref{tab:gdklibNameResult}. 
+% \todo[inline]{Discuss about how you can still use secret pointers as long as you do not load them (they are equivalent to integers in this case)}
+
+\paragraph*{Results analysis} this benchmark behaves like \texttt{gdk\_unicode\_to\_keyval}. 
+The original program uses a binary search which depends on a secret, causing it to have timing side-channel vulnerabilities. ORIGAMI unfolds the binary search, and ensures that accesses to the structure holding the value-to-symbolic name pairs is loaded adequately. 
+
+\subsection{Evaluation Conclusion} %of Results for AES, OpenSSL and GDK}
+
+Usually, the code used for cryptographic libraries follows CryptoCoding guidelines~\cite{CryptoCoding}. This is reflected in some original binaries satisfying TSCF for at least one optimization level. This experiment lets us observe more precisely the impact of repairing secure code. We see that the impact factor remains relatively close to one for all the metrics in the benchmarks, which is reassuring: secure code should not need repair, and if it gets repaired, the impact should be minimal. We conclude that it is then viable for programmers to follow CryptoCoding guidelines, and then use ORIGAMI as a safety net without harshly impacting performance. By taking the number of CPU Cycles as a measure of time, the overhead of ORIGAMI in the benchmarks has a geometric mean of ~1.24x when applied to programs with a fixed loop count, which is significantly better than the ~16x overhead caused by Racoon. 
+
+ORIGAMI can also repair vulnerable programs like the litmus test, \texttt{gdk\_unicode\_to\_keyval} and \texttt{gdk\_keyval\_name}. 
+However, repairing programs which contain loops whose trip counts depend on secrets can largely increase the size and execution time of programs. For example, the litmus test program uses secrets which range from 0 to 9, and loop iterate a different number of times depending on the value of the secrets. ORIGAMI enforces TSCF without sacrificing functionality by forcing the program to run the outer loop 10 times and the inner loop 10 times no matter which secrets are provided, obfuscating no-ops to preserve functionality with $sel$ instructions. If we were to have more nested loops, this effect would compound exponentially; however, this is unavoidable, otherwise the secrets would leaks via the timing channel. 
+
+% The usefulness of ORIGAMI is more significant when it is applied to code that is not written using CryptoCoding guidelines, as shown in the litmus test. However, the impact of repairing programs is rather significant, which is why we would still encourage programmers that want to use ORIGAMI to follow CryptoCoding guidelines to reduce the repair overhead.
+
+% \todo[inline]{Update if we add more benchmarks}.
+% (1.428*1.094*1.051*1.036*1.032*0.921*1.37*1.017*1.014*1.778)-1
+
+More than the applicability and usefulness of our tool, with this evaluation, we attest the viability of the philosophy of~\cite{WhatYouCisWhatYouGet}: compilers can be empowered to close timing-side channels automatically, and programmers need only worry about providing the right information to the compiler; independently of whether the programmer follows CryptoCoding guidelines or not.
+ 
+% We would like to remark that the repaired version of OpenSSL DES (Table~\ref{tab:DESResult}) displays more variance in the number of CPU cycles than the original executable. We believe this happens as our repaired version may increase the variation in CPU cycles due to the increased number of instructions. Recall that we do not target to repair a low level instruction, yet such a low level instruction may show variation in timing for different inputs.
+%We believe that this happens because some operations in LLVM-IR may need more CPU cycles depending on the inputs provided (e.g. shifting and multiplication), and this repair could be aggregating these operations more than in other benchmarks.
+%\todo[inline]{@Sudipta: A natural question from a reviewer could be ``by why on this benchmark and not on others?'' and I would be very puzzled. I'll have to study the different micro-architectural aspects and try to find the culprit.}
+
+% so most of the repair work is invested in preloading data structures indexed by secrets. However, there may be cases where our tool cannot infer the static size of the data structure (e.g. an array that is embedded in a structure), and the tool skips adding the preloading. This is most likely what causes the small variance in the Dcache hits and misses when repairing the binary that was compiled with no optimizations enabled \texttt{O0}. 
+%{\color{blue}
+%\todo[inline]{These results could be generalised for all benchmarks, and they can be part of the discussion section.}
+%Although this implementation of AES is written using CryptoCoding guidelines, it illustrates how enabling compiler optimization could introduce variance in terms of cache hits and misses. It is worth remarking the following:
+%\paragraph*{Variance in NumCycles after repair with optimizations disabled:} we attribute this variance to other micro-architectural aspects that are not considered by our repair rules (e.g., speculative load and stores). These, however, are not present when compiling with optimizations enabled.
+%\paragraph*{Lack of sensitive branches and loops:} since this benchmark follows CryptoCoding guidelines, it avoids using branches and loops that depend on secrets. Thus, the preloading of data structures becomes the predominant repair rule. Empirically, we see that the number of cache hits and misses now has a variance of zero, but the number of memory cache accesses increases significantly. The large increase of Dcache misses is most likely due to misses during preloading.
+%}
+
+\begin{table}[t]
+    \caption{Simulation Results for AES}
+    \label{tab:AESResult}
+       \centering
+       \resizebox{\linewidth}{!}{
+          \begin{tabular}{|l||l|l|l|l|l||l|l|l|l|l|}
+       \hline
+           &  \multicolumn{5}{|c||}{\texttt{O0}} &  \multicolumn{5}{|c|}{\texttt{O3}} \\ 
+            {Metric} &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c||}{Variance}  &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c|}{Variance} \\ 
+            & Original & Repair & Factor & Original & Repair & Original & Repair & Factor & Original & Repair \\ \hline
+            \hline
+            Size            & 26648    & 22608    & 0.848 & 0        & 0      & 22320    & 30744  & 1.377 & 0      & 0      \\ \hline
+            NumCycles       & 660317.6 & 619675.2 & 0.938 & 172858.8 & 6919.2 & 617122.8 & 632704 & 1.025 & 9447.2 & 128468 \\ \hline
+            Commited Insts  & 95836    & 88221    & 0.921 & 0        & 0      & 87370    & 90187  & 1.032 & 0      & 0      \\ \hline
+            Icache hits     & 129047   & 118874   & 0.921 & 0        & 0      & 117596   & 122196 & 1.039 & 0      & 0      \\ \hline
+            Icache misses   & 997      & 942      & 0.945 & 0        & 0      & 942      & 965    & 1.024 & 0      & 0      \\ \hline
+            Icache accesses & 130044   & 119816   & 0.921 & 0        & 0      & 118538   & 123161 & 1.039 & 0      & 0      \\ \hline
+            Dcache hits     & 129047   & 118874   & 0.921 & 0        & 0      & 117596   & 122196 & 1.039 & 0      & 0      \\ \hline
+            Dcache misses   & 997      & 942      & 0.945 & 0        & 0      & 942      & 965    & 1.024 & 0      & 0      \\ \hline
+            Dcache accesses & 130044   & 119816   & 0.921 & 0        & 0      & 118538   & 123161 & 1.039 & 0      & 0      \\ \hline
+       \end{tabular}
+       }
+       \vspace{-0.2cm}
+   \end{table}
+%
+%\begin{table}[t]
+%  \begin{center}
+%    \caption{Simulation results for AES original binaries}
+%    \label{tab:AESOriginal}
+%    \csvautotabular{AESOriginalResults.csv}
+%   \end{center}
+%\end{table}
+%
+%\begin{table}[t]
+%  \begin{center}
+%    \caption{Simulation results for AES repaired binaries}
+%    \label{tab:AESRepair}
+%    \csvautotabular{AESRepairedResults.csv}
+%   \end{center}
+%\end{table}
+
+\begin{table}[t]
+ \caption{Simulation Results for OpenSSL DES}
+ \label{tab:DESResult}
+    \centering
+    \resizebox{\linewidth}{!}{
+   	\begin{tabular}{|l||l|l|l|l|l||l|l|l|l|l|}
+    \hline
+        &  \multicolumn{5}{|c||}{\texttt{O0}} &  \multicolumn{5}{|c|}{\texttt{O3}} \\ 
+         {Metric} &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c||}{Variance}  &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c|}{Variance} \\ 
+     & Original & Repair & Factor & Original & Repair & Original & Repair & Factor & Original & Repair \\ \hline
+     \hline
+Size            & 37720    & 361264    & 9.578 & 0       & 0        & 28888    & 32984    & 1.142 & 0       & 0        \\ \hline
+NumCycles       & 631279.6 & 1085718.8 & 1.72  & 15402.8 & 270293.2 & 610879.6 & 620995.2 & 1.017 & 10270.8 & 277777.2 \\ \hline
+Commited Insts  & 88047    & 120661    & 1.37  & 0       & 0        & 85776    & 87256    & 1.017 & 0       & 0        \\ \hline
+Icache hits     & 118456   & 164702    & 1.39  & 0       & 0        & 115513   & 117432   & 1.017 & 0       & 0        \\ \hline
+Icache misses   & 1005     & 3539      & 3.521 & 0       & 0        & 952      & 968      & 1.017 & 0       & 0        \\ \hline
+Icache accesses & 119461   & 168241    & 1.408 & 0       & 0        & 116465   & 118400   & 1.017 & 0       & 0        \\ \hline
+Dcache hits     & 118456   & 164702    & 1.39  & 0       & 0        & 115513   & 117432   & 1.017 & 0       & 0        \\ \hline
+Dcache misses   & 1005     & 3539      & 3.521 & 0       & 0        & 952      & 968      & 1.017 & 0       & 0        \\ \hline
+Dcache accesses & 119461   & 168241    & 1.408 & 0       & 0        & 116465   & 118400   & 1.017 & 0       & 0        \\ \hline
+    \end{tabular}
+    }
+\end{table}
+%The Data Encryption Standard (DES) is a symmetric-key algorithm for data encryption. The DES algorithm receives as inputs a secret plaintext $m$ and a secret array of 8 bytes $k$. 
+%
+%We test the OpenSSL implementation of DES available at \cite{OpenSSL}. Similarly to AES, we generate 5 random secret $k$ inputs, but leave the  secret plaintext input $m$ fixed. The results of repairing DES binaries appear in Table~\ref{tab:DESResult}.
+%
+%Similarly to AES, this code follows CryptoCoding guidelines, so most of the repair work is invested in preloading data structures indexed by secrets. However, there may be cases where our tool cannot infer the static size of the data structure (e.g. an array that is embedded in a structure), and the tool skips adding the preloading. This is most likely what causes the small variance in the Dcache hits and misses when repairing the binary that was compiled with no optimizations enabled \texttt{O0}. 
+%
+\begin{table}[t]
+ \caption{Simulation Results for OpenSSL RC4}
+ \label{tab:RC4Result}
+    \centering
+    \resizebox{\linewidth}{!}{
+   	\begin{tabular}{|l||l|l|l|l|l||l|l|l|l|l|}
+    \hline
+        &  \multicolumn{5}{|c||}{\texttt{O0}} &  \multicolumn{5}{|c|}{\texttt{O3}} \\ 
+         {Metric} &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c||}{Variance}  &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c|}{Variance} \\ 
+     & Original & Repair & Factor & Original & Repair & Original & Repair & Factor & Original & Repair \\ \hline  
+    Size & 20856 & 20856 & 1 & 0 & 0 & 16760 & 20856 & 1.244 & 0 & 0 \\ \hline
+        NumCycles & 649490 & 660708 & 1.017 & 0 & 0 & 616062 & 635596 & 1.032 & 0 & 0 \\ \hline
+        Commited Insts & 96169 & 99648 & 1.036 & 0 & 0 & 87699 & 92180 & 1.051 & 0 & 0 \\ \hline
+        Icache hits & 128847 & 133321 & 1.035 & 0 & 0 & 118333 & 124891 & 1.055 & 0 & 0 \\ \hline
+        Icache misses & 960 & 966 & 1.006 & 0 & 0 & 942 & 976 & 1.036 & 0 & 0 \\ \hline
+        Icache accesses & 129807 & 134287 & 1.035 & 0 & 0 & 119275 & 125867 & 1.055 & 0 & 0 \\ \hline
+        Dcache hits & 128847 & 133321 & 1.035 & 0 & 0 & 118333 & 124891 & 1.055 & 0 & 0 \\ \hline
+        Dcache misses & 960 & 966 & 1.006 & 0 & 0 & 942 & 976 & 1.036 & 0 & 0 \\ \hline
+        Dcache accesses & 129807 & 134287 & 1.035 & 0 & 0 & 119275 & 125867 & 1.055 & 0 & 0 \\ \hline
+    \end{tabular}
+    }
+\end{table}
+
+
+
+\begin{table}[t]
+ \caption{Simulation Results for \texttt{gdk\_unicode\_to\_keyval}}
+ \label{tab:gdklibResult}
+    \centering
+    \resizebox{\linewidth}{!}{
+   	\begin{tabular}{|l||l|l|l|l|l||l|l|l|l|l|}
+    \hline
+        &  \multicolumn{5}{|c||}{\texttt{O0}} &  \multicolumn{5}{|c|}{\texttt{O3}} \\ 
+         {Metric} &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c||}{Variance}  &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c|}{Variance} \\
+         & Original & Repair & Factor & Original & Repair & Original & Repair & Factor & Original & Repair \\ \hline
+         \hline
+         Size            & 22520    & 47096  & 2.091 & 0       & 0 & 20520    & 192552    & 9.384 & 0        & 0        \\ \hline
+         NumCycles       & 594394.4 & 672250 & 1.131 & 24780.8 & 0 & 594569.6 & 1044676.4 & 1.757 & 229836.8 & 126774.8 \\ \hline
+         Commited Insts  & 83921    & 91832  & 1.094 & 125     & 0 & 83820.4  & 119655    & 1.428 & 3678.8   & 0        \\ \hline
+         Icache hits     & 113138   & 122786 & 1.085 & 245     & 0 & 112984.4 & 162846    & 1.441 & 5671.8   & 0        \\ \hline
+         Icache misses   & 905      & 1318   & 1.456 & 0       & 0 & 901      & 3612      & 4.009 & 0        & 0        \\ \hline
+         Icache accesses & 114043   & 124104 & 1.088 & 245     & 0 & 113885.4 & 166458    & 1.462 & 5671.8   & 0        \\ \hline
+         Dcache hits     & 113138   & 122786 & 1.085 & 245     & 0 & 112984.4 & 162846    & 1.441 & 5671.8   & 0        \\ \hline
+         Dcache misses   & 905      & 1318   & 1.456 & 0       & 0 & 901      & 3612      & 4.009 & 0        & 0        \\ \hline
+         Dcache accesses & 114043   & 124104 & 1.088 & 245     & 0 & 113885.4 & 166458    & 1.462 & 5671.8   & 0        \\ \hline\hline
+    \end{tabular}
+    }
+\end{table}
+
+\begin{table}[t]
+ \caption{Simulation Results for \texttt{gdk\_keyval\_name}}
+ \label{tab:gdklibNameResult}
+    \centering
+    \resizebox{\linewidth}{!}{
+   	\begin{tabular}{|l||l|l|l|l|l||l|l|l|l|l|}
+    \hline
+        &  \multicolumn{5}{|c||}{\texttt{O0}} &  \multicolumn{5}{|c|}{\texttt{O3}} \\ 
+         {Metric} &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c||}{Variance}  &  \multicolumn{3}{|c|}{Average} & \multicolumn{2}{|c|}{Variance} \\ 
+         & Original & Repair & Factor & Original & Repair & Original & Repair & Factor & Original & Repair \\ \hline
+         \hline
+Size            & 49456     & 53552  & 1.083 & 0        & 0 & 49080     & 368568     & 7.51  & 0       & 0          \\ \hline
+NumCycles       & 595192.48 & 606580 & 1.019 & 16235.09 & 0 & 593816.56 & 1429166.72 & 2.407 & 1635.51 & 1023769.29 \\ \hline
+Commited Insts  & 83977.32  & 85130  & 1.014 & 51.14    & 0 & 83848.12  & 149118     & 1.778 & 11.86   & 0          \\ \hline
+Icache hits     & 113206.12 & 114574 & 1.012 & 94.61    & 0 & 113021.44 & 205123     & 1.815 & 17.17   & 0          \\ \hline
+Icache misses   & 901       & 970    & 1.077 & 0        & 0 & 899       & 5913       & 6.577 & 0       & 0          \\ \hline
+Icache accesses & 114107.12 & 115544 & 1.013 & 94.61    & 0 & 113920.44 & 211036     & 1.852 & 17.17   & 0          \\ \hline
+Dcache hits     & 113206.12 & 114574 & 1.012 & 94.61    & 0 & 113021.44 & 205123     & 1.815 & 17.17   & 0          \\ \hline
+Dcache misses   & 901       & 970    & 1.077 & 0        & 0 & 899       & 5913       & 6.577 & 0       & 0          \\ \hline
+Dcache accesses & 114107.12 & 115544 & 1.013 & 94.61    & 0 & 113920.44 & 211036     & 1.852 & 17.17   & 0          \\ \hline
+    \end{tabular}
+    }
+\end{table}
+
+% \section{Discussion}
+% \label{sec:Limitations}
+% In this section, we briefly discuss the limitations and possible extensions of our approach.
+% %The crypto benchmarks are written following CryptoCoding guidelines, and their results illustrate how enabling compiler optimization could introduce variance in terms of cache hits and misses. Thus, it is worth remarking the following:
+% %\paragraph*{Variance in NumCycles after repair with optimizations disabled:} we attribute this variance to other micro-architectural aspects that are not considered by our repair rules (e.g., speculative load and stores). These, however, are not present when compiling with optimizations enabled.
+% %\paragraph*{Lack of sensitive branches and loops:} when a benchmark follows CryptoCoding guidelines, it avoids using branches and loops that depend on secrets. Thus, the preloading of data structures becomes the predominant repair rule. Empirically, we see that the number of cache hits and misses now has a variance of zero, but the number of memory cache accesses increases significantly. The large increase of Dcache misses is most likely due to misses during preloading.
+\section{Related Work}
+\label{sec:RelatedWork}
+%\todo[inline]{CSF papers on side channels, would be good to cite}
+
+% \paragraph*{Detection and repair of timing side-channels}
+The existing solutions for closing timing side-channels proposed by researchers in both computer security and programming languages can be classified into two complementary main categories: \emph{verification and testing} solutions and \emph{enforcement} solutions. {Verification and testing} solutions address the problem of checking whether a system has any TSC vulnerabilities. {Enforcement} solutions ensure that the resulting systems have no TSC vulnerabilities. %Additionally, verification and enforcement techniques work at different levels; some work at \emph{source/language level}, others at \emph{intermediate/compiler level} and others at \emph{binary/assembly level}.
+
+\paragraph*{Verification Solutions}
+Verification solutions help us determine whether a system has timing side-channel vulnerabilities, but they do not offer automated repair solutions. There are verification solutions for source (e.g., ABPV13~\cite{ABPV13},Low$^*$\cite{LowStar} and \cite{7958606}), intermediate  (e.g., \cite{usenix_ctp_verification,FlowTracker}), assembly (e.g., \cite{Jasmin, Vale}) and binary (e.g., \cite{CacheAudit,KMO12}) levels. We refer the interested reader to Barbosa et al. \cite[\S IV]{timing-channel-survey}, which contains an overview of tools for side-channel resistance. 
+
+%We consider the methodology presented in \cite{SecureCompilation} to be part of verification solutions. 
+The verification procedure presented in \cite{SecureCompilation} does not determine whether programs satisfy TSCF or not; instead, they verify whether compilers preserve the cryptographic constant-time properties of programs during compilation. This is a far better guarantee that just trusting the compilers to do so. They do not address the problem of program repair.
+
+ORIGAMI is a static enforcement repair solution, so it does not fit the verification category. However, we believe that ORIGAMI could be used in conjunction with verification solutions to check which programs effectively need repair before applying ORIGAMI unnecessarily. 
+
+\paragraph*{Testing Solutions}
+Testing solutions like ct-fuzz~\cite{ct-fuzz} and ~\cite{stvr.1718} aim to provide counterexamples that violate TSCF. By a counterexample, we mean two sensitive inputs that could cause a program to display different execution times. However, these testing solutions do not repair programs in case that they find a counterexample. Similarly to verification solutions, we believe that ORIGAMI can be used in conjunction with these testing solutions.%Testing solutions may prove that a program violates TSCF faster than verification tools, but they cannot convincingly prove that the program satisfies TSCF. Moreover, these solutions also do not repair programs in case that they find a counterexample.
+
+\paragraph*{Enforcement solutions}
+Enforcement solutions are quite diverse, and can be further subdivided into two categories: \emph{runtime enforcement}  and \emph{static enforcement}. 
+
+Runtime enforcement solutions, like \textsc{Schmit}~\cite{Schmit}, alter the \emph{execution} of programs to dynamically reduce the leakage of existing side channels. Static enforcement solutions modify the programs before execution, and do not monitor their execution.
+
+Static enforcement solutions can be further subdivided into two categories: \emph{synthesis} and \emph{repair}. \emph{Synthesis} solutions apply a security-by-design principle, so systems generated by this tools satisfy TSCF. Among synthesis tools we find FaCT \cite{FaCT} and CompCert \cite{CompCert}. 
+FaCT is a C-like DSL that always generates constant-time LLVM bitcode, and CompCert is a certified compiler that ensures that properties satisfied by the original program are preserved in the compiled program. We appreciate the security-by-design aspect offered by FaCT: if only secure programs can be written, then TSCF is automatically enforced. However, this guarantee only holds if optimization passes are disabled, since they might introduce TSC vulnerabilities. Moreover, FaCT simply reject programs that access data structures with secrets. Unlike FaCT, we let the compiler apply any optimizations it deems necessary, and then we use the ORIGAMI rules to ensure the resulting code satisfies TSCF under the MAP leakage model. 
+
+\emph{Program repair} solutions like Racoon\cite{Racoon}, \textsc{SC-Eliminator}~\cite{SCEliminator} and \cite{MSESC} often modify programs at the IR level (i.e., they modify the front-end of the compiler). All static enforcement solutions assume that actors further ahead in the compilation and execution processes do not undo their modifications to the program. Other repair solutions, like oo7 \cite{oo7} work at lower levels, but they protect programs against Spectre V1 attacks, and not against leakage caused directly by the program.
+
+Our tool is mostly similar to Racoon, \textsc{SC-Eliminator} and the solution proposed in \cite{MSESC} because we do static enforcement; however, ORIGAMI offers an advantage over each of these three solutions. The tool in~\cite{MSESC} does not repair programs with respect to the MAP leakage model (they repair with respect to the baseline model), the rules proposed by \textsc{SC-Eliminator} are unsound in the context of the MAP leakage model, and while Racoon does offer some protection against the MAP leakage model, the performance overhead has a geometric mean of 16x, while ORIGAMI has a performance overhead of ~1.24x when repairing programs that do not require loop unrolling. 
+
+\paragraph*{Shared limitations} similarly to Racoon and \textsc{SC-eliminator}, ORIGAMI does not repair recursive calls, does not offer security guarantees over side-effects (e.g. I/O system calls), and does not repair programs whose timing side-channel vulnerability stems from the usage of functions whose execution time depends on their parameters (i.e., programs vulnerable in the OS leakage model). 
+
+\paragraph*{Spectre V1} Spectre V1 attacks~\cite{Spectre} rely on the speculative execution of a gadget of the form $x:=B[A[s]]$ to leak secrets into the cache. Under the MAP leakage model, $x:=B[A[s]]$ reveals $A[s]$ when the program \textbf{if} $s<size_A$ \textbf{then} $x:=B[A[s]]$ executes, so if some secret value $k$ is speculatively accessed via the $A[s']$, and then loaded in memory by $B[A[s']]$, the attacker can reverse engineer the value of $A[s']$, which is $k$. While Spectre attacks load secrets in the cache through speculative execution, we focus on repairing programs that load secrets directly via memory access patterns. 
+
+ORIGAMI does not defend against Spectre type attacks. Our security guarantees only apply for non-speculative behaviours of the program. To repair programs that exhibit speculative leaks, we recommend to use a methodology that finds speculative leaks (e.g.~\cite{pitchfork}) or a methodology that prevents speculative leaks by cutting dataflows from sensitive sources to speculative sinks (e.g. \textsc{Blade}~\cite{Blade}).
+
+% Our tool %works at the level of functions, and it 
+% relies on programmer annotations to inform the compiler which variables could be secret. In this sense, while the programmer no longer needs to follow CTP guidelines, they have to carefully annotate variables, as otherwise the program will not be properly repaired.
+% % \paragraph*{\textsc{SC-Eliminator}, Racoon, MSESC and ORIGAMI}
+% The advantages of ORIGAMI with respect to these tools are less overhead and sound enforcement of TSCF. 
+
+
+% \text
+
+% % Both Racoon and SC-Eliminator do not protect against , since they do not completely eliminate sensitive loops; our tool unfolds those sensitive loops and removes any sensitive branches, turning the sensitive parts of the program that contain loops into straight-line code. We do share some limitations with these tools, though: we do not repair calls to external libraries, we do not repair recursive calls, and we do not repair side-effects in general (e.g. I/O statements). 
+
+
+% {\color{red}
+% %We take a closer look at the differences and similarities between our tool and both Racoon and SC-Eliminator.
+
+
+
+% SC-Eliminator performs code standardisation to ease program repair, but their notion of standardised code is informal. We improve on this by using the GKAT formalism and with well-nested CFGs. By transforming CFGs into their well-nested form, we can repair programs that contain loops with multi-level \texttt{break} and/or \texttt{continue} instructions, and, although these programs do not present a fundamental challenge to Racoon, the latter does not repair them.
+
+% We remark that SC-Eliminator creates programs where the bound of sensitive loops is independent of sensitive variables, but these loops have an arbitrary bound, proportional to the number of bits of sensitive variables. This may compromise the functionality of the repaired program, since a looped statement may need be executed more than this arbitrary bound. %(several of the STAC benchmarks display this behaviour). 
+% We empower the programmer via annotations so they report the number of times the loop executes in a worse-case scenario. This responsibility could be removed from the programmer if the compiler can infer this bound automatically. \vspace{-0.1cm}
+% \todo[inline]{One way to solve it is by \emph{bit-slicing} the data structure A. How does bit-slicing relate to folding??}
+
+% MSESC as shown in Figure~\ref{fig:wrongLeakageModel}, 
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=\linewidth]{figs/LuigiFail.png}
+%     \caption{Taken from \cite{MSESC}. The transformed program \texttt{foo} (below) illustrates the repair rule proposed in \cite{MSESC}. This rule is sound if \texttt{i} is not a secret. However, if \texttt{i} is a secret, then the value of \texttt{i} leaks if \texttt{i<n} under the leakage model that accounts for memory access patterns, which states that the value of indices used to access data structures are leaked via the cache.} %Spectre V1 attackers use this gadget to recover secrets that were leaked into the cache via speculative execution.}%
+%     %\Description{Reason why .}
+%     \label{fig:wrongLeakageModel}
+% \end{figure}
+
+ %Nevertheless, the programmer can safely over-annotate functions
+%Poorly annotated programs are not repaired correctly. 
+%We can support public outputs, but the responsibility rests with the programmer: our function-level taint analysis. We prevent the inlining of functions, so calls to function without annotations are considered to work over public inputs and need not be repaired.s
+%, and if it does nsot pass the check, then the compiler can enforce TSCF by applying the repair rules.
+
+% Finally, since our methodology uses no tool other than the compiler, we need to use general rules to enforce TSCF. These rules, while sound, are not optimal, and they could be improved by using additional tools and information. For example, if the compiler has a model of the memory (i.e., target-specific information), then it could reduce the number of preload instructions and still enforce TSCF. 
+% \todo[inline]{@Sudipta. Can you please make sure that the following is technically correct?}
+
+% in this scenario, it is technically possible to cache \texttt{k} by computing \texttt{A[size\_A]}. 
+% In normal circumstances, the caching of \texttt{A[size\_A]} never occurs
+% %if \texttt{s>=size\_A}, then the instruction . 
+% However, during speculative execution, a misprediction of the branch executes \texttt{x:=B[A[size\_A]]}, caching \texttt{k}. 
+% An attacker can then check which sections of \texttt{B} result in cache hits, and it can infer the value of \texttt{k} using a Flush+Reload sequence \cite{Flush+Reload}. Our repair rules do not protect against these speculative execution attacks, because it is still possible to speculatively execute \texttt{x:=B[A[size\_A]]} even when all $s$, $A$ and \texttt{B} are considered public values in the program \verb+if s<size_A then x:=B[A[s]]+branch. %We guarantee that as long as the value being loaded is within the original boundaries of the data structure, the
+
+\section{Conclusion}
+\label{sec:Conclusion}
+Although ORIGAMI offers a sound approach to enforcing timing side-channel freedom (TSCF) with respect to the memory access pattern (MAP) leakage model, there is still a long way to go until true TSCF is achieved. Most notably, ORIGAMI does not repair programs that are vulnerable with respect to the operand sensitive leakage model (OS), but adds another layer of security by repairing programs that are safe with respect to the baseline leakage model, but unsafe with respect to MAP leakage. 
+
+While we share the philosophy of ~\cite{WhatYouCisWhatYouGet}, and we expect compilers to take over the task of enforcement of TSCF instead of the programmer, we believe that as long as hardware does not offer strong TSCF guarantees which can be depended on and rightfully used by compilers, any software based solution for TSCF enforcement, including ORIGAMI, will remain conditional, and thus not entirely reliable. Nevertheless, while this type of hardware is available, software-based solutions can mitigate timing side-channel vulnerabilities.
+}
