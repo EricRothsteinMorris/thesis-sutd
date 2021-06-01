@@ -922,3 +922,78 @@ A \emph{latent vulnerability problem} consists of a given a pointed $F$-coalgebr
 % \begin{proposition}[Every Strategy is an Attack]
 % For all $\DTS$-coalgebras $\TheCoalgebra=(X,\gamma,\delta,x_0)$ and every strategy $\lambda\in\Lambda$\todo{complete}
 % \end{proposition}
+
+
+
+
+Monotonicity offers us mainly two advantages: 1) we can plan the order of attackers to be checked, and 2) we can propagate the results in case a solution fails.
+\todo[inline]{Explain this better. You really need to have clear notions of solution and problems.}
+% \begin{definition}[Minimal Attacker]
+% \todo[inline]{Probably one of the most esoteric definitions here. It is wrt a particular problem? a particular attack, a property?}
+% \end{definition}
+
+%\todo[inline]{Should we just focus on DTS? NO!  The DTS I wanted to use does not have loops, so it is clear that we can keep doing this in the current modelling.}
+% \begin{definition}[Emulation Problem]
+% We say 
+% \end{definition}
+ 
+%  \section{Solving Latent Vulnerability Problems}
+ 
+%  \subsection{Alternative formulations}
+%  \begin{definition}[Target Value]
+% Given an $F$-coalgebra $\TheCoalgebra=(X,c)$ with components in $\Pi$, a \emph{target value} is a proposition $x[\pi]==v$, modelled by the triple $(x,\pi,v)$ where $x\in X$, $\pi\in \Pi$ and $v$ is a value in the range of component $\pi$.
+% \end{definition}
+ 
+% \subsection{Exhaustive Search}
+% Given an attacker $A$ of an $F$-coalgebra $\TheCoalgebra=(X,c)$ and a target behaviour $\sigma$, we could perform an exhaustive search over the domain of its attacks if the carrier $X$ is finite.  A naive, exhaustive search would choose an attack $m$, mutate $\TheCoalgebra$, then perform a bisimulation check to see if there exists a state $x$ such that its latent behaviour $\TheLatentBehaviourOfIn{x}{m}{\TheCoalgebra}$ is equal to $\sigma$.
+
+% Since the search space is finite, if we cannot find an attack $m$ within the capabilities of $A$, then the system $\TheCoalgebra$ is safe with respect to $A$.
+
+% \begin{example}
+% \todo[inline]{For the example we can show that it can be solved}
+% \end{example}
+
+
+% \subsection{Using SMT Solvers}
+% Due to our formulation, we have a perfect information deterministic game, like Chomp~\cite{Chomp}. Our idea is to leverage an SMT solver to give us a winning move for the attacker, or prove that such move does not exist. For the remainder of this section, we focus on $\DTS$-coalgebras.
+
+% \todo[inline]{Rephrase this as a reachability problem. i.e. instead of a target value, use a set of goal states defined by the target values.}
+% \todo[inline]{HERE I AM}
+% \begin{definition}[Winning Latency Games]
+% Let $A$ be an  attacker, $\TheCoalgebra=(X,\gamma,\delta,x_0)$ be a pointed $\DTS$-coalgebra, and consider a set of target values $(\pi_1,v_1),...,(\pi_n,v_n)$. We say that the attacker $A$ \emph{wins the latency game in zero steps} if and only if there exists an attack $m$ in $\texttt{attacks}(A)$ such that $m(x_0)[p_k]=v_k$, for $k=1..n$. If a solution is found in zero steps, then all target components $\pi_1$ to $\pi_n$ must be in control of $A$, i.e., $\set{\pi_1, \ldots, \pi_n}\subseteq A$.
+
+% The attacker $A$ \emph{wins the latency game in $\tau$ steps given the inputs $(i_1, \ldots, i_\tau)$ with the attack $m$ at state $x_{\tau}$} if and only if there exists a sequence of states $(x_1, \ldots, x_\tau)$, where
+% \begin{align}
+% %m_{\tau+1}(x_{\tau +1})=x_\tau(
+% x_{t+1}=\delta(m (x_{t}))(i_t), \quad \text{for $t=0..{\tau-1}$}
+% \end{align}
+% and
+% \begin{align}
+% m(x_\tau)[p_k]=v_k,\quad \text{ for $k=1..n$.}
+% \end{align}
+% \end{definition}
+
+
+% \begin{proposition}[Composition through Emulation]
+% \todo[inline]{There are several ways to compose attackers: through $\delta$ and through $m$. The message I want to carry across is the following: if you know that you can solve a latency game from a state $x$, then 
+%  I already have a notion of winning over time, so I just need to emulate the attack of other attackers to reach my goal.}
+% If an attacker $A$ can win a latency game in $\tau$ steps given the inputs $i_1, \ldots i_{\tau}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{0})$ with an attack $m$, then an attacker $A'$ can win the same latency game in $\tau+t$ steps given the input $i_1, i_2, \ldots i_{\tau+1}$ in the pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_{-t})$ if and only if 
+% \begin{align}
+% \delta
+% \end{align}
+
+% %Given a pointed $\DTS$-coalgebra $(X,\gamma,\delta, x_0)$, an attacker $A_0$ can win a given latency game in ${\tau+1}$ steps given the inputs $(i_1, \ldots, i_\tau, i_{\tau+1})$ with some attack $m$ at some state $x_{\tau+1}$ if and only if there exists an attacker $A_{\tau}$ that can win the given latency game in one step in the pointed $\DTS$-coalgebra $(X,m\gamma,\delta, x_{\tau})$.
+% \end{proposition}
+% \begin{proof}
+% The main objective of $A_0$ is to reach state $x_{\tau}$ and from there 
+% \end{proof}
+
+
+%\begin{proposition}
+%\label{sec:Incompleteness}
+%Given an arbitrary $F$-coalgebra $\mathbb{X}=(X,c)$ and a behaviour $\rho\in \sigma F$, there may not exist a transformation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$.
+%\end{proposition}
+%\begin{proof}
+%We provide a counterexample for the opposite proposition, that is, there exists a transformation $m\colon X\rightarrow X$ such that $\rho$ is a latent behaviour of $\mathbb{X}$ under $m$, for all $F$-coalgebras and all behaviours in $\sigma F$. 
+%Consider, for the functor $F=2\times \texttt{id}^2$, a single-state $F$-coalgebra that accepts all sequences; this $F$-coalgebra cannot display a latent behaviour different from its original behaviour.
+%\end{proof}
