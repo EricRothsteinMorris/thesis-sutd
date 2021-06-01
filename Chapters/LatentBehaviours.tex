@@ -403,81 +403,63 @@ We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ a
 % There are two dimensions we can explore: one, given $(X, c)$ and $m$, we can iterate over $\mathcal{R}$ and check whether $(X,c)$ and $(X,c\circ m)$ satisfy $R$ for $R\in \mathcal{R}$, or two, given $(X,c)$ and $\mathcal{R}$
 % % Different $F$-coalgebras have different sets of attacks. In our framework, a minimal $F$-coalgebra $(X,c)$ has as many attacks as $|X|^{|X|}$.
 
-
 \subsection{Classification of Attackers}
-Not all spatial transformations affect behavioural properties in the same way. 
-\todo[inline]{rewrite the following, it is outdated. Here we should provide a small introduction, not definitions and all that, right?}
+We have not discussed how we systematically generate attacks and counter attacks for an $F$-coalgebra $(X,c)$. Both attacks and counter attacks are spatial transformations, so they are elements of the set $X^X$. %Depending on the properties of $X$, we obtain different ways to generate attacks. For example, if $X$ is enumerable and finite, then their spatial transformations are also enumerable. 
+Our goal is the following: given an \emph{attacker model} (whatever that is), we want to automatically obtain a set of attacks $\mathcal{M}$, which we can use to perform LBA on the $F$-coalgebra $(X,c)$. We can use the results of this analysis to quantify robustness as shown in Chapter~\ref{ch:CPSRobustness}. In this section, we are interested in also varying the attacker model, and in comparing them.
 
-Intuitively, an attacker can be modelled by the set of attacks they have at their disposal. However, we avoid defining attackers by enumerating their attacks, since there may be infinite, and instead we will define them by the set of components of the system that they control. 
-    \begin{definition}[Attacker]
-    Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a {finite} subset of $\Pi$ whose semantics is a set of attacks defined by the function $\texttt{attacks}\colon \TheFinitePowersetOf{\Pi}\rightarrow\ThePowersetOf{X^X_\omega}$ as follows. 
-    For $j\in \set{1, \ldots,  n}$ and all $x\in X$,
-    \begin{align}
-    %\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ $f$ is consistent, and if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
-    \texttt{attacks}(A)=\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$}}.
-    \end{align}
-    %{\color{red}
-    %equivalently
-    %\begin{align}
-    %\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
-    %\end{align}
-    %}
-    In other words, $A$ has access to the set of attacks that can only affect the components that $A$ has direct control of.
-     \end{definition}
- \begin{example}[Attackers of the system from Section~\ref{sec:Latent:Motivation} and their Semantics]
- The carrier $2\times 2$ has two components, $\fst$ and $\snd$, so there are four attacker models: $\emptyset$, $\set{\fst}$, $\set{\snd}$ and $\set{\fst,\snd}$. The attacks of the attacker $\emptyset$ do not mutate any component, i.e., $\texttt{attacks}(\emptyset)=\set{\id}$, and the attacks of $\set{\fst}$ and $\set{\snd}$ only affect the first/second component, respectively. The attacker $\set{\fst,\snd}$ has access to all attacks.
- \end{example}
+Consider an $F$-coalgebra $(\vec{X},c)$ such that $\vec{X}$ is a product type of finite types; e.g., $\vec{X}=2\times 2$. We use the coordinates of $\vec{X}$, e.g., $\fst$ and $\snd$ to define attacker models. 
+\begin{definition}[Invariant Attacker Model]
+\label{def:Latent:InvariantAttackerModel}
+Let $(\vec{X},c)$ be an $F$-coalgebra such that $\vec{X}$ is a product type whose coordinates are $\Pi=\set{\pi_1, \ldots, \pi_n}$ where $\pi_i\colon \vec{X}\rightarrow A_i$; an \emph{invariant attacker model} $\alpha$ is a mapping which takes each coordinate $\pi_i\in\Pi$ to a set of transformations $\mathcal{T}_i\subseteq A_i^{A_i}$ such that the following conditions are satisfied:
+\begin{itemize}
+    \item the attacker can always do nothing, i.e., $\id_{A_i}\in \mathcal{T}_i$; 
+    \item if the attacker can transform the coordinate $\pi_i$ using $f\in \mathcal{T}_i$, and they can transform $\pi_i$ using $g\in \mathcal{T}_i$, then they should be able to transform $\pi_i$ using $g\circ f$; i.e., if $f,g\in \mathcal{T}_i$, then $g\circ f\in \mathcal{T}_i$.
+\end{itemize}
+\end{definition}
+For a coordinate $\pi\in \Pi$, a transformation $f\in\alpha(\pi)$ acts on a state $\vec{x}\in \vec{X}$ by substituting the value of coordinate $\pi_i$ at state $\vec{x}$ with $f(x[\pi_i])$; i.e., we can extend $f$ to a function of type $f^\flat\colon X\rightarrow X$ defined by 
+\begin{align*}
+    f^\flat(\vec{x})[\pi_j]\triangleq\begin{cases}
+        f(\vec{x}[\pi_j]),&\quad\text{if $i=j$};\\
+        \vec{x}[\pi_j],&\quad\text{otherwise.}
+    \end{cases}
+\end{align*}
+The natural extensions from $f\in \alpha(\pi)$ to $f^\flat\in \vec{X}^{\vec{X}}$ lifts the attacker model $\alpha$ into a set of generator functions for the set $\AsSequence{\alpha}\subseteq \vec{X}^{\vec{X}}$, where $\AsSequence{\alpha}$ is smallest set satisfying the following conditions:
+\begin{itemize}
+    \item for all $\pi\in \Pi$ and $f\in \alpha(\pi)$, $f^\flat \in \AsSequence{\alpha}$;
+    \item for all $f,g\in \AsSequence{\alpha}$, $g\circ f \in\AsSequence{\alpha}$.
+\end{itemize}
+
+\begin{example}[Some Invariant Attacker Models for Example~\ref{ex:Latent:TheExample}]
+\label{ex:Latent:ExampleAttacker}
+    Since $\vec{X}=2\times 2$, we have two coordinates: $\fst\colon \vec{X}\rightarrow 2$ and $\snd\colon \vec{X}\rightarrow 2$ mapping $(x,y)\xmapsto{\fst}x$ and $(x,y)\xmapsto{\snd}y$. The trivial attacker model is an attacker that does nothing, and it corresponds to the attacker model $\id$ which maps $\fst$ to $\set{\id_2}$ and $\snd$ to $\set{\id_2}$. The lifting of these functions yield the set $\AsSequence{\id}=\set{\id_{2}^\flat}$ with $\id_{2}^\flat=\id_X$.
+
+    We consider three other attackers now: one which has full control over $\fst$ but no control over $\snd$, one which has full control over $\snd$ but not over $\fst$, and one attacker that has full control over both $\fst$ and $\snd$. The attacker with no control over $\fst$ or $\snd$ is the attacker which generates $\AsSequence{\id}$. 
+
+    The attacker with full control over $\fst$, denoted $\alpha_1$, maps $\snd$ to $\set{\id_2}$ and $\fst$ to $2^2$. The set $\AsSequence{\alpha_1}$ is the set of functions in $\vec{X}^{\vec{X}}$ which only affect the $\fst$ coordinate. Similarly, the attacker with full control over $\snd$, denoted $\alpha_2$, maps $\fst$ to $\set{\id_2}$ and $\snd$ to $2^2$. Dually, the set $\AsSequence{\alpha_2}$ is the set of functions in $\vec{X}^{\vec{X}}$ which only affect the $\snd$ coordinate. We study these type of attackers which invariantly affect only one coordinate in Chapter~\ref{ch:Classification}. 
+
+    There are attackers with partial control over $\fst$ and $\snd$; e.g., an attacker $\beta$ which maps $\fst$ to $\set{\Delta_1, \id}$ (i.e., $\Delta_1$ is the constant function that maps $b\in 2$ to 1), which generates $\AsSequence{\beta}=\set{\Delta^\flat_1, \id_2^\flat}$, where
+    \begin{align*}
+        \Delta^\flat_1(\vec{x})[\fst]=1,\quad\text{and}\quad \Delta^\flat_1(\vec{x})[\snd]=\vec{x}[\snd].
+    \end{align*}
+    Note that $\AsSequence{\beta}\subseteq\AsSequence{\alpha_1}$. Henceforth we only consider attackers which have full control over a particular set of coordinates since we did not find any practical scenarios where restricting the control of attackers over a particular coordinate offered a significant gain over the attacker with full control over such a coordinate.
+
+    The attacker with full control over $\fst$ and $\snd$, denoted $\alpha^*$, can affect both $\fst$ and $\snd$ at the same time. However, this does not mean that $\AsSequence{\alpha^*}$ is equal to $\vec{X}^{\vec{X}}$, since there are still functions that cannot be generated by the combination of individual effects on independent coordinates. For example, consider the function $m\colon \vec{X}\rightarrow \vec{X}$ from Example~\ref{ex:Latent:TheExample} where $m(x,y)=(y,x)$; this function cannot be written in terms of a product function $f\times g\colon 2\times 2\rightarrow 2\times 2$, with $f\colon 2\rightarrow 2$ and $g\colon 2\rightarrow 2$.
+    In Chapter~\ref{ch:CPSRobustness}, we add a more flexibility to attacker models so that they are no longer invariant, and we can generate arbitrary functions in $\vec{X}^{\vec{X}}$.
+\end{example}
+Given an $F$-coalgebra $(\vec{X},c)$ where $\vec{X}$ is a product type of finite types whose coordinates are $\Pi=\set{\pi_1,\ldots,\pi_p}$, and a list of requirements $\mathcal{R}=\set{R_1, \ldots, R_n}$, we can systematically generate invariant attacker models by choosing a subset of coordinates in $\Pi$. Under this formulation, the set of invariant attacker models is characterised by $\ThePowersetOf{\Pi}$. The attacker model corresponding to $\emptyset$ is the passive attacker, and the attacker 
+
+Now that we have a systematic way to generate attacker models as well as attacks, we can combine the robustness LBA with the systematic generation of attacker models to classify attacker models. More precisely, 
+
+\begin{definition}[Attack Ordering]
+    Given two attacks $m_1, m_2$ and an $F$-coalgebra $\TheCoalgebra$, we say that $m_1\lesssim_\TheCoalgebra m_2$ if and only if $\supp(m_1) \subseteq \supp(m_2)$, and $m_1(x)\sim_\TheCoalgebra m_2(x)$ for all $x\in \supp(m_1)$. In other words, any $x$ that $m_1$ mutates can also be mutated by $m_2$ in the same way, in the context of the coalgebra $\TheCoalgebra$. We omit the subscript $\TheCoalgebra$ when it is clear from the context, or it is irrelevant.
+    \end{definition}
 
 {\color{red}
-There is an attacker model associated with latent vulnerabilities: attackers that can change the value of state variables, but not the program that defines the system. This later attacker would correspond to one that can arbitrarily change the coalgebra, and is in that sense a much stronger attacker. If the attacker can enforce any behaviour they want, it becomes too powerful to defend against; all coalgebras are vulnerable, and no fix is available. However, an attacker that exploits a latent vulnerability is a bit in the middle: it can change the coalgebra by means of a transformation/attack function, but only through those. In that sense, not every behaviour is at the reach of the attacker, only those who are latent.
-
-We can do a further refinement: we can imagine attackers that control particular components of a state by partitioning states into controllable parts and observable parts
-\todo[inline]{Is there a difference? We could show that every attacker that controls a component induces a transformation, and all transformations can be modelled by attackers that control a certain number of components. Right?}
-
-%  \todo[inline]{Commented is the definition with ranges, but it is kinda complicated. For spectre, we define the strategy first, then we think of what attacker we are, and for vulnerabilities, we will define the attacker first, and then we find the strategy.}
-% 
-% \begin{definition}[Attacker]
-%Given a functor $F$ and an $F$-coalgebra $\mathbb{X}=(\vec{X},c)$, such that $\vec{X}$ has components $\Pi=\set{\pi_1, \ldots, \pi_n}$, an \emph{attacker} of $\mathbb{X}$, say $A$, is a pairing of a {finite} subset of $\Pi$, namely $A[\Pi]$, and a map $A[\texttt{range}]$ that associates each component in $A[\Pi]$ with a range of possible values; formally, $A[\texttt{range}(\pi_j)]\subseteq \Pi_j$, for all $\pi_j \in A[\Pi]$. %Formally, the type of attackers is $\TheFinitePowersetOf{\Pi} \times \ThePowersetOf{\Pi \times \vec{X}}$
-%
-%The semantics of an attacker is given by the set of attacks defined by the function $\texttt{attacks}\colon \texttt{Attackers}\rightarrow\ThePowersetOf{X^X_\omega}$ as follows. 
-%For $j\in \set{1, \ldots,  n}$,  
-%\begin{align}
-%\texttt{attacks}(A)&\triangleq\set{f\in X^X_\omega | \text{ if $\pi_j \not\in A$, then $f(x)[\pi_j]=x[\pi_j]$, for all $x\in X$}}\cap\\
-%&\set{f\in X^X_\omega | \text{ if $\pi_j \in A$, then $f(x)[\pi_j]\in \texttt{control}(A)(\pi_j)$, for all $x\in X$}}
-%\end{align}
-%{\color{red}
-%equivalently
-%\begin{align}
-%\texttt{attacks}(A)=\set{f\in X^X_\omega | \text{if $f(x)[\pi_j]\neq x[\pi_j]$, then $\pi_j \in A$, for all $x\in X$}}.
-%\end{align}
-%}
-%In other words, we associate to $A$ the set of attacks where, if $A$ does not contain the component $\pi_j$, then the attacks cannot change the value of $\pi_j$ when mutating states.
-% \end{definition}
-% 
-% 
-%  \todo[inline]{We can refine this definition of attackers with $(\pi_j, Y_j)$, with $Y_j\subseteq X_j$, instead of just $\pi_j$. HoWEVER, I highly encourage against this, because it overcomplicates things unnecessarily.}
-%  \todo[inline]{I like writing $j\in n$, but this means enumeration should start from 0...I can probably use that in my language though}
-
-
-% %  \subsection{Attacks over Discrete Time Systems}
-% %  \todo[inline]{DO NOT FORGET THAT YOU CAN ASSUME $x(t)\neq x(t+k)$ for all $k$, because otherwise, you would have taken a different decision before!!! it's like going on a loop on a chessboard.}
-% % Recall that we model discrete time systems with pointed $\DTS$-coalgebras of the functor $\DTS=O\times X^I$ for some fixed sets $O$ and $I$. Instead of describing attacks as some general mapping over the carrier set, we might want to describe attacks as changes in the current state. We call this notion of individual transformation a \emph{strategy}, and it is formalised as follows:
-% % \begin{definition}[Strategy]
-% % Given a $\DTS$-coalgebra $\TheCoalgebra=(X,\gamma,\delta,x_0)$, a \emph{strategy} $\lambda$ consists of a sequence of attacks...
-% % \todo[inline]{Why do I want this?? Strategies are useful representations of attacks...but why?}
-% % \end{definition}
-
-% \begin{proposition}[Every Strategy is an Attack]
-% For all $\DTS$-coalgebras $\TheCoalgebra=(X,\gamma,\delta,x_0)$ and every strategy $\lambda\in\Lambda$\todo{complete}
-% \end{proposition}
- 
  \subsubsection{A Partial Order of Attackers}
  \todo[inline]{This should go on a different chapter}
 \todo[inline]{We know how to quantify attackers in terms of exact latent behaviours, but latent behaviours themselves have an order (they are languages i.e. sets). What about the relationship among them? Do stronger attackers need to recognise more languages, what if a language implies another? how do attackers relate there then?}
 
-\begin{definition}[Attack Ordering]
-Given two attacks $m_1, m_2$ and an $F$-coalgebra $\TheCoalgebra$, we say that $m_1\lesssim_\TheCoalgebra m_2$ if and only if $\supp(m_1) \subseteq \supp(m_2)$, and $m_1(x)\sim_\TheCoalgebra m_2(x)$ for all $x\in \supp(m_1)$. In other words, any $x$ that $m_1$ mutates can also be mutated by $m_2$ in the same way, in the context of the coalgebra $\TheCoalgebra$. We omit the subscript $\TheCoalgebra$ when it is clear from the context, or it is irrelevant.
-\end{definition}
+
 This notion of attack ordering is a bit more general than one that uses equality (i.e., requiring $m_1(x)= m_2(x)$ instead of $m_1(x)\sim_\TheCoalgebra m_2(x)$), as it lets us focus directly on behaviour, and not on structure. If the coalgebra $\TheCoalgebra$ is minimal, then $m_1(x)= m_2(x)$ if and only if $m_1(x)\sim_\TheCoalgebra m_2(x)$, due to the coinduction proof principle.
 
 \begin{definition}[Attack Execution]
