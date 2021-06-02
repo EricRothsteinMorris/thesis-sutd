@@ -12,7 +12,7 @@
 
 \section{Introduction}
 \todo[inline]{Give an interesting motivational example: What is the notion of latent behaviour? Why do we care about them? How is it useful to study them?}
-The objective of this section is to explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as ``The Arrow of Latent Behaviours,'' illustrates how spatial and behavioural transformations affect the behaviour of an $F$-coalgebra $(X,c)$ by changing the behaviour map from $!_c$ to $!_{b\circ c\circ m}$. 
+The objective of this section is to explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as ``The Arrow of Latent-Behaviour Analysis,'' illustrates how spatial and behavioural transformations affect the behaviour of an $F$-coalgebra $(X,c)$ by changing the behaviour map from $!_c$ to $!_{b\circ c\circ m}$. 
 
 \begin{figure}[h]
         \centering
@@ -48,7 +48,7 @@ The objective of this section is to explain the commutative diagram presented in
                 \arrow[ru, swap, "F(\omega)"]
             &
         \end{tikzcd}
-        \caption{``The Arrow of Latent Behaviours.'' This commutative diagram summarises the effect of spatial and behavioural transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the behaviour map changes from $!_c$ to $!_{b\circ c\circ m}$. Latent behaviour analysis assumes $b=\id$.}
+        \caption{``The Arrow of Latent-Behaviour Analysis.'' This commutative diagram summarises the effect of spatial and behavioural transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the behaviour map changes from $!_c$ to $!_{b\circ c\circ m}$. Latent behaviour analysis assumes $b=\id$.}
         \label{fig:TheArrow} 
     \end{figure}
 
@@ -373,8 +373,9 @@ Consider the following problem: we are given an arbitrary $F$-coalgebra $(X,c)$,
 
 We might think that it suffices to check $(R_i\circ !_c)(m(x_0))=1$ for each requirement $R_i$, but that would be incorrect as illustrated by the following example.
 \begin{example}[Wrong Verification]
-    In the context of Example~\ref{ex:Latent:TheExample}, the functor is $F(X)=2\times X^2$ has a final $F$-coalgebra $(2^{2^*},(\varepsilon?,(\cdot)'))$ where $\varepsilon? \colon 2^{2^*}\rightarrow 2$ checks whether the empty sequence $\varepsilon$ belongs to the language and $(\cdot)'\colon 2^{2^*}\rightarrow (2\rightarrow {2^{2^*}})$ computes the Brzozowski derivative~\cite{BrzozowskiDerivative} of the language.  
-    \todo[inline]{Maybe move to preliminaries?}
+    In the context of Example~\ref{ex:Latent:TheExample}, the functor is $F(X)=2\times X^2$, and it has a final $F$-coalgebra $(2^{2^*},(\varepsilon?,(\cdot)'))$ where $\varepsilon? \colon 2^{2^*}\rightarrow 2$ checks whether the empty sequence $\varepsilon$ belongs to the language and $(\cdot)'\colon 2^{2^*}\rightarrow (2\rightarrow {2^{2^*}})$ computes the Brzozowski derivative~\cite{BrzozowskiDerivative} of the language.  
+    %\todo[inline]{Maybe move to preliminaries?}
+
     Let $R\colon 2^{2^*}\rightarrow 2$ be the behavioural property defined by $R(\phi)\triangleq \phi \sim \varepsilon+(0+1)^*10$, for $\phi \in 2^{2^*}$. The property $R$ is not satisfied by any state of the original $F$-coalgebra, so $(R\circ !_c)(m(x_0))$ would be 0 for all spatial transformations $m$; nevertheless, $R$ is satisfied by $x_0$ in the latent coalgebra revealed by the spatial transformation $m(x,y)=(\lnot x, \lnot y)$ used in Example~\ref{ex:Latent:TheExample}, since it is the language the state $(0,0)$ recognises in the latent coalgebra. 
 \end{example}
 Part of the novelty of LBA is that we can study a latent coalgebra $(X, c\circ m)$ just as we would study the original coalgebra $(X, c)$. By this, we mean that we can apply testing and verification techniques without complication. In the following, we illustrate how we can use spatial transformations to model attacks which target the state of systems rather than the program, and we study the details of this approach in Chapter~\ref{ch:CPSRobustness} when we apply it to cyber-physical systems.
@@ -396,6 +397,13 @@ where $w_i\in \mathbb{R}^+$ is a weight which models the importance of requireme
 Let us consider the case where $(X,c)$ fails a non-empty set of requirements; this set, given the definitions, is equal to $\id[\mathcal{R}]$. Now, let $\mathcal{K}=\set{k_1, \ldots, k_q}$ be an arbitrary set of spatial transformations independent of $\mathcal{M}$; we say that a spatial transformation $k\in \mathcal{K}$ \emph{repairs $(X,c)$} if $k[\mathcal{R}]\subset \id[\mathcal{R}]$; we say that $k$ \emph{fully repairs $(X,c)$} if $k[\mathcal{R}]$ is empty. The set spatial transformations $\mathcal{K}$ corresponds to a repair toolkit, which we generate systematically just like we did with the set of attacks $\mathcal{M}$. We study the process of system repair in more detail in Chapter~\ref{ch:SideChannelRepair}.
 
 We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ as follows. If an attack $m\in \mathcal{M}$ breaks some requirements, is there a \emph{counter attack} $k$ that fully repairs $(X,c\circ m)$? If so, we can improve the robustness of the system $(X,c)$ by transforming it into $(X,c\circ m \circ k)$ whenever we detect that the attack $m$ is affecting $(X,c)$; we refer to this dependent notion of robustness as \emph{latent robustness}, and we explore this concept in cyber-physical systems during Chapter~\ref{ch:CPSRobustness}.
+\begin{example}[Counter Attack]
+    In the context of Example~\ref{ex:Latent:TheExample}, consider the behavioural property $Q\colon 2^{2^*}\rightarrow 2$ which accepts a language $\phi \in 2^{2^*}$ if and only if $\phi$ accepts a sequence $w\in 2^*$, then $w$ ends in 1 or $w$ is empty.
+
+    In the original $F$-coalgebra, all states in $2\times 2$ satisfy the property $Q$ since both $(0,0)$ and $(1,0)$ recognise the language $(0+1)^*11$, $(0,1)$ recognises the language $(0+1)^*1$, and $(1,1)$ recognises $\varepsilon + 0(0+1)^*11 + 1(0+1)^*1$. However, in the latent coalgebra revealed by the attack $m$ which swaps the coordinates of states, the state $(0,0)$ no longer satisfies $Q$, since it now recognises the language $\varepsilon+(0+1)^*10$. 
+
+    Now, if we use $m$ again in the latent coalgebra $(2\times 2, c\circ m)$ to reveal the latent coalgebra $(2\times 2, c\circ m\circ m)$, we repair the system with respect to the property $Q$, since $m \circ m=\id$. Thus, $m$ can be used as its own counter attack, but only when the latent coalgebra $(2\times 2, c\circ m)$ has been revealed (otherwise, the application of $m$ reveals $(2\times 2, c\circ m)$, and it breaks $Q$).
+\end{example}
 
 % Given an attacker model which generates the set of attacks $\mathcal{M}$, 
 

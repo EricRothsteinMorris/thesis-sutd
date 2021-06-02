@@ -13,31 +13,72 @@
 \subsection{Glossary}
 \todo[inline]{Graph of a function}
 \todo[inline]{}
-\section{Categories}
-\begin{definition}[Categories, Objects and Arrows]
-    A \emph{category} $\AsCategory{C}$ is a mathematical concept similar to a graph, comprised of two aspects: a collection of \emph{objects}, denoted $Obj(\AsCategory{C})$, and a collection of \emph{arrows} among those objects, denoted $Arr(\AsCategory{C})$. Each category satisfies the following simple rules:
-    \begin{itemize}
-        \item Every object $o$ has an identity arrow that maps $o$ to itself, denoted $\id_o$
-        \item Arrows can be composed
-    \end{itemize}
-\end{definition}
+\section{Notation and Definitions for Sets and Functions}
+\subsection{Sets and elements}
+We denote \emph{sets} by upper-case letters $X,Y,Z,$ etc, and we denote their \emph{elements} by lower-case letters $x, y, z, $ etc. 
 
-\section{The Category of Sets and Functions}
-\begin{definition}[The Category of Sets and Functions $\AsCategory{Set}$]
-    The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. 
-\end{definition}
+We denote the set of natural numbers by $\mathbb{N}$ and the set of natural numbers without zero by $\mathbb{N}^+$. Similarly, we denote the set of real numbers by $\mathbb{R}$ and the set of positive real numbers (excluding zero) by $\mathbb{R}^+$.
 
-\subsection{Set, Functions, and Types}
-We denote sets by upper-case letters $X,Y,Z,\ldots$ and we denote functions by lower-case letters $f,g,h,\ldots$. We say that a function is of type $f\colon X\rightarrow Y$ to imply that it maps elements from the set $X$ to the set $Y$. Alternatively, we say that $f\in Y^X$
+\subsection{Functions}
+We denote \emph{functions} by lower-case letters $f,g,h,$ etc. A function $f\colon X\rightarrow Y$ maps the elements from the set $X$ to elements of the set $Y$. An \emph{endofunction} is a function $g\colon X\rightarrow X$ which maps a set $X$ to itself. We say that an endofunction $h\colon X \rightarrow X$ has finite support iff $h(x)\neq x$ for a finite number of $x$ in $X$, even if $X$ is infinite.
 
-Through this document we are rather informal with the difference between between sets and types.  
+We denote function composition by $\circ$.
 
-We say that an endofunction $f\colon X \rightarrow X$ has finite support iff $f(x)\neq x$ for a finite number of $x$ in $X$.
-\section{Universal (Co)Algebra}
+\todo[inline]{Epi?, monos? isomos?}
+\subsection{Range set}
+A \emph{range set} $n$ where $n\in \mathbb{N}^+$ is a set of $n$ elements, i.e., $n=\set{0,1, \ldots, n-1}$. It is usually clear from the context when $n$ represents a number or a range set. We highlight two important range sets: the range set 1 and the range set 2.
+
+The range set 1, which is equal to the set $\set{0}$, serves as a constant for several set operations (modulo isomorphism).
+\todo[inline]{Replace $\star$ by $0$? or the other way around?} 
+The range set 2, which is equal to $\set{0,1}$, to model booleans: 0 models $\false$ and $1$ models $\true$. 
+
+\subsection{Exponential Set}
+The \emph{exponential set} $Y^X$ is the set of all functions of type $X\rightarrow Y$. The exponential set $1\rightarrow X$ is isomorphic to $X$; $x\in X$ if and only if exists $f\colon 1\rightarrow X$ such that $f(0)=x$. (This seems overcomplicated at first, but we use this equivalence when discussing the following concepts of $F$-algebra and $F$-coalgebra.)
+
+\subsection{Sum Set}
+The \emph{sum set} $X + Y$ is the disjoint union of $X$ and $Y$, i.e. 
+\begin{align*}
+    X + Y\triangleq\set{ \iota_1(x) |x\in X} \cup \set{\iota_2(y) | y\in Y},
+\end{align*}
+where $\iota_1$ and $\iota_2$ act as tags.
+\subsection{Product Set}
+The \emph{product set} $X\times Y$ is the cartesian product of $X$ and $Y$, i.e. 
+\begin{align*}
+    X\times Y\triangleq\set{(x,y)|x\in X, y\in Y}.
+\end{align*}
+The \emph{finite product set} of sets $X_1, \ldots, X_n$ is their cartesian product; i.e., $X_1\times \ldots \times X_n$. We denote product sets by upper-case letters with an arrow above $\vec{X},\vec{Y}, \vec{Z}$, etc.
+\subsection{Vector/Tuple}
+Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, we denote the elements of $\vec{X}$ by $\vec{x}$, $\vec{y}$, $\vec{z}$, etc. We call these elements \emph{vectors} or, alternatively, \emph{tuples}. 
+
+\subsection{Coordinates}
+Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, its \emph{coordinates} are $\pi_1, \ldots, \pi_n$, where $\pi_i\colon \vec{X} \rightarrow X_i$ extract the $i$-th value of a vector; i.e., $\pi_i(x_1, \ldots, x_n)\triangleq x_i$, for $1\leq i \leq n$. We often write the expression $\vec{x}[\pi]$ instead of $\pi(\vec{x})$ when $\pi$ is a coordinate.
+
+
+\section{Category Theory Preliminaries}
+
+\subsection{Categories, Objects and Arrows}
+A \emph{category} $\AsCategory{C}$ is a mathematical concept similar to a graph, comprised of two aspects: a collection of \emph{objects}, denoted $Obj(\AsCategory{C})$, and a collection of \emph{arrows} among those objects, denoted $Arr(\AsCategory{C})$. Each category satisfies the following  rules:
+\begin{itemize}
+    \item every object $X$ has an identity arrow that maps $X$ to itself, denoted $\id_X$,
+    \item given the objects $X, Y$ and $Z$, and the arrows $X\xrightarrow{f}Y$ and $Y\xrightarrow{g}Z$, the arrow $X\xrightarrow{g\circ f}Z$ exists; i.e. the composition of arrows is well defined,
+    \item the identity arrows act as units for arrow composition; i.e., for $X\xrightarrow{f}Y$, the equality $\id_{Y}\circ f=f=f\circ \id_{X}$ holds.
+    \item the composition of arrows is associative; i.e., $(h\circ g)\circ f = h \circ (g\circ f)$.
+\end{itemize}
+
+\subsection{Commutative Diagram}
+
+\subsection{Initial and Terminal Objects}
+A category $\AsCategory{C}$ has an \emph{initial object}, often denoted by 0, if there exists a unique arrow from $0$ to every object $o$ in the category. Dually, a category $\AsCategory{C}$ has a \emph{final object}, often denoted by 1, if there exists a unique arrow from every object $o$ in the category to 1. 
+
+\subsection{The Category of Sets and Functions}
+The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. 
+
+\subsection{Functor}
+
+\section{Universal (Co)Algebra Preliminaries}
 \label{sec:Preliminaries:Coalgebras}
 \todo[inline]{Make sure you create a wonderful introduction to the world of (co)algebras and explain why you want to use them. They are a wonderful way to unify the formalism of the thesis.}
-\subsection{Categories and Functors}
-A \emph{category} $\AsCategory{C}$ is a collection of \emph{objects} and \emph{arrows} among those objects. We denote the set of objects by
+\subsection{Monoids and Sequences}
 \todo[inline]{Complete here}
 %\todo[inline]{*Puts an Edna Mode face* NO MONADS (unless necessary)}
 %\subsection{$\Monad$-algebras, $\Functor$-coalgebras and $\lambda$-bialgebras}
