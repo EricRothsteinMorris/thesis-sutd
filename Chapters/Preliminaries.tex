@@ -5,31 +5,24 @@
 \chapter{Preliminaries and Notation} % Main chapter title
 \label{ch:Preliminaries} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-\todo[inline]{This first page should have an index from concepts to the page where they are explained/defined. There should be a bit of redundancy with the glossary at the end, but I feel it makes the thesis easier to navigate: search preliminaries, and you're there. THIS SECTION HAS CONTENT THAT I DID NOT DEVELOP. The newer content comes in the following chapters}
+\todo[inline]{THIS SECTION HAS CONTENT THAT I DID NOT DEVELOP IN THE THESIS. The newer content comes in the following chapters}
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
-\section{Notation}
-\subsection{Glossary}
-\todo[inline]{Graph of a function}
-\todo[inline]{}
-\section{Notation and Definitions for Sets and Functions}
+\section{Notation and Constructions on Sets and Functions}
 \subsection{Sets and elements}
 We denote \emph{sets} by upper-case letters $X,Y,Z,$ etc, and we denote their \emph{elements} by lower-case letters $x, y, z, $ etc. 
 
 We denote the set of natural numbers by $\mathbb{N}$ and the set of natural numbers without zero by $\mathbb{N}^+$. Similarly, we denote the set of real numbers by $\mathbb{R}$ and the set of positive real numbers (excluding zero) by $\mathbb{R}^+$.
 
 \subsection{Functions}
-We denote \emph{functions} by lower-case letters $f,g,h,$ etc. A function $f\colon X\rightarrow Y$ maps the elements from the set $X$ to elements of the set $Y$. An \emph{endofunction} is a function $g\colon X\rightarrow X$ which maps a set $X$ to itself. We say that an endofunction $h\colon X \rightarrow X$ has finite support iff $h(x)\neq x$ for a finite number of $x$ in $X$, even if $X$ is infinite.
+We denote \emph{functions} by lower-case letters $f,g,h,$ etc. A function $f\colon X\rightarrow Y$ maps the elements from the set $X$ to elements of the set $Y$. An \emph{endofunction} is a function $g\colon X\rightarrow X$ which maps a set $X$ to itself. We denote function composition by $\circ$. 
+We say that an endofunction $h\colon X \rightarrow X$ has finite support iff $h(x)\neq x$ for a finite number of $x$ in $X$, even if $X$ is infinite.
 
-We denote function composition by $\circ$.
-
-\todo[inline]{Epi?, monos? isomos?}
 \subsection{Range set}
 A \emph{range set} $n$ where $n\in \mathbb{N}^+$ is a set of $n$ elements, i.e., $n=\set{0,1, \ldots, n-1}$. It is usually clear from the context when $n$ represents a number or a range set. We highlight two important range sets: the range set 1 and the range set 2.
 
 The range set 1, which is equal to the set $\set{0}$, serves as a constant for several set operations (modulo isomorphism).
-\todo[inline]{Replace $\star$ by $0$? or the other way around?} 
 The range set 2, which is equal to $\set{0,1}$, to model booleans: 0 models $\false$ and $1$ models $\true$. 
 
 \subsection{Exponential Set}
@@ -53,8 +46,16 @@ Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, we denote the 
 \subsection{Coordinates}
 Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, its \emph{coordinates} are $\pi_1, \ldots, \pi_n$, where $\pi_i\colon \vec{X} \rightarrow X_i$ extract the $i$-th value of a vector; i.e., $\pi_i(x_1, \ldots, x_n)\triangleq x_i$, for $1\leq i \leq n$. We often write the expression $\vec{x}[\pi]$ instead of $\pi(\vec{x})$ when $\pi$ is a coordinate.
 
+\subsection{Pair Function}
+Given two functions $f\colon X\rightarrow Y$ and $g\colon X\rightarrow Z$, the \emph{pair function} $(f,g)\colon X\rightarrow Y\times Z$ is defined by $(f,g)(x)=(f(x),g(x))$.
 
-\section{Category Theory Preliminaries}
+\subsection{Product Function}
+Given two functions $f\colon X\rightarrow Y$ and $g\colon A\rightarrow B$, the \emph{product function} $f\times g\colon X\times A\rightarrow Y\times B$ is defined by $f\times g(x,a)=(f(x),g(a))$.
+
+\subsection{Function Mapping}
+Given a set $X$ and a function $f\colon X\rightarrow Y$, the \emph{mapping of $f$ over $X$}, denoted $f(X)$, is the set defined by $f(X)\triangleq\set{f(x)| x\in X}$.
+
+\section{Category Theory Preliminaries and Notation}
 
 \subsection{Categories, Objects and Arrows}
 A \emph{category} $\AsCategory{C}$ is a mathematical concept similar to a graph, comprised of two aspects: a collection of \emph{objects}, denoted $Obj(\AsCategory{C})$, and a collection of \emph{arrows} among those objects, denoted $Arr(\AsCategory{C})$. Each category satisfies the following  rules:
@@ -75,7 +76,7 @@ The \emph{category of sets and functions} $\AsCategory{Set}$ is the category who
 
 \subsection{Functor}
 
-\section{Universal (Co)Algebra Preliminaries}
+\section{Universal (Co)Algebra Preliminaries and Notation}
 \label{sec:Preliminaries:Coalgebras}
 \todo[inline]{Make sure you create a wonderful introduction to the world of (co)algebras and explain why you want to use them. They are a wonderful way to unify the formalism of the thesis.}
 \subsection{Monoids and Sequences}
