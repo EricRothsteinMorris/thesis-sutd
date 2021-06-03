@@ -16,7 +16,7 @@ A \emph{latent behaviour} is a functionality that is not coded into a system, so
 
 In ROP, the adversary manipulates the call stack to string code gadgets together and arbitrarily execute code. However, if the program is very small and does not have enough gadgets, then the computational power of the attacker is restricted, since it becomes impossible to create certain behaviours. This restriction is similar to the restrictions we face when working with non-Turing complete languages (e.g., we cannot use regular expressions to specify arbitrary Turing machines). However, given enough gadgets, we can reveal any behaviour we want if we appropriately compose the gadgets.
 
-In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as the ``Arrow" of latent-behaviour analysis, illustrates how spatial and behavioural transformations affect the behaviour of an arbitrary $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. The intuition behind the diagram of the Arrow is the following. Normally, an $F$-coalgebra $(X,c)$ gives semantics to the elements in $X$ via the semantic map $!_c$. When affected by a spatial transformation $m\colon X\rightarrow X$ and a behavioural transformation $b\colon F(X)\rightarrow F(X)$, the $F$-coalgebra $(X,c)$ reveals an $F$-coalgebra $(X,b\circ c\circ m)$. The behaviour of elements in $(X,b\circ c\circ m)$ may bear no resemblance to the original behaviour. At most, we can say that if $m$ and $b$ preserve bisimilarity, then there exists a transformation $\omega\colon \sigma F \rightarrow \sigma F$ in the carrier of the final $F$-coalgebra $(\sigma F, 1)$ which maps the original behaviours of the system into the new behaviours revealed by $m$ and $b$. 
+In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as the ``Arrow" of latent-behaviour analysis, illustrates how spatial and functional transformations affect the behaviour of an arbitrary $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. The intuition behind the diagram of the Arrow is the following. Normally, an $F$-coalgebra $(X,c)$ gives semantics to the elements in $X$ via the semantic map $!_c$. When affected by a spatial transformation $m\colon X\rightarrow X$ and a functional transformation $b\colon F(X)\rightarrow F(X)$, the $F$-coalgebra $(X,c)$ reveals an $F$-coalgebra $(X,b\circ c\circ m)$. The behaviour of elements in $(X,b\circ c\circ m)$ may bear no resemblance to the original behaviour. At most, we can say that if $m$ and $b$ preserve bisimilarity, then there exists a transformation $\omega\colon \sigma F \rightarrow \sigma F$ in the carrier of the final $F$-coalgebra $(\sigma F, 1)$ which maps the original behaviours of the system into the new behaviours revealed by $m$ and $b$. 
 
 \begin{figure}[h]
         \centering
@@ -52,7 +52,7 @@ In this section, we explain the commutative diagram presented in Figure~\ref{fig
                 \arrow[ru, swap, "F(\omega)"]
             &
         \end{tikzcd}
-        \caption{``The Arrow of Latent-Behaviour Analysis.'' This commutative diagram summarises the effect of spatial and behavioural transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the semantic map changes from $!_c$ to $!_{b\circ c\circ m}$. Through this work, we assume $b=\id$.}
+        \caption{``The Arrow of Latent-Behaviour Analysis.'' This commutative diagram summarises the effect of spatial and functional transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the semantic map changes from $!_c$ to $!_{b\circ c\circ m}$. Through this work, we assume $b=\id$.}
         \label{fig:TheArrow} 
     \end{figure}
 
@@ -151,7 +151,7 @@ the faulty automaton accepts $110$, but the original automaton does not. Finally
 %There are now two final states: $(1,1)$ and $(0,1)$ since both states are preimages of $(1,1)$ under $m$.
 We obtain the automaton shown in Figure~\ref{fig:Transformed} by ``copying'' the original behaviour from images of $m$ to their preimages. Figure~\ref{fig:ExampleWithFaults} shows this procedure for $(0,0)$ and $(1,1)$. This includes copying the behaviour under $\delta$ and under $F$. 
 
-We preserve the initial state because $\vec{x}_0$ is a selection/construction/algebraic operation, not a behavioural/semantic/coalgebraic operation. We do not apply transformations to the results of algebraic operations to avoid aggregating the transformation erroneously due to composition of algebraic and coalgebraic operations. Consider the followign: the initial state $\vec{x}_0$ is of type $1\rightarrow\vec{X}$ which is algebraic, so the only way to apply $m$ to $\vec{x}_0$ is by composing it on the left, i.e., $m\circ \vec{x}_0(0)$. Checking if the initial state is accepting in the original automaton corresponds to the expression $(F\circ\vec{x}_0)(*)$; however, the expression
+We preserve the initial state because $\vec{x}_0$ is a selection/construction/algebraic operation, not a functional/semantic/coalgebraic operation. We do not apply transformations to the results of algebraic operations to avoid aggregating the transformation erroneously due to composition of algebraic and coalgebraic operations. Consider the followign: the initial state $\vec{x}_0$ is of type $1\rightarrow\vec{X}$ which is algebraic, so the only way to apply $m$ to $\vec{x}_0$ is by composing it on the left, i.e., $m\circ \vec{x}_0(0)$. Checking if the initial state is accepting in the original automaton corresponds to the expression $(F\circ\vec{x}_0)(*)$; however, the expression
 \begin{align*}
     (F\circ m)\circ (m\circ\vec{x}_0)(0)= (F\circ m)(1,1)=F(0,0)=0,
 \end{align*}
@@ -196,9 +196,9 @@ applies $m$ twice, and it fails to properly check if the initial state of the fa
 \end{figure}
 We say that the faulty system is \emph{latent} with respect to the original system, since the application of the transformation $m$ reveals it, and $m$ is not the identity function. 
 We cannot model every fault using transformations of the state space. The set of behaviours that we can obtain is limited; e.g., the behaviour of an automaton that accepts every sequence cannot be transformed by just transforming the state space. 
-To transform an automaton which accepts all sequences into one that can reject some or all, we need a transformation of the \emph{behaviour}. 
+To transform an automaton which accepts all sequences into one that can reject some or all, we need a transformation of the \emph{functionality}. 
 Those transformations correspond to the arrow $F(X)\xrightarrow{b}F(X)$ in Figure~\ref{fig:TheArrow}. 
-\todo[inline]{the final coalgebra is the place where spatial, behavioural, and coalgebras meet. Spatial transformations abstract a behaviour acting concurrently with the one we are currently studying, and that's why they are interesting to study.}
+\todo[inline]{the final coalgebra is the place where spatial, functional, and coalgebras meet. Spatial transformations abstract a behaviour acting concurrently with the one we are currently studying, and that's why they are interesting to study.}
 %However, systems revealed by transformations of type $F(X)\xrightarrow{b}F(X)$ are not latent by definition. %In this thesis, we are interested in seeing how far we can go with just carrier transformations; i.e., with latent behaviours.
 
 We now present a general treatment for carrier transformations and latent behaviours in the context of $F$-coalgebras. 
@@ -217,7 +217,7 @@ A spatial transformation $m$ is \emph{(behaviourally) consistent} if and only if
 Henceforth, we consider only minimal systems, unless explicitly mentioned otherwise. 
 \begin{corollary}
     If $(X,c)$ is a minimal $F$-coalgebra, then every spatial transformation %$m\colon X\rightarrow X$ 
-    is consistent. 
+    is consistent. This property also holds if $(X,c)$ is a sound coalgebraic specification language.
 \end{corollary}
 A transformation function $m\colon X\rightarrow X$ changes the normal behaviour of $\mathbb{X}$, and it reveals the \emph{latent coalgebra of $\mathbb{X}$ under $m$}. 
 \begin{definition}[Latent Coalgebra]
@@ -256,7 +256,7 @@ A final $F$-coalgebra $(\sigma F, 1)$ has a behaviour function $1\colon \sigma F
 \begin{align}
     \sigma F\rightarrow \sigma F \simeq \sigma F\rightarrow F(\sigma F) \simeq F(\sigma F)\rightarrow F(\sigma F).    
 \end{align}
-In other words, in the carrier of the final $F$-coalgebra, spatial transformations ($\sigma F\rightarrow \sigma F$), behavioural transformations ($F(\sigma F)\rightarrow F(\sigma F)$) and $F$-coalgebras ($\sigma F\rightarrow F(\sigma F)$) are in a one-to-one correspondence. 
+In other words, in the carrier of the final $F$-coalgebra, spatial transformations ($\sigma F\rightarrow \sigma F$), functional transformations ($F(\sigma F)\rightarrow F(\sigma F)$) and $F$-coalgebras ($\sigma F\rightarrow F(\sigma F)$) are in a one-to-one correspondence. 
 
 Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should correspond to $\id_{\sigma F}\colon \sigma F\rightarrow \sigma F$ and should correspond to $\id_{F(\sigma F)}\colon F(\sigma F)\rightarrow F(\sigma F)$. The general form is given by the following proposition.
 \begin{proposition}
@@ -284,11 +284,10 @@ Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should corres
         &F(\sigma F)
             %\arrow[u,"1^{-1}"']
     \end{tikzcd}
-    \caption{Every $F$-coalgebra $(\sigma F, c)$ can be revealed from the final coalgebra $(\sigma F,1)$ by means of a transformation $m$ or a transformation $b$. In other words, it suffices to use spatial transformations $m$ and the final $F$-coalgebra to reveal all $F$-coalgebras of $\sigma F$, so behavioural transformations $b$ are unnecessary.}
+    \caption{Every $F$-coalgebra $(\sigma F, c)$ can be revealed from the final coalgebra $(\sigma F,1)$ by means of a transformation $m$ or a transformation $b$. In other words, it suffices to use spatial transformations $m$ and the final $F$-coalgebra to reveal all $F$-coalgebras of $\sigma F$, so functional transformations $b$ are unnecessary.}
     \label{fig:FinalEquivalence} 
 \end{figure}
-This property applies to the carrier of the final coalgebra because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. This property is also shared by sound and complete coalgebraic specification languages, since their semantic map is an epimorphism. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$.
-\todo[inline]{A few words about completeness would be good here: you need not work directly on final coalgebras, that is what specification languages are for! }
+This property applies to the carrier of the final coalgebra because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. This property is also shared by sound and complete coalgebraic specification languages, since their semantic map is an epimorphism. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$. It would not be an exaggeration to state that $F$-coalgebras which satisfy this property have all the "necessary gadgets" (with respect to the functor $F$) to reveal any arbitrary functionality using spatial transformations. 
 
 %\subsection{$F$-Coalgebras as Endofunctions}
 Given a final $F$-coalgebra $(\sigma F, 1)$ and an arbitrary coalgebra $(\sigma F, c)$, the spatial transformation $\omega\colon \sigma F\rightarrow \sigma F$ defined by $\omega\triangleq 1^{-1}\circ c$ implements $c$. The identity spatial transformation implements $1$. This duality between $F$-coalgebras and spatial transformations in $\sigma F$ enables the composition of $F$-coalgebras in $\sigma F$.
@@ -303,9 +302,7 @@ Given two $F$-coalgebras $(\sigma F, c_1)$ and $(\sigma F, c_2)$ whose respectiv
 \end{itemize}
 In summary, we can represent $F$-coalgebras whose carrier is $\sigma F$ by endofunctions in $\sigma F$, and we can reason about their composition as we would with functions in the monoid of endofunctions $(\sigma F\rightarrow \sigma F, \circ, \id)$. 
 
-Given this property of final $F$-coalgebras, it would not be an exaggeration to state that "they have all the gadgets" (with respect to the functor $F$). 
-
-\todo[inline]{Explain that this corresponds to the point of The Arrow: $!c$ takes you from $X$ to $\sigma F$, and you can use $\omega$ to reveal a latent coalgebra of $(\sigma F, 1)$. This arrow $\omega$ models the behavioural change from $!c$ to $!_{b\circ c\circ m}$.}
+% \todo[inline]{Explain that this corresponds to the point of The Arrow: $!c$ takes you from $X$ to $\sigma F$, and you can use $\omega$ to reveal a latent coalgebra of $(\sigma F, 1)$. This arrow $\omega$ models the behavioural change from $!c$ to $!_{b\circ c\circ m}$.}
 In the following, we return to arbitrary $F$-coalgebras $(X,c)$, but we keep in mind the following: when we reveal a latent coalgebra of $(X,c)$ under a spatial transformation $m$, we are implicitly sequentially composing the behaviour function $c$ with the behaviour function of the $F$-coalgebra implemented by $m$; first we apply $m$ and then we apply $c$.
 
 \section{Latent-Behaviour Analysis}
