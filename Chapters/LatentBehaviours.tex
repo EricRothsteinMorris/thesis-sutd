@@ -33,7 +33,7 @@ In this section, we explain the commutative diagram presented in Figure~\ref{fig
                 \arrow[r,dotted, swap, "!_{b\circ c\circ m}"]
             &\sigma F 
                 %\arrow[dd, "\simeq","\omega"']
-                \arrow[dd, "1"]
+                \arrow[dd, "1_F"]
                 \arrow[dr, "\textbf{id}"]
             \\
             &&&\sigma(F)
@@ -46,7 +46,7 @@ In this section, we explain the commutative diagram presented in Figure~\ref{fig
             &
             F(\sigma F)
                 %\arrow[ur, swap, "\omega^{-1}"]
-                \arrow[ur, swap, "1^{-1}"]
+                \arrow[ur, swap, "1_F^{-1}"]
             \\
             &F(\sigma F)
                 \arrow[ru, swap, "F(\omega)"]
@@ -113,7 +113,7 @@ if the current state is $\vec{x}=(a,b)$, when we intend to check whether $\vec{x
 Figure~\ref{fig:Transformed} shows a model of the transformed automaton. This automaton recognises the language of sequences that are either empty or end in 10; i.e., $\varepsilon+(0+1)^*10$. 
 Before we explain why the automaton in Figure~\ref{fig:Transformed} is in fact the resulting system when we apply the transformation $m$, we can first test if the transformed system recognises sequences $\varepsilon+(0+1)^*10$ due to the transformation $m$. %$(0+1)(0+1)^*$. 
 To do so, let us consider pairs of states $[\vec{x},\vec{y}]$ where $\vec{x}=(x_1,x_2)$ and $\vec{y}=(y_1,y_2)$ such that the pair $\vec{x}$ follows the original behaviour while $\vec{y}$ follows the new behaviour. 
-Let $[(0,0),(0,0)]$ be the initial state, and let $\delta_i\colon \vec{X}\rightarrow \vec{X}$ be the functions defined by $\delta_i(\vec{x})=\delta(\vec{x})(i)$ for $i \in 2$ (i.e., $\delta_0$ curries $0$ and $\delta_1$ curries 1 on the transition function $\delta$); %, since $(1,1)$ replaces $(0,0)$ due to the fault. 
+Let $[(0,0),(0,0)]$ be the initial state, and let $\delta_i\colon \vec{X}\rightarrow \vec{X}$ be the functions defined by $\delta_i(\vec{x})=\delta(\vec{x})(i)$ for $i \in 2$ (i.e., $\delta_0$ is a partial application of $\delta$ given $0$ and $\delta_1$ is a partial application of $\delta$ given 1); %, since $(1,1)$ replaces $(0,0)$ due to the fault. 
 the trace of the sequence $00$ is 
 \begin{align*}
    [(0,0),(0,0)]&\xrightarrow{\id\times m}[(0,0),(1,1)]\xrightarrow{\delta_0\times\delta_0}[(0,0),(0,1)]\\
@@ -254,21 +254,21 @@ LBA is the study of the effects that a spatial transformation $m\colon X\rightar
 However, there are systems for which spatial and behavioural transformations can reveal the same behaviours; moreover, we can reveal any arbitrary behaviours via spatial transformations: \emph{final $F$-coalgebras}, and \emph{sound and complete coalgebraic specification languages}.
 
 %\subsection{Latent Coalgebras of Final $F$-coalgebras}
-A final $F$-coalgebra $(\sigma F, 1)$ has a dynamics function $1\colon \sigma F \rightarrow F(\sigma F)$ that is an isomorphism. Since $\sigma F \simeq F(\sigma F)$, it naturally follows that 
+A final $F$-coalgebra $(\sigma F, 1_F)$ has a dynamics function $1_F\colon \sigma F \rightarrow F(\sigma F)$ that is an isomorphism. Since $\sigma F \simeq F(\sigma F)$, it naturally follows that 
 \begin{align}
     \sigma F\rightarrow \sigma F \simeq \sigma F\rightarrow F(\sigma F) \simeq F(\sigma F)\rightarrow F(\sigma F).    
 \end{align}
 In other words, in the carrier of the final $F$-coalgebra, spatial transformations (of type $\sigma F\rightarrow \sigma F$), dynamics transformations (of type $F(\sigma F)\rightarrow F(\sigma F)$) and $F$-coalgebras (of type $\sigma F\rightarrow F(\sigma F)$) are in a one-to-one correspondence. 
 
-Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should correspond to $\id_{\sigma F}\colon \sigma F\rightarrow \sigma F$ and should correspond to $\id_{F(\sigma F)}\colon F(\sigma F)\rightarrow F(\sigma F)$. The general correspondence is given by the following proposition.
+Intuition tells us that $1_F\colon \sigma F \rightarrow F(\sigma F)$ should correspond to $\id_{\sigma F}\colon \sigma F\rightarrow \sigma F$ and should correspond to $\id_{F(\sigma F)}\colon F(\sigma F)\rightarrow F(\sigma F)$. The general correspondence is given by the following proposition.
 \begin{proposition}
     For every $F$-coalgebra $(\sigma F, c)$, there are transformations $m\colon \sigma F\rightarrow \sigma F$ and $b\colon F(\sigma F)\rightarrow F(\sigma F)$ such that the diagram in Figure~\ref{fig:FinalEquivalence} commutes.
 \end{proposition}
 \begin{proof}
-    Since $1\colon \sigma F\rightarrow F(\sigma F)$ is an isomorphism, by taking $m=1^{-1}\circ c$ and $b=c\circ 1^{-1}$, the diagram in Figure~\ref{fig:FinalEquivalence} commutes.
+    Since $1_F\colon \sigma F\rightarrow F(\sigma F)$ is an isomorphism, by taking $m=1_F^{-1}\circ c$ and $b=c\circ 1_F^{-1}$, the diagram in Figure~\ref{fig:FinalEquivalence} commutes.
 \end{proof}
 \begin{corollary}
-    Every $F$-coalgebra $(\sigma F, c)$ is a latent coalgebra of $(\sigma F, 1)$ under some spatial transformation $m\colon \sigma F\rightarrow \sigma F$.
+    Every $F$-coalgebra $(\sigma F, c)$ is a latent coalgebra of $(\sigma F, 1_F)$ under some spatial transformation $m\colon \sigma F\rightarrow \sigma F$.
 \end{corollary}
 
 \begin{figure}[t] 
@@ -277,30 +277,30 @@ Intuition tells us that $1\colon \sigma F \rightarrow F(\sigma F)$ should corres
          \sigma F
             \arrow[r,"m"]
             \arrow[dr,"c"]
-            \arrow[d,"1"']
+            \arrow[d,"1_F"']
         &\sigma F
-            \arrow[d,"1"]
+            \arrow[d,"1_F"]
         \\
          F(\sigma F)
             \arrow[r,"b"']
         &F(\sigma F)
             %\arrow[u,"1^{-1}"']
     \end{tikzcd}
-    \caption{Every $F$-coalgebra $(\sigma F, c)$ can be revealed from the final coalgebra $(\sigma F,1)$ by means of a transformation $m$ or a transformation $b$. In other words, it suffices to use spatial transformations $m$ and the final $F$-coalgebra to reveal all $F$-coalgebras of $\sigma F$, so dynamics transformations $b$ are unnecessary.}
+    \caption{Every $F$-coalgebra $(\sigma F, c)$ can be revealed from the final coalgebra $(\sigma F,1_F)$ by means of a transformation $m$ or a transformation $b$. In other words, it suffices to use spatial transformations $m$ and the final $F$-coalgebra to reveal all $F$-coalgebras of $\sigma F$, so dynamics transformations $b$ are unnecessary.}
     \label{fig:FinalEquivalence} 
 \end{figure}
-This property applies to the carrier of the final coalgebra because of the reversibility of the final map $1$, which formalises a correspondence between state and behaviour. This property is also shared by sound and complete coalgebraic specification languages, since their semantic map is an epimorphism. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$. It would not be an exaggeration to state that $F$-coalgebras which satisfy this property have all the "necessary gadgets" (with respect to the functor $F$) to reveal any arbitrary functionality using spatial transformations. 
+This property applies to the carrier of the final coalgebra because of the reversibility of the final dynamics map $1_F$, which formalises a correspondence between state and behaviour. This property is also shared by sound and complete coalgebraic specification languages, since their semantic map is an epimorphism. For an arbitrary $F$-coalgebra $(X,c)$, only some latent $F$-coalgebras can be revealed by spatial transformations $m\colon X\rightarrow X$. It would not be an exaggeration to state that $F$-coalgebras which satisfy this property have all the "necessary gadgets" (with respect to the functor $F$) to reveal any arbitrary functionality using spatial transformations. 
 
 %\subsection{$F$-Coalgebras as Endofunctions}
-Given a final $F$-coalgebra $(\sigma F, 1)$ and an arbitrary coalgebra $(\sigma F, c)$, the spatial transformation $\omega\colon \sigma F\rightarrow \sigma F$ defined by $\omega\triangleq 1^{-1}\circ c$ implements $c$. The identity spatial transformation implements $1$. This duality between $F$-coalgebras and spatial transformations in $\sigma F$ enables the composition of $F$-coalgebras in $\sigma F$.
+Given a final $F$-coalgebra $(\sigma F, 1_F)$ and an arbitrary coalgebra $(\sigma F, c)$, the spatial transformation $\omega\colon \sigma F\rightarrow \sigma F$, defined by $\omega\triangleq 1_F^{-1}\circ c$, implements $c$. The identity spatial transformation implements $1_F$. This duality between $F$-coalgebras and spatial transformations in $\sigma F$ enables a natural composition of $F$-coalgebras in $\sigma F$.
 %This treatment simplifies the composition of $F$-coalgebras in $\sigma F$. 
 
 %When we compose $F$-coalgebras we are applying their behaviour functions sequentially. 
 Given two $F$-coalgebras $(\sigma F, c_1)$ and $(\sigma F, c_2)$ whose respective spatial transformation implementations are $\omega_1$ and $\omega_2$, the composition $\omega_2\circ \omega_1$ gives rise to the following equivalent concepts:
 \begin{itemize}
-    \item the $F$-coalgebra $(\sigma F, c_2\circ 1^{-1}\circ\omega_1)$,
+    \item the $F$-coalgebra $(\sigma F, c_2\circ 1_F^{-1}\circ\omega_1)$,
     \item the latent coalgebra of $(\sigma F, c_2)$ under $\omega_1$,
-    \item the latent coalgebra of $(\sigma F, 1)$ under $\omega_2\circ \omega_1$.
+    \item the latent coalgebra of $(\sigma F, 1_F)$ under $\omega_2\circ \omega_1$.
 \end{itemize}
 In summary, we can represent $F$-coalgebras whose carrier is $\sigma F$ by endofunctions in $\sigma F$, and we can reason about their composition as we would with functions in the monoid of endofunctions $(\sigma F\rightarrow \sigma F, \circ, \id)$. 
 

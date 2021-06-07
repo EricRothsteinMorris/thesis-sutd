@@ -20,39 +20,47 @@ We denote \emph{functions} by lower-case letters $f,g,h,$ etc. A function $f\col
 We say that an endofunction $h\colon X \rightarrow X$ has finite support iff $h(x)\neq x$ for a finite number of $x$ in $X$, even if $X$ is infinite.
 
 \subsection{Range set}
-A \emph{range set} $n$ where $n\in \mathbb{N}^+$ is a set of $n$ elements, i.e., $n=\set{0,1, \ldots, n-1}$. It is usually clear from the context when $n$ represents a number or a range set. We highlight two important range sets: the range set 1 and the range set 2.
+A \emph{range set} $n$ where $n\in \mathbb{N}^+$ is a set of $n$ elements, i.e., $n=\set{0,1, \ldots, n-1}$. It is usually clear from the context when $n$ represents a number or a range set. We highlight three important range sets: 0, 1 and 2.
 
+The range set 0 is equal to the empty set $\emptyset$. 
 The range set 1, which is equal to the set $\set{0}$, serves as a constant for several set operations (modulo isomorphism).
 The range set 2, which is equal to $\set{0,1}$, to model booleans: 0 models $\false$ and $1$ models $\true$. 
 
-\subsection{Exponential Set}
-The \emph{exponential set} $Y^X$ is the set of all functions of type $X\rightarrow Y$. The exponential set $1\rightarrow X$ is isomorphic to $X$; $x\in X$ if and only if exists $f\colon 1\rightarrow X$ such that $f(0)=x$. (This seems overcomplicated at first, but we use this equivalence when discussing the following concepts of $F$-algebra and $F$-coalgebra.)
+\subsection{Subsets $X\rightarrow 2$}
+Given a set $X$, we characterise the \emph{subsets of $X$} using functions of type $X\rightarrow 2$; we say that $x\in X$ is an element of the subset characterised by $f\colon X\rightarrow 2$ iff $f(x)=1$. 
+ 
+\subsection{Exponential Set $Y^X$}
+The \emph{exponential set} $Y^X$ is the set of all functions of type $X\rightarrow Y$. 
+The exponential set $1\rightarrow X$ is isomorphic to $X$, and we use it to select objects from $X$; more precisely, we choose an element $x\in X$ via a function $f\colon 1\rightarrow X$ such that $f(0)=x$. (This seems overcomplicated at first, but we use this equivalence when discussing the following concepts of $F$-algebra and $F$-coalgebra.)
 
-\subsection{Sum Set}
+\subsection{Sum Set $X+Y$}
 The \emph{sum set} $X + Y$ is the disjoint union of $X$ and $Y$, i.e. 
 \begin{align*}
     X + Y\triangleq\set{ \iota_1(x) |x\in X} \cup \set{\iota_2(y) | y\in Y},
 \end{align*}
-where $\iota_1$ and $\iota_2$ act as tags.
-\subsection{Product Set}
+where $\iota_1$ and $\iota_2$ act as different tags.
+\subsection{Product Set $X\times Y$}
 The \emph{product set} $X\times Y$ is the cartesian product of $X$ and $Y$, i.e. 
 \begin{align*}
     X\times Y\triangleq\set{(x,y)|x\in X, y\in Y}.
 \end{align*}
 The \emph{finite product set} of sets $X_1, \ldots, X_n$ is their cartesian product; i.e., $X_1\times \ldots \times X_n$. We denote product sets by upper-case letters with an arrow above $\vec{X},\vec{Y}, \vec{Z}$, etc.
-\subsection{Vector/Tuple}
+\subsection{Vector/Tuple $\vec{x}$}
 Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, we denote the elements of $\vec{X}$ by $\vec{x}$, $\vec{y}$, $\vec{z}$, etc. We call these elements \emph{vectors} or, alternatively, \emph{tuples}. 
 
-\subsection{Coordinates}
+\subsection{Coordinates $\vec{x}[\pi]$}
 Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, its \emph{coordinates} are $\pi_1, \ldots, \pi_n$, where $\pi_i\colon \vec{X} \rightarrow X_i$ extract the $i$-th value of a vector; i.e., $\pi_i(x_1, \ldots, x_n)\triangleq x_i$, for $1\leq i \leq n$. We often write the expression $\vec{x}[\pi]$ instead of $\pi(\vec{x})$ when $\pi$ is a coordinate.
 
-\subsection{Pair Function}
+\subsection{Constant Function $\Delta_x$}
+Given sets $X$ and $Y$, each element $x\in X$ lifts to a \emph{constant function} $\Delta_x\colon Y\rightarrow X$, defined by $\Delta_x(y)=x$, for $y\in Y$.
+
+\subsection{Pair Function $(f,g)$}
 Given two functions $f\colon X\rightarrow Y$ and $g\colon X\rightarrow Z$, the \emph{pair function} $(f,g)\colon X\rightarrow Y\times Z$ is defined by $(f,g)(x)=(f(x),g(x))$.
 
-\subsection{Product Function}
+\subsection{Product Function $f\times g$}
 Given two functions $f\colon X\rightarrow Y$ and $g\colon A\rightarrow B$, the \emph{product function} $f\times g\colon X\times A\rightarrow Y\times B$ is defined by $f\times g(x,a)=(f(x),g(a))$.
 
-\subsection{Function Mapping}
+\subsection{Function Mapping $f(X)$}
 Given a set $X$ and a function $f\colon X\rightarrow Y$, the \emph{mapping of $f$ over $X$}, denoted $f(X)$, is the set defined by $f(X)\triangleq\set{f(x)| x\in X}$.
 
 \section{Category Theory Preliminaries and Notation}
@@ -67,35 +75,105 @@ A \emph{category} $\AsCategory{C}$ is a mathematical concept similar to a graph,
 \end{itemize}
 
 \subsection{Commutative Diagram}
+A \emph{commutative diagram} is a directed graph which visually represents equations. Like any directed graph, source nodes do not have incoming arrows, and sink nodes do not have outgoing arrows, and they represent the beginning and end of equations. For example, given the functions $f\colon X\rightarrow Y$, $g\colon Y\rightarrow Z$ and $h\colon Z\rightarrow A$, the equalities $(h\circ g)\circ f= h\circ g \circ f= h \circ (g\circ f)$ is represented by the diagram shown in Figure~\ref{fig:Preliminaries:CommutativeDiagram}.
 
+\begin{figure}[t] 
+    \centering
+    \begin{tikzcd}[column sep=1.5cm, row sep=1.5cm]
+         X
+            \arrow[r,"f"]
+            \arrow[rr,bend left, "g\circ f"]
+            %\arrow[r,"c"]
+            %\arrow[d,"1"']
+        &Y
+            \arrow[r,"g"]
+            \arrow[rr,bend right, "h\circ g"]
+        &Z
+            \arrow[r,"h"]
+        &A
+            %\arrow[u,"1^{-1}"']
+    \end{tikzcd}
+    \caption{Commutative diagram describing the equality $(h\circ g)\circ f= h\circ g \circ f= h \circ (g\circ f)$}
+    \label{fig:Preliminaries:CommutativeDiagram} 
+\end{figure}
 \subsection{Initial and Terminal Objects}
 A category $\AsCategory{C}$ has an \emph{initial object}, often denoted by 0, if there exists a unique arrow from $0$ to every object $o$ in the category. Dually, a category $\AsCategory{C}$ has a \emph{final object}, often denoted by 1, if there exists a unique arrow from every object $o$ in the category to 1. 
 
-\subsection{The Category of Sets and Functions}
-The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. 
+A category may have several different initial and terminal objects, but they are always unique modulo isomorphism.
 
 \subsection{Functor}
+Functors are to categories what arrows are to objects. A \emph{functor} $F$ maps a category $\AsCategory{C}$ to a category $\AsCategory{D}$, mapping $Obj(\AsCategory{C})$ to $Obj(\AsCategory{D})$, and $Arr(\AsCategory{C})$ to $Arr(\AsCategory{D})$ such that the following conditions are satisfied for all objects $X, Y, Z$ and arrows $f,g$.
+\begin{itemize}
+    \item for $f\colon X\rightarrow Y$, $f$ is mapped to a function of type $g\colon F(X)\rightarrow F(Y)$,
+    \item $\id_X$ is mapped to $\id_{F(X)}$; i.e. $F(\id_{X})=\id_{F(X)}$.
+    \item if $f\colon X\rightarrow Y$ and $g\colon Y\rightarrow Z$, then $F(g\circ f)=F(g)\circ F(f)$.
+\end{itemize}
+These conditions ensure functors preserve the structure of the category they are mapping.
 
+\section{The Category of Sets and Functions}
+The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. The empty set $0$ is the initial object, and any set isomorphic to the range set 1 is a terminal object.
+
+\subsection{Currying}
+\emph{Currying} is the use of the isomorphism between the sets $Z^{X\times Y}$ and $Z^{Y^X}$ which maps a function $f\colon (X\times Y)\rightarrow Z$ to a function $g\colon X\rightarrow Z^Y$ such that $g(x)(y)=f(x,y)$ for $x\in X$ and $y\in Y$. We use currying to adjust the types between equivalent constructions (e.g. between Automata and $F$-coalgebras).
+
+\subsection{Partial Application}
+Given a function $f\colon X\rightarrow Y \rightarrow Z$ and $x\in X$, the \emph{partial application} of $f$ given $x$ is the function $f_x\colon Y \rightarrow Z$, defined for $y\in Y$ by $f_x(y)=f(x)(y)$.
+
+\subsection{Monoids and Sequences} 
+A \emph{monoid} in the category $\AsCategory{Set}$ is a set $X$ paired with a sum function $+\colon X\rightarrow X\rightarrow X$ and a unit element $0\in X$ such that $0$ is neutral for $+$ and $+$ is associative. 
+
+We highlight two monoids for a given set $X$: the \emph{free monoid of $X$} and the \emph{endofunctions monoid of $X$}.
+
+The \emph{free monoid of $X$} is the set $X^*$ of finite sequences of elements of $X$, where the sum function is sequence concatenation $\cdot$ and the unit is the empty sequence $\varepsilon$.
+
+The \emph{endofunctions monoid of $X$} is the set $X^X$ of endofunctions in $X$, where the sum is function composition $\circ$ and the unit is the identity function $\id_X$.
+
+\subsection{Languages}
+Given a set $X$, a \emph{language with alphabet $X$} is a subset of $X^*$. 
+
+\subsection{Deterministic Finite Automata (DFA)}
+Given a finite set $A$, a \emph{deterministic finite automaton} (DFA) is a tuple $\mathbb{X}=(X,x_0,\delta,F)$, where $X$ is a finite set, $x_0$ is an element of $X$, $\delta\colon X\times A \rightarrow X$ is a transition function, and $F\colon X\rightarrow 2$ is a subset of $X$ which marks accepting states. Given a sequence $w\in A^*$, we say that the automaton $\mathbb{X}$ \emph{accepts} $w$ if and only if the following conditions are satisfied,
+\begin{itemize}
+    \item if $w=\varepsilon$, then $\mathbb{X}$ accepts $w$ iff $F(x_0)=1$, 
+    \item if $w=a\cdot w'$, then $\mathbb{X}$ accepts $w$ iff the automaton $(X,\delta(x_0,a),\delta,F)$ accepts $w'$, with $a\in A$ and $w'\in A^*$.
+\end{itemize}
+The denotational semantics of a DFA is the language with alphabet $A$ whose sequences it accepts, rejecting the rest.
+
+\subsection{Set Isomorphisms}
+\todo[inline]{Homomorphisms and isomorphisms}
+\subsubsection{List of Relevant Isomorphisms}
+\begin{itemize}
+    \item $1\times X \simeq X$,
+    \item $2\times X\simeq X+X$,
+    \item $X^1\simeq X$,
+    \item $X^2\simeq X\times X$,
+    \item $Z^{X\times Y}\simeq Z^{Y^X}$,
+    \item $X\times Y \simeq Y\times X$
+    \item $X + Y \simeq Y+ X$
+\end{itemize}
 \section{Universal (Co)Algebra Preliminaries and Notation}
 \label{sec:Preliminaries:Coalgebras}
-\todo[inline]{Make sure you create a wonderful introduction to the world of (co)algebras and explain why you want to use them. They are a wonderful way to unify the formalism of the thesis.}
-\subsection{Monoids and Sequences}
-\todo[inline]{Concatenation}
-\subsection{Languages and Automata}
-\todo[inline]{Complete here}
+% \todo[inline]{ntroduction to the world of (co)algebras and explain why you want to use them. They are a wonderful way to unify the formalism of the thesis.}
+% \todo[inline]{Complete here}
 %\todo[inline]{*Puts an Edna Mode face* NO MONADS (unless necessary)}
 %\subsection{$\Monad$-algebras, $\Functor$-coalgebras and $\lambda$-bialgebras}
-\subsection{$F$-coalgebras and their Homomorphisms}
-An \emph{$F$-coalgebra} for a functor $F$ is a pair $(X,X\xrightarrow{c}F(X))$ of an object $X$ and a morphism $c\colon X\rightarrow F(X)$. We use $F$-coalgebras to model dynamic systems with state. 
-\begin{example}
-We can model systems whose states have one component of type $O$ and that can perform state transitions on inputs of type $I$ by means of the functor $F(X)=O\times X^I$. An $F-$coalgebra is of the form $(X,X\xrightarrow{(o,\delta)}O\times X^I)$, with $o\colon X\rightarrow O$ and $\delta\colon X\rightarrow X^I$; the function $o$ lets us explore the component in the state $x$, and $\delta$ lets us perform transitions. We often write $x.o$ instead of $o(x)$, and we write $x^i$ as a shorthand for $\delta(x)(i)$. Deterministic automata that recognise sequences from an alphabet $A$ can be modelled with coalgebras of the functor $G(X)=2\times X^A$.
-\end{example}
+\subsection{$F$-(co)algebras}
+Given an endofunctor $F$ in a category $\AsCategory{C}$, an \emph{$F$-coalgebra} is a pair $(X,X\xrightarrow{c}F(X))$ of an object $X$ and a morphism $c\colon X\rightarrow F(X)$. We use $F$-coalgebras to model dynamic systems with state. We call $X$ the \emph{carrier} and $c$ the \emph{dynamics}.
+
+Dually, an \emph{$F$-algebra} is a pair $(X,F(X)\xrightarrow{a}X)$.
+
 \subsection{Pointed coalgebras}
 Pointed coalgebras are coalgebras with a distinguished state, usually referred to as the \emph{initial state}. Formally, for a functor $F$, a pointed $F$-coalgebra is a triple $(X,c, x_0)$ where $(X,c)$ is an $F$-coalgebra and $(X, x_0)$ is a $\Delta_X$-algebra, i.e., $x_0\colon 1\rightarrow X$, and $x_0(\star)$ characterises the initial state.
-\subsection{States and Components}
-We often use vectors/tuples as a states. We access the values inside states by means of projection functions. If the carrier is a product set $\vec{X}=Y_1 \times\ldots Y_n$, we can use, for $j=1..n$, the projection functions $\pi_j\colon \vec{X}\rightarrow Y_j$ defined, for $\vec{x}=(v_1,\ldots,v_n)$, by $\pi_j(\vec{x})\triangleq v_j$. In this case, we say that $\pi_1$ to $\pi_n$ are the \emph{components} of $\vec{X}$ and its elements. Since both coalgebras and components are functions from the carrier, we use bracket notation for component to distinguish them, i.e., we write $\vec{x}[\pi_j]$ instead of $\pi_j(\vec{x})$.  %, or, alternatively the \emph{state variables} of states in $X$. 
-Whenever we write a state or a carrier  with arrows above them (i.e., $\vec{x}$ or $\vec{X}$), we imply that they have more than one component. Note that if the carrier $X$ has only one component, then it must be the identity function $\id\colon X\rightarrow X$. 
-\todo[inline]{Consider $\vec{x}.\pi_j$ too, called dot notation}
+
+\subsection{Automata as Pointed Coalgebras}
+DFA which characterise languages with an alphabet $A$ can be modelled by coalgebras of the functor $F(X)=2\times X^A$. Given a DFA $(X,x_0,\delta,F)$, the corresponding $F$-coalgebra is $(X,(F,\delta))$, where $(F,\delta)\colon X\rightarrow 2\times X^2$ is a function pair. We can make this coalgebra pointed by adding a function $x_0\colon 1\rightarrow X$ to mark the initial state.
+
+In general, given sets $I$ and $O$, we can model transition systems whose denotational semantics are functions of type $I^*\rightarrow O$; i.e., systems which process a finite sequence of elements in $I$ and respond with an element in $O$. The corresponding functor in this case is $F(X)=O\times X^I$. An $F-$coalgebra would be of the form $(X,X\xrightarrow{(\gamma,\delta)}O\times X^I)$, with $\gamma\colon X\rightarrow O$ and $\delta\colon X\rightarrow X^I$; the function $o$ lets us explore the component in the state $x$, and $\delta$ lets us perform transitions. We write $x/o$ to denote $\gamma(x)=o$, and we write $x^i$ as a shorthand for $\delta(x)(i)$. 
+
+% \subsection{States and Components}
+% We often use vectors/tuples as a states. We access the values inside states by means of projection functions. If the carrier is a product set $\vec{X}=Y_1 \times\ldots Y_n$, we can use, for $j=1..n$, the projection functions $\pi_j\colon \vec{X}\rightarrow Y_j$ defined, for $\vec{x}=(v_1,\ldots,v_n)$, by $\pi_j(\vec{x})\triangleq v_j$. In this case, we say that $\pi_1$ to $\pi_n$ are the \emph{components} of $\vec{X}$ and its elements. Since both coalgebras and components are functions from the carrier, we use bracket notation for component to distinguish them, i.e., we write $\vec{x}[\pi_j]$ instead of $\pi_j(\vec{x})$.  %, or, alternatively the \emph{state variables} of states in $X$. 
+% Whenever we write a state or a carrier  with arrows above them (i.e., $\vec{x}$ or $\vec{X}$), we imply that they have more than one component. Note that if the carrier $X$ has only one component, then it must be the identity function $\id\colon X\rightarrow X$. 
+% \todo[inline]{Consider $\vec{x}.\pi_j$ too, called dot notation}
 %A \emph{$\Monad$-algebra} for a monad $\Monad=(\MFunctor,\eta,\mu)$ is a pair $(\TheSet,\Monad(\TheSet)\xrightarrow{a}\TheSet)$ of an object $\TheSet$ and a morphism $a\colon \Monad(\TheSet)\rightarrow\TheSet$ which, due to the relationship between monads and adjunctions, satisfies two properties: the \emph{multiplication square} and the \emph{unit triangle}, shown in Figure~\ref{fig:MultiplicationSquare}.
 %
 %%\subsubsection The compositions $a\circ \mu_X$ and $a\circ T(a)$ are equal.
@@ -137,14 +215,59 @@ Whenever we write a state or a carrier  with arrows above them (i.e., $\vec{x}$ 
 %\mu_X:(S\times (S\times X)^S)^S\rightarrow  (S\times X)^S\\
 %\mu_X(\mathbf{x})= \lambda s \rightarrow \text{let $(s',f)=\mathbf{x}(s)$ in f(s')}
 %\end{align}
-\todo[inline]{THERE IS NO NEED FOR MONADS AT THE MOMENT. Monads seem to be what maps a type $X$ to an initial/final $F$-coalgebra of a functor where $X$ is constant}
-\subsection{An Intuition of States and Time}
+%\todo[inline]{THERE IS NO NEED FOR MONADS AT THE MOMENT. Monads seem to be what maps a type $X$ to an initial/final $F$-coalgebra of a functor where $X$ is constant}
+%\subsection{An Intuition of States and Time}
 %\subsection{Catamorphisms, Anamorphisms, Final and Initial $F$-Coalgebras}
-\subsection{Anamorphisms and Final $F$-Coalgebras}
-Formally, for the functor $F=O\times \texttt{id}^I$, given an $F$-coalgebra $\mathbb{X}=(X,(o,\delta))$, the behaviour of a state $x\in X$ is $\TheBehaviourOfIn{x}{\mathbb{X}}$, an element of the set $O^{I^*}$. 
-\subsection{}
+\subsection{The Category of $F$-coalgebras and $F$-homomorphisms}
+Given a functor $F$, the \emph{category of $F$-coalgebras}, denoted $\AsCategory{Coalg_F}$ is the category whose objects are $F$-coalgebras and whose arrows are \emph{$F$-homomorphisms}. An \emph{$F$-homomorphism} $\mathbb{X}\xrightarrow{f} \mathbb{Y}$ between an $F$-coalgebra $\mathbb{X}=(X,c)$ and an $F$-coalgebra $\mathbb{Y}=(Y,d)$ is a function $f\colon X\rightarrow Y$ such that
+\begin{align}
+    F(f)\circ c = d\circ f.
+\end{align}
+
+\subsection{Semantic Map and Final $F$-Coalgebras}
+Let $F$ be a functor such that $F(X)=O\times (X)^I$, and let $I$ and $O$ be sets; we define the set $\sigma F\triangleq O^{I^*}$, and we define the function pair $(?, (\cdot)')\colon \sigma F\rightarrow O\times (\sigma F)^I$, for $\phi \in \sigma F$, $i\in I$ and $w\in I^*$, by
+\begin{align}
+    \phi? \triangleq \phi(\varepsilon),
+    \phi'(i)(w) \triangleq \phi(i\cdot w)
+\end{align}
+Following convention, we write $\phi'(i)$ as $\phi^i$, and the pair $(?, (\cdot)')$ as $1_F$. The pair $(\sigma F, 1_F)$ is a \emph{final $F$-coalgebra}, since it is a final object in the category $\AsCategory{Coalg_F}$.
+
+Given an $F$-coalgebra $(X,c)$ where $c=(\gamma,\delta)$, the unique $F$-homomorphism between $(X,c)$ and $(\sigma F, 1_F)$ is given by a function $!_c\colon X\rightarrow \sigma F$, which is defined for $x\in X$, $i\in I$ and $w\in I^*$ by 
+\begin{align}
+    !_c(x)(\varepsilon)\triangleq \gamma(x),\quad \text{and} \quad 
+    !_c(x)(i\cdot w)\triangleq !_c(x^i)(w).
+\end{align}
+The function $!_c$ is called the \emph{semantic map} because it maps $x\in X$ to its denotational semantics in $\sigma F$. For example, in the case of DFA, it maps each state in the carrier to 
+
+\subsection{Bisimilarity}
+Given $F$-coalgebras $(X,c)$ and $(Y,d)$, we say that states \emph{$x\in X$ and $y\in Y$ are bisimilar}, denoted $x\sim y$, if and only if $!_c(x)=!_d(y)$. In other words, $x$ and $y$ are bisimilar iff they have the same semantics.
+
+\subsection{Coalgebraic Specification Language}
+A \emph{coalgebraic specification language} for a functor $F(X)=O\times X^I$ is an $F$-coalgebra $(\mathcal{E},c)$ where $\mathcal{E}$ is a set of expressions. The semantics of an expression $e\in\mathcal{E}$ are given by the semantic map $!_c(e)$.
+
+For example, consider the functor $F(X)=2\times X^2$; we define the set of expressions $\mathcal{E}$ by the grammar
+\begin{align}
+    e::= ID=0?ID\land1?ID\land\downarrow (0|1)
+\end{align}
+where $ID$ is a set of identifiers. We define the pair function $c=(\gamma,\delta)\colon \mathcal{E}\rightarrow F(\mathcal{E})$ by 
+\begin{align*}
+    \gamma(x=0?\land1?z\land\downarrow a)&\triangleq a\\
+    \delta(x=0?y:1?z\land\downarrow a)(0)&\triangleq y\\
+    \delta(x=0?y\land1?z\land\downarrow a)(1)&\triangleq z.
+\end{align*}
+
+In the world of automata, the expression $x=0?x\land1?x\land\downarrow 1$ describes a single-state automaton with an accepting state which loops to itself on both inputs 0 and 1. The semantic map $!_c$ maps the expression $x=0?x\land1?x\land\downarrow 1$ to the language $2^*$.%, i.e., the language which contains every sequence in $2^*$.
+
+\subsection{Completeness}
+Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$, we say that $L$ is \emph{complete} if and only if the semantic map $!_c\colon \mathcal{E}\rightarrow \sigma F$ is surjective. In other words, for every behaviour $\phi\in \sigma F$, there exists an expression $e\in \mathcal{E}$ such that $!_c(e)=\phi$.
+
+\subsection{Soundness}
+Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$ and a notion of equality in $\mathcal{E}$ modelled by a function $=\colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1=e_2$, then $e_1\sim e_2$; i.e., if two expressions are equal, then they have the same behaviour.
 
 \section{Coinduction}
+Coinduction is a dual principle to induction, and we use it to define what things are in terms of how they behave. 
+\todo[inline]{I'll come back to this}
+
 \subsection{Coinduction Proof Principle}
 \todo[inline]{Coinductive Definitions?}
 \subsection{Bisimulation}
