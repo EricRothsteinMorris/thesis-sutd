@@ -17,82 +17,1726 @@
 \endgroup
 
 \datalist[entry]{nyt/global//global/global}
-  \entry{ROP}{inproceedings}{}
-    \name{author}{4}{}{%
-      {{hash=BE}{%
-         family={Buchanan},
-         familyi={B\bibinitperiod},
-         given={Erik},
-         giveni={E\bibinitperiod},
+  \entry{HWMCC2011}{misc}{}
+    \field{labelyear}{2011}
+    \field{labeldatesource}{}
+    \verb{url}
+    \verb http://fmv.jku.at/hwmcc11/index.html
+    \endverb
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{HWMCC2013}{misc}{}
+    \field{labelyear}{2013}
+    \field{labeldatesource}{}
+    \verb{url}
+    \verb http://fmv.jku.at/hwmcc13/index.html
+    \endverb
+    \field{year}{2013}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Cadical}{misc}{}
+    \field{labelyear}{2019}
+    \field{labeldatesource}{}
+    \verb{url}
+    \verb http://fmv.jku.at/cadical/
+    \endverb
+    \field{year}{2019}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{aig-ac-asset}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labeldatesource}{nodate}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{And-Inverter Graph Attacker Classification}
+    \verb{url}
+    \verb https://gitlab.com/asset-sutd/public/aig-ac
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{ProvingMorePropertiesWithBMC}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=AM}{%
+         family={Awedh},
+         familyi={A\bibinitperiod},
+         given={Mohammad},
+         giveni={M\bibinitperiod},
       }}%
-      {{hash=RR}{%
-         family={Roemer},
-         familyi={R\bibinitperiod},
-         given={Ryan},
+      {{hash=SF}{%
+         family={Somenzi},
+         familyi={S\bibinitperiod},
+         given={Fabio},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=AR}{%
+         family={Alur},
+         familyi={A\bibinitperiod},
+         given={Rajeev},
          giveni={R\bibinitperiod},
       }}%
+      {{hash=PDA}{%
+         family={Peled},
+         familyi={P\bibinitperiod},
+         given={Doron\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{AMSF1}
+    \strng{fullhash}{AMSF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2004}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    Bounded Model Checking, although complete in theory, has been thus far
+  limited in practice to falsification of properties that were not invariants.
+  In this paper we propose a termination criterion for all of LTL, and we show
+  its effectiveness through experiments. Our approach is based on converting
+  the LTL formula to a B{\"u}chi automaton so as to reduce model checking to
+  the verification of a fairness constraint. This reduction leads to one
+  termination criterion that applies to all formulae. We also discuss cases for
+  which a dedicated termination test improves bounded model checking
+  efficiency.%
+    }
+    \field{booktitle}{Computer Aided Verification}
+    \field{isbn}{978-3-540-27813-9}
+    \field{pages}{96\bibrangedash 108}
+    \field{title}{Proving More Properties with Bounded Model Checking}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2004}
+  \endentry
+
+  \entry{KnowYourEnemy}{article}{}
+    \name{author}{2}{}{%
+      {{hash=BD}{%
+         family={Basin},
+         familyi={B\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CC}{%
+         family={Cremers},
+         familyi={C\bibinitperiod},
+         given={Cas},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{Security protocols, adversary models, automated analysis, threat
+  models}
+    \strng{namehash}{BDCC1}
+    \strng{fullhash}{BDCC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2014}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \verb{doi}
+    \verb 10.1145/2658996
+    \endverb
+    \field{issn}{1094-9224}
+    \field{number}{2}
+    \field{pages}{7:1\bibrangedash 7:31}
+    \field{title}{Know Your Enemy: Compromising Adversaries in Protocol
+  Analysis}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2658996
+    \endverb
+    \field{volume}{17}
+    \list{location}{1}{%
+      {New York, NY, USA}%
+    }
+    \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
+    \field{month}{11}
+    \field{year}{2014}
+  \endentry
+
+  \entry{HandbookOfSatisfiability}{book}{}
+    \name{author}{5}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HM}{%
+         family={Heule},
+         familyi={H\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=vMH}{%
+         prefix={van},
+         prefixi={v\bibinitperiod},
+         family={Maaren},
+         familyi={M\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=WT}{%
+         family={Walsh},
+         familyi={W\bibinitperiod},
+         given={T.},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IOS Press}%
+    }
+    \strng{namehash}{BA+1}
+    \strng{fullhash}{BABAHMMHvWT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2009}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{isbn}{1586039296, 9781586039295}
+    \field{title}{Handbook of Satisfiability: Volume 185 Frontiers in
+  Artificial Intelligence and Applications}
+    \list{location}{1}{%
+      {Amsterdam, The Netherlands, The Netherlands}%
+    }
+    \field{year}{2009}
+  \endentry
+
+  \entry{AIGER}{report}{}
+    \name{author}{3}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=WS}{%
+         family={Wieringa},
+         familyi={W\bibinitperiod},
+         given={Siert},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BAHKWS1}
+    \strng{fullhash}{BAHKWS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2011}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{series}{Technical Report 11/2}
+    \field{title}{{AIGER 1.9} And Beyond}
+    \list{location}{1}{%
+      {{FMV Reports Series, Institute for Formal Models and Verification,
+  Johannes Kepler University, Altenbergerstr. 69, 4040 Linz, Austria}}%
+    }
+    \field{type}{techreport}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{BMCWithoutBDDs}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Cimatti},
+         familyi={C\bibinitperiod},
+         given={Alessandro},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=CE}{%
+         family={Clarke},
+         familyi={C\bibinitperiod},
+         given={Edmund},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=ZY}{%
+         family={Zhu},
+         familyi={Z\bibinitperiod},
+         given={Yunshan},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=CWR}{%
+         family={Cleaveland},
+         familyi={C\bibinitperiod},
+         given={W.\bibnamedelima Rance},
+         giveni={W\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{BA+2}
+    \strng{fullhash}{BACACEZY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1999}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Symbolic Model Checking [3], [14] has proven to be a powerful technique for
+  the verification of reactive systems. BDDs [2] have traditionally been used
+  as a symbolic representation of the system. In this paper we show how boolean
+  decision procedures, like St{\aa}lmarck's Method [16] or the Davis {\&}
+  Putnam Procedure [7], can replace BDDs. This new technique avoids the space
+  blow up of BDDs, generates counterexamples much faster, and sometimes speeds
+  up the verification. In addition, it produces counterexamples of minimal
+  length. We introduce a bounded model checking procedure for LTL which reduces
+  model checking to propositional satisfiability.We show that bounded LTL model
+  checking can be done without a tableau construction. We have implemented a
+  model checker BMC, based on bounded model checking, and preliminary results
+  are presented.%
+    }
+    \field{booktitle}{Tools and Algorithms for the Construction and Analysis of
+  Systems}
+    \field{isbn}{978-3-540-49059-3}
+    \field{pages}{193\bibrangedash 207}
+    \field{title}{Symbolic Model Checking without BDDs}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{1999}
+  \endentry
+
+  \entry{lmcs:2236}{article}{}
+    \name{author}{5}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=JT}{%
+         family={Junttila},
+         familyi={J\bibinitperiod},
+         given={Tommi},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=LT}{%
+         family={Latvala},
+         familyi={L\bibinitperiod},
+         given={Timo},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=SV}{%
+         family={Schuppan},
+         familyi={S\bibinitperiod},
+         given={Viktor},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BA+2}
+    \strng{fullhash}{BAHKJTLTSV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2006}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{{Linear Encodings of Bounded LTL Model Checking}}
+    \field{volume}{{Volume 2, Issue 5}}
+    \field{journaltitle}{Logical Methods in Computer Science}
+    \field{year}{2006}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{IC3}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=BAR}{%
+         family={Bradley},
+         familyi={B\bibinitperiod},
+         given={Aaron\bibnamedelima R.},
+         giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=JR}{%
+         family={Jhala},
+         familyi={J\bibinitperiod},
+         given={Ranjit},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Schmidt},
+         familyi={S\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{BAR1}
+    \strng{fullhash}{BAR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2011}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    A new form of SAT-based symbolic model checking is described. Instead of
+  unrolling the transition relation, it incrementally generates clauses that
+  are inductive relative to (and augment) stepwise approximate reachability
+  information. In this way, the algorithm gradually refines the property,
+  eventually producing either an inductive strengthening of the property or a
+  counterexample trace. Our experimental studies show that induction is a
+  powerful tool for generalizing the unreachability of given error states: it
+  can refine away many states at once, and it is effective at focusing the
+  proof search on aspects of the transition system relevant to the property.
+  Furthermore, the incremental structure of the algorithm lends itself to a
+  parallel implementation.%
+    }
+    \field{booktitle}{Verification, Model Checking, and Abstract
+  Interpretation}
+    \field{isbn}{978-3-642-18275-4}
+    \field{pages}{70\bibrangedash 87}
+    \field{title}{SAT-Based Model Checking without Unrolling}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2011}
+  \endentry
+
+  \entry{IC32}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=BAR}{%
+         family={Bradley},
+         familyi={B\bibinitperiod},
+         given={Aaron\bibnamedelima R.},
+         giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer-Verlag}%
+    }
+    \strng{namehash}{BAR1}
+    \strng{fullhash}{BAR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2012}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{booktitle}{Proceedings of the 15th International Conference on
+  Theory and Applications of Satisfiability Testing}
+    \verb{doi}
+    \verb 10.1007/978-3-642-31612-8_1
+    \endverb
+    \field{isbn}{978-3-642-31611-1}
+    \field{pages}{1\bibrangedash 14}
+    \field{series}{SAT'12}
+    \field{title}{Understanding IC3}
+    \verb{url}
+    \verb http://dx.doi.org/10.1007/978-3-642-31612-8\_1
+    \endverb
+    \list{location}{1}{%
+      {Trento, Italy}%
+    }
+    \field{year}{2012}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{OptimizedModelCheckingOfMultipleProperties}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CG}{%
+         family={{Cabodi}},
+         familyi={C\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=NS}{%
+         family={{Nocco}},
+         familyi={N\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{formal verification;optimized model checking;multiple
+  properties;industrial verification;cone-of-influence
+  minimization;verification tasks;Integrated circuit modeling;Computational
+  modeling;Data structures;Benchmark testing;Boolean functions;Approximation
+  methods;Design automation}
+    \strng{namehash}{CGNS1}
+    \strng{fullhash}{CGNS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2011}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{2011 Design, Automation Test in Europe}
+    \verb{doi}
+    \verb 10.1109/DATE.2011.5763279
+    \endverb
+    \field{issn}{1558-1101}
+    \field{pages}{1\bibrangedash 4}
+    \field{title}{Optimized model checking of multiple properties}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{ToSplitOrToGroup}{article}{}
+    \name{author}{7}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
+         familyi={C\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CPE}{%
+         family={Camurati},
+         familyi={C\bibinitperiod},
+         given={P.\bibnamedelima E.},
+         giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Loiacono},
+         familyi={L\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Palena},
+         familyi={P\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=PP}{%
+         family={Pasini},
+         familyi={P\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=PD}{%
+         family={Patti},
+         familyi={P\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CG+1}
+    \strng{fullhash}{CGCPELCPMPPPDQS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    Hardware systems complexity has constantly increased in recent years.
+  Guaranteeing their correctness is a must. Formal verification techniques,
+  such as model checking, now play a major role in industrial environments.
+  Their efficiency in dealing with large sets of properties is crucial. This
+  paper deals with property grouping, decomposition, and coverage in model
+  checking. Property grouping is a valuable solution whenever several
+  properties must be proved for a single model. As such sets may include
+  ``easy-to-prove'' and/or ``similar'' properties, grouping can reduce overhead
+  avoiding sub-tasks repetition. Property decomposition, following the
+  divide-and-conquer paradigm, can be effective whenever a property turns out
+  to be ``hard-to-prove.'' Our contribution is a heuristic property manager,
+  running on top of a multi-engine model checking portfolio, aiming at
+  productivity optimization. We compare different clustering heuristics, and we
+  exploit decomposition strategies for property sub-setting. We also consider
+  the problem of evaluating a coverage measure for properties, used to monitor
+  the ``advancement'' of the verification task.%
+    }
+    \verb{doi}
+    \verb 10.1007/s10009-017-0451-8
+    \endverb
+    \field{issn}{1433-2787}
+    \field{number}{3}
+    \field{pages}{313\bibrangedash 325}
+    \field{title}{To split or to group: from divide-and-conquer to sub-task
+  sharing for verifying multiple properties in model checking}
+    \verb{url}
+    \verb https://doi.org/10.1007/s10009-017-0451-8
+    \endverb
+    \field{volume}{20}
+    \field{journaltitle}{International Journal on Software Tools for Technology
+  Transfer}
+    \field{year}{2018}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{GraphLabelingForEfficientCOIComputation}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
+         familyi={C\bibinitperiod},
+         given={Gianpiero},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CP}{%
+         family={Camurati},
+         familyi={C\bibinitperiod},
+         given={Paolo},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={Stefano},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{model checking, Boolean functions, cone of influence, graph labeling}
+    \strng{namehash}{CGCPQS1}
+    \strng{fullhash}{CGCPQS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.1002/spe.2321
+    \endverb
+    \verb{eprint}
+    \verb https://onlinelibrary.wiley.com/doi/pdf/10.1002/spe.2321
+    \endverb
+    \field{number}{4}
+    \field{pages}{493\bibrangedash 511}
+    \field{title}{A graph-labeling approach for efficient cone-of-influence
+  computation in model-checking problems with multiple properties}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.2321
+    \endverb
+    \field{volume}{46}
+    \field{journaltitle}{Software: Practice and Experience}
+    \field{year}{2016}
+  \endentry
+
+  \entry{HWMCC2014BM}{article}{}
+    \name{author}{9}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
+         familyi={C\bibinitperiod},
+         given={Gianpiero},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Loiacono},
+         familyi={L\bibinitperiod},
+         given={Carmelo},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Palena},
+         familyi={P\bibinitperiod},
+         given={Marco},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=PP}{%
+         family={Pasini},
+         familyi={P\bibinitperiod},
+         given={Paolo},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=PD}{%
+         family={Patti},
+         familyi={P\bibinitperiod},
+         given={Denis},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={Stefano},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=VD}{%
+         family={Vendraminetto},
+         familyi={V\bibinitperiod},
+         given={Danilo},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CG+2}
+    \strng{fullhash}{CGLCPMPPPDQSVDBAHK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2015}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{pages}{135\bibrangedash 172}
+    \field{title}{Hardware Model Checking Competition 2014: An Analysis and
+  Comparison of Model Checkers and Benchmarks}
+    \field{volume}{9}
+    \field{journaltitle}{Journal on Satisfiability, Boolean Modeling and
+  Computation}
+    \field{year}{2015}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Cardenas2011}{inproceedings}{}
+    \name{author}{6}{}{%
+      {{hash=CAA}{%
+         family={C\'{a}rdenas},
+         familyi={C\bibinitperiod},
+         given={Alvaro\bibnamedelima A.},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Amin},
+         familyi={A\bibinitperiod},
+         given={Saurabh},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=LZS}{%
+         family={Lin},
+         familyi={L\bibinitperiod},
+         given={Zong-Syun},
+         giveni={Z\bibinithyphendelim S\bibinitperiod},
+      }}%
+      {{hash=HYL}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Yu-Lun},
+         giveni={Y\bibinithyphendelim L\bibinitperiod},
+      }}%
+      {{hash=HCY}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Chi-Yen},
+         giveni={C\bibinithyphendelim Y\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Sastry},
+         familyi={S\bibinitperiod},
+         given={Shankar},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{IDS, SCADA, control systems, critical infrastructure protection,
+  cyber-physical systems, security}
+    \strng{namehash}{CAA+1}
+    \strng{fullhash}{CAAASLZSHYLHCYSS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2011}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{Proceedings of the 6th ACM Symposium on Information,
+  Computer and Communications Security}
+    \verb{doi}
+    \verb 10.1145/1966913.1966959
+    \endverb
+    \field{isbn}{978-1-4503-0564-8}
+    \field{pages}{355\bibrangedash 366}
+    \field{series}{ASIACCS '11}
+    \field{title}{Attacks Against Process Control Systems: Risk Assessment,
+  Detection, and Response}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/1966913.1966959
+    \endverb
+    \list{location}{1}{%
+      {Hong Kong, China}%
+    }
+    \field{year}{2011}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{HandbookOfModelChecking}{book}{}
+    \name{editor}{4}{}{%
+      {{hash=CEM}{%
+         family={Clarke},
+         familyi={C\bibinitperiod},
+         given={Edmund\bibnamedelima M.},
+         giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=HTA}{%
+         family={Henzinger},
+         familyi={H\bibinitperiod},
+         given={Thomas\bibnamedelima A.},
+         giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=VH}{%
+         family={Veith},
+         familyi={V\bibinitperiod},
+         given={Helmut},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=BR}{%
+         family={Bloem},
+         familyi={B\bibinitperiod},
+         given={Roderick},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{CEM+1}
+    \strng{fullhash}{CEMHTAVHBR1}
+    \field{labelnamesource}{editor}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Handbook of Model Checking}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Giraldo2018}{article}{}
+    \name{author}{9}{}{%
+      {{hash=GJ}{%
+         family={Giraldo},
+         familyi={G\bibinitperiod},
+         given={Jairo},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=UD}{%
+         family={Urbina},
+         familyi={U\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Cardenas},
+         familyi={C\bibinitperiod},
+         given={Alvaro},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=VJ}{%
+         family={Valente},
+         familyi={V\bibinitperiod},
+         given={Junia},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FM}{%
+         family={Faisal},
+         familyi={F\bibinitperiod},
+         given={Mustafa},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Ruths},
+         familyi={R\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=TNO}{%
+         family={Tippenhauer},
+         familyi={T\bibinitperiod},
+         given={Nils\bibnamedelima Ole},
+         giveni={N\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Sandberg},
+         familyi={S\bibinitperiod},
+         given={Henrik},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=CR}{%
+         family={Candell},
+         familyi={C\bibinitperiod},
+         given={Richard},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{Cyber-physical systems, industrial control systems, metrics}
+    \strng{namehash}{GJ+1}
+    \strng{fullhash}{GJUDCAVJFMRJTNOSHCR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \verb{doi}
+    \verb 10.1145/3203245
+    \endverb
+    \field{issn}{0360-0300}
+    \field{number}{4}
+    \field{pages}{76:1\bibrangedash 76:36}
+    \field{title}{A Survey of Physics-Based Attack Detection in Cyber-Physical
+  Systems}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/3203245
+    \endverb
+    \field{volume}{51}
+    \list{location}{1}{%
+      {New York, NY, USA}%
+    }
+    \field{journaltitle}{ACM Comput. Surv.}
+    \field{month}{07}
+    \field{year}{2018}
+  \endentry
+
+  \entry{JustAssume}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=GE}{%
+         family={Goldberg},
+         familyi={G\bibinitperiod},
+         given={E.},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={G�demann},
+         familyi={G\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KD}{%
+         family={Kroening},
+         familyi={K\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Mukherjee},
+         familyi={M\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \keyw{program debugging;program verification;JA-verification;debugging
+  set;just-assume;multiproperty design verification;safety
+  properties;Debugging;Aggregates;Machinery;Safety;Field effect
+  transistors;Contracts;Context modeling}
+    \strng{namehash}{GE+1}
+    \strng{fullhash}{GEGMKDMR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{booktitle}{2018 Design, Automation Test in Europe Conference
+  Exhibition (DATE)}
+    \verb{doi}
+    \verb 10.23919/DATE.2018.8341977
+    \endverb
+    \field{issn}{1558-1101}
+    \field{pages}{43\bibrangedash 48}
+    \field{title}{Efficient verification of multi-property designs (The benefit
+  of wrong assumptions)}
+    \field{year}{2018}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Gunther1990}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=GCG}{%
+         family={G{\"u}nther},
+         familyi={G\bibinitperiod},
+         given={Christoph\bibnamedelima G.},
+         giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=QJJ}{%
+         family={Quisquater},
+         familyi={Q\bibinitperiod},
+         given={Jean-Jacques},
+         giveni={J\bibinithyphendelim J\bibinitperiod},
+      }}%
+      {{hash=VJ}{%
+         family={Vandewalle},
+         familyi={V\bibinitperiod},
+         given={Joos},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{GCG1}
+    \strng{fullhash}{GCG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1990}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    The distribution of cryptographic keys has always been a major problem in
+  applications with many users. Solutions were found for closed user groups and
+  small open systems. These are, however, not efficient for large networks. We
+  propose an identity-based approach to that problem which is simple and
+  applicable to networks of arbitrary size. With the solution proposed, the
+  user group can, furthermore, be extended at will. Each new user needs only to
+  visit a key authentication center (KAC) once and is from then on able to
+  exchange authenticated keys with each other user of the network. We expect
+  this type of approach, which was originally conceived for authentication and
+  signatures, to play an increasing role in the solution of all types of key
+  distribution problems.%
+    }
+    \field{booktitle}{Advances in Cryptology --- EUROCRYPT '89}
+    \field{isbn}{978-3-540-46885-1}
+    \field{pages}{29\bibrangedash 37}
+    \field{title}{An Identity-Based Key-Exchange Protocol}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{1990}
+  \endentry
+
+  \entry{ActualCausality}{book}{}
+    \name{author}{1}{}{%
+      {{hash=HJY}{%
+         family={Halpern},
+         familyi={H\bibinitperiod},
+         given={Joseph\bibnamedelima Y.},
+         giveni={J\bibinitperiod\bibinitdelim Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Mit Press}%
+    }
+    \strng{namehash}{HJY1}
+    \strng{fullhash}{HJY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    Causality plays a central role in the way people structure the world; we
+  constantly seek causal explanations for our observations. But what does it
+  even mean that an eventC"actually caused" eventE? The problem of defining
+  actual causation goes beyond mere philosophical speculation. For example, in
+  many legal arguments, it is precisely what needs to be established in order
+  to determine responsibility. The philosophy literature has been struggling
+  with the problem of defining causality since Hume.In this book, Joseph
+  Halpern explores actual causality, and such related notions as degree of
+  responsibility, degree of blame, and causal explanation. The goal is to
+  arrive at a definition of causality that matches our natural language usage
+  and is helpful, for example, to a jury deciding a legal case, a programmer
+  looking for the line of code that cause some software to fail, or an
+  economist trying to determine whether austerity caused a subsequent
+  depression.Halpern applies and expands an approach to causality that he and
+  Judea Pearl developed, based on structural equations. He carefully formulates
+  a definition of causality, and building on this, defines degree of
+  responsibility, degree of blame, and causal explanation. He concludes by
+  discussing how these ideas can be applied to such practical problems as
+  accountability and program verification. Technical details are generally
+  confined to the final section of each chapter and can be skipped by
+  non-mathematical readers.%
+    }
+    \field{isbn}{9780262035026}
+    \field{title}{Actual Causality}
+    \verb{url}
+    \verb http://www.jstor.org/stable/j.ctt1f5g5p9
+    \endverb
+    \field{year}{2016}
+  \endentry
+
+  \entry{AIGs}{article}{}
+    \name{author}{1}{}{%
+      {{hash=HL}{%
+         family={{Hellerman}},
+         familyi={H\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \keyw{Logic circuits;Logic functions;Logic design;Circuit
+  synthesis;Costs;Low earth orbit satellites;Art;Design methodology;Relays}
+    \strng{namehash}{HL1}
+    \strng{fullhash}{HL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1963}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{doi}
+    \verb 10.1109/PGEC.1963.263531
+    \endverb
+    \field{number}{3}
+    \field{pages}{198\bibrangedash 223}
+    \field{title}{A Catalog of Three-Variable Or-Invert and And-Invert Logical
+  Circuits}
+    \field{volume}{EC-12}
+    \field{journaltitle}{IEEE Transactions on Electronic Computers}
+    \field{year}{1963}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{EfficientComputationOfRecurrenceDiameters}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=KD}{%
+         family={Kroening},
+         familyi={K\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SO}{%
+         family={Strichman},
+         familyi={S\bibinitperiod},
+         given={Ofer},
+         giveni={O\bibinitperiod},
+      }}%
+    }
+    \name{editor}{4}{}{%
+      {{hash=ZLD}{%
+         family={Zuck},
+         familyi={Z\bibinitperiod},
+         given={Lenore\bibnamedelima D.},
+         giveni={L\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=APC}{%
+         family={Attie},
+         familyi={A\bibinitperiod},
+         given={Paul\bibnamedelima C.},
+         giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Cortesi},
+         familyi={C\bibinitperiod},
+         given={Agostino},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MS}{%
+         family={Mukhopadhyay},
+         familyi={M\bibinitperiod},
+         given={Supratik},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{KDSO1}
+    \strng{fullhash}{KDSO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2003}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    SAT based Bounded Model Checking (BMC) is an efficient method for detecting
+  logical errors in finite-state transition systems. Given a transition system,
+  an LTL property, and a user defined bound k, a bounded model checker
+  generates a propositional formula that is satisfiable if and only if a
+  counterexample to the property of length up to k exists. Standard SAT
+  checkers can be used to check this formula.BMCis complete if k is larger than
+  some pre-computed threshold. It is still unknown how to compute this
+  threshold for general properties.We show that the longest initialized
+  loop-free path in the state graph, also known as the recurrence diameter, is
+  sufficient for Fp properties. The recurrence diameter is also a known
+  over-approximation for the threshold of simple safety properties (Gp).We
+  discuss various techniques to compute the recurrence diameter efficiently and
+  provide experimental results that demonstrate the benefits of using the new
+  approach.%
+    }
+    \field{booktitle}{Verification, Model Checking, and Abstract
+  Interpretation}
+    \field{isbn}{978-3-540-36384-2}
+    \field{pages}{298\bibrangedash 309}
+    \field{title}{Efficient Computation of Recurrence Diameters}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2003}
+  \endentry
+
+  \entry{AIGs2}{article}{}
+    \name{author}{4}{}{%
+      {{hash=KA}{%
+         family={{Kuehlmann}},
+         familyi={K\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=PV}{%
+         family={{Paruthi}},
+         familyi={P\bibinitperiod},
+         given={V.},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=KF}{%
+         family={{Krohm}},
+         familyi={K\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=GMK}{%
+         family={{Ganai}},
+         familyi={G\bibinitperiod},
+         given={M.\bibnamedelima K.},
+         giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \keyw{formal verification;binary decision diagrams;Boolean functions;logic
+  CAD;Boolean reasoning;equivalence checking;functional property
+  verification;computer-aided design;structural satisfiability;binary decision
+  diagram;structural transformation;random simulation;shared graph;orthogonal
+  strength;logic synthesis;false path analysis;Robustness;Boolean
+  functions;Data structures;Design automation;Application software;Logic
+  design;Logic circuits;Circuit synthesis;Logic testing;Circuit testing}
+    \strng{namehash}{KA+1}
+    \strng{fullhash}{KAPVKFGMK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2002}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb 10.1109/TCAD.2002.804386
+    \endverb
+    \field{number}{12}
+    \field{pages}{1377\bibrangedash 1394}
+    \field{title}{Robust Boolean reasoning for equivalence checking and
+  functional property verification}
+    \field{volume}{21}
+    \field{journaltitle}{IEEE Transactions on Computer-Aided Design of
+  Integrated Circuits and Systems}
+    \field{year}{2002}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Interpolation}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=MKL}{%
+         family={McMillan},
+         familyi={M\bibinitperiod},
+         given={K.\bibnamedelima L.},
+         giveni={K\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=HWA}{%
+         family={Hunt},
+         familyi={H\bibinitperiod},
+         given={Warren\bibnamedelima A.},
+         giveni={W\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=SF}{%
+         family={Somenzi},
+         familyi={S\bibinitperiod},
+         given={Fabio},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{MKL1}
+    \strng{fullhash}{MKL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2003}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    We consider a fully SAT-based method of unbounded symbolic model checking
+  based on computing Craig interpolants. In benchmark studies using a set of
+  large industrial circuit verification instances, this method is greatly more
+  efficient than BDD-based symbolic model checking, and compares favorably to
+  some recent SAT-based model checking methods on positive instances.%
+    }
+    \field{booktitle}{Computer Aided Verification}
+    \field{isbn}{978-3-540-45069-6}
+    \field{pages}{1\bibrangedash 13}
+    \field{title}{Interpolation and SAT-Based Model Checking}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2003}
+  \endentry
+
+  \entry{Menezes1996}{book}{}
+    \name{author}{3}{}{%
+      {{hash=MAJ}{%
+         family={Menezes},
+         familyi={M\bibinitperiod},
+         given={Alfred\bibnamedelima J.},
+         giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=VSA}{%
+         family={Vanstone},
+         familyi={V\bibinitperiod},
+         given={Scott\bibnamedelima A.},
+         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=OPCV}{%
+         family={Oorschot},
+         familyi={O\bibinitperiod},
+         given={Paul C.\bibnamedelima Van},
+         giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim
+  V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {CRC Press, Inc.}%
+    }
+    \strng{namehash}{MAJVSAOPCV1}
+    \strng{fullhash}{MAJVSAOPCV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1996}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{edition}{1st}
+    \field{isbn}{0849385237}
+    \field{title}{Handbook of Applied Cryptography}
+    \list{location}{1}{%
+      {Boca Raton, FL, USA}%
+    }
+    \field{year}{1996}
+  \endentry
+
+  \entry{CPSProfiles}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=RM}{%
+         family={Rocchetto},
+         familyi={R\bibinitperiod},
+         given={Marco},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=TNO}{%
+         family={Tippenhauer},
+         familyi={T\bibinitperiod},
+         given={Nils\bibnamedelima Ole},
+         giveni={N\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+    }
+    \name{editor}{4}{}{%
+      {{hash=AI}{%
+         family={Askoxylakis},
+         familyi={A\bibinitperiod},
+         given={Ioannis},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=IS}{%
+         family={Ioannidis},
+         familyi={I\bibinitperiod},
+         given={Sotiris},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=KS}{%
+         family={Katsikas},
+         familyi={K\bibinitperiod},
+         given={Sokratis},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=MC}{%
+         family={Meadows},
+         familyi={M\bibinitperiod},
+         given={Catherine},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer International Publishing}%
+    }
+    \strng{namehash}{RMTNO1}
+    \strng{fullhash}{RMTNO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    Attacker models are a fundamental part of research on security of any
+  system. For different application scenarios, suitable attacker models have to
+  be chosen to allow comprehensive coverage of possible attacks. We consider
+  Cyber-Physical Systems (CPS), that typically consist of networked embedded
+  systems which are used to sense, actuate, and control physical processes. The
+  physical layer aspects of such systems add novel attack vectors and
+  opportunities for defenses, that require extended models of attackers'
+  capabilities. We develop a taxonomy to classify and compare attacker models
+  in related work. We show that, so far, there are no commonly used attacker
+  models for such CPS. In addition, concepts of what information belongs in an
+  attacker model are widely different among the community. To address that
+  problem, we develop a framework to classify attacker models and use it to
+  review related work on CPS Security. Using our framework, we propose a set of
+  attacker profiles and show that those profiles capture most types of
+  attackers described in the related work. Our framework provides a more formal
+  and standardized definition of attacker model for CPS, enabling the use of
+  well-defined and uniform attacker models in the future.%
+    }
+    \field{booktitle}{Computer Security -- ESORICS 2016}
+    \field{isbn}{978-3-319-45741-3}
+    \field{pages}{427\bibrangedash 449}
+    \field{title}{On Attacker Models and Profiles for Cyber-Physical Systems}
+    \list{location}{1}{%
+      {Cham}%
+    }
+    \field{year}{2016}
+  \endentry
+
+  \entry{Simei}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=RE}{%
+         family={Rothstein},
+         familyi={R\bibinitperiod},
+         given={Eric},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=MCG}{%
+         family={Murguia},
+         familyi={M\bibinitperiod},
+         given={Carlos\bibnamedelima G.},
+         giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=OM}{%
+         family={Ochoa},
+         familyi={O\bibinitperiod},
+         given={Mart\'{\i}n},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{control theory, cyber-physical systems, information flow,
+  non-interference}
+    \strng{namehash}{REMCGOM1}
+    \strng{fullhash}{REMCGOM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2017}
+    \field{labeldatesource}{}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{Proceedings of the 2017 Workshop on Programming Languages
+  and Analysis for Security}
+    \verb{doi}
+    \verb 10.1145/3139337.3139347
+    \endverb
+    \field{isbn}{978-1-4503-5099-0}
+    \field{pages}{63\bibrangedash 74}
+    \field{series}{PLAS '17}
+    \field{title}{Design-time Quantification of Integrity in Cyber-physical
+  Systems}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/3139337.3139347
+    \endverb
+    \list{location}{1}{%
+      {Dallas, Texas, USA}%
+    }
+    \field{year}{2017}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{ROP}{inproceedings}{}
+    \name{author}{1}{}{%
       {{hash=SH}{%
          family={Shacham},
          familyi={S\bibinitperiod},
          given={Hovav},
          giveni={H\bibinitperiod},
       }}%
-      {{hash=SS}{%
-         family={Savage},
-         familyi={S\bibinitperiod},
-         given={Stefan},
-         giveni={S\bibinitperiod},
-      }}%
     }
     \list{publisher}{1}{%
       {Association for Computing Machinery}%
     }
-    \keyw{SPARC, return-into-libc, RISC, return-oriented programming}
-    \strng{namehash}{BE+1}
-    \strng{fullhash}{BERRSHSS1}
+    \keyw{return-into-libc, instruction set, turing completeness}
+    \strng{namehash}{SH1}
+    \strng{fullhash}{SH1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2008}
+    \field{labelyear}{2007}
     \field{labeldatesource}{}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
     \field{abstract}{%
-    This paper reconsiders the threat posed by Shacham's "return-oriented
-  programming" -- a technique by which W-xor-X-style hardware protections are
-  evaded via carefully crafted stack frames that divert control flow into the
-  middle of existing variable-length x86 instructions -- creating short new
-  instructions streams that then return. We believe this attack is both more
-  general and a greater threat than the author appreciated. In fact, the
-  vulnerability is not limited to the x86 architecture or any particular
-  operating system, is readily exploitable, and bypasses an entire category of
-  malware protections. In this paper we demonstrate general return-oriented
-  programming on the SPARC, a fixed instruction length RISC architecture with
-  structured control flow. We construct a Turing-complete library of code
-  gadgets using snippets of the Solaris libc, a general purpose programming
-  language, and a compiler for constructing return-oriented exploits. Finally,
-  we argue that the threat posed by return-oriented programming, across all
-  architectures and systems, has negative implications for an entire class of
-  security mechanisms: those that seek to prevent malicious computation by
-  preventing the execution of malicious code.%
+    We present new techniques that allow a return-into-libc attack to be
+  mounted on x86 executables that calls no functions at all. Our attack
+  combines a large number of short instruction sequences to build gadgets that
+  allow arbitrary computation. We show how to discover such instruction
+  sequences by means of static analysis. We make use, in an essential way, of
+  the properties of the x86 instruction set.%
     }
-    \field{booktitle}{Proceedings of the 15th ACM Conference on Computer and
+    \field{booktitle}{Proceedings of the 14th ACM Conference on Computer and
   Communications Security}
     \verb{doi}
-    \verb 10.1145/1455770.1455776
+    \verb 10.1145/1315245.1315313
     \endverb
-    \field{isbn}{9781595938107}
-    \field{pages}{27–38}
-    \field{series}{CCS '08}
-    \field{title}{When Good Instructions Go Bad: Generalizing Return-Oriented
-  Programming to RISC}
+    \field{isbn}{9781595937032}
+    \field{pages}{552–561}
+    \field{series}{CCS '07}
+    \field{title}{The Geometry of Innocent Flesh on the Bone: Return-into-Libc
+  without Function Calls (on the X86)}
     \verb{url}
-    \verb https://doi.org/10.1145/1455770.1455776
+    \verb https://doi.org/10.1145/1315245.1315313
     \endverb
     \list{location}{1}{%
       {Alexandria, Virginia, USA}%
     }
-    \field{year}{2008}
+    \field{year}{2007}
     \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{TseitinEncoding}{inbook}{}
+    \name{author}{1}{}{%
+      {{hash=TGS}{%
+         family={Tseitin},
+         familyi={T\bibinitperiod},
+         given={G.\bibnamedelima S.},
+         giveni={G\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=SJH}{%
+         family={Siekmann},
+         familyi={S\bibinitperiod},
+         given={J{\"o}rg\bibnamedelima H.},
+         giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=WG}{%
+         family={Wrightson},
+         familyi={W\bibinitperiod},
+         given={Graham},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{TGS1}
+    \strng{fullhash}{TGS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1983}
+    \field{labeldatesource}{}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{abstract}{%
+    The question of the minimum complexity of derivation of a given formula in
+  classical propositional calculus is considered in this article and it is
+  proved that estimates of complexity may vary considerably among the various
+  forms of propositional calculus. The forms of propositional calculus used in
+  the present article are somewhat unusual, {\textdagger} but the results
+  obtained for them can, in principle, be extended to the usual forms of
+  propositional calculus.%
+    }
+    \field{booktitle}{Automation of Reasoning: 2: Classical Papers on
+  Computational Logic 1967--1970}
+    \verb{doi}
+    \verb 10.1007/978-3-642-81955-1_28
+    \endverb
+    \field{isbn}{978-3-642-81955-1}
+    \field{pages}{466\bibrangedash 483}
+    \field{title}{On the Complexity of Derivation in Propositional Calculus}
+    \verb{url}
+    \verb https://doi.org/10.1007/978-3-642-81955-1_28
+    \endverb
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{1983}
+  \endentry
+
+  \entry{Urbina2016}{inproceedings}{}
+    \name{author}{9}{}{%
+      {{hash=UDI}{%
+         family={Urbina},
+         familyi={U\bibinitperiod},
+         given={David\bibnamedelima I.},
+         giveni={D\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+      {{hash=GJA}{%
+         family={Giraldo},
+         familyi={G\bibinitperiod},
+         given={Jairo\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=CAA}{%
+         family={Cardenas},
+         familyi={C\bibinitperiod},
+         given={Alvaro\bibnamedelima A.},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=TNO}{%
+         family={Tippenhauer},
+         familyi={T\bibinitperiod},
+         given={Nils\bibnamedelima Ole},
+         giveni={N\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+      {{hash=VJ}{%
+         family={Valente},
+         familyi={V\bibinitperiod},
+         given={Junia},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FM}{%
+         family={Faisal},
+         familyi={F\bibinitperiod},
+         given={Mustafa},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Ruths},
+         familyi={R\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CR}{%
+         family={Candell},
+         familyi={C\bibinitperiod},
+         given={Richard},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Sandberg},
+         familyi={S\bibinitperiod},
+         given={Henrik},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{industrial control systems, intrusion detection, physics-based
+  detection, security metrics, stealthy attacks}
+    \strng{namehash}{UDI+1}
+    \strng{fullhash}{UDIGJACAATNOVJFMRJCRSH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{booktitle}{Proceedings of the 2016 ACM SIGSAC Conference on Computer
+  and Communications Security}
+    \verb{doi}
+    \verb 10.1145/2976749.2978388
+    \endverb
+    \field{isbn}{978-1-4503-4139-4}
+    \field{pages}{1092\bibrangedash 1105}
+    \field{series}{CCS '16}
+    \field{title}{Limiting the Impact of Stealthy Attacks on Industrial Control
+  Systems}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2976749.2978388
+    \endverb
+    \list{location}{1}{%
+      {Vienna, Austria}%
+    }
+    \field{year}{2016}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{IFCPSSec}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=WS}{%
+         family={Weerakkody},
+         familyi={W\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=KS}{%
+         family={Kar},
+         familyi={K\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=DA}{%
+         family={Datta},
+         familyi={D\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \keyw{control systems;cyber-physical systems;information analysis;security
+  of data;CPS security;Kullback Liebler divergence;active detection
+  mechanisms;control system resilience;control system security;cyber physical
+  systems;fragmentation;information flow analysis;optimal detection;software
+  security;stealthy attack scenarios;Computational modeling;Control
+  systems;Detectors;Government;Software;Watermarking}
+    \strng{namehash}{WS+1}
+    \strng{fullhash}{WSSBKSDA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{booktitle}{2016 IEEE 55th Conference on Decision and Control (CDC)}
+    \verb{doi}
+    \verb 10.1109/CDC.2016.7799044
+    \endverb
+    \field{pages}{5065\bibrangedash 5072}
+    \field{title}{Information flow for security in control systems}
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 \enddatalist
 \endinput

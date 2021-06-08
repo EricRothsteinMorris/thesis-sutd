@@ -1,16 +1,26 @@
 %!TEX root = ../main.tex
-\chapter{Systematic Classification of Attacker Models}
+\chapter{Systematic Classification of Attacker Models using Latent-Behaviour Analysis}
 \label{ch:Classification}
 \todo[inline]{This chapter needs to be readapted to align better with latent behaviours, but it is probably the easiest to align: if the attacker can find a spatial transformation that triggers a requirement failure, then there is an attack that the attacker can use.}
 \todo[inline]{This section is in red because it needs to be rewritten into context}
-{\color{red}
 \section{Introduction}
-\label{sec:Introduction}
-\subsubsection{Problem Context.} 
-Some systems are designed to provide security guarantees in the presence of attackers. For example, the Diffie-Hellman key agreement protocol guarantees perfect forward secrecy \cite{Gunther1990,Menezes1996} (PFS), i.e., that the session key remains secret even if the long-term keys are compromised. These security guarantees are only valid in the context of the attacker models for which they were proven; more precisely, those guarantees only hold for attackers that fit those or weaker attacker models. For instance, PFS describes an attacker model (i.e., an attacker that can compromise the long-term keys, \emph{and only those}), and a property that is guaranteed in the presence of an attacker that fits the model (i.e., confidentiality of the session keys). However, if we consider an attacker model that is stronger (e.g., an attacker that can directly compromise the session key), then Diffie-Hellman can no longer guarantee the confidentiality of the session keys. Clearly, it is difficult to provide any guarantees against an attacker model that is too capable, so it is in the interest of the system designer to choose an adequate attacker model that puts the security guarantees of the system in the context of realistic and relevant attackers.
+\label{sec:Classification:LatentBehaviours}
+The first application of latent-behaviour analysis is the systematic generation and comparison of attacker models for \emph{And-inverter Graphs} (AIG) systems, which are used to model hardware systems at the level of bits~\cite{??}. 
+\todo[inline]{Put AIGs in the preliminaries...}
+Conceptually, an AIG is a circuit which has some memory locations, some external inputs, and a wiring which connects memory locations and external inputs to output locations. We can imagine a state of an AIG to be a vector $\vec{x}\in 2^V$ where $V$ is the set of memory locations or \emph{latches}; when the system receives an input word $\vec{i}$ with coordinates in the set of inputs $W$, it computes a vector of \emph{gates} $\vec{g}\in 2^G$ which depend on both $\vec{x}$ and $\vec{i}$, and the AIG finally produces a vector of outputs $\vec{o}\in 2^E$, where $E$ is a set of requirements.
+
+An interesting property of AIGs is that they update their state sequentially: gates can only decide their value once latches and inputs 
+
+In this chapter, we consider very simple attackers; these attackers can only flip bits, but given the intricacy of AIGs, a single bit flip can propagate 
+
+\section{Classification of Attackers}
+\label{sec:Classification:ClassificationProblem}
+\paragraph{Problem Context}  
+Some systems are designed to provide security guarantees in the presence of attackers. For example, the Diffie-Hellman key agreement protocol guarantees perfect forward secrecy \cite{Gunther1990,Menezes1996} (PFS), where PFS is the security guarantee that states that the session key remains secret even if the long-term keys are compromised. These security guarantees are only valid in the context of the attacker models for which they were proven; it is unknown whether those guarantees apply for stronger or incomparable attacker models. For instance, PFS describes an attacker model, say $\mathcal{M}_{DH}$, that can compromise the long-term keys \emph{and only those}, and it also describes a property (i.e., the confidentiality of the session keys) that is guaranteed in the presence of an attacker that fits the model $\mathcal{M}_{DH}$. However, if we consider a stronger attacker model (e.g., an attacker that can directly compromise the session key), then Diffie-Hellman can no longer guarantee the confidentiality of the session keys. It is difficult to provide any guarantees against an attacker model that is too proficient/powerful, so it is in the interest of the system designer to choose an adequate attacker model that puts the security guarantees of the system in the context of realistic and relevant attackers. 
 
 Consider the following research question: \textbf{RQ1)} given a system and a list of security requirements, how do we systematically generate attackers that can potentially break these requirements, and how do we verify if they are successful? We approach this question at a high level for a system $S$ with a set $C$ of $n$ components, and a set of security requirements $R$ as follows. Let $A$ be a subset of $C$; the set $A$ models an attacker that can interact with $S$ by means of each component $c$ in it. More precisely, for every component $c$ in $A$, the attacker can change the value of $c$ at any time and any number of times during execution, possibly following an attack strategy. Considering the exponential size of the set of attackers (i.e., $2^{n}$), a brute-force approach to checking whether each of those attackers breaks each requirement in $R$ is inefficient for two reasons: 1) an attacker $A$ may only affect an isolated part of the system, so requirements that refer to other parts of the system should not be affected by the presence of $A$, and 2) if some attacker $B$ affects the system in a similar way to $A$ (e.g., if they control a similar set of components), then the knowledge we obtain while verifying the system in the presence of $A$ may be useful when verifying the system in the presence of $B$. These two reasons motivate a second research question: \textbf{RQ2)} which techniques can help us to \emph{classify} attackers, i.e., to map each attacker to the set of requirements that it breaks? 
 
+{\color{red}
 To answer these two research questions in a more concrete and practical context, we study systems modelled by \emph{And-inverter Graphs (AIGs)} (see  \cite{AIGs,AIGs2}). AIGs describe hardware models at the bit-level \cite{AIGER}, and have attracted the attention of industry partners including IBM and Intel \cite{HWMCC2014BM}. Due to being systems described at bit-level, AIGs present a convenient system model to study the problem of attacker classification, because the range of actions that attackers have over components is greatly restricted: either the attacker leaves the value of the component as it is, or the attacker negates its current value. However, this approach can be generalised to other systems by considering non-binary ranges for components, and by allowing attackers to choose any value in those ranges.
 
 \subsubsection{Contributions.} In this paper, we provide:
@@ -61,8 +71,9 @@ Figure~\ref{fig:Example} shows an example AIG with $W=\set{w_1,w_2}$, $V=\set{v_
 \end{framed}
 \end{minipage}
 \caption{\textbf{Left:} And-inverter graph describing a system with two
-inputs $w_1$ and $w_2$ (green boxes), one latch $v_1$ with initial value 1 (grey box), two gates $g1$ and $g2$ (gray circles), and three invariant requirements $r_1=\Always g_1$, $r_2=\Always \lnot g_2$ and $r_3=\Always v_1$ (red circles). Arrows represent logical dependencies, and bullets in the arrows imply negation. \newline
-\textbf{Right above}: an attacker that controls latch $v_1$ can set its initial value to 0 to break $r_2$ and $r_3$ in 0 steps.\newline
+inputs $w_1$ and $w_2$ (green boxes), one latch $v_1$ with initial value 1 (grey box), two gates $g1$ and $g2$ (gray circles), and three invariant requirements $r_1=\Always g_1$, $r_2=\Always \lnot g_2$ and $r_3=\Always v_1$ (red circles). 
+The arrows represent logical dependencies, and bullets in the arrows imply negation.
+\textbf{Right above}: an attacker that controls latch $v_1$ can set its initial value to 0 to break $r_2$ and $r_3$ in 0 steps. 
 \textbf{Right below}: an attacker that controls gate $g_2$ can set its value to 1 at time 0 to break $r_2$ in 0 steps and $r_3$ in 1 step, because the value of $v_1$ at time 1 is 0. }%. An arrow with $!$ means negation}
 \label{fig:Example}
 \end{figure}

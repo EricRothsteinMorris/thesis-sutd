@@ -5,7 +5,7 @@
 \chapter{Preliminaries and Notation} % Main chapter title
 \label{ch:Preliminaries} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-\todo[inline]{THIS SECTION HAS CONTENT THAT I DID NOT DEVELOP IN THE THESIS. The newer content comes in the following chapters}
+\todo[inline]{This section has content which I did not develop, but that I use. The content I developed follows in the next chapters.}
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
@@ -14,6 +14,8 @@
 We denote \emph{sets} by upper-case letters $X,Y,Z,$ etc, and we denote their \emph{elements} by lower-case letters $x, y, z, $ etc. 
 
 We denote the set of natural numbers by $\mathbb{N}$ and the set of natural numbers without zero by $\mathbb{N}^+$. Similarly, we denote the set of real numbers by $\mathbb{R}$ and the set of positive real numbers (excluding zero) by $\mathbb{R}^+$.
+
+We denote the size of a finite set $X$ by $|X|$.
 
 \subsection{Functions}
 We denote \emph{functions} by lower-case letters $f,g,h,$ etc. A function $f\colon X\rightarrow Y$ maps the elements from the set $X$ to elements of the set $Y$. An \emph{endofunction} is a function $g\colon X\rightarrow X$ which maps a set $X$ to itself. We denote function composition by $\circ$. 
@@ -150,6 +152,8 @@ The denotational semantics of a DFA is the language with alphabet $A$ whose sequ
     \item $Z^{X\times Y}\simeq Z^{Y^X}$,
     \item $X\times Y \simeq Y\times X$
     \item $X + Y \simeq Y+ X$
+    \item $|X|=n$ iff $X\simeq n$.
+    \item $\underbrace{\left(X\times\ldots\times X\right)}_\text{$n$ times}\simeq X^n$ (for this case, we say that $n$ is the set of coordinates of $X^n$)
 \end{itemize}
 \section{Universal (Co)Algebra Preliminaries and Notation}
 \label{sec:Preliminaries:Coalgebras}
@@ -237,26 +241,27 @@ Given an $F$-coalgebra $(X,c)$ where $c=(\gamma,\delta)$, the unique $F$-homomor
     !_c(x)(\varepsilon)\triangleq \gamma(x),\quad \text{and} \quad 
     !_c(x)(i\cdot w)\triangleq !_c(x^i)(w).
 \end{align}
-The function $!_c$ is called the \emph{semantic map} because it maps $x\in X$ to its denotational semantics in $\sigma F$. For example, in the case of DFA, it maps each state in the carrier to 
+The function $!_c$ is called the \emph{semantic map} because it maps $x\in X$ to its denotational semantics in $\sigma F$. For example, in the case of DFA as coalgebras, it maps each state $x$ in the carrier of the coalgebra to the language it would be recognised if $x$ were the initial state in the DFA.
 
 \subsection{Bisimilarity}
 Given $F$-coalgebras $(X,c)$ and $(Y,d)$, we say that states \emph{$x\in X$ and $y\in Y$ are bisimilar}, denoted $x\sim y$, if and only if $!_c(x)=!_d(y)$. In other words, $x$ and $y$ are bisimilar iff they have the same semantics.
 
 \subsection{Coalgebraic Specification Language}
-A \emph{coalgebraic specification language} for a functor $F(X)=O\times X^I$ is an $F$-coalgebra $(\mathcal{E},c)$ where $\mathcal{E}$ is a set of expressions. The semantics of an expression $e\in\mathcal{E}$ are given by the semantic map $!_c(e)$.
+A \emph{coalgebraic specification language} for a functor $F(X)=O\times X^I$ is an $F$-coalgebra $(\mathcal{E},c)$ where $\mathcal{E}$ is a set of expressions whose semantics are given by the semantic map $!_c$.
 
 For example, consider the functor $F(X)=2\times X^2$; we define the set of expressions $\mathcal{E}$ by the grammar
 \begin{align}
-    e::= ID=0?ID\land1?ID\land\downarrow (0|1)
+    e::= ID:0?ID\land1?ID\land\downarrow (0|1)
 \end{align}
 where $ID$ is a set of identifiers. We define the pair function $c=(\gamma,\delta)\colon \mathcal{E}\rightarrow F(\mathcal{E})$ by 
 \begin{align*}
-    \gamma(x=0?\land1?z\land\downarrow a)&\triangleq a\\
-    \delta(x=0?y:1?z\land\downarrow a)(0)&\triangleq y\\
-    \delta(x=0?y\land1?z\land\downarrow a)(1)&\triangleq z.
+    \gamma(x:0?\land1?z\land\downarrow a)&\triangleq a\\
+    \delta(x:0?y\land1?z\land\downarrow a)(0)&\triangleq y\\
+    \delta(x:0?y\land1?z\land\downarrow a)(1)&\triangleq z.
 \end{align*}
 
-In the world of automata, the expression $x=0?x\land1?x\land\downarrow 1$ describes a single-state automaton with an accepting state which loops to itself on both inputs 0 and 1. The semantic map $!_c$ maps the expression $x=0?x\land1?x\land\downarrow 1$ to the language $2^*$.%, i.e., the language which contains every sequence in $2^*$.
+For example, the expression $x:0?x\land1?x\land\downarrow 1$ can be considered to describe a single-state automaton whose single state is  accepting, and it loops to itself on both inputs 0 and 1. The semantic map $!_c$ maps the expression $x:0?x\land1?x\land\downarrow 1$ to the language $2^*$.%, i.e., the language which contains every sequence in $2^*$.
+\todo[inline]{Cite Kleene Coalgebra somehow}
 
 \subsection{Completeness}
 Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$, we say that $L$ is \emph{complete} if and only if the semantic map $!_c\colon \mathcal{E}\rightarrow \sigma F$ is surjective. In other words, for every behaviour $\phi\in \sigma F$, there exists an expression $e\in \mathcal{E}$ such that $!_c(e)=\phi$.

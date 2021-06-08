@@ -2,7 +2,7 @@
 % Chapter Template
 
 
-\chapter{Latent-Behaviour Analysis, Coalgebraically} % Main chapter title
+\chapter{Foundations of Latent-Behaviour Analysis} % Main chapter title
 \label{ch:LatentBehaviours} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 % \todo[inline]{Find a suitable quote?}
 % \begin{quote} 
@@ -61,7 +61,7 @@ In this section, we explain the commutative diagram presented in Figure~\ref{fig
 \label{sec:Latent:Motivation}
 % \todo[inline]{Small intro to transformed systems. You should have mentioned already somewhere in the intro that there are two ways to mutate the behaviour of a system in the coalgebra world: by transforming the carrier or by transforming the co-carrier. We only study transformations of the carrier.}
 % \todo[inline]{I feel like we are missing some stuff? How are we going to structure the introduction?}
-Consider the automaton shown in Figure~\ref{fig:ExampleLatent}, which recognises the language of sequences in $2^*$ that end in two consecutive 1; i.e., the language $(0+1)^*11$. 
+Consider the automaton shown in Figure~\ref{fig:ExampleLatent}, which recognises the language of sequences in $2^*$ that end in two consecutive 1; i.e., the language $(0|1)^*11$. 
 This automaton is defined by the tuple $(\vec{X},\vec{x}_0,\delta,F)$; the carrier is $\vec{X}\triangleq2\times2$, the initial state selector is $\vec{x}_0\colon1\rightarrow \vec{X}$ with $\vec{x}_0(0)\triangleq(0,0)$, the transition function is $\delta\colon \vec{X}\rightarrow 2\rightarrow\vec{X}$, defined for $\vec{x}\in \vec{X}$ and $i \in 2$ by $\delta(\vec{x})(i)\triangleq(i,\vec{x}[0]),$ and the characteristic predicate of the set of accepting states is $F\colon\vec{X}\rightarrow 2$, where $F(x,y)\triangleq x \land y$
 %$F(1,1)\triangleq1$ and $F(x,y)\triangleq0$ otherwise
 (i.e. $(1,1)$ is the only accepting state). This automaton is not minimal, since the states $(0,0)$ and $(0,1)$ are different, yet they are bisimilar.
@@ -82,7 +82,7 @@ This automaton is defined by the tuple $(\vec{X},\vec{x}_0,\delta,F)$; the carri
         (11) edge[loop above] node{1} (11)
         (11) edge[bend left, above] node{0} (01)
         ;\end{tikzpicture}
-    \caption{An automaton which recognises the language $(0+1)^*11$.}
+    \caption{An automaton which recognises the language $(0|1)^*11$.}
     \label{fig:ExampleLatent}
 \end{figure}
 
@@ -106,12 +106,12 @@ if the current state is $\vec{x}=(a,b)$, when we intend to check whether $\vec{x
     (11) edge[bend right, above] node{1} (10)
     (11) edge[bend right, above] node{0} (00)
     ;\end{tikzpicture}
-\caption{Automaton that models the transformed automaton, which now recognises $\varepsilon+(0+1)^*10$.}
+\caption{Automaton that models the transformed automaton, which now recognises $\varepsilon|(0|1)^*10$.}
 \label{fig:Transformed}
 \end{figure}
 
-Figure~\ref{fig:Transformed} shows a model of the transformed automaton. This automaton recognises the language of sequences that are either empty or end in 10; i.e., $\varepsilon+(0+1)^*10$. 
-Before we explain why the automaton in Figure~\ref{fig:Transformed} is in fact the resulting system when we apply the transformation $m$, we can first test if the transformed system recognises sequences $\varepsilon+(0+1)^*10$ due to the transformation $m$. %$(0+1)(0+1)^*$. 
+Figure~\ref{fig:Transformed} shows a model of the transformed automaton. This automaton recognises the language of sequences that are either empty or end in 10; i.e., $\varepsilon|(0|1)^*10$. 
+Before we explain why the automaton in Figure~\ref{fig:Transformed} is in fact the resulting system when we apply the transformation $m$, we can first test if the transformed system recognises sequences $\varepsilon|(0|1)^*10$ due to the transformation $m$. %$(0|1)(0|1)^*$. 
 To do so, let us consider pairs of states $[\vec{x},\vec{y}]$ where $\vec{x}=(x_1,x_2)$ and $\vec{y}=(y_1,y_2)$ such that the pair $\vec{x}$ follows the original behaviour while $\vec{y}$ follows the new behaviour. 
 Let $[(0,0),(0,0)]$ be the initial state, and let $\delta_i\colon \vec{X}\rightarrow \vec{X}$ be the functions defined by $\delta_i(\vec{x})=\delta(\vec{x})(i)$ for $i \in 2$ (i.e., $\delta_0$ is a partial application of $\delta$ given $0$ and $\delta_1$ is a partial application of $\delta$ given 1); %, since $(1,1)$ replaces $(0,0)$ due to the fault. 
 the trace of the sequence $00$ is 
@@ -234,7 +234,7 @@ The semantic map $\TheBehaviourOfIn{x}{{c\circ m}}$ of the latent coalgebra $(X,
 
 \begin{example}
 \label{ex:Latent:TheExample}
-Consider the automaton from Section~\ref{sec:Latent:Motivation} which recognises the language $(0+1)^*11$. Let $F$ be the functor $F(X)=2\times X^2$; we model the automaton with an $F$-coalgebra $(\vec{X},(F,\delta))$, where $\vec{X}=2\times2$ and $(F,\delta)\colon X\rightarrow 2\times X^2$ is a function pair, defined for $(x,y)\in \vec{X}$ by
+Consider the automaton from Section~\ref{sec:Latent:Motivation} which recognises the language $(0|1)^*11$. Let $F$ be the functor $F(X)=2\times X^2$; we model the automaton with an $F$-coalgebra $(\vec{X},(F,\delta))$, where $\vec{X}=2\times2$ and $(F,\delta)\colon X\rightarrow 2\times X^2$ is a function pair, defined for $(x,y)\in \vec{X}$ by
 \begin{align}
     F(x,y)&\triangleq x \land y\\
     \delta(x,y)(i)&\triangleq (i,x).
@@ -246,7 +246,7 @@ The transformation $m(x,y)=(\lnot x,\lnot y)$ reveals the latent coalgebra where
     (F\circ m)(x,y)&= \lnot x \land \lnot y\\
     (\delta\circ m)(x,y)(i)&= (i,\lnot x).
 \end{align}
-The behaviour of a state $x$ changes when $m$ acts on $x$. In particular, the image of state $(0,0)$ under the semantic map is no longer the language $(0+1)^*11$; it is the language $\varepsilon +(0+1)^*10$ instead.
+The behaviour of a state $x$ changes when $m$ acts on $x$. In particular, the image of state $(0,0)$ under the semantic map is no longer the language $(0|1)^*11$; it is the language $\varepsilon|(0|1)^*10$ instead.
 \end{example}
 % \todo[inline]{There is no notion of distance or how different behaviours are in this setting. Things either are equal/isomorphic or they are not.}
 \section{Latent-Behaviour Analysis}
@@ -384,7 +384,7 @@ We might think that it suffices to check $(R_i\circ !_c)(m(x_0))=1$ for each req
     In the context of Example~\ref{ex:Latent:TheExample}, the functor is $F(X)=2\times X^2$, and it has a final $F$-coalgebra $(2^{2^*},(\varepsilon?,(\cdot)'))$ where $\varepsilon? \colon 2^{2^*}\rightarrow 2$ checks whether the empty sequence $\varepsilon$ belongs to the language and $(\cdot)'\colon 2^{2^*}\rightarrow (2\rightarrow {2^{2^*}})$ computes the Brzozowski derivative~\cite{BrzozowskiDerivative} of the language.  
     %\todo[inline]{Maybe move to preliminaries?}
 
-    Let $R\colon 2^{2^*}\rightarrow 2$ be the behavioural property defined by $R(\phi)\triangleq \phi \sim \varepsilon+(0+1)^*10$, for $\phi \in 2^{2^*}$. The property $R$ is not satisfied by any state of the original $F$-coalgebra, so $(R\circ !_c)(m(x_0))$ would be 0 for all spatial transformations $m$; nevertheless, $R$ is satisfied by $x_0$ in the latent coalgebra revealed by the spatial transformation $m(x,y)=(\lnot x, \lnot y)$ used in Example~\ref{ex:Latent:TheExample}, since it is the language the state $(0,0)$ recognises in the latent coalgebra. 
+    Let $R\colon 2^{2^*}\rightarrow 2$ be the behavioural property defined by $R(\phi)\triangleq \phi \sim \varepsilon|(0|1)^*10$, for $\phi \in 2^{2^*}$. The property $R$ is not satisfied by any state of the original $F$-coalgebra, so $(R\circ !_c)(m(x_0))$ would be 0 for all spatial transformations $m$; nevertheless, $R$ is satisfied by $x_0$ in the latent coalgebra revealed by the spatial transformation $m(x,y)=(\lnot x, \lnot y)$ used in Example~\ref{ex:Latent:TheExample}, since it is the language the state $(0,0)$ recognises in the latent coalgebra. 
 \end{example}
 Part of the novelty of LBA is that we can study a latent coalgebra $(X, c\circ m)$ just as we would study the original coalgebra $(X, c)$. By this, we mean that we can apply testing and verification techniques without complication. In the following, we illustrate how we can use spatial transformations to model attacks which target the state of systems rather than the program, and we study the details of this approach in Chapter~\ref{ch:CPSRobustness} when we apply it to cyber-physical systems.
 \begin{definition}[State/Behaviour-based Attacks]
@@ -408,7 +408,7 @@ We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ a
 \begin{example}[Counter Attack]
     In the context of Example~\ref{ex:Latent:TheExample}, consider the behavioural property $Q\colon 2^{2^*}\rightarrow 2$ which accepts a language $\phi \in 2^{2^*}$ if and only if $\phi$ accepts a sequence $w\in 2^*$, then $w$ ends in 1 or $w$ is empty.
 
-    In the original $F$-coalgebra, all states in $2\times 2$ satisfy the property $Q$ since both $(0,0)$ and $(1,0)$ recognise the language $(0+1)^*11$, $(0,1)$ recognises the language $(0+1)^*1$, and $(1,1)$ recognises $\varepsilon + 0(0+1)^*11 + 1(0+1)^*1$. However, in the latent coalgebra revealed by the attack $m$, which maps $(a,b)$ to $(\lnot a, \lnot b)$, the state $(0,0)$ no longer satisfies $Q$, since it now recognises the language $\varepsilon+(0+1)^*10$. 
+    In the original $F$-coalgebra, all states in $2\times 2$ satisfy the property $Q$ since both $(0,0)$ and $(1,0)$ recognise the language $(0|1)^*11$, $(0,1)$ recognises the language $(0|1)^*1$, and $(1,1)$ recognises $\varepsilon + 0(0|1)^*11 + 1(0|1)^*1$. However, in the latent coalgebra revealed by the attack $m$, which maps $(a,b)$ to $(\lnot a, \lnot b)$, the state $(0,0)$ no longer satisfies $Q$, since it now recognises the language $\varepsilon|(0|1)^*10$. 
 
     Now, if we use $m$ again in the latent coalgebra $(2\times 2, c\circ m)$ to reveal the latent coalgebra $(2\times 2, c\circ m\circ m)$, we repair the system with respect to the property $Q$, since $m \circ m=\id$. Thus, $m$ can be used as its own counter attack, but only when the latent coalgebra $(2\times 2, c\circ m)$ has been revealed (otherwise, the application of $m$ reveals $(2\times 2, c\circ m)$, and it breaks $Q$).
 \end{example}
