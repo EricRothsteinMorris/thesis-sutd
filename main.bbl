@@ -16,40 +16,10 @@
   {}
 \endgroup
 
-\datalist[entry]{nyt/global//global/global}
-  \entry{HWMCC2011}{misc}{}
-    \field{labelyear}{2011}
-    \field{labeldatesource}{}
-    \verb{url}
-    \verb http://fmv.jku.at/hwmcc11/index.html
-    \endverb
-    \field{year}{2011}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{HWMCC2013}{misc}{}
-    \field{labelyear}{2013}
-    \field{labeldatesource}{}
-    \verb{url}
-    \verb http://fmv.jku.at/hwmcc13/index.html
-    \endverb
-    \field{year}{2013}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{Cadical}{misc}{}
-    \field{labelyear}{2019}
-    \field{labeldatesource}{}
-    \verb{url}
-    \verb http://fmv.jku.at/cadical/
-    \endverb
-    \field{year}{2019}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
+\datalist[entry]{anyt/global//global/global}
   \entry{aig-ac-asset}{misc}{}
     \field{labeltitlesource}{title}
-    \field{labeldatesource}{nodate}
+    \field{labelalpha}{Aig}
     \field{sortinit}{A}
     \field{sortinithash}{A}
     \field{title}{And-Inverter Graph Attacker Classification}
@@ -95,8 +65,7 @@
     \strng{fullhash}{AMSF1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2004}
-    \field{labeldatesource}{}
+    \field{labelalpha}{AS04}
     \field{sortinit}{A}
     \field{sortinithash}{A}
     \field{abstract}{%
@@ -144,8 +113,7 @@
     \strng{fullhash}{BDCC1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2014}
-    \field{labeldatesource}{}
+    \field{labelalpha}{BC14}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \verb{doi}
@@ -166,6 +134,93 @@
     \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
     \field{month}{11}
     \field{year}{2014}
+  \endentry
+
+  \entry{AIGER}{report}{}
+    \name{author}{3}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=WS}{%
+         family={Wieringa},
+         familyi={W\bibinitperiod},
+         given={Siert},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BAHKWS1}
+    \strng{fullhash}{BAHKWS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BHW11}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{series}{Technical Report 11/2}
+    \field{title}{{AIGER 1.9} And Beyond}
+    \list{location}{1}{%
+      {{FMV Reports Series, Institute for Formal Models and Verification,
+  Johannes Kepler University, Altenbergerstr. 69, 4040 Linz, Austria}}%
+    }
+    \field{type}{techreport}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{lmcs:2236}{article}{}
+    \name{author}{5}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=JT}{%
+         family={Junttila},
+         familyi={J\bibinitperiod},
+         given={Tommi},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=LT}{%
+         family={Latvala},
+         familyi={L\bibinitperiod},
+         given={Timo},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=SV}{%
+         family={Schuppan},
+         familyi={S\bibinitperiod},
+         given={Viktor},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BA+2}
+    \strng{fullhash}{BAHKJTLTSV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Bie+06}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{{Linear Encodings of Bounded LTL Model Checking}}
+    \field{volume}{{Volume 2, Issue 5}}
+    \field{journaltitle}{Logical Methods in Computer Science}
+    \field{year}{2006}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{HandbookOfSatisfiability}{book}{}
@@ -210,8 +265,7 @@
     \strng{fullhash}{BABAHMMHvWT1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2009}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Bie+09}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{isbn}{1586039296, 9781586039295}
@@ -221,47 +275,6 @@
       {Amsterdam, The Netherlands, The Netherlands}%
     }
     \field{year}{2009}
-  \endentry
-
-  \entry{AIGER}{report}{}
-    \name{author}{3}{}{%
-      {{hash=BA}{%
-         family={Biere},
-         familyi={B\bibinitperiod},
-         given={Armin},
-         giveni={A\bibinitperiod},
-      }}%
-      {{hash=HK}{%
-         family={Heljanko},
-         familyi={H\bibinitperiod},
-         given={Keijo},
-         giveni={K\bibinitperiod},
-      }}%
-      {{hash=WS}{%
-         family={Wieringa},
-         familyi={W\bibinitperiod},
-         given={Siert},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BAHKWS1}
-    \strng{fullhash}{BAHKWS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2011}
-    \field{labeldatesource}{}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{series}{Technical Report 11/2}
-    \field{title}{{AIGER 1.9} And Beyond}
-    \list{location}{1}{%
-      {{FMV Reports Series, Institute for Formal Models and Verification,
-  Johannes Kepler University, Altenbergerstr. 69, 4040 Linz, Austria}}%
-    }
-    \field{type}{techreport}
-    \field{year}{2011}
-    \warn{\item Invalid format of field 'date' \item Invalid format of field
-  'date'}
   \endentry
 
   \entry{BMCWithoutBDDs}{inproceedings}{}
@@ -306,8 +319,7 @@
     \strng{fullhash}{BACACEZY1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{1999}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Bie+99}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{abstract}{%
@@ -333,54 +345,6 @@
       {Berlin, Heidelberg}%
     }
     \field{year}{1999}
-  \endentry
-
-  \entry{lmcs:2236}{article}{}
-    \name{author}{5}{}{%
-      {{hash=BA}{%
-         family={Biere},
-         familyi={B\bibinitperiod},
-         given={Armin},
-         giveni={A\bibinitperiod},
-      }}%
-      {{hash=HK}{%
-         family={Heljanko},
-         familyi={H\bibinitperiod},
-         given={Keijo},
-         giveni={K\bibinitperiod},
-      }}%
-      {{hash=JT}{%
-         family={Junttila},
-         familyi={J\bibinitperiod},
-         given={Tommi},
-         giveni={T\bibinitperiod},
-      }}%
-      {{hash=LT}{%
-         family={Latvala},
-         familyi={L\bibinitperiod},
-         given={Timo},
-         giveni={T\bibinitperiod},
-      }}%
-      {{hash=SV}{%
-         family={Schuppan},
-         familyi={S\bibinitperiod},
-         given={Viktor},
-         giveni={V\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BA+2}
-    \strng{fullhash}{BAHKJTLTSV1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2006}
-    \field{labeldatesource}{}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{title}{{Linear Encodings of Bounded LTL Model Checking}}
-    \field{volume}{{Volume 2, Issue 5}}
-    \field{journaltitle}{Logical Methods in Computer Science}
-    \field{year}{2006}
-    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{IC3}{inproceedings}{}
@@ -413,8 +377,7 @@
     \strng{fullhash}{BAR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2011}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Bra11}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{abstract}{%
@@ -457,8 +420,7 @@
     \strng{fullhash}{BAR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2012}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Bra12}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{booktitle}{Proceedings of the 15th International Conference on
@@ -480,180 +442,75 @@
     \warn{\item Can't use 'location' + 'address'}
   \endentry
 
-  \entry{OptimizedModelCheckingOfMultipleProperties}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=CG}{%
-         family={{Cabodi}},
+  \entry{Cardenas2011}{inproceedings}{}
+    \name{author}{6}{}{%
+      {{hash=CAA}{%
+         family={C\'{a}rdenas},
          familyi={C\bibinitperiod},
-         given={G.},
-         giveni={G\bibinitperiod},
+         given={Alvaro\bibnamedelima A.},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
       }}%
-      {{hash=NS}{%
-         family={{Nocco}},
-         familyi={N\bibinitperiod},
-         given={S.},
+      {{hash=AS}{%
+         family={Amin},
+         familyi={A\bibinitperiod},
+         given={Saurabh},
          giveni={S\bibinitperiod},
       }}%
-    }
-    \keyw{formal verification;optimized model checking;multiple
-  properties;industrial verification;cone-of-influence
-  minimization;verification tasks;Integrated circuit modeling;Computational
-  modeling;Data structures;Benchmark testing;Boolean functions;Approximation
-  methods;Design automation}
-    \strng{namehash}{CGNS1}
-    \strng{fullhash}{CGNS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2011}
-    \field{labeldatesource}{}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{booktitle}{2011 Design, Automation Test in Europe}
-    \verb{doi}
-    \verb 10.1109/DATE.2011.5763279
-    \endverb
-    \field{issn}{1558-1101}
-    \field{pages}{1\bibrangedash 4}
-    \field{title}{Optimized model checking of multiple properties}
-    \field{year}{2011}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{ToSplitOrToGroup}{article}{}
-    \name{author}{7}{}{%
-      {{hash=CG}{%
-         family={Cabodi},
-         familyi={C\bibinitperiod},
-         given={G.},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=CPE}{%
-         family={Camurati},
-         familyi={C\bibinitperiod},
-         given={P.\bibnamedelima E.},
-         giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
-      }}%
-      {{hash=LC}{%
-         family={Loiacono},
+      {{hash=LZS}{%
+         family={Lin},
          familyi={L\bibinitperiod},
-         given={C.},
-         giveni={C\bibinitperiod},
+         given={Zong-Syun},
+         giveni={Z\bibinithyphendelim S\bibinitperiod},
       }}%
-      {{hash=PM}{%
-         family={Palena},
-         familyi={P\bibinitperiod},
-         given={M.},
-         giveni={M\bibinitperiod},
+      {{hash=HYL}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Yu-Lun},
+         giveni={Y\bibinithyphendelim L\bibinitperiod},
       }}%
-      {{hash=PP}{%
-         family={Pasini},
-         familyi={P\bibinitperiod},
-         given={P.},
-         giveni={P\bibinitperiod},
+      {{hash=HCY}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Chi-Yen},
+         giveni={C\bibinithyphendelim Y\bibinitperiod},
       }}%
-      {{hash=PD}{%
-         family={Patti},
-         familyi={P\bibinitperiod},
-         given={D.},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=QS}{%
-         family={Quer},
-         familyi={Q\bibinitperiod},
-         given={S.},
+      {{hash=SS}{%
+         family={Sastry},
+         familyi={S\bibinitperiod},
+         given={Shankar},
          giveni={S\bibinitperiod},
       }}%
     }
-    \strng{namehash}{CG+1}
-    \strng{fullhash}{CGCPELCPMPPPDQS1}
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{IDS, SCADA, control systems, critical infrastructure protection,
+  cyber-physical systems, security}
+    \strng{namehash}{CAA+1}
+    \strng{fullhash}{CAAASLZSHYLHCYSS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2018}
-    \field{labeldatesource}{}
+    \field{labelalpha}{C\'+11}
     \field{sortinit}{C}
     \field{sortinithash}{C}
-    \field{abstract}{%
-    Hardware systems complexity has constantly increased in recent years.
-  Guaranteeing their correctness is a must. Formal verification techniques,
-  such as model checking, now play a major role in industrial environments.
-  Their efficiency in dealing with large sets of properties is crucial. This
-  paper deals with property grouping, decomposition, and coverage in model
-  checking. Property grouping is a valuable solution whenever several
-  properties must be proved for a single model. As such sets may include
-  ``easy-to-prove'' and/or ``similar'' properties, grouping can reduce overhead
-  avoiding sub-tasks repetition. Property decomposition, following the
-  divide-and-conquer paradigm, can be effective whenever a property turns out
-  to be ``hard-to-prove.'' Our contribution is a heuristic property manager,
-  running on top of a multi-engine model checking portfolio, aiming at
-  productivity optimization. We compare different clustering heuristics, and we
-  exploit decomposition strategies for property sub-setting. We also consider
-  the problem of evaluating a coverage measure for properties, used to monitor
-  the ``advancement'' of the verification task.%
-    }
+    \field{booktitle}{Proceedings of the 6th ACM Symposium on Information,
+  Computer and Communications Security}
     \verb{doi}
-    \verb 10.1007/s10009-017-0451-8
+    \verb 10.1145/1966913.1966959
     \endverb
-    \field{issn}{1433-2787}
-    \field{number}{3}
-    \field{pages}{313\bibrangedash 325}
-    \field{title}{To split or to group: from divide-and-conquer to sub-task
-  sharing for verifying multiple properties in model checking}
+    \field{isbn}{978-1-4503-0564-8}
+    \field{pages}{355\bibrangedash 366}
+    \field{series}{ASIACCS '11}
+    \field{title}{Attacks Against Process Control Systems: Risk Assessment,
+  Detection, and Response}
     \verb{url}
-    \verb https://doi.org/10.1007/s10009-017-0451-8
+    \verb http://doi.acm.org/10.1145/1966913.1966959
     \endverb
-    \field{volume}{20}
-    \field{journaltitle}{International Journal on Software Tools for Technology
-  Transfer}
-    \field{year}{2018}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{GraphLabelingForEfficientCOIComputation}{article}{}
-    \name{author}{3}{}{%
-      {{hash=CG}{%
-         family={Cabodi},
-         familyi={C\bibinitperiod},
-         given={Gianpiero},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=CP}{%
-         family={Camurati},
-         familyi={C\bibinitperiod},
-         given={Paolo},
-         giveni={P\bibinitperiod},
-      }}%
-      {{hash=QS}{%
-         family={Quer},
-         familyi={Q\bibinitperiod},
-         given={Stefano},
-         giveni={S\bibinitperiod},
-      }}%
+    \list{location}{1}{%
+      {Hong Kong, China}%
     }
-    \keyw{model checking, Boolean functions, cone of influence, graph labeling}
-    \strng{namehash}{CGCPQS1}
-    \strng{fullhash}{CGCPQS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2016}
-    \field{labeldatesource}{}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \verb{doi}
-    \verb 10.1002/spe.2321
-    \endverb
-    \verb{eprint}
-    \verb https://onlinelibrary.wiley.com/doi/pdf/10.1002/spe.2321
-    \endverb
-    \field{number}{4}
-    \field{pages}{493\bibrangedash 511}
-    \field{title}{A graph-labeling approach for efficient cone-of-influence
-  computation in model-checking problems with multiple properties}
-    \verb{url}
-    \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.2321
-    \endverb
-    \field{volume}{46}
-    \field{journaltitle}{Software: Practice and Experience}
-    \field{year}{2016}
+    \field{year}{2011}
+    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{HWMCC2014BM}{article}{}
@@ -717,8 +574,7 @@
     \strng{fullhash}{CGLCPMPPPDQSVDBAHK1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2015}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Cab+15}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{pages}{135\bibrangedash 172}
@@ -731,76 +587,150 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
-  \entry{Cardenas2011}{inproceedings}{}
-    \name{author}{6}{}{%
-      {{hash=CAA}{%
-         family={C\'{a}rdenas},
+  \entry{ToSplitOrToGroup}{article}{}
+    \name{author}{7}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
          familyi={C\bibinitperiod},
-         given={Alvaro\bibnamedelima A.},
-         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
       }}%
-      {{hash=AS}{%
-         family={Amin},
-         familyi={A\bibinitperiod},
-         given={Saurabh},
-         giveni={S\bibinitperiod},
+      {{hash=CPE}{%
+         family={Camurati},
+         familyi={C\bibinitperiod},
+         given={P.\bibnamedelima E.},
+         giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
       }}%
-      {{hash=LZS}{%
-         family={Lin},
+      {{hash=LC}{%
+         family={Loiacono},
          familyi={L\bibinitperiod},
-         given={Zong-Syun},
-         giveni={Z\bibinithyphendelim S\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
       }}%
-      {{hash=HYL}{%
-         family={Huang},
-         familyi={H\bibinitperiod},
-         given={Yu-Lun},
-         giveni={Y\bibinithyphendelim L\bibinitperiod},
+      {{hash=PM}{%
+         family={Palena},
+         familyi={P\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
       }}%
-      {{hash=HCY}{%
-         family={Huang},
-         familyi={H\bibinitperiod},
-         given={Chi-Yen},
-         giveni={C\bibinithyphendelim Y\bibinitperiod},
+      {{hash=PP}{%
+         family={Pasini},
+         familyi={P\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
       }}%
-      {{hash=SS}{%
-         family={Sastry},
-         familyi={S\bibinitperiod},
-         given={Shankar},
+      {{hash=PD}{%
+         family={Patti},
+         familyi={P\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={S.},
          giveni={S\bibinitperiod},
       }}%
     }
-    \list{publisher}{1}{%
-      {ACM}%
-    }
-    \keyw{IDS, SCADA, control systems, critical infrastructure protection,
-  cyber-physical systems, security}
-    \strng{namehash}{CAA+1}
-    \strng{fullhash}{CAAASLZSHYLHCYSS1}
+    \strng{namehash}{CG+1}
+    \strng{fullhash}{CGCPELCPMPPPDQS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2011}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Cab+18}
     \field{sortinit}{C}
     \field{sortinithash}{C}
-    \field{booktitle}{Proceedings of the 6th ACM Symposium on Information,
-  Computer and Communications Security}
-    \verb{doi}
-    \verb 10.1145/1966913.1966959
-    \endverb
-    \field{isbn}{978-1-4503-0564-8}
-    \field{pages}{355\bibrangedash 366}
-    \field{series}{ASIACCS '11}
-    \field{title}{Attacks Against Process Control Systems: Risk Assessment,
-  Detection, and Response}
-    \verb{url}
-    \verb http://doi.acm.org/10.1145/1966913.1966959
-    \endverb
-    \list{location}{1}{%
-      {Hong Kong, China}%
+    \field{abstract}{%
+    Hardware systems complexity has constantly increased in recent years.
+  Guaranteeing their correctness is a must. Formal verification techniques,
+  such as model checking, now play a major role in industrial environments.
+  Their efficiency in dealing with large sets of properties is crucial. This
+  paper deals with property grouping, decomposition, and coverage in model
+  checking. Property grouping is a valuable solution whenever several
+  properties must be proved for a single model. As such sets may include
+  ``easy-to-prove'' and/or ``similar'' properties, grouping can reduce overhead
+  avoiding sub-tasks repetition. Property decomposition, following the
+  divide-and-conquer paradigm, can be effective whenever a property turns out
+  to be ``hard-to-prove.'' Our contribution is a heuristic property manager,
+  running on top of a multi-engine model checking portfolio, aiming at
+  productivity optimization. We compare different clustering heuristics, and we
+  exploit decomposition strategies for property sub-setting. We also consider
+  the problem of evaluating a coverage measure for properties, used to monitor
+  the ``advancement'' of the verification task.%
     }
-    \field{year}{2011}
-    \warn{\item Can't use 'location' + 'address'}
+    \verb{doi}
+    \verb 10.1007/s10009-017-0451-8
+    \endverb
+    \field{issn}{1433-2787}
+    \field{number}{3}
+    \field{pages}{313\bibrangedash 325}
+    \field{title}{To split or to group: from divide-and-conquer to sub-task
+  sharing for verifying multiple properties in model checking}
+    \verb{url}
+    \verb https://doi.org/10.1007/s10009-017-0451-8
+    \endverb
+    \field{volume}{20}
+    \field{journaltitle}{International Journal on Software Tools for Technology
+  Transfer}
+    \field{year}{2018}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Cadical}{misc}{}
+    \field{labelalpha}{Cad}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{url}
+    \verb http://fmv.jku.at/cadical/
+    \endverb
+    \field{year}{2019}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{GraphLabelingForEfficientCOIComputation}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
+         familyi={C\bibinitperiod},
+         given={Gianpiero},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CP}{%
+         family={Camurati},
+         familyi={C\bibinitperiod},
+         given={Paolo},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={Stefano},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{model checking, Boolean functions, cone of influence, graph labeling}
+    \strng{namehash}{CGCPQS1}
+    \strng{fullhash}{CGCPQS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CCQ16}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.1002/spe.2321
+    \endverb
+    \verb{eprint}
+    \verb https://onlinelibrary.wiley.com/doi/pdf/10.1002/spe.2321
+    \endverb
+    \field{number}{4}
+    \field{pages}{493\bibrangedash 511}
+    \field{title}{A graph-labeling approach for efficient cone-of-influence
+  computation in model-checking problems with multiple properties}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.2321
+    \endverb
+    \field{volume}{46}
+    \field{journaltitle}{Software: Practice and Experience}
+    \field{year}{2016}
   \endentry
 
   \entry{HandbookOfModelChecking}{book}{}
@@ -837,12 +767,49 @@
     \strng{fullhash}{CEMHTAVHBR1}
     \field{labelnamesource}{editor}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2018}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Cla+18}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{title}{Handbook of Model Checking}
     \field{year}{2018}
+  \endentry
+
+  \entry{OptimizedModelCheckingOfMultipleProperties}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CG}{%
+         family={{Cabodi}},
+         familyi={C\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=NS}{%
+         family={{Nocco}},
+         familyi={N\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{formal verification;optimized model checking;multiple
+  properties;industrial verification;cone-of-influence
+  minimization;verification tasks;Integrated circuit modeling;Computational
+  modeling;Data structures;Benchmark testing;Boolean functions;Approximation
+  methods;Design automation}
+    \strng{namehash}{CGNS1}
+    \strng{fullhash}{CGNS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CN11}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{2011 Design, Automation Test in Europe}
+    \verb{doi}
+    \verb 10.1109/DATE.2011.5763279
+    \endverb
+    \field{issn}{1558-1101}
+    \field{pages}{1\bibrangedash 4}
+    \field{title}{Optimized model checking of multiple properties}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{Giraldo2018}{article}{}
@@ -910,8 +877,7 @@
     \strng{fullhash}{GJUDCAVJFMRJTNOSHCR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2018}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Gir+18}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \verb{doi}
@@ -969,8 +935,7 @@
     \strng{fullhash}{GEGMKDMR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2018}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Gol+18}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \field{booktitle}{2018 Design, Automation Test in Europe Conference
@@ -1016,8 +981,7 @@
     \strng{fullhash}{GCG1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{1990}
-    \field{labeldatesource}{}
+    \field{labelalpha}{G{\"u}n90}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \field{abstract}{%
@@ -1059,8 +1023,7 @@
     \strng{fullhash}{HJY1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2016}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Hal16}
     \field{sortinit}{H}
     \field{sortinithash}{H}
     \field{abstract}{%
@@ -1109,8 +1072,7 @@
     \strng{fullhash}{HL1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{1963}
-    \field{labeldatesource}{}
+    \field{labelalpha}{{Hel}63}
     \field{sortinit}{H}
     \field{sortinithash}{H}
     \verb{doi}
@@ -1123,6 +1085,30 @@
     \field{volume}{EC-12}
     \field{journaltitle}{IEEE Transactions on Electronic Computers}
     \field{year}{1963}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{HWMCC2011}{misc}{}
+    \field{labelalpha}{Hwm}
+    \field{extraalpha}{1}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{url}
+    \verb http://fmv.jku.at/hwmcc11/index.html
+    \endverb
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{HWMCC2013}{misc}{}
+    \field{labelalpha}{Hwm}
+    \field{extraalpha}{2}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{url}
+    \verb http://fmv.jku.at/hwmcc13/index.html
+    \endverb
+    \field{year}{2013}
     \warn{\item Invalid format of field 'month'}
   \endentry
 
@@ -1174,8 +1160,7 @@
     \strng{fullhash}{KDSO1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2003}
-    \field{labeldatesource}{}
+    \field{labelalpha}{KS03}
     \field{sortinit}{K}
     \field{sortinithash}{K}
     \field{abstract}{%
@@ -1243,8 +1228,7 @@
     \strng{fullhash}{KAPVKFGMK1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2002}
-    \field{labeldatesource}{}
+    \field{labelalpha}{{Kue}+02}
     \field{sortinit}{K}
     \field{sortinithash}{K}
     \verb{doi}
@@ -1291,8 +1275,7 @@
     \strng{fullhash}{MKL1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2003}
-    \field{labeldatesource}{}
+    \field{labelalpha}{McM03}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{abstract}{%
@@ -1341,8 +1324,7 @@
     \strng{fullhash}{MAJVSAOPCV1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{1996}
-    \field{labeldatesource}{}
+    \field{labelalpha}{MVO96}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{edition}{1st}
@@ -1352,6 +1334,59 @@
       {Boca Raton, FL, USA}%
     }
     \field{year}{1996}
+  \endentry
+
+  \entry{Simei}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=RE}{%
+         family={Rothstein},
+         familyi={R\bibinitperiod},
+         given={Eric},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=MCG}{%
+         family={Murguia},
+         familyi={M\bibinitperiod},
+         given={Carlos\bibnamedelima G.},
+         giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=OM}{%
+         family={Ochoa},
+         familyi={O\bibinitperiod},
+         given={Mart\'{\i}n},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{control theory, cyber-physical systems, information flow,
+  non-interference}
+    \strng{namehash}{REMCGOM1}
+    \strng{fullhash}{REMCGOM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{RMO17}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{Proceedings of the 2017 Workshop on Programming Languages
+  and Analysis for Security}
+    \verb{doi}
+    \verb 10.1145/3139337.3139347
+    \endverb
+    \field{isbn}{978-1-4503-5099-0}
+    \field{pages}{63\bibrangedash 74}
+    \field{series}{PLAS '17}
+    \field{title}{Design-time Quantification of Integrity in Cyber-physical
+  Systems}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/3139337.3139347
+    \endverb
+    \list{location}{1}{%
+      {Dallas, Texas, USA}%
+    }
+    \field{year}{2017}
+    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{CPSProfiles}{inproceedings}{}
@@ -1402,8 +1437,7 @@
     \strng{fullhash}{RMTNO1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2016}
-    \field{labeldatesource}{}
+    \field{labelalpha}{RT16}
     \field{sortinit}{R}
     \field{sortinithash}{R}
     \field{abstract}{%
@@ -1435,60 +1469,6 @@
     \field{year}{2016}
   \endentry
 
-  \entry{Simei}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=RE}{%
-         family={Rothstein},
-         familyi={R\bibinitperiod},
-         given={Eric},
-         giveni={E\bibinitperiod},
-      }}%
-      {{hash=MCG}{%
-         family={Murguia},
-         familyi={M\bibinitperiod},
-         given={Carlos\bibnamedelima G.},
-         giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod},
-      }}%
-      {{hash=OM}{%
-         family={Ochoa},
-         familyi={O\bibinitperiod},
-         given={Mart\'{\i}n},
-         giveni={M\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {ACM}%
-    }
-    \keyw{control theory, cyber-physical systems, information flow,
-  non-interference}
-    \strng{namehash}{REMCGOM1}
-    \strng{fullhash}{REMCGOM1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2017}
-    \field{labeldatesource}{}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \field{booktitle}{Proceedings of the 2017 Workshop on Programming Languages
-  and Analysis for Security}
-    \verb{doi}
-    \verb 10.1145/3139337.3139347
-    \endverb
-    \field{isbn}{978-1-4503-5099-0}
-    \field{pages}{63\bibrangedash 74}
-    \field{series}{PLAS '17}
-    \field{title}{Design-time Quantification of Integrity in Cyber-physical
-  Systems}
-    \verb{url}
-    \verb http://doi.acm.org/10.1145/3139337.3139347
-    \endverb
-    \list{location}{1}{%
-      {Dallas, Texas, USA}%
-    }
-    \field{year}{2017}
-    \warn{\item Can't use 'location' + 'address'}
-  \endentry
-
   \entry{ROP}{inproceedings}{}
     \name{author}{1}{}{%
       {{hash=SH}{%
@@ -1506,8 +1486,7 @@
     \strng{fullhash}{SH1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2007}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Sha07}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \field{abstract}{%
@@ -1568,8 +1547,7 @@
     \strng{fullhash}{TGS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{1983}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Tse83}
     \field{sortinit}{T}
     \field{sortinithash}{T}
     \field{abstract}{%
@@ -1664,8 +1642,7 @@
     \strng{fullhash}{UDIGJACAATNOVJFMRJCRSH1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2016}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Urb+16}
     \field{sortinit}{U}
     \field{sortinithash}{U}
     \field{booktitle}{Proceedings of the 2016 ACM SIGSAC Conference on Computer
@@ -1725,8 +1702,7 @@
     \strng{fullhash}{WSSBKSDA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2016}
-    \field{labeldatesource}{}
+    \field{labelalpha}{Wee+16}
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \field{booktitle}{2016 IEEE 55th Conference on Decision and Control (CDC)}

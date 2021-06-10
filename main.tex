@@ -44,7 +44,8 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage{palatino} % Use the Palatino font by default
 
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % User the bibtex backend with the authoryear citation style (which resembles APA)
+%\usepackage[backend=bibtex,style=authoryear,natbib=true,]{biblatex} % User the bibtex backend with the authoryear citation style (which resembles APA)
+\usepackage[backend=bibtex,style=alphabetic, citestyle=alphabetic, natbib=true]{biblatex} 
 
 \addbibresource{EGRM.bib} % The filename of the bibliography
 
@@ -101,7 +102,7 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand{\lbl}[0]{\ensuremath{\text{lbl}}}
 \newcommand{\Real}[0]{\ensuremath{\mathbb{R}}}
 \newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
-\newcommand{\Bool}[0]{\ensuremath{\mathbb{B}}}
+\newcommand{\Bool}[0]{\ensuremath{2}}%{\ensuremath{\mathbb{B}}}
 \newcommand{\letter}[0]{\ensuremath{\left(\text{A-Z\ |\ a-z}\right)}}
 \newcommand{\Atom}[0]{\ensuremath{\text{At}}}
 \newcommand{\GuardedString}[0]{\ensuremath{\text{GS}}}
@@ -758,7 +759,7 @@ initial text=$ $, % sets the text that appears on the start arrow
 
 \newcommand{\Always}{{\Globally}}%{{\mathbf{G}}}
 \newcommand{\Globally}{{\square}}%{{\mathbf{G}}}
-\newcommand{\vect}[1]{\ensuremath{\overrightarrow{\bf{#1}}}}
+\newcommand{\vect}[1]{\ensuremath{\vec{#1}}}%{\overrightarrow{\bf{#1}}}}
 \newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}
 
 
@@ -1126,7 +1127,7 @@ I want to thank my friends, which I am incredibly fortunate to have in several p
 %	DEDICATION
 %----------------------------------------------------------------------------------------
 
-\dedicatory{For/Dedicated to/To my\ldots}
+\dedicatory{To my family and friends, those who carry fragments my soul and those whose soul fragments I also carry.}
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
@@ -1139,13 +1140,13 @@ I want to thank my friends, which I am incredibly fortunate to have in several p
 % Include the chapters of the thesis as separate files from the Chapters folder
 % Uncomment the lines as you write the chapters
 
-%\include{Chapters/Introduction}
+\include{Chapters/Introduction}
 \include{Chapters/Preliminaries}
 \include{Chapters/LatentBehaviours}
 \include{Chapters/Classification}
-%\include{Chapters/CPSRedesign}
-%\include{Chapters/SideChannels} 
-%\include{Chapters/Conclusion}
+\include{Chapters/CPSRedesign}
+\include{Chapters/SideChannels} 
+\include{Chapters/Conclusion}
 %\include{Chapters/QuickCompile}
 %\include{Chapters/Chapter1} 
 %\include{Chapters/Chapter2}

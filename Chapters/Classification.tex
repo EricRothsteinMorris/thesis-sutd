@@ -4,21 +4,25 @@
 \todo[inline]{This chapter needs to be readapted to align better with latent behaviours, but it is probably the easiest to align: if the attacker can find a spatial transformation that triggers a requirement failure, then there is an attack that the attacker can use.}
 \todo[inline]{This section is in red because it needs to be rewritten into context}
 \section{Introduction}
-\label{sec:Classification:LatentBehaviours}
-The first application of latent-behaviour analysis is the systematic generation and comparison of attacker models for \emph{And-inverter Graphs} (AIG) systems, which are used to model hardware systems at the level of bits~\cite{??}. 
-\todo[inline]{Put AIGs in the preliminaries...}
-Conceptually, an AIG is a circuit which has some memory locations, some external inputs, and a wiring which connects memory locations and external inputs to output locations. We can imagine a state of an AIG to be a vector $\vec{x}\in 2^V$ where $V$ is the set of memory locations or \emph{latches}; when the system receives an input word $\vec{i}$ with coordinates in the set of inputs $W$, it computes a vector of \emph{gates} $\vec{g}\in 2^G$ which depend on both $\vec{x}$ and $\vec{i}$, and the AIG finally produces a vector of outputs $\vec{o}\in 2^E$, where $E$ is a set of requirements.
-
-An interesting property of AIGs is that they update their state sequentially: gates can only decide their value once latches and inputs 
-
-In this chapter, we consider very simple attackers; these attackers can only flip bits, but given the intricacy of AIGs, a single bit flip can propagate 
-
-\section{Classification of Attackers}
 \label{sec:Classification:ClassificationProblem}
-\paragraph{Problem Context}  
-Some systems are designed to provide security guarantees in the presence of attackers. For example, the Diffie-Hellman key agreement protocol guarantees perfect forward secrecy \cite{Gunther1990,Menezes1996} (PFS), where PFS is the security guarantee that states that the session key remains secret even if the long-term keys are compromised. These security guarantees are only valid in the context of the attacker models for which they were proven; it is unknown whether those guarantees apply for stronger or incomparable attacker models. For instance, PFS describes an attacker model, say $\mathcal{M}_{DH}$, that can compromise the long-term keys \emph{and only those}, and it also describes a property (i.e., the confidentiality of the session keys) that is guaranteed in the presence of an attacker that fits the model $\mathcal{M}_{DH}$. However, if we consider a stronger attacker model (e.g., an attacker that can directly compromise the session key), then Diffie-Hellman can no longer guarantee the confidentiality of the session keys. It is difficult to provide any guarantees against an attacker model that is too proficient/powerful, so it is in the interest of the system designer to choose an adequate attacker model that puts the security guarantees of the system in the context of realistic and relevant attackers. 
+\paragraph{Problem Statement}
+Some systems are designed to provide security guarantees in the presence of attackers. For example, the Diffie-Hellman key agreement protocol guarantees \emph{perfect forward secrecy} (PFS) \cite{Gunther1990,Menezes1996}. PFS is the security property which guarantees that the session key remains secret even if the long-term keys are compromised. These security guarantees are only valid in the context of the attacker models for which they were proven; it is unknown whether those guarantees apply for stronger or incomparable attacker models. For instance, PFS describes an attacker model, say $\mathcal{M}_{DH}$, that can compromise the long-term keys \emph{and only those}, and it also describes a property (i.e., the confidentiality of the session keys) that is guaranteed in the presence of an attacker that fits the model $\mathcal{M}_{DH}$. However, if we consider a stronger attacker model (e.g., an attacker that can directly compromise the session key), then Diffie-Hellman can no longer guarantee the confidentiality of the session keys. It is difficult to provide any guarantees against an attacker model that is too proficient/powerful, so it is in the interest of the system designer to choose an adequate attacker model that puts the security guarantees of the system in the context of realistic and relevant attackers. 
+ 
+While $\mathcal{M}_{DH}$ is an attacker model that describes attackers who compromise confidentiality, we are interested in attacker models that characterise attackers who compromise integrity. We associate the security guarantees with respect to attacker models that target integrity with \emph{robustness}. For now, consider the following research question: \textbf{RQ1)} given a system and a list of security requirements, how do we systematically generate attackers that can potentially break these requirements, and how do we check if these attackers are successful? 
+\todo[inline]{This question should appear in the introduction of the thesis to motivate applications. This should not be the first time we see it.}
 
-Consider the following research question: \textbf{RQ1)} given a system and a list of security requirements, how do we systematically generate attackers that can potentially break these requirements, and how do we verify if they are successful? We approach this question at a high level for a system $S$ with a set $C$ of $n$ components, and a set of security requirements $R$ as follows. Let $A$ be a subset of $C$; the set $A$ models an attacker that can interact with $S$ by means of each component $c$ in it. More precisely, for every component $c$ in $A$, the attacker can change the value of $c$ at any time and any number of times during execution, possibly following an attack strategy. Considering the exponential size of the set of attackers (i.e., $2^{n}$), a brute-force approach to checking whether each of those attackers breaks each requirement in $R$ is inefficient for two reasons: 1) an attacker $A$ may only affect an isolated part of the system, so requirements that refer to other parts of the system should not be affected by the presence of $A$, and 2) if some attacker $B$ affects the system in a similar way to $A$ (e.g., if they control a similar set of components), then the knowledge we obtain while verifying the system in the presence of $A$ may be useful when verifying the system in the presence of $B$. These two reasons motivate a second research question: \textbf{RQ2)} which techniques can help us to \emph{classify} attackers, i.e., to map each attacker to the set of requirements that it breaks? 
+We started to approach this question by first modelling systems and attacker models using concepts from Chapter~\ref{ch:LatentBehaviours}. In summary, if an $F$-coalgebra $(\vec{X},c)$ whose carrier is a product type $\vec{X}$ with coordinates $C$ models the system, we can systematically generate attacker models by characterising them using sets of coordinates following Definition~\ref{def:Latent:AttackerModel}. In this chapter, we model AIGs as $F$-coalgebras of some functor $F$, and we systematically generate attacker models for them. This addresses the part of the research question which is concerned with attacker generation. We then use bounded model checking to partially verify whether these attackers are successful in breaking any requirements.
+
+%We approach this question at a high level for a system $S$ with a set $C$ of $n$ components, and a set of security requirements $R$ as follows. 
+\paragraph{AIGs and their Attacker Models} AIGs are systems which limit the actions of attackers by design, since all variables are boolean. Consequently, an attacker has one of three options when it comes to transforming a component $c\in C$ at state $\vec{x}$: 1) the attacker leaves $\vec{x}[c]$ as is, applying $\id$ in this components, 2) the attacker forces $\vec{x}[c]$ to be 0, applying $\Delta_0$ in component $c$, or 3) the attacker applies $\Delta_1$ in component $c$, forcing $\vec{x}[x]$ to be 1. As a matter of fact, we ignore the transformation $\id$, since it is always possible for the attacker to emulate $\id$ by applying $\Delta_{\vec{x}[c]}$ to component $c$ at state $\vec{x}$.
+
+Each subset of $C$ characterises an attacker model; more precisely, a subset $A\subseteq C$ characterises an attacker which can transform the components in $A$ by applying $\Delta_0$ or $\Delta_1$. The application of $\Delta_0$ and $\Delta_1$ may be different for each 
+
+then there are $2^C$ different attacker models, and each attacker $A\subseteq C$ has $2^{|A|}$ attacks at their disposal. 
+
+% Let $A$ be a subset of $C$; the set $A$ models an attacker that can interact with an AIG $S$ by means transforming each component $c\in A$. More precisely, for every component $c$ in $A$, the attacker can change the value of $c$ at any time and any number of times during execution, possibly following an attack strategy. 
+
+Considering the exponential size of the set of attackers (i.e., $2^{n}$), a brute-force approach to checking whether each of those attackers breaks each requirement in $R$ is inefficient for two reasons: 1) an attacker $A$ may only affect an isolated part of the system, so requirements that refer to other parts of the system should not be affected by the presence of $A$, and 2) if some attacker $B$ affects the system in a similar way to $A$ (e.g., if they control a similar set of components), then the knowledge we obtain while verifying the system in the presence of $A$ may be useful when verifying the system in the presence of $B$. These two reasons motivate a second research question: \textbf{RQ2)} which techniques can help us to \emph{classify} attackers, i.e., to map each attacker to the set of requirements that it breaks? 
 
 {\color{red}
 To answer these two research questions in a more concrete and practical context, we study systems modelled by \emph{And-inverter Graphs (AIGs)} (see  \cite{AIGs,AIGs2}). AIGs describe hardware models at the bit-level \cite{AIGER}, and have attracted the attention of industry partners including IBM and Intel \cite{HWMCC2014BM}. Due to being systems described at bit-level, AIGs present a convenient system model to study the problem of attacker classification, because the range of actions that attackers have over components is greatly restricted: either the attacker leaves the value of the component as it is, or the attacker negates its current value. However, this approach can be generalised to other systems by considering non-binary ranges for components, and by allowing attackers to choose any value in those ranges.
@@ -30,31 +34,23 @@ To answer these two research questions in a more concrete and practical context,
 \item a set of heuristics that characterise attacker frontiers for invariant properties using bounded model checking,
 \item experimental evidence of the effectiveness of the proposed methodology and heuristics.
 \end{itemize}
+
+\section{AIGs as $F$-coalgebras}
+\label{sec:Classification:LatentBehaviours}
+The first application of latent-behaviour analysis is the systematic generation and comparison of attacker models for \emph{And-inverter Graphs} (AIG) systems, which are used to model hardware systems at the level of bits~\cite{??}. 
+\todo[inline]{Put AIGs in the preliminaries...}
+Conceptually, an AIG is a circuit which has some memory locations, some external inputs, and a wiring which connects memory locations and input locations to output locations. We can imagine a state of an AIG to be a vector $\vec{x}\in 2^V$ where $V$ is the set of memory locations or \emph{latches} such that when the system receives an input word $\vec{i}$ with coordinates in the set of inputs $W$, it computes a vector of \emph{gates} $\vec{g}\in 2^G$ which depend on both $\vec{x}$ and $\vec{i}$; to monitor security, the AIG produces a vector of outputs $\vec{o}\in 2^E$, where $E$ is a set of invariant security requirements.
+
+An interesting property of AIGs is that they update their components sequentially: each gate can only compute its value once its inputs have computed their values, and gates can depend on other gates, latches and inputs. They also produce an 
+
+In this chapter, we consider very simple attackers; these attackers can only flip bits, but given the intricacy of AIGs, a single bit flip can propagate 
+
 %-------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Preliminaries}
 \label{sec:preliminaries}
 In this section, we provide the foundation necessary to formally present 
 the problem of model checking {And-inverter Graph} (AIGs) in the presence of attackers. 
-Let $\Bool=\set{0,1}$ be the set of booleans/bits. An \emph{And-inverter Graph} 
-models a system of equations that has $m$ boolean 
-inputs, $n$ boolean state variables and $o$ boolean gates. The elements in the set 
-$W=\set{w_1, \ldots, w_m}$ represent the \emph{inputs}, the elements in 
-$V=\set{v_1, \ldots, v_n}$ represent the \emph{latches}, and the elements in 
-$G=\set{g_1, \ldots, g_o}$ represent the \emph{and-gates}. We assume that $W$, $V$ and $G$ are pairwise disjoint, and we define the set of \emph{components} $C$ by $C\triangleq W\cup V \cup G$. 
-
-An \emph{expression} $e$ is described by the grammar $e::= 0\ |\ 1\ |\ c\ |\ \lnot c$, where $c \in C$. The set of all expressions is $E$. We use discrete time steps $t=0,1,..$ to describe the system of equations. To each latch $v\in V$ we associate a transition {equation} of the form $v(t+1) = e(t)$ and an initial equation of the form $v(0)=b$, where $e\in E$ and $b\in \Bool$. To each gate $g\in G$ we associate an equation of the form $g(t)=e_1(t)\land e_2(t)$, where $e_1,e_2\in E$. 
-
-\begin{quote}
-\begin{example}
-\label{ex:simple}
-Figure~\ref{fig:Example} shows an example AIG with $W=\set{w_1,w_2}$, $V=\set{v_1}$ and $G=\set{g_1,g_2}$. The corresponding system of equations is
-\begin{align*}
-&v_1(0)=1, & v_1(t+1)=\lnot g_2(t),\\
-&g_1(t)=\lnot w_1(t) \land \lnot w_2(t), & g_2(t)=g_1(t) \land \lnot v_1(t).
-\end{align*}
-
-\end{example}
-\end{quote}
+Let $\Bool=\set{0,1}$ be the set of booleans/bits. 
 \begin{figure}[!t]
 \begin{minipage}{0.6\textwidth}
 \begin{framed}
@@ -70,57 +66,13 @@ Figure~\ref{fig:Example} shows an example AIG with $W=\set{w_1,w_2}$, $V=\set{v_
 \includegraphics[width=\textwidth]{Attack1.pdf}
 \end{framed}
 \end{minipage}
-\caption{\textbf{Left:} And-inverter graph describing a system with two
-inputs $w_1$ and $w_2$ (green boxes), one latch $v_1$ with initial value 1 (grey box), two gates $g1$ and $g2$ (gray circles), and three invariant requirements $r_1=\Always g_1$, $r_2=\Always \lnot g_2$ and $r_3=\Always v_1$ (red circles). 
+\caption{\textbf{Left:} Recall the AIG from Figure ~\ref{fig:Preliminaries:AIGExample} describing a system with two
+inputs $w_1$ and $w_2$ (green boxes), one latch $v_1$ with initial value 1 (grey box), two gates $g_1$ and $g_2$ (gray circles), and three invariant requirements $r_1=\Always g_1$, $r_2=\Always \lnot g_2$ and $r_3=\Always v_1$ (red circles). 
 The arrows represent logical dependencies, and bullets in the arrows imply negation.
-\textbf{Right above}: an attacker that controls latch $v_1$ can set its initial value to 0 to break $r_2$ and $r_3$ in 0 steps. 
-\textbf{Right below}: an attacker that controls gate $g_2$ can set its value to 1 at time 0 to break $r_2$ in 0 steps and $r_3$ in 1 step, because the value of $v_1$ at time 1 is 0. }%. An arrow with $!$ means negation}
-\label{fig:Example}
+\textbf{Right above}: an attacker that controls latch $v_1$ can set its initial value to 0 to break $r_2$ and $r_3$ in 0 steps. This attacker uses a spatial transformation to implement this attack.
+\textbf{Right below}: an attacker that controls gate $g_2$ can set its value to 1 at time 0 to break $r_2$ in 0 steps and $r_3$ in 1 step, because the value of $v_1$ at time 1 is 0. This attacker uses a dynamics transformation, since gates are not part of the state of AIGs.}%. An arrow with $!$ means negation}
+\label{fig:Classification:Example}
 \end{figure}
-%
-
-
-The states of a system are all the different valuations of the variables in $V$; 
-formally, a state $\vect{v} \colon V \rightarrow \Bool$ is a map from $V$ to bits. Similarly, the 
-valuations of the variables in $W$ are all the inputs to the systems; 
-again, an input $\vect{w}\colon W \rightarrow \Bool$ is a map from $W$ to bits. We refer to the set of all states by $\vect{V}%\triangleq\Bool^V
-$, and to the set of all inputs by $\vect{W}%\triangleq\Bool^W
-$.
-For  $t=0,1,...$, we denote the state of the system at time $t$ by $\vect{v}(t)$, with 
-%\begin{align*}
-$\vect{v}(t)\triangleq \AsSequence{v_1(t), \ldots, v_n(t)}$. %,g_1(t),\ldots,g_o(t));
-%\end{align*} 
-The initial state is $\vect{v}(0)$, defined by the initial equations for the latches. Similarly, we denote the input of the system at time $t$ by $\vect{w}(t)$, with $\vect{w}(t)\triangleq\AsSequence{w_1(t), \ldots, w_n(t)}$. There are no restrictions or assumptions over $\vect{w}(t)$, so it can take any value in $\vect{W}$.
-\begin{quote}
-In Example~\ref{ex:simple}, the states are $\vect{V}=\set{\AsSequence{(v_1,0)},\AsSequence{(v_1,1)}}$, the inputs are $\vect{W}=\set{\!\AsSequence{(w_1,0),(w_2,0)},\AsSequence{(w_1,0),(w_2,1)},\AsSequence{(w_1,1),(w_2,0)},\AsSequence{(w_1,1),(w_2,1)}\!}$, and the initial state is $\vect{v}(0)=\AsSequence{(v_1,1)}$.
-\end{quote}
-
-Given an expression $e\in E$, the invariant $\Always e$ is the property that requires $e(t)$ to be true for all $t\geq 0$. The system $S$ \emph{fails} the invariant $\Always e$ iff there exists a finite sequence of inputs $\AsSequence{\vect{w}_0, \ldots, \vect{w}_t}$ such that, if we assume $\vect{w}(t)=\vect{w}_t$, then $e(t)$ is false. The system \emph{satisfies} the invariant $\Always e$ if no such sequence of inputs exists. Every expression $e$ represents a boolean predicate over the state of the latches of the system, and can be used to characterise states that are (un)safe. These expressions are particularly useful in safety-critical hardware, as they can signal the approach of a critical state.
-
-\begin{quote}
-In Example~\ref{ex:simple}, we define three requirements: $r_1\triangleq\Always g_1$, $r_2 \triangleq\Always \lnot g_2$, and $r_3\triangleq\Always v_1$. This system satisfies $r_2$ and $r_3$, but it fails $r_1$ because $w_1=1$ and $w_2=0$ results in $g_1(0)$ being 0.
-\end{quote}
-
-The \emph{Cone-of-Influence} (COI) is a mapping from an expression to the components that can potentially influence its value. We obtain the COI of an expression $e \in E$, denoted $\blacktriangledown(e)$, by transitively tracing its dependencies to inputs, latches and gates. More precisely, 
-\begin{itemize}
-\item $\blacktriangledown(0)=\emptyset$ and $\blacktriangledown(1)=\emptyset$;
-\item if $e=\lnot c$ for $c \in C$, then $\blacktriangledown(e)= \blacktriangledown(c)$;
-\item if $e=w$ and $w$ is an input, then $\blacktriangledown(e)=\set{w}$;
-\item if $e=v$ and $v$ is a latch whose transition equation is $l(t+1) = e'(t)$, then $\blacktriangledown(e)=\set{v} \cup \blacktriangledown(e')$;
-\item if $e=g$ and $g$ is a gate whose equation is $g(t) = e_1(t) \land e_2(t)$ then $\blacktriangledown(e)=\set{g} \cup \blacktriangledown(e_1)\cup \blacktriangledown(e_2)$.
-\end{itemize}
-The COI of a requirement $r=\Always e$ is $\blacktriangledown(r)\triangleq \blacktriangledown(e)$.
-
-\begin{quote}
-In Example~\ref{ex:simple}, the COI for the requirements are $\blacktriangledown(\Always g_1)=\set{g_1,w_1,w_2}$, and $\blacktriangledown(\Always g_2)=\blacktriangledown(\Always g_3)=\set{g_1,g_2,v_1,w_1,w_2}$.
-\end{quote}
-
-The set of \emph{sources} of an expression $e\in E$, denoted $\mathtt{src}(e)$ is the set of latches and inputs in the COI of $e$; formally, $\mathtt{src}(e)\triangleq \blacktriangledown(e) \cap (V \cup W)$. The \emph{Jaccard index} of two expressions $e_1$ and $e_2$ is equal to $
-\frac{|\mathtt{src}(e_1)\cap \mathtt{src}(e_2)|}{|\mathtt{src}(e_1)\cup\mathtt{src}(e_2)|}
-$. This index provides a measure of how similar the sources of $e_1$ and $e_2$ are. 
-
-The \emph{dual cone-of-influence} (IOC) of a component $c \in C$, denoted $\blacktriangle(c)$, is the set of components influenced by $c$; more precisely 
-$\blacktriangle(c) \triangleq \set{c' \in  C | c\in \blacktriangledown(c')}.$
 
 \section{Motivational Example}
 \label{sec:Example}

@@ -11,8 +11,8 @@
 % \end{quote} 
 
 \section{Introduction}
-
-A \emph{latent behaviour} is a functionality that is not coded into a system, so the system normally does not display it, but given extraordinary circumstances, the system displays such functionality. To reveal a latent behaviour, we transform the state space of the system. Normally, the state space is not transformed, so we can model "extraordinary circumstances" using these transformations. This concept is probably well illustrated by \emph{return-oriented programming} (ROP)~\cite{ROP}, where the state of the call stack is transformed to alter the behaviour of the program being executed, but the program itself is not modified.
+ 
+A \emph{latent behaviour} is a functionality that is not coded into a system, so the system normally does not display it, but given extraordinary circumstances, the system displays such functionality. To reveal a latent behaviour, we transform the state space of the system. Normally, the state space is not transformed, so we can model "extraordinary circumstances" using these transformations. This concept is probably well illustrated by \emph{return-oriented programming} (ROP) as described in~\cite{ROP}, where the state of the call stack is transformed to alter the behaviour of the program being executed, but the program itself is not modified.
 
 In ROP, the adversary manipulates the call stack to string code gadgets together and arbitrarily execute code. However, if the program is very small and does not have enough gadgets, then the computational power of the attacker is restricted, since it becomes impossible to create certain behaviours. This restriction is similar to the restrictions we face when working with non-Turing complete languages (e.g., we cannot use regular expressions to specify arbitrary Turing machines). However, given enough gadgets, we can reveal any behaviour we want if we appropriately compose the gadgets.
 
@@ -200,13 +200,13 @@ applies $m$ twice, and it fails to properly check if the initial state of the tr
 \end{figure}
 We say that the transformed system is \emph{latent} with respect to the original system, since the application of the transformation $m$ reveals the new behaviour. In general, we cannot reveal arbitrary behaviours only through transformations of the state space; e.g., we cannot obtain an automaton that accepts every sequence from a single-state automaton that rejects all sequences by just transforming the state space. 
 
-In the following, we present a general treatment for spatial transformations and latent behaviours in the context of $F$-coalgebras. We describe the limitations on revealing new behaviours through  spatial transformations in arbitrary $F$-coalgebras, and we also describe the necessary conditions over that lift these limitations.
+In the following, we present a general treatment for spatial transformations and latent behaviours in the context of $F$-coalgebras. We describe the limitations on revealing new behaviours through  spatial transformations in arbitrary $F$-coalgebras, and we also describe the necessary conditions that lift these limitations.
 
 % To transform an automaton which accepts all sequences into one that can reject some or all, we need a transformation of the \emph{functionality}. 
 % Those transformations correspond to the arrow $F(X)\xrightarrow{b}F(X)$ in Figure~\ref{fig:TheArrow}. 
 % \todo[inline]{the final coalgebra is the place where spatial, dynamics, and coalgebras meet. Spatial transformations abstract a behaviour acting concurrently with the one we are currently studying, and that's why they are interesting to study.}
 %However, systems revealed by transformations of type $F(X)\xrightarrow{b}F(X)$ are not latent by definition. %In this thesis, we are interested in seeing how far we can go with just carrier transformations; i.e., with latent behaviours.
-
+ 
 % \todo[inline]{Remark eventually that we cannot model every malicious behaviour of the programmer, only those that affect state, not functionality.}
 \section{Latent $F$-coalgebras and Latent Behaviours}
 Given an $F$-coalgebra $(X,c\colon X\rightarrow F(X))$, each state $x\in X$ has an associated dynamics function $c(x)\in F(X)$. In this section, we study the effect of a state transformation $m\colon X\rightarrow X$ over the $F$-coalgebra $(X,c)$, which changes the dynamics of $x\in X$ from $c(x)$ to $c\circ m(x)$. 
@@ -220,7 +220,7 @@ A spatial transformation $m$ is \emph{behaviourally consistent} if and only if, 
 %Henceforth, we consider only minimal systems, unless explicitly mentioned otherwise. 
 \begin{corollary}
     If $(X,c)$ is a minimal $F$-coalgebra, then every spatial transformation %$m\colon X\rightarrow X$ 
-    is behaviourally consistent. This property also holds if $(X,c)$ is a sound coalgebraic specification language.
+    is behaviourally consistent. %  This property also holds if $(X,c)$ is a sound coalgebraic specification language.
 \end{corollary}
 Applying transformation function $m\colon X\rightarrow X$ in the context of an $F$-coalgebra $(X,c$) changes the normal behaviour of the states in $X$, and it reveals the \emph{latent coalgebra of $(X,c)$ under $m$}. 
 \begin{definition}[Latent Coalgebra and Latent Behaviour]
@@ -421,49 +421,66 @@ We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ a
 % % Different $F$-coalgebras have different sets of attacks. In our framework, a minimal $F$-coalgebra $(X,c)$ has as many attacks as $|X|^{|X|}$.
 
 \subsection{Classification of Attackers}
+\label{sec:Latent:Classification}
 We have not discussed how we systematically generate attacks and counter attacks for an $F$-coalgebra $(X,c)$. Both attacks and counter attacks are spatial transformations, so they are elements of the set $X^X$. %Depending on the properties of $X$, we obtain different ways to generate attacks. For example, if $X$ is enumerable and finite, then their spatial transformations are also enumerable. 
 Our goal is the following: given an \emph{attacker model} (whatever that is), we want to automatically obtain a set of attacks $\mathcal{M}$, which we can use to perform LBA on the $F$-coalgebra $(X,c)$. We can use the results of this analysis to quantify robustness as shown in Chapter~\ref{ch:CPSRobustness}. In this section, we are interested in also varying the attacker model, and in comparing them.
 
 Consider an $F$-coalgebra $(\vec{X},c)$ such that $\vec{X}$ is a product type of finite types; e.g., $\vec{X}=2\times 2$. We use the coordinates of $\vec{X}$, e.g., $\fst$ and $\snd$ to define attacker models. 
-\begin{definition}[Invariant Attacker Model]
-\label{def:Latent:InvariantAttackerModel}
-Let $(\vec{X},c)$ be an $F$-coalgebra such that $\vec{X}$ is a product type whose coordinates are $\Pi=\set{\pi_1, \ldots, \pi_n}$ where $\pi_i\colon \vec{X}\rightarrow A_i$; an \emph{invariant attacker model} $\alpha$ is a mapping which takes each coordinate $\pi_i\in\Pi$ to a set of transformations $\mathcal{T}_i\subseteq A_i^{A_i}$ such that the following conditions are satisfied:
-\begin{itemize}
-    \item the attacker can always do nothing, i.e., $\id_{A_i}\in \mathcal{T}_i$; 
-    \item if the attacker can transform the coordinate $\pi_i$ using $f\in \mathcal{T}_i$, and they can transform $\pi_i$ using $g\in \mathcal{T}_i$, then they should be able to transform $\pi_i$ using $g\circ f$; i.e., if $f,g\in \mathcal{T}_i$, then $g\circ f\in \mathcal{T}_i$.
-\end{itemize}
+\begin{definition}[Attacker Model]
+\label{def:Latent:AttackerModel}
+Let $(\vec{X},c)$ be an $F$-coalgebra such that $\vec{X}=X_1\times\ldots\times X_n$ is a product type whose coordinates are $\Pi=\set{\pi_1, \ldots, \pi_n}$ where $\pi_i\colon \vec{X}\rightarrow X_i$, and let $\alpha$ be a set of coordinates, with $\alpha\subseteq \Pi$; the \emph{attacker model characterised by $\alpha$} is the set of transformations in $\vec{X}$, denoted $\AsSequence{\alpha}$, such that $m\colon \vec{X}\rightarrow \vec{X}$ is an element of $\AsSequence{\alpha}$ if and only, for all states $\vec{x}\in \vec{X}$ and coordinates $\pi\in \Pi$, 
+\begin{align}
+    m(\vec{x})[\pi]\neq \vec{x}[\pi],\quad \text{implies that $\pi\in \alpha$}.
+\end{align}
+In other words, if $m$ modifies any state $\vec{x}$ at coordinate $\pi$, then $\pi$ must be in $\alpha$. Note that the identity transformation is in every attacker model, since the modification requirement is not strict; i.e., the attacker can use a transformation $m$ where $m(\vec{x})[\pi]= \vec{x}[\pi]$ for all $\vec{x}\in \vec{X}$ and for all $\pi \in \alpha$. What an $\alpha$ attacker cannot do is to modify a state in a coordinate that is not in $\alpha$. In Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}, we show how an attacker fitting a particular attacker model may systematically generate attacks within their capabilities; more precisely, we show how to systematically generate $\AsSequence{\alpha}$.
+
+We give attackers fitting an attacker model characterised by $\alpha$ full control over the coordinates in $\alpha$. More precisely, for $0\leq i \leq n$, if $\pi_i\colon \vec{X}\rightarrow X_i$ is a coordinate in $\alpha$, then, for every value in $x_i\in X_i$, the attackers fitting the model characterised by $\alpha$ can always find a transformation $m$ in $\AsSequence{\alpha}$ such that $m(\vec{x})[\pi_i]=x_i$, for all $\vec{x}\in \vec{X}$. We did not find any practical scenarios where restricting the control of attackers over a particular coordinate offered an advantage over attackers with full control over such a coordinate.
+% to a set of transformations $\mathcal{T}_i\subseteq A_i^{A_i}$ such that the following conditions are satisfied:
+% \begin{itemize}
+%     \item the attacker can always do nothing, i.e., $\id_{A_i}\in \mathcal{T}_i$; 
+%     \item if the attacker can transform the coordinate $\pi_i$ using $f\in \mathcal{T}_i$, and they can transform $\pi_i$ using $g\in \mathcal{T}_i$, then they should be able to transform $\pi_i$ using $g\circ f$; i.e., if $f,g\in \mathcal{T}_i$, then $g\circ f\in \mathcal{T}_i$.
+% \end{itemize}
 \end{definition}
-For a coordinate $\pi\in \Pi$, a transformation $f\in\alpha(\pi)$ acts on a state $\vec{x}\in \vec{X}$ by substituting the value of coordinate $\pi_i$ at state $\vec{x}$ with $f(x[\pi_i])$; i.e., we can extend $f$ to a function of type $f^\flat\colon X\rightarrow X$ defined by 
-\begin{align*}
-    f^\flat(\vec{x})[\pi_j]\triangleq\begin{cases}
-        f(\vec{x}[\pi_j]),&\quad\text{if $i=j$};\\
-        \vec{x}[\pi_j],&\quad\text{otherwise.}
-    \end{cases}
-\end{align*}
-The natural extensions from $f\in \alpha(\pi)$ to $f^\flat\in \vec{X}^{\vec{X}}$ lifts the attacker model $\alpha$ into a set of generator functions for the set $\AsSequence{\alpha}\subseteq \vec{X}^{\vec{X}}$, where $\AsSequence{\alpha}$ is smallest set satisfying the following conditions:
-\begin{itemize}
-    \item for all $\pi\in \Pi$ and $f\in \alpha(\pi)$, $f^\flat \in \AsSequence{\alpha}$;
-    \item for all $f,g\in \AsSequence{\alpha}$, $g\circ f \in\AsSequence{\alpha}$.
-\end{itemize}
+% \begin{remark}[Attacker models as sets of spatial transformations]
+% If an attacker model represents a set of spatial transformations, then we could have opted to generate arbitrary attacker models by using arbitrary subsets of endofunctions in the carrier $\vec{X}$. However, we opted to define attacker models by using coordinates since these attacker models are easier to associate with attackers that have some control over how and when a component
+% \end{remark}
+
+% For a coordinate $\pi\in \Pi$, a transformation $f\in\alpha(\pi)$ acts on a state $\vec{x}\in \vec{X}$ by substituting the value of coordinate $\pi_i$ at state $\vec{x}$ with $f(x[\pi_i])$; i.e., we can extend $f$ to a function of type $f^\flat\colon X\rightarrow X$ defined by 
+% \begin{align*}
+%     f^\flat(\vec{x})[\pi_j]\triangleq\begin{cases}
+%         f(\vec{x}[\pi_j]),&\quad\text{if $i=j$};\\
+%         \vec{x}[\pi_j],&\quad\text{otherwise.}
+%     \end{cases}
+% \end{align*}
+% The natural extensions from $f\in \alpha(\pi)$ to $f^\flat\in \vec{X}^{\vec{X}}$ lifts the attacker model $\alpha$ into a set of generator functions for the set $\AsSequence{\alpha}\subseteq \vec{X}^{\vec{X}}$, where $\AsSequence{\alpha}$ is smallest set satisfying the following conditions:
+% \begin{itemize}
+%     \item for all $\pi\in \Pi$ and $f\in \alpha(\pi)$, $f^\flat \in \AsSequence{\alpha}$;
+%     \item for all $f,g\in \AsSequence{\alpha}$, $g\circ f \in\AsSequence{\alpha}$.
+% \end{itemize}
 
 \begin{example}[Some Invariant Attacker Models for Example~\ref{ex:Latent:TheExample}]
 \label{ex:Latent:ExampleAttacker}
-    Since $\vec{X}=2\times 2$, we have two coordinates: $\fst\colon \vec{X}\rightarrow 2$ and $\snd\colon \vec{X}\rightarrow 2$ mapping $(x,y)\xmapsto{\fst}x$ and $(x,y)\xmapsto{\snd}y$. The trivial attacker model is an attacker that does nothing, and it corresponds to the attacker model $\id$ which maps $\fst$ to $\set{\id_2}$ and $\snd$ to $\set{\id_2}$. The lifting of these functions yield the set $\AsSequence{\id}=\set{\id_{2}^\flat}$ with $\id_{2}^\flat=\id_X$.
+    Since $\vec{X}=2\times 2$, we have two coordinates: $\fst\colon \vec{X}\rightarrow 2$ and $\snd\colon \vec{X}\rightarrow 2$ mapping $(x,y)\xmapsto{\fst}x$ and $(x,y)\xmapsto{\snd}y$. The trivial attacker model is an attacker that does nothing because it cannot transform states in any component, and it corresponds to the attacker model for the empty subset of coordinates $\emptyset$. An attacker fitting the model characterised by $\emptyset$ can only use the $\id$ spatial transformation, since $\AsSequence{\emptyset}=\set{\id}$. 
 
-    We consider three other attackers now: one which has full control over $\fst$ but no control over $\snd$, one which has full control over $\snd$ but not over $\fst$, and one attacker that has full control over both $\fst$ and $\snd$. The attacker with no control over $\fst$ or $\snd$ is the attacker which generates $\AsSequence{\id}$. 
+    We consider three other attacker models now: one which has full control over $\fst$ but no control over $\snd$ (i.e., the attacker model characterised by $\set{\fst}$), one which has full control over $\snd$ but not over $\fst$ (i.e., the attacker model characterised by $\set{\snd}$), and one attacker that has full control over both $\fst$ and $\snd$ (i.e., the attacker model characterised by $\set{\fst, \snd}$). The set $\AsSequence{\set{\fst}}$ is the set of endofunctions in $\vec{X}$ which only affect the $\fst$ coordinate (if any).
+    % Similarly, the attacker with full control over $\snd$, denoted $\alpha_2$, maps $\fst$ to $\set{\id_2}$ and $\snd$ to $2^2$. Dually, the set $\AsSequence{\alpha_2}$ is the set of functions in $\vec{X}^{\vec{X}}$ which only affect the $\snd$ coordinate. 
+    Dually, the set $\AsSequence{\set{\snd}}$ is the set of endofunctions in $\vec{X}$ which only affect the $\snd$ coordinate (if any). Finally, the set $\AsSequence{\set{\fst,\snd}}$ is the set of all endofunctions $\vec{X}^{\vec{X}}$, so attackers fitting this model can use any arbitrary spatial transformations. 
+    
+     %to add a more flexibility to attacker models so that they are no longer invariant, and we can generate arbitrary functions in $\vec{X}^{\vec{X}}$.
+    
+    % We remark that attackers with partial control over $\fst$ and $\snd$; e.g., an attacker $\beta$ which maps $\fst$ to $\set{\Delta_1, \id}$ ($\Delta_1$ is the constant function that maps $b\in 2$ to 1), which generates $\AsSequence{\beta}=\set{\Delta^\flat_1, \id_2^\flat}$, where
+    % \begin{align*}
+    %     \Delta^\flat_1(\vec{x})[\fst]=1,\quad\text{and}\quad \Delta^\flat_1(\vec{x})[\snd]=\vec{x}[\snd].
+    % \end{align*}
+    % Note that $\AsSequence{\beta}\subseteq\AsSequence{\alpha_1}$. 
 
-    The attacker with full control over $\fst$, denoted $\alpha_1$, maps $\snd$ to $\set{\id_2}$ and $\fst$ to $2^2$. The set $\AsSequence{\alpha_1}$ is the set of functions in $\vec{X}^{\vec{X}}$ which only affect the $\fst$ coordinate. Similarly, the attacker with full control over $\snd$, denoted $\alpha_2$, maps $\fst$ to $\set{\id_2}$ and $\snd$ to $2^2$. Dually, the set $\AsSequence{\alpha_2}$ is the set of functions in $\vec{X}^{\vec{X}}$ which only affect the $\snd$ coordinate. We study these type of attackers which invariantly affect only one coordinate in Chapter~\ref{ch:Classification}. 
 
-    There are attackers with partial control over $\fst$ and $\snd$; e.g., an attacker $\beta$ which maps $\fst$ to $\set{\Delta_1, \id}$ ($\Delta_1$ is the constant function that maps $b\in 2$ to 1), which generates $\AsSequence{\beta}=\set{\Delta^\flat_1, \id_2^\flat}$, where
-    \begin{align*}
-        \Delta^\flat_1(\vec{x})[\fst]=1,\quad\text{and}\quad \Delta^\flat_1(\vec{x})[\snd]=\vec{x}[\snd].
-    \end{align*}
-    Note that $\AsSequence{\beta}\subseteq\AsSequence{\alpha_1}$. Henceforth we only consider attackers which have full control over a particular set of coordinates since we did not find any practical scenarios where restricting the control of attackers over a particular coordinate offered a significant gain over the attacker with full control over such a coordinate.
+    
 
-    The attacker with full control over $\fst$ and $\snd$, denoted $\alpha^*$, can affect both $\fst$ and $\snd$ at the same time. However, this does not mean that $\AsSequence{\alpha^*}$ is equal to $\vec{X}^{\vec{X}}$, since there are still functions that cannot be generated by the combination of individual effects on independent coordinates. For example, with $\vec{X}=2\times 2$, consider the function $m\colon \vec{X}\rightarrow \vec{X}$ where $m(x,y)\triangleq(y,x)$; this function cannot be written in terms of a product function $f\times g\colon 2\times 2\rightarrow 2\times 2$, with $f\colon 2\rightarrow 2$ and $g\colon 2\rightarrow 2$.
-    In Chapter~\ref{ch:CPSRobustness}, we add a more flexibility to attacker models so that they are no longer invariant, and we can generate arbitrary functions in $\vec{X}^{\vec{X}}$.
+    % The attacker with full control over $\fst$ and $\snd$, denoted $\alpha^*$, can affect both $\fst$ and $\snd$ at the same time. However, this does not mean that $\AsSequence{\alpha^*}$ is equal to $\vec{X}^{\vec{X}}$, since there are still functions that cannot be generated by the combination of individual effects on independent coordinates. For example, with $\vec{X}=2\times 2$, consider the function $m\colon \vec{X}\rightarrow \vec{X}$ where $m(x,y)\triangleq(y,x)$; this function cannot be written in terms of a product function $f\times g\colon 2\times 2\rightarrow 2\times 2$, with $f\colon 2\rightarrow 2$ and $g\colon 2\rightarrow 2$.
 \end{example}
-Given an $F$-coalgebra $(\vec{X},c)$ where $\vec{X}$ is a product type of finite types whose coordinates are $\Pi=\set{\pi_1,\ldots,\pi_p}$, and a list of requirements $\mathcal{R}=\set{R_1, \ldots, R_n}$, we can systematically generate invariant attacker models by choosing a subset of coordinates in $\Pi$. Under this formulation, the set of invariant attacker models is characterised by $\ThePowersetOf{\Pi}$. Given that attacker models are now modelled by sets, we can compare them via set inclusion. This comparison sorts attackers by \emph{capabilities}; i.e., it classifies attackers with respect to the ways they can interact with the system. Now, using LBA, we can obtain the set of requirements $\AsSequence{\alpha}[\mathcal{R}]$ that the attacker model $\alpha$ can break, and we can compare these sets of requirements by set inclusion to compare attackers by their \emph{power}; i.e., for two attacker models $\alpha$ and $\beta$, if $\AsSequence{\alpha}[\mathcal{R}]\subset \AsSequence{\beta}[\mathcal{R}]$, then $\beta$ breaks strictly more requirements than $\alpha$, making $\beta$ a more dangerous adversary than $\alpha$.%The attacker model corresponding to $\emptyset$ is the passive attacker, and the attacker 
+
+In Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}, we compare and classify attackers based on their model. The intuition is the following: given an $F$-coalgebra $(\vec{X},c)$ where $\vec{X}$ is a product type of finite types whose coordinates are $\Pi=\set{\pi_1,\ldots,\pi_p}$, and a list of requirements $\mathcal{R}=\set{R_1, \ldots, R_n}$, we can systematically generate attacker models by choosing a subset of coordinates in $\Pi$. Under this formulation, the set of attacker models is characterised by $\ThePowersetOf{\Pi}$. Since attacker models are characterised by sets, we can compare them via set inclusion. This comparison sorts attackers by \emph{capabilities}; i.e., it classifies attackers with respect to the ways they can interact with the system. Then, using LBA, we obtain the set of requirements $\AsSequence{\alpha}[\mathcal{R}]$ that the attacker model $\AsSequence{\alpha}$ can break, and we compare these sets of requirements by set inclusion to compare attackers by their \emph{power}; i.e., for two attacker models $\AsSequence{\alpha}$ and $\AsSequence{\beta}$, if $\AsSequence{\alpha}[\mathcal{R}]\subset \AsSequence{\beta}[\mathcal{R}]$, then $\AsSequence{\beta}$ breaks strictly more requirements than $\AsSequence{\alpha}$, making attackers which fit the model $\AsSequence{\beta}$ more dangerous adversaries than those which fit the model $\AsSequence{\alpha}$.%The attacker model corresponding to $\emptyset$ is the passive attacker, and the attacker 
 
 \subsection{Side-Channel Repair}
 The last application of LBA that we consider is of program repair. We briefly mentioned the idea in Section~\ref{sec:Latent:Robustness}: given an $F$-coalgebra $(X,c)$ and a set of requirements $\mathcal{R}=\set{R_1, \ldots, R_n}$, if $\id[\mathcal{R}]$ is non-empty, then we can look for spatial transformations to reveal a latent behaviour $(X,c\circ m)$ such that $m[\mathcal{R}]$ is empty. We consider an interesting case where the state $x$ is a program, and $R$ consists of a single requirement: constant memory access patterns. We propose an idempotent spatial transformation $\mathcal{O}$ which maps $x$ to a state which satisfies constant memory access patterns. In Chapter~\ref{ch:SideChannelRepair}, we show how we can use $\mathcal{O}$ to repair a family of timing side-channel leaks for LLVM programs.
