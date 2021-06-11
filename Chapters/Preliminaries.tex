@@ -269,7 +269,7 @@ The expression $x:0?x\land1?x\land\downarrow 1$ can be considered to describe a 
 Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$, we say that $L$ is \emph{complete} if and only if the semantic map $!_c\colon \mathcal{E}\rightarrow \sigma F$ is surjective. In other words, for every behaviour $\phi\in \sigma F$, there exists an expression $e\in \mathcal{E}$ such that $!_c(e)=\phi$.
 
 \subsection{Soundness}
-Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$ and a notion of equality in $\mathcal{E}$ modelled by a function $=\colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1=e_2$, then $e_1\sim e_2$; i.e., if two expressions are equal, then they have the same behaviour.
+Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1\equiv e_2$, then $e_1\sim e_2$; i.e., if two expressions are equivalent, then they have the same behaviour.
 
 \section{Coinduction}
 Coinduction is a dual principle to induction, and we use it to define what things are in terms of how they behave. 
@@ -288,14 +288,16 @@ Coinduction is a dual principle to induction, and we use it to define what thing
 \todo[inline]{This section may be better in its own chapter?}
 \todo[inline]{Cite the sources that give these definitions. Get them from the chapter.}
 \subsection{And-inverter Graphs (AIGs): Input, Latches, Gates, Components}
-An \emph{And-inverter Graph} 
-models a system of equations that has $m$ boolean 
+An \emph{And-inverter Graph} is a directed graph which models a system of equations \cite{AIGs,AIGs2}. AIGs describe hardware models at the bit-level \cite{AIGER}, and have attracted the attention of industry partners including IBM and Intel \cite{HWMCC2014BM}. 
+
+Formally, an AIG has $m$ boolean 
 inputs, $n$ boolean state variables and $o$ boolean gates. The elements in the set 
 $W=\set{w_1, \ldots, w_m}$ represent the \emph{inputs}, the elements in 
 $V=\set{v_1, \ldots, v_n}$ represent the \emph{latches}, and the elements in 
 $G=\set{g_1, \ldots, g_o}$ represent the \emph{and-gates}. We assume that $W$, $V$ and $G$ are pairwise disjoint, and we define the set of \emph{components} $C$ by $C\triangleq W + V + G$. Without loss of generality, we assume that $W$, $V$ and $G$ are range sets.
 
 \subsection{State and Input Vectors}
+\label{sec:Preliminaries:AIGStates}
 The \emph{states} of an AIG are all the different valuations of the variables in $V$.
 Formally, a state $\vect{v}$ is a vector with coordinates in $V$ and values in $2$, so the set of all states is $\vec{V}=2^V$. This definition only considers latches to be part of the state; gates, inputs and requirements are external to the state.
 

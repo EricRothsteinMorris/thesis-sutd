@@ -1389,6 +1389,74 @@
     \warn{\item Can't use 'location' + 'address'}
   \endentry
 
+  \entry{ClassificationOfAttackers}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=RME}{%
+         family={Rothstein-Morris},
+         familyi={R\bibinithyphendelim M\bibinitperiod},
+         given={Eric},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Sun},
+         familyi={S\bibinitperiod},
+         given={Jun},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CS}{%
+         family={Chattopadhyay},
+         familyi={C\bibinitperiod},
+         given={Sudipta},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=BD}{%
+         family={Beyer},
+         familyi={B\bibinitperiod},
+         given={Dirk},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=ZD}{%
+         family={Zufferey},
+         familyi={Z\bibinitperiod},
+         given={Damien},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer International Publishing}%
+    }
+    \strng{namehash}{RMESJCS1}
+    \strng{fullhash}{RMESJCS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{RMSC20}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    In this work, we study the problem of verification of systems in the
+  presence of attackers using bounded model checking. Given a system and a set
+  of security requirements, we present a methodology to generate and classify
+  attackers, mapping them to the set of requirements that they can break. A
+  naive approach suffers from the same shortcomings of any large model checking
+  problem, i.e., memory shortage and exponential time. To cope with these
+  shortcomings, we describe two sound heuristics based on cone-of-influence
+  reduction and on learning, which we demonstrate empirically by applying our
+  methodology to a set of hardware benchmark systems.%
+    }
+    \field{booktitle}{Verification, Model Checking, and Abstract
+  Interpretation}
+    \field{isbn}{978-3-030-39322-9}
+    \field{pages}{226\bibrangedash 247}
+    \field{title}{Systematic Classification of Attackers via Bounded Model
+  Checking}
+    \list{location}{1}{%
+      {Cham}%
+    }
+    \field{year}{2020}
+  \endentry
+
   \entry{CPSProfiles}{inproceedings}{}
     \name{author}{2}{}{%
       {{hash=RM}{%

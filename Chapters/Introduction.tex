@@ -21,6 +21,30 @@
 \subsection{Intuition}
 \todo[inline]{We present a light version of latent behaviours: you normally start at $X$, then you go to $D$ and then back to $X$, but what if we transformed $X$?}
 In latent behaviours we use a transformation $X\rightarrow X$ to affect the behaviour of the system. This transformation is an abstraction; the original system naturally transforms to a system $X\rightarrow D \rightarrow X$ using composition, also of type $X\rightarrow X$. Each function $X\rightarrow X$ can be seen as a black-box of some behaviour. Their interweaving means that they are acting simultaneously. 
+
+\section{Research Questions}
+We consider the following broad yet interesting research questions that are pervasive in systems security to motivate our work.
+\begin{question}
+\label{que:AttackerModel}
+How do we precisely describe and generate attacker models, attacks and attackers?
+\end{question}
+\begin{question}
+\label{que:Quantification}
+How do we efficiently quantify the effect that a given attacker has on a given system? 
+\end{question}
+\begin{question}
+\label{que:Classification}
+How do we compare attackers with respect to the effect they potentially have on a given system?
+\end{question}
+% \begin{question}
+% \label{que:Countering}
+% How can we counter or mitigate the effect that an attacker has on the system?
+% \end{question}
+\begin{question}
+\label{que:Repair}
+How do we repair a system that is vulnerable with respect to a given attacker model?
+\end{question}
+We do not pretend to solve these questions at this broad level, but we address concrete instances of these questions, which appear as we instantiate systems, attacker models, security requirements, etc. in the following sections.
 \section{Applications}
 \subsection{Attacker Classification}
 How can we model attackers? How can we model their actions? How can we prepare against them?
