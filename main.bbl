@@ -1007,56 +1007,6 @@
     \field{year}{1990}
   \endentry
 
-  \entry{ActualCausality}{book}{}
-    \name{author}{1}{}{%
-      {{hash=HJY}{%
-         family={Halpern},
-         familyi={H\bibinitperiod},
-         given={Joseph\bibnamedelima Y.},
-         giveni={J\bibinitperiod\bibinitdelim Y\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Mit Press}%
-    }
-    \strng{namehash}{HJY1}
-    \strng{fullhash}{HJY1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{Hal16}
-    \field{sortinit}{H}
-    \field{sortinithash}{H}
-    \field{abstract}{%
-    Causality plays a central role in the way people structure the world; we
-  constantly seek causal explanations for our observations. But what does it
-  even mean that an eventC"actually caused" eventE? The problem of defining
-  actual causation goes beyond mere philosophical speculation. For example, in
-  many legal arguments, it is precisely what needs to be established in order
-  to determine responsibility. The philosophy literature has been struggling
-  with the problem of defining causality since Hume.In this book, Joseph
-  Halpern explores actual causality, and such related notions as degree of
-  responsibility, degree of blame, and causal explanation. The goal is to
-  arrive at a definition of causality that matches our natural language usage
-  and is helpful, for example, to a jury deciding a legal case, a programmer
-  looking for the line of code that cause some software to fail, or an
-  economist trying to determine whether austerity caused a subsequent
-  depression.Halpern applies and expands an approach to causality that he and
-  Judea Pearl developed, based on structural equations. He carefully formulates
-  a definition of causality, and building on this, defines degree of
-  responsibility, degree of blame, and causal explanation. He concludes by
-  discussing how these ideas can be applied to such practical problems as
-  accountability and program verification. Technical details are generally
-  confined to the final section of each chapter and can be skipped by
-  non-mathematical readers.%
-    }
-    \field{isbn}{9780262035026}
-    \field{title}{Actual Causality}
-    \verb{url}
-    \verb http://www.jstor.org/stable/j.ctt1f5g5p9
-    \endverb
-    \field{year}{2016}
-  \endentry
-
   \entry{AIGs}{article}{}
     \name{author}{1}{}{%
       {{hash=HL}{%
@@ -1334,59 +1284,6 @@
       {Boca Raton, FL, USA}%
     }
     \field{year}{1996}
-  \endentry
-
-  \entry{Simei}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=RE}{%
-         family={Rothstein},
-         familyi={R\bibinitperiod},
-         given={Eric},
-         giveni={E\bibinitperiod},
-      }}%
-      {{hash=MCG}{%
-         family={Murguia},
-         familyi={M\bibinitperiod},
-         given={Carlos\bibnamedelima G.},
-         giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod},
-      }}%
-      {{hash=OM}{%
-         family={Ochoa},
-         familyi={O\bibinitperiod},
-         given={Mart\'{\i}n},
-         giveni={M\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {ACM}%
-    }
-    \keyw{control theory, cyber-physical systems, information flow,
-  non-interference}
-    \strng{namehash}{REMCGOM1}
-    \strng{fullhash}{REMCGOM1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{RMO17}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \field{booktitle}{Proceedings of the 2017 Workshop on Programming Languages
-  and Analysis for Security}
-    \verb{doi}
-    \verb 10.1145/3139337.3139347
-    \endverb
-    \field{isbn}{978-1-4503-5099-0}
-    \field{pages}{63\bibrangedash 74}
-    \field{series}{PLAS '17}
-    \field{title}{Design-time Quantification of Integrity in Cyber-physical
-  Systems}
-    \verb{url}
-    \verb http://doi.acm.org/10.1145/3139337.3139347
-    \endverb
-    \list{location}{1}{%
-      {Dallas, Texas, USA}%
-    }
-    \field{year}{2017}
-    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{ClassificationOfAttackers}{inproceedings}{}
