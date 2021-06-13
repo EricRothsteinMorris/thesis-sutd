@@ -1,12 +1,12 @@
 %!TEX root = ../main.tex
-\chapter{Systematic Classification of Attacker Models} %using Latent-Behaviour Analysis}
+\chapter{Systematic Classification of Attacker Models} %using Latent Behaviour Analysis}
 \label{ch:Classification}
 \section{Introduction}
 \label{sec:Classification:ClassificationProblem}
 \paragraph{Problem Statement}
 Some systems are designed to provide security guarantees in the presence of attackers. For example, the Diffie-Hellman key agreement protocol guarantees \emph{perfect forward secrecy} (PFS) \cite{Gunther1990,Menezes1996}. PFS is the security property which guarantees that the session key remains secret even if the long-term keys are compromised. These security guarantees are only valid in the context of the attacker models for which they were proven; it is unknown whether those guarantees apply for stronger or incomparable attacker models. For instance, PFS describes an attacker model, say $\mathcal{M}_{DH}$, that can compromise the long-term keys \emph{and only those}, and it also describes a property (i.e., the confidentiality of the session keys) that is guaranteed in the presence of an attacker that fits the model $\mathcal{M}_{DH}$. However, if we consider a stronger attacker model (e.g., an attacker that can directly compromise the session key), then Diffie-Hellman can no longer guarantee the confidentiality of the session keys. It is difficult to provide any guarantees against an attacker model that is too proficient/powerful, so it is in the interest of the system designer to choose an adequate attacker model that puts the security guarantees of the system in the context of realistic and relevant attackers. 
  
-While $\mathcal{M}_{DH}$ is an attacker model that describes attackers who compromise confidentiality, we are interested in attacker models that characterise attackers who compromise integrity. We associate the security guarantees with respect to attacker models that target integrity with \emph{robustness}. We recall Research Questions ~\ref{que:AttackerModel},~\ref{que:Quantification}, and ~\ref{que:Classification}, and consider the following hypothetical scenario: we are given a system and a list of security requirements ${R}$, we are also given a mechanism which systematically generates attackers, and a method to check for each generated attacker $A$ which requirements in ${R}$ fail in the presence of $A$; we denote such set of failed requirements by $A[{R}]$. Now, for two attackers $A$ and $B$, we can compare $A[{R}]$ and $B[{R}]$ since they are both subsets of $R$, and we would say that $A$ is more powerful than $B$ if $B[{R}]\subseteq A[{R}]$, since $A$ can break at least the same requirements that $B$ can, but maybe more. This methodology offers a possible solution to Research Questions ~\ref{que:Quantification} and ~\ref{que:Classification}. We now need to find a way to systematically generate attackers and decide which security requirements they break. 
+While $\mathcal{M}_{DH}$ is an attacker model that describes attackers who compromise confidentiality, we are interested in attacker models that characterise attackers who compromise integrity. We associate the security guarantees with respect to attacker models that target integrity with \emph{robustness}. We recall Research Questions ~\ref{que:AttackerModel},~\ref{que:Quantification}, and ~\ref{que:Classification}, and consider the following hypothetical scenario: we are given a system and a list of security requirements ${R}$, we are also given a mechanism which systematically generates attackers, and a method to check for each generated attacker $A$ which requirements in ${R}$ fail in the presence of $A$; we denote such set of failed requirements by $A[{R}]$. Now, for two attackers $A$ and $B$, we can compare $A[{R}]$ and $B[{R}]$ since they are both subsets of $R$, and we would say that $A$ is more powerful than $B$ if $B[{R}]\subseteq A[{R}]$, since $A$ breaks at least the same requirements that $B$ can, but maybe more. This methodology offers a possible solution to Research Questions ~\ref{que:Quantification} and ~\ref{que:Classification}. We now need to find a way to systematically generate attackers and decide which security requirements they break. 
 
 \paragraph{And-inverter Graphs (AIGs) and their Attacker Models.} We first approached the problem of systematically generating attackers in Chapter~\ref{ch:LatentBehaviours}. In summary, given an $F$-coalgebra $(\vec{X},c)$ whose carrier is a product type $\vec{X}$ with coordinates $\Pi$ that models the system, we can systematically generate attacker models by choosing a set of coordinates $\alpha\subseteq \Pi$, following Definition~\ref{def:Latent:AttackerModel}; the resulting attacker model is the set of endofunctions in $\vec{X}$ which only affect the coordinates in $\alpha$. Now, in this chapter, we adapt this notion for AIGs by modelling them as $F$-coalgebras of some functor $F$; that way, we can use Definition~\ref{def:Latent:AttackerModel} and systematically generate attacker models for AIGs. 
 
@@ -19,17 +19,17 @@ Due to being systems described at bit-level, AIGs present a convenient system mo
 
 % Let $A$ be a subset of $C$; the set $A$ models an attacker that can interact with an AIG $S$ by means transforming each coordinate $c\in A$. More precisely, for every coordinate $c$ in $A$, the attacker can change the value of $c$ at any time and any number of times during execution, possibly following an attack strategy. 
 
-\paragraph{An Exponential Number of Attacks.} For an AIG whose set of coordinates is $\Pi$, the set of attacker models is $\ThePowersetOf{\Pi}$, which has size $2^{|\Pi|}$. Now, each attacker model $\AsSequence{\alpha}$, with $\alpha\subseteq \Pi$, has $2^{|\alpha|}$ spatial transformations, since each coordinate in $\alpha$ is assigned either 0 or 1 by the effect of attacks in $\AsSequence{\alpha}$. To compute for each attacker model $\AsSequence{\alpha}$ the list of security requirements in ${R}$ that $\AsSequence{\alpha}$ can break, a brute force algorithm would enumerate all attacker models by iterating $\alpha$ in $\ThePowersetOf{\Pi}$, and for each attacker model $\AsSequence{\alpha}$, it would try to check for every requirement $r\in {R}$ if there exists an attack $m\in \AsSequence{\alpha}$ such that $m$ causes $R$ to break. This strategy is impractical; even if we only consider a single attacker model $\AsSequence{\alpha}$, systematically verifying each attack $m\in \AsSequence{\alpha}$ is an exponential problem. We need to adopt a different strategy if we are to produce meaningful results in a sensible amount of time. Instead of systematically generating attacks for a given attacker model $\AsSequence{\alpha}$, we ask an SMT solver to give us an attack which fits the model $\AsSequence{\alpha}$. More precisely, we use an SMT solver to obtain a set of assignments for the coordinates in $\alpha$, which we can convert into an attack that fits the model $\AsSequence{\alpha}$. 
-We obtain the sequence of assignments by performing \emph{bounded model checking}~\cite{BoundedModelChecking}. 
+\paragraph{An Exponential Number of Attacks.} For an AIG whose set of coordinates is $\Pi$, the set of attacker models is $\ThePowersetOf{\Pi}$, which has size $2^{|\Pi|}$. Now, each attacker model $\AsSequence{\alpha}$, with $\alpha\subseteq \Pi$, has $2^{|\alpha|}$ spatial transformations, since each coordinate in $\alpha$ is assigned either 0 or 1 by the effect of attacks in $\AsSequence{\alpha}$. To compute for each attacker model $\AsSequence{\alpha}$ the list of security requirements in ${R}$ that $\AsSequence{\alpha}$ breaks, a brute force algorithm would enumerate all attacker models by iterating $\alpha$ in $\ThePowersetOf{\Pi}$, and for each attacker model $\AsSequence{\alpha}$, it would try to check for every requirement $r\in {R}$ if there exists an attack $m\in \AsSequence{\alpha}$ such that $m$ causes $R$ to break. This strategy is impractical; even if we only consider a single attacker model $\AsSequence{\alpha}$, systematically verifying each attack $m\in \AsSequence{\alpha}$ is an exponential problem. We need to adopt a different strategy if we are to produce meaningful results in a sensible amount of time. Instead of systematically generating attacks for a given attacker model $\AsSequence{\alpha}$, we ask a SAT solver to give us an attack which fits the model $\AsSequence{\alpha}$. More precisely, we use an SAT solver to obtain a set of assignments for the coordinates in $\alpha$, which we can convert into an attack that fits the model $\AsSequence{\alpha}$. 
+We obtain the sequence of assignments by performing \emph{bounded model checking} (BMC). 
  
 We observe that an attacker $\AsSequence{\alpha}$ may only affect an isolated part of the system, so requirements that refer to other parts of the system should not be affected by $\AsSequence{\alpha}$. We also observe that if some attacker $\AsSequence{\beta}$ affects the system in a similar way to $\AsSequence{\alpha}$ (e.g., if they control a similar set of coordinates), then the knowledge we obtain while verifying the system in against $\AsSequence{\alpha}$ may be useful when verifying the system against $\AsSequence{\beta}$. In this chapter, we present a bounded model checking strategy that uses these two observations, and provides a possible answer to Research Question ~\ref{que:Classification} by illustrating how this model checking strategy efficiently maps each attacker to the set of requirements that they break.
 
 \paragraph{Summary of this Chapter.} In this chapter we model AIGs as $F$-coalgebras, and we model their attackers as sets of spatial transformations. We use bounded model checking to classify and compare attackers, which provides an answer for Research Question~\ref{que:Classification} in the case of AIGs. Due to the exponential size of the problem, we propose a set of heuristics to perform bounded model efficiently, for which we provide experimental evidence.
 
-Most of the contents of this chapter are published in ~\cite{ClassificationOfAttackers}. 
+The contents of this chapter are published in ~\cite{ClassificationOfAttackers}.
 
 \section{Motivational Example}
-\label{sec:Example}
+\label{sec:Classification:Example}
 
 \begin{figure}[!t]
 	\begin{minipage}{0.6\textwidth}
@@ -58,9 +58,9 @@ Consider a scenario where an attacker $A$ controls the gate $g_2$ of the AIG sho
 
 
 
-If we allow attackers to control any number of coordinates, then there are $8$ different attackers, described by the subsets of $\set{v_1,g_1,g_2}$. We do not consider attackers that control inputs, because the model checking of invariant properties requires the property to hold for all inputs, so giving control of inputs to an attacker does not make it more powerful (i.e. the attacker cannot break more requirements than it already could without the inputs). Figure~\ref{fig:borders} illustrates the classification of attackers depending on whether they can break a given requirement or not. Based on it, we can provide the following security guarantees: 1) the system cannot enforce $r_1$, and 2) that the system can only enforce $r_2$ and $r_3$ in the presence of attackers that are as capable to interact with the system as $\set{g_1}$ (i.e. they only control $g_1$ or nothing).
+If we allow attackers to control any number of coordinates, then there are $8$ different attackers, described by the subsets of $\set{v_1,g_1,g_2}$. We do not consider attackers that control inputs, because the model checking of invariant properties requires the property to hold for all inputs, so giving control of inputs to an attacker does not make it more powerful (i.e. the attacker cannot break more requirements than it already could without the inputs). Figure~\ref{fig:Classification:borders} illustrates the classification of attackers depending on whether they break a given requirement or not. Based on it, we can provide the following security guarantees: 1) the system cannot enforce $r_1$, and 2) that the system can only enforce $r_2$ and $r_3$ in the presence of attackers that are as capable to interact with the system as $\set{g_1}$ (i.e. they only control $g_1$ or nothing).
 
-According to the classification, attacker $\set{g_2}$ is as powerful as the attacker $\set{v_1,g_1,g_2}$, since both attackers can break the same requirements $r_1$, $r_2$ and $r_3$. This information may be useful to the designer of the system, because they may prioritise attackers that control less coordinates but are as powerful as attackers that control more when deploying defensive mechanisms.
+According to the classification, attacker $\set{g_2}$ is as powerful as the attacker $\set{v_1,g_1,g_2}$, since both attackers break the same requirements $r_1$, $r_2$ and $r_3$. This information may be useful to the designer of the system, because they may prioritise attackers that control less coordinates but are as powerful as attackers that control more when deploying defensive mechanisms.
 
 \begin{figure}[!t]
 \centering
@@ -129,8 +129,8 @@ edge [post,color=red!50](g2);
  \end{tikzpicture}
   \end{framed}}
 \end{minipage}
-\caption{Left: classification of attackers for requirements $r_2$ and $r_3$. Right: classification of attackers for requirement $r_1$. A green attacker cannot break the requirement, while a red attacker can.}
-\label{fig:borders}
+\caption{Left: classification of attackers for requirements $r_2$ and $r_3$. Right: classification of attackers for requirement $r_1$. A green attacker model cannot break the requirement, while a red attacker model can. The red arrows originate from minimal attacker models.}
+\label{fig:Classification:borders}
 \end{figure}
 
 
@@ -154,7 +154,7 @@ where $\TheBehaviourOf{e(t)}$ is the result of evaluating the expression $e(t)$ 
 
 %Since the set $\vec{V}\times \vec{G}$ is the carrier, 
 In the following we show how to use bounded model checking to find spatial transformations which reveal a latent coalgebra that fails one or more security requirements. %whose coordinates are $V\cup G$, 
-% Since the carrier is the set $\vec{V}$, spatial transformations do not directly transform the state of gates. If an attacker wants to affect a gate, they must do so via transitive data dependencies. More precisely, if a gate $g$ depends on a latch $v$ (e.g. $g(t)=v(t) \land \lnot k(t)$ where $k$ is some component, then an attacker controlling $v$ might affect $g$ by manipulating the value of the state at coordinate $v$. If the value of a gate $g$ does not transitively depend on any latch (e.g., $g_1$ in Figure~\ref{fig:Classification:Example}), then $g$ must only depend on inputs. %This follows the ideology of latent-behaviour analysis, where we purposely restrict attackers to affect the state of the system.
+% Since the carrier is the set $\vec{V}$, spatial transformations do not directly transform the state of gates. If an attacker wants to affect a gate, they must do so via transitive data dependencies. More precisely, if a gate $g$ depends on a latch $v$ (e.g. $g(t)=v(t) \land \lnot k(t)$ where $k$ is some component, then an attacker controlling $v$ might affect $g$ by manipulating the value of the state at coordinate $v$. If the value of a gate $g$ does not transitively depend on any latch (e.g., $g_1$ in Figure~\ref{fig:Classification:Example}), then $g$ must only depend on inputs. %This follows the ideology of latent behaviour analysis, where we purposely restrict attackers to affect the state of the system.
 
 % 
 
@@ -168,11 +168,10 @@ In the following we show how to use bounded model checking to find spatial trans
 % We recall the research questions that motivate this work: \textbf{RQ1)} given a system and a list of security requirements, how do we systematically generate attackers that can potentially break these requirements, and how do we verify if they are successful? and \textbf{RQ2)} which techniques can help us \emph{classify} attackers, i.e., to map each attacker to the set of requirements that it breaks? 
 In this section, we %aim to answer these research questions on a theoretical level by 
 formalise the problem of attacker classification for AIGs using bounded model checking in the presence of attackers. More precisely, %to answer \textbf{RQ1},
-we formalise attackers and their interactions with systems, and we show how to systematically generate bounded model checking problems that determine whether some given attacker can break the security requirement being checked. We then propose two methods for the classification of attackers: 1) a brute-force method that creates a model checking problem for each attacker-requirement pair, and 2) a method that incrementally empowers attackers to find \emph{minimal attackers}, i.e. attackers which represent large portions of the universe of attackers thanks to a monotonicity relation between the set of coordinates controlled by the attacker and the set of requirements that the attacker can break. %The latter method is a theoretical approach to answer \textbf{RQ2}, while its practical usefulness is evaluated in Section~\ref{sec:evaluation}.
+we formalise attackers and their interactions with systems, and we show how to systematically generate bounded model checking problems that determine whether some given attacker breaks the security requirement being checked. We then propose two methods for the classification of attackers: 1) a brute-force method that creates a model checking problem for each attacker-requirement pair, and 2) a method that incrementally empowers attackers to find \emph{minimal attackers}, i.e. attackers which represent large portions of the universe of attackers thanks to a monotonicity relation between the set of coordinates controlled by the attacker and the set of requirements that the attacker breaks. %The latter method is a theoretical approach to answer \textbf{RQ2}, while its practical usefulness is evaluated in Section~\ref{sec:evaluation}.
 
 \subsection{Attackers and Compromised Systems}
-{\color{red}
-Since an AIG describes a system of equations, to incorporate the actions of an attacker $A$ into the system, we modify the equations that are associated to the coordinates controlled by $A$. Let $S=(W,V,G)$ be a system described by an AIG, let $R=\set{r_1, \ldots, r_n}$ be a set of invariant requirements for $S$, and let $C=W\cup V\cup G$ be the set of coordinates of $S$. By definition, an \emph{attacker} $A$ is any subset of $C$. If a coordinate $c$ belongs to an attacker $A$, then $A$ has the \emph{capability to interact with $S$ through} $c$. We modify the equations of every latch $v\in V$ to be parametrised by an attacker $A$ as follows: the original transition equation $v(t+1)=e(t)$ and the initial equation $v(0)=b$ changes to
+We modify the equations that are associated to the coordinates controlled the attacker to incorporate the possible actions of such attacker into an AIG. Formally, let $S=(W,V,G)$ be a system described by an AIG, let $R=\set{r_1, \ldots, r_n}$ be a set of invariant requirements for $S$, and let $C=V\cup G$ be the set of coordinates of $S$. An \emph{attacker model} $A$ is any subset of $C$. We refer to attackers fitting the model $A$ as \emph{$A$-attackers}. If a coordinate $c$ belongs to an attacker model $A$, then an $A$-attacker has the \emph{capability to interact with $S$ through} $c$. To capture this interaction, we modify the equations of every latch $v\in V$ to be parametrised by an attacker model $A$ as follows: the original transition equation $v(t+1)=e(t)$ and the initial equation $v(0)=b$ change to
 \begin{align}
 \label{eq:badLatch}
 v(t+1) = \begin{cases}
@@ -185,7 +184,7 @@ b, \quad &\text{if $v \not \in A$;}\\
 A_v(0), \quad &\text{otherwise.}
 \end{cases}
 \end{align}
-where $A_v(t)$ is a value chosen by the attacker $A$ at time $t$. Similarly, we modify the equation of gate $g\in G$ as follows: the original equation $g(t)=e_1(t)\land e_2(t)$ changes to
+where $A_v(t)$ is a value chosen by an $A$-attacker at time $t$. Similarly, we modify the equation of gate $g\in G$ as follows: the original equation $g(t)=e_1(t)\land e_2(t)$ changes to
 \begin{align}
 \label{eq:badGate}
 g(t) = \begin{cases}
@@ -193,94 +192,109 @@ e_1(t)\land e_2(t), \quad &\text{if $g\not \in A$;}\\
 A_g(t), \quad &\text{otherwise},
 \end{cases}
 \end{align}
-where $A_g(t)$ is, again, a value chosen by the attacker $A$ at time $t$. We use $A[S]$ to denote the system $S$ under the influence of attacker $A$; i.e., $A[S]$ is the modified system of equations. 
+where $A_g(t)$ is, again, a value chosen by an $A$-attacker at time $t$. We use $A[S]$ to denote the system $S$ under the influence of an $A$-attacker; i.e., $A[S]$ is the modified system of equations. 
 
-An \emph{attack on a set of coordinates $A$} is a function $\vect{a}\colon A\rightarrow \Bool$ that assigns a value to each coordinate in $A$. An \emph{attack strategy} is a finite sequence of attacks $(\vect{a}_0, \vect{a}_1, \ldots, \vect{a}_t)$ that fixes the values of all $A_c(k)$ (used in the equations above) by $A_c(k)=\vect{a}_k(c)$, with $c\in A$ and $0 \leq k \leq t$. %Since we have changed the semantics of the system, it is possible that $A[S]$ only satisfies a subset of requirements in $R$. 
+We now apply the definition of attacks as state transformations. An \emph{attack from an $A$-attacker}, is a function $m\colon \vec{G}\times \vec{V}\rightarrow \vec{G}\times \vec{V}$ that assigns a value to each coordinate in $A$. Given a state $\vec{x}\in \vec{G}\times \vec{V}$ and an attack $m\colon \vec{G}\times \vec{V}\rightarrow \vec{G}\times \vec{V}$, we define the \emph{ effect of $m$ on coordinates $A$ at state $\vec{x}$}, denoted $m(\vec{x})|_A\colon A\rightarrow 2$, by
+\begin{align}
+	m(\vec{x})|_{A}[a]\triangleq m(\vec{x})[a].
+\end{align}
+In the following, we consider a strategy to build an attacks for an $A$-attacker by computing the effects on coordinates $A$ in the context given by the initial state of the AIG and its successor states. Formally, we propose finding a finite sequence of vectors $\vect{a}_0,  \ldots, \vect{a}_t$ such that the vectors fix the values of all $A_c(k)$ by assuming $A_c(k)=\vect{a}_k(c)$, with $c\in A$ and $0 \leq k \leq t$. In this sense, the sequence $(\vect{a}_0, \ldots, \vect{a}_t)$ models an \emph{attack strategy to break requirements}.
+
+% An \emph{attack strategy} is a finite sequence of attacks $(\vect{a}_0, \vect{a}_1, \ldots, \vect{a}_t)$ that fixes the values of all $A_c(k)$ (used in the equations above) by $A_c(k)=\vect{a}_k(c)$, with $c\in A$ and $0 \leq k \leq t$. %Since we have changed the semantics of the system, it is possible that $A[S]$ only satisfies a subset of requirements in $R$. 
 \begin{definition}[Broken Requirement]
 \label{def:brokenRequirement}
-Given a requirement $r\in R$ with $r=\Always e$, we say that $A$ \emph{breaks the requirement $r$} if and only if there exists a sequence of inputs of length $k$ and an attack strategy of length $k$ such that $e(k)$ is false. We denote the set of requirements that $A$ breaks by  $A[R]$. 
+Given a requirement $r\in R$ with $r=\Always e$, we say that an $A$-attacker \emph{breaks the requirement $r$ (at time $t$)} if and only if there exists a sequence of inputs $\vec{w}_0, \ldots, \vec{w}_t$ and an attack strategy $\vect{a}_0, \ldots, \vect{a}_t$ such that $e(t)$ is false if we assume $w'(k)=\vec{w}_k[w']$ and $a'(k)=\vec{a}_k[a']$, with $0\leq k\leq t$, $w'\in W$, and $a'\in A$. We denote the set of requirements that an $A$-attacker breaks by $A[R]$. 
 \end{definition}
-Finally, we define two partial orders for attackers: \textbf{1)} an attacker $A_i$ is strictly less \emph{capable} (to interact with the system) than an attacker $A_j$ in the 
+
+We now define two partial orders for attackers: \textbf{1)} an $A_i$-attacker is strictly less \emph{capable} (to interact with the system) than an $A_j$-attacker in the 
 context of $S$ %, denoted $A_i \leq A_j$ 
-iff $A_i\subseteq A_j$ and $A_i \neq A_j$. The {attacker $A_i$ is equally capable to attacker $A_j$ iff $A_i= A_j$}; and \textbf{2)} an attacker $A_i$ is strictly less \emph{powerful} than an attacker $A_j$ in the 
+iff $A_i\subseteq A_j$ and $A_i \neq A_j$. An {$A_i$-attacker is equally capable to an $A_j$-attacker iff $A_i= A_j$}; and \textbf{2)} an $A_i$-attacker is strictly less \emph{powerful} than an $A_j$-attacker in the 
 context of $S$ and $R$ %, denoted $A_i \leq A_j$ 
-iff $A_i[R]\subseteq A_j[R]$ and $A_i[R]\neq A_j[R]$. Similarly, {attacker $A_i$ is equally powerful to attacker $A_j$ iff $A_i[R]= A_j[R]$}. We simply state that $A_i$ is less capable than $A_j$ if $S$ is clear from the context. Similarly, we simply say that $A_i$ is less powerful than $A_j$ if $S$ and $R$ are clear from the context.
+iff $A_i[R]\subseteq A_j[R]$ and $A_i[R]\neq A_j[R]$. Similarly, {$A_i$-attacker is equally powerful to an $A_j$-attacker iff $A_i[R]= A_j[R]$}. %We simply state that $A_i$ is less capable than $A_j$ if $S$ is clear from the context. 
+% We simply say that $A_i$ is less powerful than $A_j$ if $S$ and $R$ are clear from the context.
 
 %\subsection{Model Checking in the Presence of Attackers}
 We can now properly present the problem of \emph{attacker classification}.
-\begin{definition} [Attacker Classification via Model Checking]
+\begin{definition} [Attacker Classification via Verification]
 \label{def:AttackerQuantification}
-Given a system $S$, a set of requirements $R$, and a set of $h$ attackers 
-$\set{A_1, \ldots , A_h}$, for every attacker $A$, we compute the set $A[R]$ of requirements that $A$ can break by performing model checking of each requirement in $R$ on the compromised system $A[S]$. 
+Given a system $S$, a set of requirements $R$, and a set of $h$ attacker models
+$\set{A_1, \ldots , A_h}$, for every attacker model $A$, we compute the set $A[R]$ of requirements that an $A$-attacker breaks by performing model checking of each requirement in $R$ on the compromised system $A[S]$. 
 \end{definition}
 
 %The duality between attackers and sets of coordinates enables the following assertions: a set of coordinates $B$ is \emph{safe} if and only if we can prove that attacker $B$ cannot break any requirements, i.e., $B[R]=\emptyset$; otherwise, the set of coordinates $B$ is  \emph{vulnerable}. 
-Definition~\ref{def:AttackerQuantification} assumes that exhaustive model checking is possible for $S$ and the compromised versions $A[S]$ for all attackers $A$. However, if exhaustive model checking is not possible (e.g., due to time limitations or memory restrictions), we consider an alternative formulation for \emph{Bounded Model Checking} (BMC): 
-\begin{definition} [Attacker Classification via Bounded Model Checking]
+Definition~\ref{def:AttackerQuantification} assumes that exhaustive verification is possible for $S$ and the compromised versions $A[S]$ for all attackers $A$. However, if exhaustive verification is not possible (e.g., due to time limitations or memory restrictions), we consider an alternative formulation using \emph{bounded model checking} (BMC): 
+\begin{definition} [Attacker Classification using BMC]
 \label{def:BoundedModelCheckingOfSystems}
-Let  $S$ be a system, $R$ be a set of requirements, and $t$ be a natural number. Given a set of attackers $\set{A_1, \ldots , A_h}$, for each attacker $A$ , we compute the set $A[R]$ of requirements that $A$ can break \emph{using a strategy of length up to $t$} on the compromised system $A[S]$. 
+Let $S$ be a system, $R$ be a set of requirements, and $t$ be a natural number. Given a set of attacker models $\set{A_1, \ldots , A_h}$, for each attacker model $A$ , we compute the set $A[R]$ of requirements that an $A$-attacker breaks \emph{using a strategy of length up to $t$} on the compromised system $A[S]$. 
 \end{definition}
-
-In the following, we show how to construct a SAT formula that describes the attacker classification problem via bounded model checking. 
+In the following, we show how to construct a SAT formula that describes the attacker classification problem using BMC. 
 
 \subsection{A SAT Formula for BMC up to $t$ Steps}
- For a requirement $r=\Always e$ and a time step $t\geq 0$, we are interested in finding an assignment of sources and attacker actions (i.e., an attack strategy) such that, for $0\leq k \leq t$, the value of $e(k)$ is false. We define the proposition $\mathtt{goal}(r,t)$ by
+For a requirement $r=\Always e$ and a time step $t\geq 0$, we are interested in finding an attack strategy that causes the value of $e(k)$ to be false for some $k$ with $0\leq k \leq t$. To capture this notion, we define the proposition $\mathtt{goal}(r,t)$ by
 \begin{align}
-\mathtt{goal}(\Always e,t) \triangleq \bigvee_{k=0}^t{\lnot e(k)}, 
+\mathtt{goal}(\Always e,t) \triangleq \bigvee_{k=0}^t{\lnot e(k)}.
 \end{align}
- 
-We must inform the SAT solver of the equalities and dependencies between expressions given by the definition of the AIG (e.g., that $e(k) \Leftrightarrow \lnot v_1(k)$). Inspired by the work of Biere \emph{et al.} \cite{BMCWithoutBDDs}, we transform the equations into a Conjunctive Normal Form formula (CNF) that the SAT solver can work with using  \emph{Tseitin encoding} \cite{TseitinEncoding}. Each equation of the form 
+We inform the SAT solver of the equalities and dependencies between expressions given by the definition of the AIG (e.g., that $e(k) \Leftrightarrow \lnot v_1(k)$). Inspired by the work of Biere \emph{et al.} \cite{BMCWithoutBDDs}, we transform the equations into a Conjunctive Normal Form formula (CNF) that the SAT solver can work with using  \emph{Tseitin encoding} \cite{TseitinEncoding}. Each equation of the form 
 \begin{align*}
 &v(0)= \begin{cases}
 b, \quad &\text{if $v \not \in A$;}\\
 A_v(0), \quad &\text{otherwise,}
 \end{cases}
-\\\text{becomes }
-&{\left(v^{\downarrow} \lor (v(0) \Leftrightarrow b ) \right)\land \left(\lnot v^{\downarrow} \lor (v(0) \Leftrightarrow A_v(0)) \right)}
 \end{align*}
-where $v^{\downarrow}$ is a literal that marks whether the latch $v$ is an element of the attacker $A$ currently being checked; i.e., we assume that $v^{\downarrow}$ is true if $v\in A$, and we assume that $v^{\downarrow}$ is false if $v\not \in A$. Consequently, if $v\not \in A$, then $v(0) \Leftrightarrow b$ must be true, and if $v \in A$, then $v(0)  \Leftrightarrow A_v(0) $ must be true. We denote this new proposition by $\mathtt{encode}(v,0)$, and it characterises the initial state of $v$.
-
+becomes the formula of the form
+\begin{align}
+{\left(v^{\downarrow} \lor (v(0) \Leftrightarrow b ) \right)\land \left(\lnot v^{\downarrow} \lor (v(0) \Leftrightarrow A_v(0)) \right)},
+\end{align}
+where $v^{\downarrow}$ is a literal that marks whether the latch $v$ is an element of the attacker model $A$ currently being checked; i.e., we assume that $v^{\downarrow}$ is true if $v\in A$, and we assume that $v^{\downarrow}$ is false if $v\not \in A$. Consequently, if $v\not \in A$, then $v(0) \Leftrightarrow b$ must be true, and if $v \in A$, then $v(0)  \Leftrightarrow A_v(0) $ must be true. We denote this proposition by $\mathtt{encode}(v,0)$, and it informs the SAT solver about the initial state of the AIG.
+ 
 Similarly, for $0\leq k<t$, each equation of the form 
 \begin{align*}
 &v(k+1) = \begin{cases}
 e(k), \quad &\text{if $v\not \in A$;}\\
 A_v(k+1), \quad &\text{otherwise},
 \end{cases}\quad
-\\\text{becomes }
-&\left(v^{\downarrow} \lor (v(k+1) \Leftrightarrow e(k) ) \right)\land \left(\lnot v^{\downarrow} \lor (v(k+1) \Leftrightarrow A_v(k+1)) \right).
 \end{align*}
-We denote this new proposition by $\mathtt{encode}(v,k)$. %We now use the Tseitin encoding of $p \Leftrightarrow (q \land r)$, i.e., $(p \lor \lnot q \lor \lnot r)\land (\lnot p \lor q)\land  (\lnot p \lor r)$, to encode gates. 
+translates to a formula of the form
+\begin{align}
+&\left(v^{\downarrow} \lor (v(k+1) \Leftrightarrow e(k) ) \right)\land \left(\lnot v^{\downarrow} \lor (v(k+1) \Leftrightarrow A_v(k+1)) \right).
+\end{align}
+We call this formula $\mathtt{encode}(v,k)$. %We now use the Tseitin encoding of $p \Leftrightarrow (q \land r)$, i.e., $(p \lor \lnot q \lor \lnot r)\land (\lnot p \lor q)\land  (\lnot p \lor r)$, to encode gates. 
+
 Finally, for $0\leq k \leq t$, each equation of the form
 \begin{align*}
 &g(k) = \begin{cases}
 e_1(k)\land e_2(k), \quad &\text{if $g\not \in A$;}\\
 A_g(k), \quad &\text{otherwise},
-\end{cases}\\\text{becomes }
-&\left(g^{\downarrow} \lor (g(k) \Leftrightarrow e_1(k)\land e_2(k) ) \right)\land \left(\lnot g^{\downarrow} \lor (g(k) \Leftrightarrow A_g(k)) \right),
+\end{cases}
 \end{align*}
-where $g^{\downarrow}$ is a literal that marks whether the gate $g$ is an element of the attacker $A$ currently being checked in a similar way that the literal $v^\downarrow$ works for the latch $v$. We denote this new proposition by $\mathtt{encode}(g,k)$.
+becomes a formula of the form
+\begin{align}
+&\left(g^{\downarrow} \lor (g(k) \Leftrightarrow e_1(k)\land e_2(k) ) \right)\land \left(\lnot g^{\downarrow} \lor (g(k) \Leftrightarrow A_g(k)) \right),
+\end{align}
+where $g^{\downarrow}$ is a literal that marks whether the gate $g$ is an element of the attacker model $A$ currently being checked in a similar way that the literal $v^\downarrow$ works for the latch $v$. We refer to this formula by $\mathtt{encode}(g,k)$.
 %Consider a coordinate $c$ and an attacker $A$. Under the new system of equations, if $c\in A$, then we assume $c^{\downarrow}$ and the value of coordinate $c$ at time $k$ depends only on the literal $A_c(k)$; if $c\not\in A$, then we assume $\lnot c^{\downarrow}$ and we use the original semantics of the system to determine the value of $c$. 
 
-To perform SAT solving, we need to find an assignment of inputs in $W$ and attacker actions for each coordinate $c$ in $A$ over $t$ steps; thus, we need to assign at least ${|W\times A|\times t}$ literals. The SAT problem for checking whether requirement $r$ is safe up to $t$ steps, denoted $\mathtt{check}(r,t)$, is defined by 
+
+Given an attacker model $A$, to perform SAT solving, we need to find an assignment of inputs in $W$ and attacker actions for each coordinate $c$ in $A$ over $t$ steps, i.e., an assignment of ${|W\times A|\times t}$ literals. The SAT problem for checking whether requirement $r$ is safe up to $t$ steps, denoted $\mathtt{check}(r,t)$, is defined by 
 \begin{align}
 \label{eq:naiveCheck}
 \mathtt{check}(r,t)\triangleq\mathtt{goal}(r,t)\land\! \bigwedge_{c\in (V \cup G)}\left( \bigwedge_{k=0}^{t}{\mathtt{encode}(c,k)}\right).
 \end{align}
+If the SAT solver can provide an assignment of literals which satisfy $\mathtt{check}(r,t)$, then an $A$-attacker breaks the requirement $r$.
 \begin{proposition}
 \label{prop:Correctness}
-For a given attacker $A$ and a requirement $r=\Always e$, if we assume the literal $c^{\downarrow}$ for all $c \in A$ and we assume $\lnot x^{\downarrow}$ for all $x\not\in A$ (i.e., $x\in (V \cup G)-A$), then $A$ can break the requirement $r$ in $t$ steps (or less) if and only if $\mathtt{check}(r,t)$ is satisfiable.
+For a given attacker model $A$ and a requirement $r=\Always e$, if we assume the literal $c^{\downarrow}$ for all $c \in A$ and we assume $\lnot x^{\downarrow}$ for all $x\not\in A$ (i.e., $x\in (V \cup G)-A$), then an $A$-attacker breaks the requirement $r$ in $t$ steps (or less) if and only if $\mathtt{check}(r,t)$ is satisfiable.
 \end{proposition}
+
 \begin{proof}
+We first show that if an $A$-attacker breaks the requirement in $t$ steps or less, then $\mathtt{check}(r,t)$ is satisfiable. Since an $A$-attacker breaks $r=\Always e$ in $t$ steps or less, then, by Definition~\ref{def:brokenRequirement}, there exists an assignment of inputs $(\vect{w}_0, \ldots, \vect{w}_k)$ and an attacker strategy $(\vect{a}_0, \ldots, \vect{a}_k)$ which causes $e(k)$ to be false for some $k\leq t$; this means that $\mathtt{goal}(r,t)$ is satisfiable, which, in turn, makes $\mathtt{check}(r,t)$ satisfiable.
 
-We first show that if $A$ can break the requirement in $t$ steps or less, then $\mathtt{check}(r,t)$ is satisfiable. Since $A$ breaks $r=\Always e$ in $t$ steps or less, then, by Definition~\ref{def:brokenRequirement}, there exists an assignment of inputs $(\vect{w}_0, \ldots, \vect{w}_k)$ and an attacker strategy $(\vect{a}_0, \ldots, \vect{a}_k)$ which causes $e(k)$ to be false for some $k\leq t$; this means that $\mathtt{goal}(r,t)$ is satisfiable, which, in turn, makes $\mathtt{check}(r,t)$ satisfiable.
-
-We now show that if $\mathtt{check}(r,t)$ is satisfiable, then $A$ can break the requirement. If $\mathtt{check}(r,t)$ is satisfiable then $\mathtt{goal}(r,t)$ is satisfiable, and $e(k)$ is false for some $k\leq t$. Consequently, there is an assignment of inputs $\vect{w}(k)$ and attacker actions $A_c(k)$, such that the $\mathtt{encode}(c,k)$ propositions are satisfied for all $c\in A$. With $\vect{a}_k(c)=A_c(k)$ and $\vect{w}_k =\vect{w}(k)$, we obtain a witness input sequence and a witness attack strategy which proves that $A$ can break $r$ in $k$ steps (i.e., in $t$ steps or less since $k\leq t$).
-\qed
+We now show that if $\mathtt{check}(r,t)$ is satisfiable, then an $A$-attacker breaks the requirement $r$ in $t$ or less steps. If $\mathtt{check}(r,t)$ is satisfiable then $\mathtt{goal}(r,t)$ is satisfiable, and $e(k)$ is false for some $k\leq t$. Consequently, there is an assignment of inputs $\vect{w}(k)$ and attacker actions $A_c(k)$, such that the $\mathtt{encode}(c,k)$ formulae are satisfied for all $c\in A$. By assuming $\vect{a}_k(c)=A_c(k)$ and $\vect{w}_k =\vect{w}(k)$, we obtain a witness input sequence and a witness attack strategy which proves that an $A$-attacker breaks $r$ in $k$ steps (i.e., in $t$ steps or less since $k\leq t$).
 \end{proof}
 
-Algorithm~\ref{alg:BadQuantification} describes a naive strategy to compute the sets $A[R]$ for each attacker $A$; i.e. the set of requirements that $A$ breaks in $t$ steps (or less). Algorithm~\ref{alg:BadQuantification} works by solving, for each of the $2^{|V \cup G|}$ different attackers, a set of $|R|$ SAT problems, 
+Algorithm~\ref{alg:BadQuantification} describes a naive strategy to compute the sets $A[R]_t$ for each attacker model $A$; i.e. the set of requirements that an $A$-attacker breaks in $t$ steps (or less). Algorithm~\ref{alg:BadQuantification} works by solving, for each of the $2^{|V \cup G|}$ different attacker models, a set of $|R|$ SAT problems, 
 {
-each of which has a size of at least $\mathcal{O}\left({|C|\times t}\right)$ on the worst case.}
+each of which has a size of at least $\mathcal{O}\left({|W\cup V\cup G|\times t}\right)$ on the worst case.}
 
 \begin{figure}[!t]
 \centering
@@ -288,7 +302,7 @@ each of which has a size of at least $\mathcal{O}\left({|C|\times t}\right)$ on 
 %\begin{framed}
 \begin{algorithm}[H]
  \KwData{system $S=(W,V,G)$, a time step $t\geq 0$, a set of requirements $R$.}
- \KwResult{A map that maps the attacker $A$ to $A[R]$.}
+ \KwResult{A map that maps the attacker $A$ to $A[R]_t$.}
 Map $\mathcal{H}$\;
 \For{\!\!\textbf{each} $r \in R$}
 {
@@ -308,43 +322,46 @@ Map $\mathcal{H}$\;
 }
 \end{figure}
 
-In the rest of the section, we propose two sound heuristics in an attempt to improve Algorithm~\ref{alg:BadQuantification}: the first technique aims to reduce the size of the SAT formula, while the other aims to record and propagate the results of verifications among the set of attackers so that some calls to the SAT solver can be avoided.
+We now propose two sound heuristics in an attempt to improve Algorithm~\ref{alg:BadQuantification}: the first technique aims to reduce the size of the SAT formula, while the other heuristic aims to record and propagate the results of previous verifications among the set of attacker models so that some calls to the SAT solver are avoided.
 
-\subsection{Isolation and Monotonicity}
-The first strategy involves relying on \emph{isolation} to prove that it is impossible for a given attacker to break some requirements. To formally capture this notion, we first extend the notion of IOC to attackers. The IOC of an attacker $A$, denoted $\blacktriangle(A)$, is defined by the union of IOCs of the coordinates in $A$; more precisely, $\blacktriangle(A) \triangleq \bigcup\set{\blacktriangle(c)|c \in A}.$
-
-Informally, isolation happens whenever the IOC of $A$ is disjoint from the COI of $r$, implying that $A$ cannot interact with $r$.
+\subsection{Heuristics: Isolation and Monotonicity}
+\emph{Isolation} is a strategy that uses data dependency analysis to prove that is impossible for a given attacker model to break some requirement. Informally, a requirement $r$ is isolated from an attacker model $A$ if no flow of information can occur from the coordinates in $A$ to the expression that defines $r$. To formally capture isolation, we first extend the notion of IOC to attacker models. The \emph{IOC of an attacker model $A$}, denoted $\blacktriangle(A)$, is defined by the union of IOCs of the coordinates in $A$; more precisely, 
+\begin{align}
+	\blacktriangle(A) \triangleq \bigcup\set{\blacktriangle(c)|c \in A}.
+\end{align}
+Isolation happens whenever the IOC of $A$ is disjoint from the COI of $r$, implying that $A$ cannot interact with $r$.
 \begin{proposition}[Isolation]
 \label{theo:isolation}
-Let $A$ be an attacker and $r$ be a requirement that is satisfied in the absence of $A$. If $\blacktriangle(A)\cap \blacktriangledown(r)=\emptyset$, then $A$ cannot break $r$.\end{proposition}
+Let $A$ be an attacker model and $r$ be a requirement that is satisfied by the AIG. If $\blacktriangle(A)\cap \blacktriangledown(r)=\emptyset$, then an $A$-attacker does not break $r$.\end{proposition}
 \begin{proof}
 
-For the attacker $A$ to break the requirement $r$, there must be a coordinate $c \in \blacktriangledown(r)$ whose behaviour was affected by the presence of $A$, and whose change of behaviour caused $r$ to fail. However, for $A$ to affect the behaviour of $c$, there must be a dependency between the variables directly controlled by $A$ and $c$, since $A$ only chooses actions over the coordinates it controls; implying that $c\in \blacktriangle(A)$. This contradicts the premise that the IOC of $A$ and the COI of $r$ are disjoint, so the coordinate $c$ cannot exist. \qed
+For an $A$-attacker to break the requirement $r$, there must be a coordinate $c \in \blacktriangledown(r)$ whose behaviour is affected by the presence of such $A$-attacker, causing $r$ to fail. In such a case, there must be a dependency between the variables directly controlled by the $A$-attacker and $c$, since $A$-attackers only choose actions over the coordinates they control; implying that $c\in \blacktriangle(A)$. This contradicts the premise that the IOC of $A$ and the COI of $r$ are disjoint, so the coordinate $c$ cannot exist. \qed
 \end{proof}
-Isolation reduces the SAT formula by dismissing attackers that are outside the COI of the requirement to be verified. Isolation works similarly to \emph{COI reduction} (see~\cite{ToSplitOrToGroup,GraphLabelingForEfficientCOIComputation,HandbookOfSatisfiability,HandbookOfModelChecking,OptimizedModelCheckingOfMultipleProperties}), and it transforms Equation \ref{eq:naiveCheck} into
+
+Isolation reduces the SAT formula by dismissing attacker models that are outside the COI of the requirement to be verified. Isolation works similarly to \emph{COI reduction} (see~\cite{ToSplitOrToGroup,GraphLabelingForEfficientCOIComputation,HandbookOfSatisfiability,HandbookOfModelChecking,OptimizedModelCheckingOfMultipleProperties}), and it transforms Equation \ref{eq:naiveCheck} into
 \begin{align}
 \label{eq:isolation}
 \mathtt{check}(r,t)\triangleq\mathtt{goal}(r,t)\land\! \bigwedge_{c\in (\blacktriangledown(r)- W)}\left( \bigwedge_{k=0}^{t}{\mathtt{encode}(c,k)}\right)
 \end{align}
 
-The second strategy uses \emph{monotonicity} relation between capabilities and power of attackers.
+\emph{Monotonicity} is a strategy that uses the following relation between capabilities and power of attacker models: if an attacker model $B$ has at least the same capabilities as an attacker model $A$ (i.e. $A\subseteq B$), then anything that an $A$-attacker can do, a $B$-attacker can do as well.
 \begin{proposition}[Monotonicity]
 \label{theo:monotonicity}
-For attackers $A$ and $B$ and a set of requirements $R$, if $A\subseteq B$, then $A[R]\subseteq B[R]$.
+For attacker models $A$ and $B$ and a set of requirements $R$, if $A\subseteq B$, then $A[R]\subseteq B[R]$.
 \end{proposition}
 \begin{proof}
-If $A$ is a subset of $B$, then attacker $B$ can always choose the same attack strategies that $A$ used to break the requirements in $A[R]$; thus, $A[R]$ must be a subset of $B[R]$.
- \qed
+If $A\subseteq B$, then a $B$-attacker can always choose the same attack strategies that an $A$-attacker uses to break the requirements in $A[R]$; however, there may be strategies that a $B$-attacker uses that an $A$-attacker cannot, e.g., if $B$ has a coordinate that $A$ does not. Consequently, $A[R]\subseteq B[R]$.
 \end{proof}
-Monotonicity allows us to define the notion of {minimal (successful) attackers} for a requirement $r$: attacker $A$ is a \emph{minimal attacker} for requirement $r$ if and only if $A$ breaks $r$, and there is no attacker $B\subset A$ such that $B$ also breaks $r$. In the remainder of this section, we expand on this notion, and we describe a methodology for attacker classification that focuses on the identification of these minimal attackers. %We expand on this notion in the following sections.
+We use monotonicity to define a notion of {minimal (successful) attacker model} for a requirement $r$: an attacker model $A$ is a \emph{minimal attacker model} for a requirement $r$ if and only if an $A$-attacker breaks $r$, and there is no attacker model $B\subset A$ such that a $B$-attacker breaks $r$. In the following sections, we describe a methodology for attacker classification that focuses on the identification of these minimal attacker models. %We expand on this notion in the following sections.
 
-\subsection{Minimal (Successful) Attackers}
-The set of minimal attackers for a requirement $r$ partitions the set of attackers into those that break $r$ and those who do not. Any attacker that is more capable than a minimal attacker is guaranteed to break $r$ by monotonicity (cf. Proposition~\ref{theo:monotonicity}), and any attacker that is less capable than a minimal attacker cannot break $r$; otherwise, this less capable attacker would be a minimal attacker. Consequently, we can reduce the problem of attacker classification to the problem of finding the minimal attackers for all requirements.
+\subsection{Minimal (Successful) Attacker Models}
+By monotonicity, any attacker model that is more capable than a minimal attacker models for a requirement $r$ breaks $r$, and any attacker model that is less capable than a minimal attacker model for $r$ cannot break $r$; otherwise, this less capable attacker model would be a minimal attacker model. In this sense, the minimal attacker models for $r$ not only partition the set of attacker models into those that break $r$ and those who do not, they create a frontier in the lattice of attacker models. For example, on the left of Figure~\ref{fig:Classification:borders}, the minimal attacker models for requirement $r_2$ are $\set{v_1}$ and $\set{g_2}$; the frontier (shown by the red arrows) is formed because any attacker model that includes them also breaks $r_2$. For these reasons, we reduce the problem of attacker classification to the problem of finding the minimal attacker models for all requirements.
 
-\subsubsection{Existence of a Minimal Attacker.} Thanks to isolation (cf. Proposition~\ref{theo:isolation}) we can guarantee that a requirement $r$ that is safe in the absence of an attacker $A$ remains safe in the presence of $A$ if $\blacktriangledown(r) \cap \blacktriangle(A)$ is empty. Thus, for each requirement $r\in R$, the set of attackers that could break $r$ is $\ThePowersetOf{\blacktriangledown(r)-W}$. Out of all the attackers of $r$, the most capable attacker is $\blacktriangledown(r)-W$, so we can test whether there \emph{exists} any attacker that can break $r$ in $t$ steps by solving $\mathtt{check}(r,t)$ against attacker $\blacktriangledown(r)-W$. 
-For succinctness, we henceforth denote the attacker $\blacktriangledown(r)-W$ by $r^{max}$.
+\subsubsection{Existence of a Minimal Attacker.} A requirement $r$ that is isolated from an attacker model $A$ remains safe in the presence of an $A$-attacker. Thus, for each requirement $r\in R$, if an attacker model $A$ breaks $r$, then $A$ must be a subset of ${\blacktriangledown(r)-W}$. 
+Out of all the attacker models that could break $r$, the most capable attacker model is $\blacktriangledown(r)-W$. For succinctness, we henceforth denote the attacker $\blacktriangledown(r)-W$ by $r^{max}$. We check the satisfiability of $\mathtt{check}(r,t)$ with respect to the attacker model $r^{max}$ to learn whether there {exists} any other attacker model that breaks $r$ in $t$ steps; if $\mathtt{check}(r,t)$ is not satisfied, then no attacker model breaks $r$, otherwise we contradict monotonicity.
+
 \begin{corollary}
-From monotonicity and isolation (cf. Propositions \ref{theo:monotonicity} and \ref{theo:isolation}), if attacker $r^{max}$ cannot break the requirement $r$, then there are no minimal attackers for $r$. Equivalently, if $r^{max}$ cannot break $r$, then $r$ does not belong to any set of broken requirements $A[R]$.
+From monotonicity and isolation (cf. Propositions \ref{theo:monotonicity} and \ref{theo:isolation}), if attacker $r^{max}$ cannot break the requirement $r$, then there are no minimal attacker models for $r$. %Equivalently, if $r^{max}$-attacker models cannot break $r$, then $r$ does not belong to any set of broken requirements $A[R]$.
 \end{corollary}
 \begin{figure}[!h]
 \centering
@@ -352,17 +369,17 @@ From monotonicity and isolation (cf. Propositions \ref{theo:monotonicity} and \r
 %\begin{framed}
 \begin{algorithm}[H]
  \KwData{system $S$, a requirement $r$, and a time step $t\geq 0$. }
-\KwResult{set $M$ of \emph{minimal} attackers for $r$, bounded by $t$.}
+\KwResult{set $M$ of {minimal} attacker models for $r$, bounded by $t$.}
 {
 \If{$check(r,t)$ is \textbf{not} satisfiable while assuming $c^\downarrow$ for all $c\in r^{max}$}
 	{	
 		\Return $\emptyset$\;
 	}
 }
-Set: $P=\set{\emptyset}$, $M= \emptyset$; \quad /\!/($P$ contains the empty attacker $\emptyset$)\\
+Set: $P=\set{\emptyset}$, $M= \emptyset$; \quad /\!/($P$ contains the empty attacker model $\emptyset$)\\
 \While{$P$ is not empty}
 {
-	extract $A$ from $P$ such that the size of $A$ is minimal\;
+	extract $A$ from $P$ such that $A$ is minimal with respect to set inclusion\;
 	\If{\textbf{not} (exists $B \in M \text{ such that } B \subseteq A)$}
 	{	
         	\eIf{$\mathtt{check}(r,t)$ is satisfiable when assuming $c^\downarrow$ for all $c\in A$}
@@ -381,25 +398,27 @@ Set: $P=\set{\emptyset}$, $M= \emptyset$; \quad /\!/($P$ contains the empty atta
 }
 \Return $M$\;
 
- \caption{The $\mathtt{MinimalAttackers}$ algorithm.}
+ \caption{The $\mathtt{MinimalAttackerModels}$ algorithm.}
  \label{alg:CheckRequirement}
 \end{algorithm}
 %\end{framed}
 }
 \vspace{-0.5cm}
 \end{figure}
-\subsubsection{Finding Minimal Attackers.} 
-After having confirmed that at least one minimal attacker for $r$ exists, we can focus on finding them. Our strategy consist of systematically increasing the capabilities of attackers that fail to break the requirement $r$ until they do. Algorithm~\ref{alg:CheckRequirement} describes this empowering procedure to computes the set of minimal attackers for a requirement $r$, which we call $\mathtt{MinimalAttackers}$. As mentioned, we first check to see if a minimal attacker exists (Lines 1-3); then we start evaluating attackers in an orderly fashion by always choosing the smallest attackers in the set of pending attackers $P$ (Lines 5-16). Line 7 uses monotonicity to discard the attacker $A$ if there is a successful attacker $B$ with $B\subseteq A$. Line 8 checks if the attacker $A$ can break $r$ in $t$ steps (or less); if so, then $A$ is a minimal attacker for $r$ and is included in $M$ (Line 9); otherwise, we empower $A$ with a new coordinate $c$, and we add these new attackers to $P$ (Lines 11-13). We note that Line 11 relies on isolation, since we only add coordinates that belong to the COI of $r$.
+
+%\paragraph{Finding Minimal Attacker models.} 
+After having confirmed that at least one non-isolated attacker model breaks $r$, we focus on finding minimal attacker models. Our strategy consist of starting with the smallest possible sets of capabilities (i.e. non-isolated attacker models), and systematically increasing those sets of capabilities when they fail to break the requirement $r$; we continue increasing them until they do, or we find that they are a superset of a different minimal attacker model. Algorithm~\ref{alg:CheckRequirement} describes this empowering procedure to computes the set of minimal attacker models for a requirement $r$, which we call $\mathtt{MinimalAttackerModels}$. As mentioned, we first check to see if a minimal attacker model exists (Lines 1-3); then we start evaluating attacker models in an orderly fashion by always choosing the least capable attacker model in the set of pending attacker models $P$ (Lines 5-16). Line 7 uses monotonicity to discard the attacker model $A$ if there is a known successful attacker model $B$ with $B\subseteq A$. Line 8 checks if the attacker model $A$ breaks $r$ in $t$ steps (or less); if so, then $A$ is a minimal attacker model for $r$ and is included in $M$ (Line 9); otherwise, we empower $A$ with a new coordinate $c$, and we add these new attacker models to $P$ (Lines 11-13). We note that Line 11 relies on isolation, since we only add coordinates that belong to the COI of $r$.
+
+\begin{example}
+We recall the motivational example from Section~\ref{sec:Classification:Example}. 
+Consider the computation of $\mathtt{MinimalAttackerModels}$ for requirement $r_2$. In this case, $r_2^{max}$ is $\set{g1,g2,v_1}$, which breaks $r_2$. The model $r_2^{max}$ confirms the existence of a minimal non-isolated attacker model (Lines 1-3). We start to look for minimal attacker models by checking the attacker model $\emptyset$ (Lines 5-8); after we see that it fails to break $r_2$, we conclude that $\emptyset$ is not a minimal attacker model and that we need to increase its capabilities. We then derive the attacker models $\set{g_1}, \set{g_2}$ and $\set{v_1}$ by adding one non-isolated coordinate to $\emptyset$, and we put them into the set of pending attacker models (Lines 11-13). We know that the attacker models $\set{v_1}$ and $\set{g_2}$ break the requirement $r_2$, so they get added to the set of minimal attacker models, and they are not empowered (Line 9). Unlike $\set{v_1}$ and $\set{g_2}$, the attacker model $\set{g_1}$ fails to break $r_2$, so we increase its capabilities and we generate the attacker models $\set{v_1, g_1}$ and $\set{g_1, g_2}$. Finally, these two latter attacker models are supersets of minimal attacker models that we already identified, i.e., $\set{v_1}$ and $\set{g_2}$; this causes the check in Line 7 to fail, and they are dismissed from the set of pending attacker models as they are not minimal. The algorithm finishes with $M=\set{\set{v_1}, \set{g_2}}$.
+\end{example}
+
+{\color{red}
+Algorithm~\ref{alg:MinimalAttackerModels} applies Algorithm~\ref{alg:CheckRequirement} to each requirement; it collects all minimal attacker models in the set $\mathcal{M}$ and initialises the attacker classification map $\mathcal{H}$. Finally, Algorithm~\ref{alg:GoodQuantification} exploits monotonicity to compute the classification of each attacker $A$ by aggregating the requirements broken by the minimal attacker models that are subsets of $A$.
 
 \begin{quote}
-We recall the motivational example from Section~\ref{sec:Example}. Consider the computation of $\mathtt{MinimalAttackers}$ for requirement $r_2$. In this case, $r_2^{max}$ is $\set{g1,g2,v_1}$, which is able to break $r_2$, confirming the existence of (at least) a minimal attacker (Lines 1-3). We start to look for minimal attackers by checking the attacker $\emptyset$ (Lines 5-8); after we see that it fails to break $r_2$, we conclude that $\emptyset$ is not a minimal attacker and that we need to increase its capabilities. We then derive the attackers $\set{g_1}, \set{g_2}$ and $\set{v_1}$ by adding one non-isolated coordinate to $\emptyset$, and we put them into the set of pending attackers (Lines 11-13). For attackers $\set{v_1}$ and $\set{g_2}$, we know that they can break the requirement $r_2$, so they get added to the set of minimal attackers, and are not empowered (Line 9); however, for attacker $\set{g_1}$, since it fails to break $r_2$, we increase its capabilities and we generate attackers $\set{v_1, g_1}$ and $\set{g_1, g_2}$. Finally, for these two latter attackers, since the minimal attackers $\set{v_1}$ and $\set{g_2}$ have already been identified, the check in Line 7 fails, and they are dismissed from the set of pending attackers, since they cannot be minimal. The algorithm finishes with $M=\set{\set{v_1}, \set{g_2}}$.
-\end{quote}
-
-
-Algorithm~\ref{alg:MinimalAttackers} applies Algorithm~\ref{alg:CheckRequirement} to each requirement; it collects all minimal attackers in the set $\mathcal{M}$ and initialises the attacker classification map $\mathcal{H}$. Finally, Algorithm~\ref{alg:GoodQuantification} exploits monotonicity to compute the classification of each attacker $A$ by aggregating the requirements broken by the minimal attackers that are subsets of $A$.
-
-\begin{quote}
-For the motivational example in Section~\ref{sec:Example}, Algorithm~\ref{alg:MinimalAttackers} returns $\mathcal{M}=\set{\emptyset,\set{v_1}, \set{g_2}}$ and $\mathcal{H}=\set{(\emptyset,\set{r_1}), (\set{v_1},\set{r_2, r_3}),  (\set{g_2},\set{r_2, r_3})}$. From there,  Algorithm~\ref{alg:GoodQuantification} completes the map $\mathcal{H}$, and returns
+For the motivational example in Section~\ref{sec:Classification:Example}, Algorithm~\ref{alg:MinimalAttackerModels} returns $\mathcal{M}=\set{\emptyset,\set{v_1}, \set{g_2}}$ and $\mathcal{H}=\set{(\emptyset,\set{r_1}), (\set{v_1},\set{r_2, r_3}),  (\set{g_2},\set{r_2, r_3})}$. From there,  Algorithm~\ref{alg:GoodQuantification} completes the map $\mathcal{H}$, and returns
 \begin{align*}
 \mathcal{H}=\{&(\emptyset,\set{r_1}), (\set{v_1},\set{r_1,r_2, r_3}),  (\set{g_1},\set{r_1}),(\set{g_2},\set{r_1,r_2, r_3}), \\
 &(\set{v_1,g_2},\set{r_1,r_2, r_3}),(\set{v_1,g_2},\set{r_1,r_2, r_3}),\\
@@ -414,20 +433,20 @@ For the motivational example in Section~\ref{sec:Example}, Algorithm~\ref{alg:Mi
 {
 \begin{algorithm}[H]
  \KwData{system $S$, a time step $t\geq 0$, and a set of requirements $R$.}
- \KwResult{Set of all minimal attackers $\mathcal{M}$ and an initial classification map $\mathcal{H}$.}
+ \KwResult{Set of all minimal attacker models $\mathcal{M}$ and an initial classification map $\mathcal{H}$.}
 Set: $\mathcal{M}=\emptyset$\;
 Map: $\mathcal{H}$\;
 \For{$r \in R$}
 	{
-		\For{$A \in \mathtt{MinimalAttackers}(S,t,r)$}
+		\For{$A \in \mathtt{MinimalAttackerModels}(S,t,r)$}
 		{
 			insert $r$ in $\mathcal{H}(A)$\;
 			insert $A$ in $\mathcal{M}$\;
 		}
 	 }
  \Return $(\mathcal{M},\mathcal{H})$\;
- \caption{The $\mathtt{AllMinimalAttackers}$ algorithm. }
- \label{alg:MinimalAttackers}
+ \caption{The $\mathtt{AllMinimalAttackerModels}$ algorithm. }
+ \label{alg:MinimalAttackerModels}
 \end{algorithm}}
 %\end{framed}
 \vspace{-0.5cm}
@@ -442,7 +461,7 @@ Map: $\mathcal{H}$\;
  \KwData{system $S=(W,V,G)$, a time step $t\geq 0$, a set of requirements $R$.}
  \KwResult{A map $\mathcal{H}$ that maps the attacker $A$ to $A[R]$.}
 
-$(\mathcal{M},\mathcal{H})=\mathtt{AllMinimalAttackers}(S,t,R)$\;
+$(\mathcal{M},\mathcal{H})=\mathtt{AllMinimalAttackerModels}(S,t,R)$\;
 \For{\!\!\textbf{each} $A \subseteq {(V\cup G)}$}
 {
 \For{\!\!\textbf{each} $A' \in \mathcal{M}$}
@@ -464,9 +483,9 @@ $(\mathcal{M},\mathcal{H})=\mathtt{AllMinimalAttackers}(S,t,R)$\;
 
 \subsection{On Soundness and Completeness}
 \label{sec:completeness}
-Just like any bounded model checking problem, if the time parameter $t$ is below the \emph{completeness threshold} (see \cite{EfficientComputationOfRecurrenceDiameters}), the resulting attacker classification up to $t$ steps could be \emph{incomplete}. More precisely, an attacker classification up to $t$ steps may prove that an attacker $A$ cannot break some requirement $r$ with a strategy up to $t$ steps, while in reality $A$ can break $r$ by using a strategy whose length is strictly greater than $t$. There are practical reasons that justify the use of a time parameter that is lower than the completeness threshold: 1) computing the exact completeness threshold is often as hard as solving the model-checking problem \cite{HandbookOfModelChecking}, so an approximation is taken instead; and 2), the complexity of the classification problem growths exponentially with $t$ in the worst case, since the size of the SAT formulae grow with $t$, and there is an exponential number of attackers that need to be classified by making calls to the SAT solver. A classification that uses a $t$ below the completeness threshold, while possibly incomplete, is \emph{sound}, i.e., it does not falsely report that an attacker can break a requirement when in reality it cannot. In Section~\ref{sec:discussion} we discuss possible alternatives to overcome incompleteness, but we leave a definite solution as future work.
+Just like any bounded model checking problem, if the time parameter $t$ is below the \emph{completeness threshold} (see \cite{EfficientComputationOfRecurrenceDiameters}), the resulting attacker classification up to $t$ steps could be \emph{incomplete}. More precisely, an attacker classification up to $t$ steps may prove that an attacker $A$ cannot break some requirement $r$ with a strategy up to $t$ steps, while in reality $A$ breaks $r$ by using a strategy whose length is strictly greater than $t$. There are practical reasons that justify the use of a time parameter that is lower than the completeness threshold: 1) computing the exact completeness threshold is often as hard as solving the model-checking problem \cite{HandbookOfModelChecking}, so an approximation is taken instead; and 2), the complexity of the classification problem growths exponentially with $t$ in the worst case, since the size of the SAT formulae grow with $t$, and there is an exponential number of attacker models that need to be classified by making calls to the SAT solver. A classification that uses a $t$ below the completeness threshold, while possibly incomplete, is \emph{sound}, i.e., it does not falsely report that an attacker breaks a requirement when in reality it cannot. In Section~\ref{sec:discussion} we discuss possible alternatives to overcome incompleteness, but we leave a definite solution as future work.
 
-We also consider the possibility of limiting the maximum size of minimal attackers to approximate the problem of attacker classification. The result of a classification whose minimal sets are limited to have up to $z$ elements is also sound but incomplete, since does not identify minimal attackers that have more than $z$ elements. We show in Section~\ref{sec:evaluation} that, even with restricted minimal attackers, it is possible to obtain a high coverage of the universe of attackers.
+We also consider the possibility of limiting the maximum size of minimal attacker models to approximate the problem of attacker classification. The result of a classification whose minimal sets are limited to have up to $z$ elements is also sound but incomplete, since does not identify minimal attacker models that have more than $z$ elements. We show in Section~\ref{sec:evaluation} that, even with restricted minimal attacker models, it is possible to obtain a high coverage of the universe of attacker models.
  
 \subsection{Requirement Clustering}
 \emph{Property clustering} \cite{ToSplitOrToGroup,HandbookOfSatisfiability,OptimizedModelCheckingOfMultipleProperties} is a state-of-the-art technique for the model checking of multiple properties. Clustering allows the SAT solver to reuse information when solving a similar instance of the same problem, but under different assumptions. To create clusters for attacker classification, we combine the SAT problems whose COI is similar (i.e., requirements that have a Jaccard index close to 1), and incrementally enable and disable properties during verification. More precisely, to use clustering, instead of computing $\mathtt{goal}(r,t)$ for a single requirement, we compute $\mathtt{goal}(Y,t)$ for a cluster $Y$ of requirements, defined by 
@@ -474,7 +493,7 @@ We also consider the possibility of limiting the maximum size of minimal attacke
 %\mathtt{goal}(Y,t) \triangleq \bigwedge_{\Always e\in Y} ((\lnot r^\downarrow) \lor \bigvee_{k=0}^t{\lnot e(k)}).
 \mathtt{goal}(Y,t) \triangleq \bigwedge_{r\in Y} (\lnot r^\downarrow \lor \mathtt{goal}(r,t)).
 \end{align}
-where $r^\downarrow$ is a new literal that plays a similar role to the ones used for gates and latches; i.e., we assume $r^\downarrow$ when we want to find the minimal attackers for $r$, and we assume $\lnot y^\downarrow$ for all other requirements $y \in Y$. 
+where $r^\downarrow$ is a new literal that plays a similar role to the ones used for gates and latches; i.e., we assume $r^\downarrow$ when we want to find the minimal attacker models for $r$, and we assume $\lnot y^\downarrow$ for all other requirements $y \in Y$. 
 
 The SAT problem for checking whether the cluster of requirements $Y$ is safe up to $t$ steps is
 \begin{align} 
@@ -486,7 +505,7 @@ where $\blacktriangledown(Y)=\bigcup \set{\blacktriangledown(r)| r\in Y}$.
 %-------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Evaluation}
 \label{sec:evaluation}
-In this section, we perform experiments to evaluate how effective is the use of isolation and monotonicity for the classification of attackers, and we evaluate the completeness of partial classifications for different time steps. 
+In this section, we perform experiments to evaluate how effective is the use of isolation and monotonicity for the classification of attacker models, and we evaluate the completeness of partial classifications for different time steps. 
 
 For evaluation, we use a sample of AIG benchmarks from past Hardware Model-Checking Competitions (see \cite{HWMCC2011,HWMCC2013}), from their multiple-property verification track. Each benchmark has an associated list of invariants to be verified which, for the purposes of this evaluation, we interpret as the set of security requirements. As of 2014, the benchmark set was composed of 230 different instances, coming from both academia and industrial settings \cite{HWMCC2014BM}. We quote from \cite{HWMCC2014BM}:
 \begin{quote}
@@ -505,10 +524,10 @@ We separate our evaluation in two parts: 1) a comparative study where we evaluat
 Given a set of competing classification methodologies $\mathcal{M}_1,\ldots, \mathcal{M}_n$ (e.g., Algorithm~\ref{alg:BadQuantification} and Algorithm~\ref{alg:GoodQuantification}), each methodology is given the same set of benchmarks $S_1,\ldots, S_m$, each with its respective set of requirements $r_1, \ldots, r_m$. To evaluate a methodology $\mathcal{M}$ on a benchmark $S=(W,V,G)$ with a set of requirements $R$, we allow $\mathcal{M}$ to ``learn'' for about 10 minutes per requirement by making calls to the SAT solver, and produce a (partial) attacker classification $\mathcal{H}$.  Afterwards, we compute the coverage metric obtained by $\mathcal{M}$, defined as follows.
 
 \begin{definition}[Coverage]
-Let $\ThePowersetOf{V}$ be the set of all attackers, and let $\mathcal{H}$ be the attacker classification produced by the methodology $\mathcal{M}$. We recall that $\mathcal{H}$ is a map that maps each attacker $A$ to a set of requirements, and in the ideal case, $\mathcal{H}(A)=A[R]$, for each attacker $A$. The \emph{attacker coverage obtained by methodology $\mathcal{M}$ for a requirement $r$} is the percentage of attackers $A\in\ThePowersetOf{V}$ for which we can correctly determine whether $A$ breaks $r$ by computing $r\in \mathcal{H}(A)$ (i.e., we do not allow guessing and we do not allow making new calls to the SAT solver).
+Let $\ThePowersetOf{V}$ be the set of all attacker models, and let $\mathcal{H}$ be the attacker classification produced by the methodology $\mathcal{M}$. We recall that $\mathcal{H}$ is a map that maps each attacker $A$ to a set of requirements, and in the ideal case, $\mathcal{H}(A)=A[R]$, for each attacker $A$. The \emph{attacker coverage obtained by methodology $\mathcal{M}$ for a requirement $r$} is the percentage of attacker models $A\in\ThePowersetOf{V}$ for which we can correctly determine whether $A$ breaks $r$ by computing $r\in \mathcal{H}(A)$ (i.e., we do not allow guessing and we do not allow making new calls to the SAT solver).
 \end{definition}
 
-We also measure the execution time of the classification per requirement. More precisely, the time it takes for the methodology to find minimal attackers, capped at about 10 minutes per requirement. We force stop the classification for each requirement if a timeout occurs, but not while the SAT solver is running (i.e., we do not interrupt the SAT solver), which is why sometimes the reported time exceeds 10 minutes.
+We also measure the execution time of the classification per requirement. More precisely, the time it takes for the methodology to find minimal attacker models, capped at about 10 minutes per requirement. We force stop the classification for each requirement if a timeout occurs, but not while the SAT solver is running (i.e., we do not interrupt the SAT solver), which is why sometimes the reported time exceeds 10 minutes.
 
 \subsection{Effectiveness of Isolation and Monotonicity}
 To test the effectiveness of isolation and monotonicity, we selected a small sample of seven benchmarks. For each benchmark, we test four variations of our methodology: 
@@ -519,10 +538,10 @@ To test the effectiveness of isolation and monotonicity, we selected a small sam
 \item{$(+IS,+MO)$} Algorithm~\ref{alg:BadQuantification}, which does not use isolation nor monotonicity. 
 \end{enumerate}
 
-{The benchmarks we selected have an average of 173 inputs, 8306 gates, 517 latches, and 80 requirements. } Under our formulation of attackers, these benchmarks have on average $2^{8823}$ attackers%, compared to 80 properties to be checked in model checking competitions
-. However, since an attacker that controls a gate $g$ can be emulated by an attacker that controls all latches in the sources of $g$, we restrict attackers to be comprised of only latches; reducing the size of the set of attackers from $2^{8823}$ to $2^{517}$ on average per benchmark. Furthermore, we arbitrarily restrict the number of coordinates that minimal attackers may control to a maximum of 3, which implies that, on a worst case scenario, we need to make a maximum of $80\times\sum_{k=0}^3 \binom {517}k$ calls to the SAT solver per benchmark. We also arbitrarily define the time step parameter $t$ to be 10.
+{The benchmarks we selected have an average of 173 inputs, 8306 gates, 517 latches, and 80 requirements. } Under our formulation of attacker models, these benchmarks have on average $2^{8823}$ attacker models%, compared to 80 properties to be checked in model checking competitions
+. However, since an attacker that controls a gate $g$ can be emulated by an attacker that controls all latches in the sources of $g$, we restrict attacker models to be comprised of only latches; reducing the size of the set of attacker models from $2^{8823}$ to $2^{517}$ on average per benchmark. Furthermore, we arbitrarily restrict the number of coordinates that minimal attacker models may control to a maximum of 3, which implies that, on a worst case scenario, we need to make a maximum of $80\times\sum_{k=0}^3 \binom {517}k$ calls to the SAT solver per benchmark. We also arbitrarily define the time step parameter $t$ to be 10.
 
-Figure~\ref{fig:AverageCoverage} illustrates the average coverage for the four different methodologies, for each of the seven benchmarks. The exact coverage values are reported in the Appendix of \cite{aig-ac-arxiv} (an extended version of this article). We see that our methodology consistently obtains the best coverage of all the other methodologies, with the exception of benchmark $\mathtt{6s155}$, where the methodology that removes isolation triumphs over ours. We attribute this exception to the way the SAT solver reuses knowledge when working incrementally; it seems that, for $(-IS,+MO)$, the SAT solver can reuse more knowledge than for $(+IS,+MO)$, which is why $(-IS,+MO)$ can discover more minimal attackers in average than $(+IS,+MO)$. 
+Figure~\ref{fig:AverageCoverage} illustrates the average coverage for the four different methodologies, for each of the seven benchmarks. The exact coverage values are reported in the Appendix of \cite{aig-ac-arxiv} (an extended version of this article). We see that our methodology consistently obtains the best coverage of all the other methodologies, with the exception of benchmark $\mathtt{6s155}$, where the methodology that removes isolation triumphs over ours. We attribute this exception to the way the SAT solver reuses knowledge when working incrementally; it seems that, for $(-IS,+MO)$, the SAT solver can reuse more knowledge than for $(+IS,+MO)$, which is why $(-IS,+MO)$ can discover more minimal attacker models in average than $(+IS,+MO)$. 
 
 
 We observe that the most significant element in play to obtain a high coverage is the use of monotonicity. Methodologies that use monotonicity always obtain better results than their counterparts without monotonicity. Isolation does not show a trend for increasing coverage, but has an impact in terms of classification time. Figure~\ref{fig:AverageExecTime} presents the average classification time per requirement for the benchmarks under the different methodologies. We note that removing isolation often increases the average classification time of classification methodologies; the only exception --benchmark $\mathtt{6s325}$-- reports a smaller time because the SAT solver ran out of memory during SAT solving about $50\%$ of the time, which caused an early termination of the classification procedure. This early termination also reflects on the comparatively low coverage for the method $(-IS,+MO)$ in this benchmark, reported on Figure~\ref{fig:AverageCoverage}.
@@ -545,16 +564,16 @@ The benchmark \texttt{pdtvsarmultip} has 17 inputs, %giving values to the variab
 130 latches, %ranging from $v_{18}$ to $v_{147}$; it has 
 2743 gates, %ranging from $v_{148}$ to $v_{2743}$; 
 and has an associated list of 33 invariant properties, out of which 31 are unique and we interpret as the list of security requirements. 
-Since we are only considering attackers that control latches, there are a total of $2^{130}$ attackers that need to be classified for the 31 security requirements.
+Since we are only considering attacker models that control latches, there are a total of $2^{130}$ attacker models that need to be classified for the 31 security requirements.
 
-We consider 6 scenarios for partial classification up to $t$, with $t$ taking values in $\set{0,1,5,10,20,30}$. For each requirement, we obtain the execution time of classification (ms), the size of the set of source latches for the requirement (\#C), the number of minimal attackers found (\#Min.), the total number of calls to the SAT solver (\#SAT), the average number of coordinates per minimal attacker (\#C./Min) and the coverage for the requirement (Cov.). We present the average of these measures in Table~\ref{tab:pdt}. 
+We consider 6 scenarios for partial classification up to $t$, with $t$ taking values in $\set{0,1,5,10,20,30}$. For each requirement, we obtain the execution time of classification (ms), the size of the set of source latches for the requirement (\#C), the number of minimal attacker models found (\#Min.), the total number of calls to the SAT solver (\#SAT), the average number of coordinates per minimal attacker (\#C./Min) and the coverage for the requirement (Cov.). We present the average of these measures in Table~\ref{tab:pdt}. 
 
-Normally, the attacker classification behaves in a similar way to what is reported for requirement $ \Always \lnot g_{2177}$, shown in Table~\ref{tab:pdt2324}. More precisely, coverage steadily increases and stabilises as we increase $t$. However, we like to highlight two interesting phenomena that may occur: 1) coverage {may} \emph{decrease} as we increase the time step (e.g., as shown in Table~\ref{tab:pdt2367}), and 2) the number of minimal attackers decreases while the coverage increases, as shown in Tables~\ref{tab:pdt2324} and ~\ref{tab:pdt2367}. 
+Normally, the attacker classification behaves in a similar way to what is reported for requirement $ \Always \lnot g_{2177}$, shown in Table~\ref{tab:pdt2324}. More precisely, coverage steadily increases and stabilises as we increase $t$. However, we like to highlight two interesting phenomena that may occur: 1) coverage {may} \emph{decrease} as we increase the time step (e.g., as shown in Table~\ref{tab:pdt2367}), and 2) the number of minimal attacker models decreases while the coverage increases, as shown in Tables~\ref{tab:pdt2324} and ~\ref{tab:pdt2367}. 
 
 
 Case 1) occurs because the set of attackers that can effectively interact with the system at time 0 is rather small, i.e., $2^6$, while the set of attackers that can affect the system at times 0 and 1 has size $2^{26}$. The size of this set increases with time until it stabilises at $2^{66}$, which is the size of the set of attackers that cannot be dismissed by isolation. 
 
-Case 2) occurs because the minimal attackers that are found for smaller time steps represent a small percentage of the set of attackers that can affect the system, so there is very little we can learn by using monotonicity. More precisely, those minimal attackers control a relatively large set of coordinates, which they need to be successful in breaking requirements, as shown in Step 5, column \#C./Min in Tables~\ref{tab:pdt2324} and~\ref{tab:pdt2367}. By considering more time steps, we are allowing attackers that control less coordinates to further propagate their actions through the system, which enables attack strategies that were unsuccessful for smaller choices of time steps.
+Case 2) occurs because the minimal attacker models that are found for smaller time steps represent a small percentage of the set of attackers that can affect the system, so there is very little we can learn by using monotonicity. More precisely, those minimal attacker models control a relatively large set of coordinates, which they need to be successful in breaking requirements, as shown in Step 5, column \#C./Min in Tables~\ref{tab:pdt2324} and~\ref{tab:pdt2367}. By considering more time steps, we are allowing attackers that control less coordinates to further propagate their actions through the system, which enables attack strategies that were unsuccessful for smaller choices of time steps.
 
 \begin{table}[!t]
 \centering
@@ -616,9 +635,9 @@ Steps & ms &  \#C. & \#Min. & \#SAT & \#C./Min. & Cov.\\
 \label{tab:pdt2367}
 \end{minipage}
 \end{table}
-By taking an average over all requirements, we observe that coverage seems to steadily increase as we increase the number of steps for the classification, as reported in Table~\ref{tab:pdt}, column Cov. The low coverage for small $t$ is due to the restriction on the size of minimal attackers. More precisely, for small $t$, attackers can only use short strategies, which limits their interaction with the system; we expect attackers to control a large number of coordinates if they want to successfully influence a requirement in this single time step, and since we restricted our search to attackers of size 3 maximum, these larger minimal attackers are not found (e.g., as reported in Table~\ref{tab:pdt2324} for Step 0).
+By taking an average over all requirements, we observe that coverage seems to steadily increase as we increase the number of steps for the classification, as reported in Table~\ref{tab:pdt}, column Cov. The low coverage for small $t$ is due to the restriction on the size of minimal attacker models. More precisely, for small $t$, attackers can only use short strategies, which limits their interaction with the system; we expect attacker models to control a large number of coordinates if they want to successfully influence a requirement in this single time step, and since we restricted our search to attacker models of size 3 maximum, these larger minimal attackers are not found (e.g., as reported in Table~\ref{tab:pdt2324} for Step 0).
 
-We conclude that experimental evidence favours the use of both monotonicity and isolation for the classification of attackers, although  some exceptions may occur for the use of isolation. Nevertheless, these two techniques help our classification methodology $(+IS,+MO)$ consistently obtain significantly better coverage when compared to the naive methodology $(-IS,-MO)$.
+We conclude that experimental evidence favours the use of both monotonicity and isolation for the classification of attacker models, although  some exceptions may occur for the use of isolation. Nevertheless, these two techniques help our classification methodology $(+IS,+MO)$ consistently obtain significantly better coverage when compared to the naive methodology $(-IS,-MO)$.
 %-------------------------------------------------------------------------------------------------------------------------------------------------
 
 \section{Related Work}
@@ -638,8 +657,9 @@ The works by Cabodi, Camurati and Quer \cite{GraphLabelingForEfficientCOIComputa
 %-------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Conclusion and Future Work}
 \label{sec:conclusion}
-In this work, we present a methodology to model check systems in the presence of attackers with the objective of mapping each attacker to the list of security requirements that it breaks. This mapping of attackers creates a classification for them, defining equivalence classes of attackers by the set of requirements that they can break. The system can then be considered safe in the presence of attackers that cannot break any requirement. While it is possible to perform a classification of attackers by exhaustively performing model checking, the exponential size of the set of attackers renders this naive approach impractical. Thus, we rely on ordering relations between attackers to efficiently classify a large percentage of them, and we demonstrate empirically by applying our methodology to a set of benchmarks that describe hardware systems at a bit level.
+In this work, we present a methodology to model check systems in the presence of attackers with the objective of mapping each attacker to the list of security requirements that it breaks. This mapping of attackers creates a classification for them, defining equivalence classes of attackers by the set of requirements that they break. The system can then be considered safe in the presence of attackers that cannot break any requirement. While it is possible to perform a classification of attackers by exhaustively performing model checking, the exponential size of the set of attackers renders this naive approach impractical. Thus, we rely on ordering relations between attackers to efficiently classify a large percentage of them, and we demonstrate empirically by applying our methodology to a set of benchmarks that describe hardware systems at a bit level.
 
 In our view, ensuring the completeness of the attacker classification is the most relevant direction for future work. Unlike complete classifications, incomplete classifications cannot provide guarantees that work in the general case if minimal attackers are not found. We also note that the effectiveness of monotonicity for classification is directly related to finding minimal attackers. Consequently, our methodology may benefit from any other method that helps in the identification of those minimal attackers. In particular, we are interested in checking the effectiveness of an approach where, instead of empowering attackers, we try to {reduce} successful attackers into minimal attackers by removing unnecessary capabilities. This, formally, is an \emph{actual causality analysis} \cite{ActualCausality} of successful attackers.
 }
 %-------------------------------------------------------------------------------------------------------------------------------------------------
+\todo[inline]{We should conclude that we used SAT solvers to verify a system, and they can give us attacks, but that maybe we need not verify a system: we should test them instead, since we expect them to fail when in the presence of attackers. This takes us to the second application on CPSs}

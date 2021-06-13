@@ -2,7 +2,7 @@
 % Chapter Template
 
 
-\chapter{Foundations of Latent-Behaviour Analysis} % Main chapter title
+\chapter{Foundations of Latent Behaviour Analysis} % Main chapter title
 \label{ch:LatentBehaviours} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 % \todo[inline]{Find a suitable quote?}
 % \begin{quote} 
@@ -16,7 +16,7 @@ A \emph{latent behaviour} is a functionality that is not coded into a system, so
 
 In ROP, the adversary manipulates the call stack to string code gadgets together and arbitrarily execute code. However, if the program is very small and does not have enough gadgets, then the computational power of the attacker is restricted, since it becomes impossible to create certain behaviours. This restriction is similar to the restrictions we face when working with non-Turing complete languages (e.g., we cannot use regular expressions to specify arbitrary Turing machines). However, given enough gadgets, we can reveal any behaviour we want if we appropriately compose the gadgets.
 
-In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as the ``Arrow" of latent-behaviour analysis, illustrates how spatial and dynamics transformations affect the behaviour of an arbitrary $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. The intuition behind the diagram of the Arrow is the following. Normally, an $F$-coalgebra $(X,c)$ gives semantics to the elements in $X$ via the semantic map $!_c$. When affected by a spatial transformation $m\colon X\rightarrow X$ and a dynamics transformation $b\colon F(X)\rightarrow F(X)$, the $F$-coalgebra $(X,c)$ reveals an $F$-coalgebra $(X,b\circ c\circ m)$. The behaviour of elements in $(X,b\circ c\circ m)$ may bear no resemblance to the original behaviour. At most, we can say that if $m$ and $b$ preserve bisimilarity, then there exists a transformation $\omega\colon \sigma F \rightarrow \sigma F$ in the carrier of the final $F$-coalgebra $(\sigma F, 1)$ which maps the original behaviours of the system into the new behaviours revealed by $m$ and $b$. 
+In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as the ``Arrow" of latent behaviour analysis, illustrates how spatial and dynamics transformations affect the behaviour of an arbitrary $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. The intuition behind the diagram of the Arrow is the following. Normally, an $F$-coalgebra $(X,c)$ gives semantics to the elements in $X$ via the semantic map $!_c$. When affected by a spatial transformation $m\colon X\rightarrow X$ and a dynamics transformation $b\colon F(X)\rightarrow F(X)$, the $F$-coalgebra $(X,c)$ reveals an $F$-coalgebra $(X,b\circ c\circ m)$. The behaviour of elements in $(X,b\circ c\circ m)$ may bear no resemblance to the original behaviour. At most, we can say that if $m$ and $b$ preserve bisimilarity, then there exists a transformation $\omega\colon \sigma F \rightarrow \sigma F$ in the carrier of the final $F$-coalgebra $(\sigma F, 1)$ which maps the original behaviours of the system into the new behaviours revealed by $m$ and $b$. 
 
 \begin{figure}[h]
         \centering
@@ -52,7 +52,7 @@ In this section, we explain the commutative diagram presented in Figure~\ref{fig
                 \arrow[ru, swap, "F(\omega)"]
             &
         \end{tikzcd}
-        \caption{``The Arrow of Latent-Behaviour Analysis.'' This commutative diagram summarises the effect of spatial and dynamics transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the semantic map changes from $!_c$ to $!_{b\circ c\circ m}$. Through this work, we assume $b=\id$.}
+        \caption{``The Arrow of Latent Behaviour Analysis.'' This commutative diagram summarises the effect of spatial and dynamics transformations over the $F$-coalgebra $(X,c)$, respectively modelled by $m$ and $b$: the semantic map changes from $!_c$ to $!_{b\circ c\circ m}$. Through this work, we assume $b=\id$.}
         \label{fig:TheArrow} 
     \end{figure}
 
@@ -250,7 +250,7 @@ The transformation $m(x,y)=(\lnot x,\lnot y)$ reveals the latent coalgebra where
 The behaviour of a state $x$ changes when $m$ acts on $x$. In particular, the image of state $(0,0)$ under the semantic map is no longer the language $(0|1)^*11$; it is the language $\varepsilon|(0|1)^*10$ instead.
 \end{example}
 % \todo[inline]{There is no notion of distance or how different behaviours are in this setting. Things either are equal/isomorphic or they are not.}
-\section{Latent-Behaviour Analysis}
+\section{Latent Behaviour Analysis}
 LBA is the study of the effects that a spatial transformation $m\colon X\rightarrow X$ has over the behaviour of states in $X$ in the context of an $F$-coalgebra $(X,X\xrightarrow{c} F(X))$. The choice to focus on spatial transformations seems arbitrary; clearly, it is also possible to affect the behaviour of states by composing $c$ with a {dynamics transformation} $b\colon F(X)\rightarrow F(X)$ to obtain the new dynamics function $b \circ c$, as shown in the "Arrow" from Figure~\ref{fig:TheArrow}. %Both $(X,b\circ c\colon X\rightarrow F(X))$ and $(X,b\circ c\circ m\colon X\rightarrow F(X))$ are $F$-coalgebras, since the type requirement is satisfied. 
 However, there are systems for which spatial and behavioural transformations can reveal the same behaviours; moreover, we can reveal any arbitrary behaviours via spatial transformations: \emph{final $F$-coalgebras}, and \emph{sound and complete coalgebraic specification languages}.
 
@@ -308,7 +308,7 @@ In summary, we can represent $F$-coalgebras whose carrier is $\sigma F$ by endof
 % \todo[inline]{Explain that this corresponds to the point of The Arrow: $!c$ takes you from $X$ to $\sigma F$, and you can use $\omega$ to reveal a latent coalgebra of $(\sigma F, 1)$. This arrow $\omega$ models the behavioural change from $!c$ to $!_{b\circ c\circ m}$.}
 In the following, we return to arbitrary $F$-coalgebras $(X,c)$, but we keep in mind the following: when we reveal a latent coalgebra of $(X,c)$ under a spatial transformation $m$, we are implicitly sequentially composing the behaviour function $c$ with the behaviour function of the $F$-coalgebra implemented by $m$; first we apply $m$ and then we apply $c$.
 
-\section{Some Applications of Latent-Behaviour Analysis}
+\section{Some Applications of Latent Behaviour Analysis}
 % \todo[inline]{Describe in terms of coalgebras an introduction for the three application topics we have: attacker classification, CPS redesign and Side-channel repair.}
 We study the effects that spatial transformations have on the behaviour of the system. Just like in geometry, some spatial transformations may preserve some properties of the system, while others may break them. In this section, we present three ideas for LBA to study three aspects of systems: \emph{quantifying and improving robustness}, \emph{classification of attackers}, and \emph{side-channel repair}.
 
@@ -320,7 +320,7 @@ We study the effects that spatial transformations have on the behaviour of the s
 % What I need to do though is to hint towards potential applications. This section describes that in final coalgebras it suffices to compose endofunctions to model behaviours. In arbitrary coalgebras however, we can 
 % }
 % Composition of $F$-coalgebras is non-commutative. 
-% \begin{theorem}[Fundamental Theorem of Latent-Behaviour Analysis]
+% \begin{theorem}[Fundamental Theorem of Latent Behaviour Analysis]
 %     \label{theo:Fundamental}
 %     The semantic map-ping of the $F$-coalgebra $(X,c\circ m\colon X\rightarrow F(X))$ factors through the semantic map of the $F$-coalgebra $(m(X),c\colon m(X)\rightarrow F(m(X)))$
 %     \todo[inline]{This probably needs to use bounded functors.}
@@ -405,7 +405,7 @@ where $w_i\in \mathbb{R}^+$ is a weight which models the importance of requireme
 
 Let us consider the case where $(X,c)$ fails a non-empty set of requirements; this set, given the definitions, is equal to $\id[\mathcal{R}]$. Now, let $\mathcal{K}=\set{k_1, \ldots, k_q}$ be an arbitrary set of spatial transformations independent of $\mathcal{M}$; we say that a spatial transformation $k\in \mathcal{K}$ \emph{repairs $(X,c)$} if $k[\mathcal{R}]\subset \id[\mathcal{R}]$; we say that $k$ \emph{fully repairs $(X,c)$} if $k[\mathcal{R}]$ is empty. The set spatial transformations $\mathcal{K}$ corresponds to a repair toolkit, which we generate systematically just like we did with the set of attacks $\mathcal{M}$. We study the process of system repair in more detail in Chapter~\ref{ch:SideChannelRepair}.
 
-We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ as follows. If an attack $m\in \mathcal{M}$ breaks some requirements, is there a \emph{counter attack} $k$ that fully repairs $(X,c\circ m)$? If so, we can improve the robustness of the system $(X,c)$ by transforming it into $(X,c\circ m \circ k)$ whenever we detect that the attack $m$ is affecting $(X,c)$; we refer to this dependent notion of robustness as \emph{latent robustness}, and we explore this concept in cyber-physical systems during Chapter~\ref{ch:CPSRobustness}.
+We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ as follows: if an attack $m\in \mathcal{M}$ breaks some requirements, is there a \emph{counter attack} $k$ that fully repairs $(X,c\circ m)$? If so, we can improve the robustness of the system $(X,c)$ by transforming it into $(X,c\circ m \circ k)$ whenever we detect that the attack $m$ is affecting $(X,c)$; we refer to this dependent notion of robustness as \emph{latent robustness}, and we explore this concept in cyber-physical systems during Chapter~\ref{ch:CPSRobustness}.
 \begin{example}[Counter Attack]
     In the context of Example~\ref{ex:Latent:TheExample}, consider the behavioural property $Q\colon 2^{2^*}\rightarrow 2$ which accepts a language $\phi \in 2^{2^*}$ if and only if $\phi$ accepts a sequence $w\in 2^*$, then $w$ ends in 1 or $w$ is empty.
 
@@ -431,9 +431,10 @@ Consider an $F$-coalgebra $(\vec{X},c)$ such that $\vec{X}$ is a product type of
 \label{def:Latent:AttackerModel}
 Let $(\vec{X},c)$ be an $F$-coalgebra such that $\vec{X}=X_1\times\ldots\times X_n$ is a product type whose coordinates are $\Pi=\set{\pi_1, \ldots, \pi_n}$ where $\pi_i\colon \vec{X}\rightarrow X_i$, and let $\alpha$ be a set of coordinates, with $\alpha\subseteq \Pi$; the \emph{attacker model characterised by $\alpha$} is the set of transformations in $\vec{X}$, denoted $\AsSequence{\alpha}$, such that $m\colon \vec{X}\rightarrow \vec{X}$ is an element of $\AsSequence{\alpha}$ if and only, for all states $\vec{x}\in \vec{X}$ and coordinates $\pi\in \Pi$, 
 \begin{align}
-    m(\vec{x})[\pi]\neq \vec{x}[\pi],\quad \text{implies that $\pi\in \alpha$}.
+    m(\vec{x})[\pi]\neq \vec{x}[\pi]\text{ implies that $\pi\in \alpha$}.
 \end{align}
-In other words, if $m$ modifies any state $\vec{x}$ at coordinate $\pi$, then $\pi$ must be in $\alpha$. Note that the identity transformation is in every attacker model, since the modification requirement is not strict; i.e., the attacker can use a transformation $m$ where $m(\vec{x})[\pi]= \vec{x}[\pi]$ for all $\vec{x}\in \vec{X}$ and for all $\pi \in \alpha$. What an $\alpha$ attacker cannot do is to modify a state in a coordinate that is not in $\alpha$. In Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}, we show how an attacker fitting a particular attacker model may systematically generate attacks within their capabilities; more precisely, we show how to systematically generate $\AsSequence{\alpha}$.
+In other words, if $m$ modifies any state $\vec{x}$ at coordinate $\pi$, then $\pi$ must be in $\alpha$. Note that the identity transformation is in every attacker model, since the modification requirement is not strict; %i.e., an attacker can use a transformation $m$ where $m(\vec{x})[\pi]= \vec{x}[\pi]$ for all $\vec{x}\in \vec{X}$ and for all $\pi \in \alpha$. 
+what an attacker fitting the model characterised by $\alpha$ cannot do is to modify a state in a coordinate that is not in $\alpha$. In Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}, we show how to systematically generate attacks for an attacker fitting a particular attacker model; more precisely, we show how to automatically generate elements of $\AsSequence{\alpha}$.
 
 We give attackers fitting an attacker model characterised by $\alpha$ full control over the coordinates in $\alpha$. More precisely, for $0\leq i \leq n$, if $\pi_i\colon \vec{X}\rightarrow X_i$ is a coordinate in $\alpha$, then, for every value in $x_i\in X_i$, the attackers fitting the model characterised by $\alpha$ can always find a transformation $m$ in $\AsSequence{\alpha}$ such that $m(\vec{x})[\pi_i]=x_i$, for all $\vec{x}\in \vec{X}$. We did not find any practical scenarios where restricting the control of attackers over a particular coordinate offered an advantage over attackers with full control over such a coordinate.
 % to a set of transformations $\mathcal{T}_i\subseteq A_i^{A_i}$ such that the following conditions are satisfied:

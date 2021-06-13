@@ -78,7 +78,7 @@ There are a couple of clear limitations when repairing programs with ORIGAMI, (e
 % of $\set{\texttt{pre}}\set{\texttt{action}}\set{\texttt{pos}}$ elements, where \texttt{pre} and \texttt{pos} represent the precondition and postcondition of the \texttt{action} (any \texttt{pre} and any \texttt{pos} as we work with uninterpreted actions, but a \texttt{pos} and a \texttt{pre} need to be compatible to be concatenated). 
 % GKAT has been used to reason about compiler optimizations~\cite{KATForCompilers}. 
 {
-This paper is structured as follows. We first provide a brief background in Section~\ref{sec:Preliminaries}. In Section~\ref{sec:TSCF}, we formally define timing side-channel freedom (TSCF) under the MAP leakage model, which is the property that we want to enforce. We present the ORIGAMI repair rules in Section~\ref{sec:ORIGAMI}, and we prove that they enforce TSCF under MAP for a language of while programs; we also discuss the limitations of this enforcement. In section ~\ref{sec:Evaluation}, we evaluate an implementation of the ORIGAMI rules as LLVM optimization passes; we use these passes to enforce TSCF in LLVM-IR after all other compiler optimizations have taken place. We apply ORIGAMI to a small toy example and to real cryptographic ciphers from OpenSSL~\cite{OpenSSL} and to GDK library routines~\cite{gdklib,gdklib}, and we evaluate all the repaired programs using GEM5 -- a cycle accurate simulator for x86 processor -- to empirically show that all repaired programs satisfy TSCF with respect to MAP leakage. We then compare ORIGAMI against related work  in Section~\ref{sec:RelatedWork}, and we conclude in 
+This paper is structured as follows: we first provide a brief background in Section~\ref{sec:Preliminaries}. In Section~\ref{sec:TSCF}, we formally define timing side-channel freedom (TSCF) under the MAP leakage model, which is the property that we want to enforce. We present the ORIGAMI repair rules in Section~\ref{sec:ORIGAMI}, and we prove that they enforce TSCF under MAP for a language of while programs; we also discuss the limitations of this enforcement. In section ~\ref{sec:Evaluation}, we evaluate an implementation of the ORIGAMI rules as LLVM optimization passes; we use these passes to enforce TSCF in LLVM-IR after all other compiler optimizations have taken place. We apply ORIGAMI to a small toy example and to real cryptographic ciphers from OpenSSL~\cite{OpenSSL} and to GDK library routines~\cite{gdklib,gdklib}, and we evaluate all the repaired programs using GEM5 -- a cycle accurate simulator for x86 processor -- to empirically show that all repaired programs satisfy TSCF with respect to MAP leakage. We then compare ORIGAMI against related work  in Section~\ref{sec:RelatedWork}, and we conclude in 
 Section~\ref{sec:Conclusion}. 
 %\section{Motivational Example}
 }
@@ -549,7 +549,7 @@ A similar argument to Theorem~\ref{theo:read} can be made for rules of the form 
 
     %Assume a cache configuration set by an adversary. 
     To prove that $\semantics{\mathscr{O}(A[x]:=y)}$ satisfies TSCF, we do a proof by induction.
-    For $n=0$, $\mathscr{O}(A[x]:=y)$ is equal to $A[0]:=\sel(x=0,y,A[x])$. We take symbolic GS $g=\alpha\cdot A[0]:=\sel(x=0,y,A[x])\cdot \beta$, where $\alpha$ and $\beta$ are symbolic variables for atoms, and we compute $\RC_{\cache}(g)$ in the base case where $n=0$ as follows;
+    For $n=0$, $\mathscr{O}(A[x]:=y)$ is equal to $A[0]:=\sel(x=0,y,A[x])$. We take symbolic GS $g=\alpha\cdot A[0]:=\sel(x=0,y,A[x])\cdot \beta$, where $\alpha$ and $\beta$ are symbolic variables for atoms, and we compute $\RC_{\cache}(g)$ in the base case where $n=0$ as follows:
     \begin{align*}
         \RC_{\cache}(g)
         &=\cache(\alpha)(A[0]:=\sel(x=0,y,A[0]))
@@ -673,7 +673,7 @@ Similarly, to repair $A[i][j]:=y$, we compute
     &A[n][m]:=\sel(i=n\land j=m,y,A[n][m]).
 \end{align*}
 
-For higher dimensions the ORIGAMI rules extend similarly, and they can be customised if some indices are secrets and some are not. Informally, we only need to fold those indices that hold secrets, e.g., if a read access $y:=A[i][k]$ uses a secret $i$ and a public value $k$, it suffices to fold as follows,
+For higher dimensions the ORIGAMI rules extend similarly, and they can be customised if some indices are secrets and some are not. Informally, we only need to fold those indices that hold secrets, e.g., if a read access $y:=A[i][k]$ uses a secret $i$ and a public value $k$, it suffices to fold as follows: 
 \begin{align*}
     \mathscr{O}(y:=A[i][k])\triangleq\  
     &acc:=\sel(i=0,A[0][k],acc)\cdot \\
