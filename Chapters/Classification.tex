@@ -550,36 +550,36 @@ However, since an attacker that controls a gate $g$ can be emulated by an attack
 
 We arbitrarily restrict the number of coordinates that minimal attacker models may control to a maximum of three. This restriction represents the arbitrary decision of accepting the risk of not defending against attackers controlling more than four gates (possibly due to the improbability of those attackers gaining control over those components in the first place). This decision implies that we would need to make at most $80\times\sum_{k=0}^3 \binom {517}k$ calls to the SAT solver per benchmark. 
 
-\paragraph{Results.} Figure~\ref{fig:AverageCoverage} illustrates the average coverage for the four different methodologies, for each of the seven benchmarks. The exact coverage values are reported in Tables~\ref{tab:Classification:AllResults1} and \ref{tab:Classification:AllResults2}. We see that the methodology which uses isolation and monotonicity consistently obtains the best coverage of all the other methodologies, with the exception of benchmark $\mathtt{6s155}$, where the methodology that removes isolation performs better. We attribute this exception to the way the SAT solver reuses knowledge when working incrementally; it seems that, for $(-IS,+MO)$, the SAT solver can reuse more knowledge than for $(+IS,+MO)$, which is why $(-IS,+MO)$ can discover more minimal attacker models in average than $(+IS,+MO)$. 
+\paragraph{Results.} Figure~\ref{fig:Classification:AverageCoverage} illustrates the average coverage for the four different methodologies, for each of the seven benchmarks. The exact coverage values are reported in Tables~\ref{tab:Classification:AllResults1} and \ref{tab:Classification:AllResults2}. We see that the methodology which uses isolation and monotonicity consistently obtains the best coverage of all the other methodologies, with the exception of benchmark $\mathtt{6s155}$, where the methodology that removes isolation performs better. We attribute this exception to the way the SAT solver reuses knowledge when working incrementally; it seems that, for $(-IS,+MO)$, the SAT solver can reuse more knowledge than for $(+IS,+MO)$, which is why $(-IS,+MO)$ can discover more minimal attacker models in average than $(+IS,+MO)$. 
 
-{\color{red}
-
-We observe that the most significant element in play to obtain a high coverage is the use of monotonicity. Methodologies that use monotonicity always obtain better results than their counterparts without monotonicity. Isolation does not show a trend for increasing coverage, but has an impact in terms of classification time. Figure~\ref{fig:AverageExecTime} presents the average classification time per requirement for the benchmarks under the different methodologies. We note that removing isolation often increases the average classification time of classification methodologies; the only exception --benchmark $\mathtt{6s325}$-- reports a smaller time because the SAT solver ran out of memory during SAT solving about $50\%$ of the time, which caused an early termination of the classification procedure. This early termination also reflects on the comparatively low coverage for the method $(-IS,+MO)$ in this benchmark, reported on Figure~\ref{fig:AverageCoverage}.
+We observe that the most significant element in play to obtain a high coverage is the use of monotonicity. Methodologies that use monotonicity always obtain better results than their counterparts without monotonicity. Isolation does not show a trend for increasing coverage, but has an impact in terms of classification time. Figure~\ref{fig:Classification:AverageExecTime} presents the average classification time per requirement for the benchmarks under the different methodologies. We note that removing isolation often increases the average classification time of classification methodologies; the only exception --benchmark $\mathtt{6s325}$-- reports a smaller time because the SAT solver ran out of memory during SAT solving about $50\%$ of the time, which caused an early termination of the classification procedure. This early termination also reflects on the comparatively low coverage for the method $(-IS,+MO)$ in this benchmark, reported on Figure~\ref{fig:Classification:AverageCoverage}.
 
 \begin{figure}[!t]
 %\begin{minipage}{0.25\textwidth}
 \centering
 \includegraphics[width=\textwidth]{AverageCoverage}
 \caption{Average requirement coverage per benchmark. A missing bar indicates a value that is approximately 0.}
-\label{fig:AverageCoverage}
+\label{fig:Classification:AverageCoverage}
 \vspace{0.5cm}
 \includegraphics[width=\textwidth]{AverageExecutionTime}
 \caption{Average classification time per requirement per benchmark. A missing bar indicates a value that is approximately 0. }
-\label{fig:AverageExecTime}
+\label{fig:Classification:AverageExecTime}
 %\end{minipage}
 \end{figure}
+
 
 \subsection{Partial Classification of the \texttt{pdtvsarmultip} Benchmark}
 The benchmark \texttt{pdtvsarmultip} has 17 inputs, %giving values to the variables $v_{1}$ to $v_{17}$; it has 
 130 latches, %ranging from $v_{18}$ to $v_{147}$; it has 
 2743 gates, %ranging from $v_{148}$ to $v_{2743}$; 
-and has an associated list of 33 invariant properties, out of which 31 are unique and we interpret as the list of security requirements. 
+and has an associated list of 33 invariant properties, out of which 31 are different (three requirements are equal). We interpret those 31 invariants as the list of security requirements. 
 Since we are only considering attacker models that control latches, there are a total of $2^{130}$ attacker models that need to be classified for the 31 security requirements.
+% {\color{red}
 
-We consider 6 scenarios for partial classification up to $t$, with $t$ taking values in $\set{0,1,5,10,20,30}$. For each requirement, we obtain the execution time of classification (ms), the size of the set of source latches for the requirement (\#C), the number of minimal attacker models found (\#Min.), the total number of calls to the SAT solver (\#SAT), the average number of coordinates per minimal attacker (\#C./Min) and the coverage for the requirement (Cov.). We present the average of these measures in Table~\ref{tab:pdt}. 
+We consider six scenarios for the partial classification up to $t$ steps. We allow $t$ to take values in the set $\set{0,1,5,10,20,30}$. We obtain the execution time of classification (ms), the size of the set of source latches for the requirement (\#C), the number of minimal attacker models found (\#Min.), the total number of calls to the SAT solver (\#SAT), the average number of coordinates per minimal attacker (\#C./Min) and the coverage for the requirement (Cov.) for each requirement. We present the average of these measures in Tables~\ref{tab:pdt2324} and ~\ref{tab:pdt2367}. 
 
 Normally, the attacker model classification behaves in a similar way to what is reported for requirement $ \Always \lnot g_{2177}$, shown in Table~\ref{tab:pdt2324}. More precisely, coverage steadily increases and stabilises as we increase $t$. However, we like to highlight two interesting phenomena that may occur: 1) coverage {may} \emph{decrease} as we increase the time step (e.g., as shown in Table~\ref{tab:pdt2367}), and 2) the number of minimal attacker models decreases while the coverage increases, as shown in Tables~\ref{tab:pdt2324} and ~\ref{tab:pdt2367}. 
-
+{\color{red}
 
 Case 1) occurs because the set of attackers that can effectively interact with the system at time 0 is rather small, i.e., $2^6$, while the set of attackers that can affect the system at times 0 and 1 has size $2^{26}$. The size of this set increases with time until it stabilises at $2^{66}$, which is the size of the set of attackers that cannot be dismissed by isolation. 
 
@@ -588,25 +588,29 @@ Case 2) occurs because the minimal attacker models that are found for smaller ti
 \begin{table}[!t]
 \centering
 \caption{Average measures for all requirements per time steps.}
+{
+	%\small
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 Steps & ms &  \#C. & \#Min. & \#SAT & \#C./Min. & Cov.\\
 \hline
-0 & 683.1290323 & 34.96774194 & 2.451612903 & 16328.77419 & 1.4 & 0.527277594\\
-1 & 2387.548387 & 46.22580645 & 6.387096774 & 24420 & 1.650232484 & 0.572533254\\
-5 & 5229.935484 & 58.93548387 & 44.90322581 & 28355.29032 & 1.639645689 & 0.84956949\\
-10 & 24967.12903 & 58.93548387 & 151.1935484 & 25566.54839 & 1.460869285 & 0.918973269\\
-20 & 13632.51613 & 58.93548387 & 17.67741935 & 20849.70968 & 1.176272506 & 0.979354259\\
-30 & 12208.25806 & 58.93548387 & 15.93548387 & 20798.16129 & 1.104563895 & 0.979354274\\
+0 & 683.12903 & 34.967741 & 2.4516129 & 16328.774 & 1.4 & 0.5272775\\
+1 & 2387.5483 & 46.225806 & 6.3870967 & 24420 & 1.6502324 & 0.5725332\\
+5 & 5229.9354 & 58.935483 & 44.903225 & 28355.290 & 1.6396456 & 0.849569\\
+10 & 24967.129 & 58.935483 & 151.19354 & 25566.548 & 1.4608692 & 0.9189732\\
+20 & 13632.516 & 58.935483 & 17.677419 & 20849.709 & 1.1762725 & 0.9793542\\
+30 & 12208.258 & 58.935483 & 15.935483 & 20798.161 & 1.1045638 & 0.9793542\\
 \hline
-\end{tabular}
-\vspace{0.5cm}
+\end{tabular}}
+\end{table}
+\begin{table}[!t]
 \label{tab:pdt}
 \centering
 %\begin{minipage}{0.65\textwidth}
-\begin{minipage}{0.45\textwidth}
+%\begin{minipage}{0.45\textwidth}
 \caption{Coverage for $\Always \lnot g_{2177}$.}
-\resizebox{\textwidth}{!}{
+%\resizebox{\textwidth}{!}
+{
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 \multicolumn{7}{|c|}{$\Always \lnot g_{2177}$} \\
@@ -623,10 +627,16 @@ Steps & ms & \#C & \#Min. & \#SAT & \#C./Min. & Cov.\\
 \end{tabular}
 }
 \label{tab:pdt2324}
-\end{minipage}
-\begin{minipage}{0.45\textwidth}
+\end{table}
+
+% \end{minipage}
+% \vspace{1cm}
+% \begin{minipage}{0.45\textwidth}
+\begin{table}[!t]
+	\centering
 \caption{Coverage for $\Always \lnot g_{2220}$.}
-\resizebox{\textwidth}{!}{
+%\resizebox{\textwidth}{!}
+{
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 \multicolumn{7}{|c|}{$\Always \lnot g_{2220}$} \\
@@ -643,7 +653,7 @@ Steps & ms &  \#C. & \#Min. & \#SAT & \#C./Min. & Cov.\\
 \end{tabular}
 }
 \label{tab:pdt2367}
-\end{minipage}
+% \end{minipage}
 \end{table}
 By taking an average over all requirements, we observe that coverage seems to steadily increase as we increase the number of steps for the classification, as reported in Table~\ref{tab:pdt}, column Cov. The low coverage for small $t$ is due to the restriction on the size of minimal attacker models. More precisely, for small $t$, attackers can only use short strategies, which limits their interaction with the system; we expect attacker models to control a large number of coordinates if they want to successfully influence a requirement in this single time step, and since we restricted our search to attacker models of size 3 maximum, these larger minimal attackers are not found (e.g., as reported in Table~\ref{tab:pdt2324} for Step 0).
 
