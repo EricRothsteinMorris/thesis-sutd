@@ -1,10 +1,15 @@
 %!TEX root = ../main.tex
-\chapter{Timing Side-Channel Repair}
+\chapter{Transforming Programs for Timing Side-Channel Repair}
 \label{ch:SideChannelRepair}
 \todo[inline]{Here comes the paper we sent to CSF. It needs to be re-written for consistency}
-{\color{red}
+\todo[inline]{This chapter is interesting because we are going to target programs as states. }
+
+
+
 \section{Introduction}
 \label{sec:introduction} 
+We now consider a scenario where we are applying a spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
+
 % \todo[inline]{Candidate conferences: FM 2021 (abs 30 apr/6 may), CSF 2022 (may 14)}
 \paragraph*{What are timing side-channel attacks?} Timing attacks are among the best known side-channel attacks~\cite{timing-channel-survey} 
 to ex-filtrate secret information from a program. %The basic idea behind timing attacks is to first observe the execution time of a program. Subsequently, such timing information is used to compute or constrain the values of a secret input processed by the program. 
@@ -82,6 +87,7 @@ This paper is structured as follows: we first provide a brief background in Sect
 Section~\ref{sec:Conclusion}. 
 %\section{Motivational Example}
 }
+{\color{red}
 \section{Preliminaries}
 \label{sec:Preliminaries}
 In this section, we provide the definitions and notation that we use through this work. 

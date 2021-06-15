@@ -24,44 +24,83 @@ We obtain the sequence of assignments by performing \emph{bounded model checking
  
 We observe that an attacker $\AsSequence{\alpha}$ may only affect an isolated part of the system, so requirements that refer to other parts of the system should not be affected by $\AsSequence{\alpha}$. We also observe that if some attacker $\AsSequence{\beta}$ affects the system in a similar way to $\AsSequence{\alpha}$ (e.g., if they control a similar set of coordinates), then the knowledge we obtain while verifying the system in against $\AsSequence{\alpha}$ may be useful when verifying the system against $\AsSequence{\beta}$. In this chapter, we present a bounded model checking strategy that uses these two observations, and provides a possible answer to Research Question ~\ref{que:Classification} by illustrating how this model checking strategy efficiently maps each attacker to the set of requirements that they break.
 
-\paragraph{Summary of this Chapter.} In this chapter we model AIGs as $F$-coalgebras, and we model their attackers as sets of spatial transformations. We use bounded model checking to classify and compare attackers, which provides an answer for Research Question~\ref{que:Classification} in the case of AIGs. Due to the exponential size of the problem, we propose a set of heuristics to perform bounded model efficiently, for which we provide experimental evidence.
+\section{AIG Preliminaries}
+% \todo[inline]{This section may be better in its own chapter?}
+% \todo[inline]{Cite the sources that give these definitions. Get them from the chapter.}
+\paragraph{And-inverter Graphs (AIGs): Input, Latches, Gates, Components.}
+An \emph{And-inverter Graph} is a directed graph which models a system of equations \cite{AIGs,AIGs2}. AIGs describe hardware models at the bit-level \cite{AIGER}, and have attracted the attention of industry partners including IBM and Intel \cite{HWMCC2014BM}. 
 
-The contents of this chapter are published in ~\cite{ClassificationOfAttackers}.
-
-\section{Motivational Example}
-\label{sec:Classification:Example}
-
-\begin{figure}[!t]
-	\begin{minipage}{0.6\textwidth}
-	\begin{framed}
-	\includegraphics[width=\textwidth]{Example.pdf}
-	\end{framed}
-	\end{minipage}
-	\begin{minipage}{0.35\textwidth}
-	\centering
-	\begin{framed}
-	\includegraphics[width=\textwidth]{Attack2.pdf}\\
-	\end{framed}
-	\begin{framed}
-	\includegraphics[width=\textwidth]{Attack1.pdf}
-	\end{framed}
-	\end{minipage}
-	\caption{\textbf{Left:} Recall the AIG from Figure ~\ref{fig:Preliminaries:AIGExample} describing a system with two
-	inputs $w_1$ and $w_2$ (green boxes), one latch $v_1$ with initial value 1 (grey box), two gates $g_1$ and $g_2$ (gray circles), and three invariant requirements $r_1=\Always g_1$, $r_2=\Always \lnot g_2$ and $r_3=\Always v_1$ (red circles). 
-	The arrows represent logical dependencies, and bullets in the arrows imply negation.
-	\textbf{Right above}: an attacker that controls latch $v_1$ can set its initial value to 0 to break $r_2$ and $r_3$ in 0 steps. This attacker uses a spatial transformation to implement this attack.
-	\textbf{Right below}: an attacker that controls gate $g_2$ can set its value to 1 at time 0 to break $r_2$ in 0 steps and $r_3$ in 1 step, because the value of $v_1$ at time 1 is 0. This attacker uses a dynamics transformation, since gates are not part of the state of AIGs.}%. An arrow with $!$ means negation}
-	\label{fig:Classification:Example}
-	\end{figure}
-% In this section, we provide a motivational example of the problem of model checking compromised systems, and we illustrate how to classify attackers given a list of security requirements. 
-Consider a scenario where an attacker $A$ controls the gate $g_2$ of the AIG shown on the left of Figure~\ref{fig:Classification:Example}. By controlling $g_2$, we mean that $A$ can choose the value of $g_2(t)$ at will for $t\geq 0$.This system fails $r_1$ at time $t$ if $w_1(t)=1$, so the attacker $A$ does not need to do anything to cause the system to fail $r_1$. Now, it is possible for $A$ to break $r_2$ at time $t=0$ and to break $r_3$ at time $t=1$ by setting $g_2(0)$ to $1$ via an attack, since $r_2=\Always \lnot g_2$, and by causing $v_1(1)$ to be equal to $0$. This attack breaks both requirements $r_2$ and $r_3$, but in general an attacker may need one attack to break one requirement, and a different attack to break another. We say that $A$ has the \emph{power to break the requirements} $r_1$, $r_2$ and $r_3$, since there are attacks in the capabilities of $A$ that break those requirements. Now, consider a different attacker $B$ which only controls the gate $g_1$. No matter what value $B$ chooses for $g_1(t)$ for all $t$, it is impossible for $B$ to break $r_2$ or $r_3$, so we say that $B$ only has the power to break $r_1$. 
+Formally, an AIG has $m$ boolean 
+inputs, $n$ boolean state variables and $o$ boolean gates. The elements in the set 
+$W=\set{w_1, \ldots, w_m}$ represent the \emph{inputs}, the elements in 
+$V=\set{v_1, \ldots, v_n}$ represent the \emph{latches}, and the elements in 
+$G=\set{g_1, \ldots, g_o}$ represent the \emph{and-gates}. We assume that $W$, $V$ and $G$ are pairwise disjoint, and we define the set of \emph{components} $C$ by $C\triangleq W + V + G$. Without loss of generality, we assume that $W$, $V$ and $G$ are range sets.
 
 
 
-If we allow attackers to control any number of coordinates, then there are $8$ different attackers, described by the subsets of $\set{v_1,g_1,g_2}$. We do not consider attackers that control inputs, because the model checking of invariant properties requires the property to hold for all inputs, so giving control of inputs to an attacker does not make it more powerful (i.e. the attacker cannot break more requirements than it already could without the inputs). Figure~\ref{fig:Classification:borders} illustrates the classification of attackers depending on whether they break a given requirement or not. Based on it, we can provide the following security guarantees: 1) the system cannot enforce $r_1$, and 2) that the system can only enforce $r_2$ and $r_3$ in the presence of attackers that are as capable to interact with the system as $\set{g_1}$ (i.e. they only control $g_1$ or nothing).
+\paragraph{State and Input Vectors}
+\label{sec:Preliminaries:AIGStates}
+The \emph{states} of an AIG are all the different valuations of the variables in $V$.
+Formally, a state $\vect{v}$ is a vector with coordinates in $V$ and values in $2$, so the set of all states is $\vec{V}=2^V$. This definition only considers latches to be part of the state; gates, inputs and requirements are external to the state.
 
-According to the classification, attacker $\set{g_2}$ is as powerful as the attacker $\set{v_1,g_1,g_2}$, since both attackers break the same requirements $r_1$, $r_2$ and $r_3$. This information may be useful to the designer of the system, because they may prioritise attackers that control less coordinates but are as powerful as attackers that control more when deploying defensive mechanisms.
+Similarly, the \emph{input vector} is a
+valuation of the variables in $W$. An input vector $\vect{w}$ is a vector with coordinates in $W$ and values in $2$; the set of input vectors is $\vec{W}=2^W$. 
+% We refer to the set of all states by $\vect{V}%\triangleq\Bool^V
+% $, and to the set of all inputs by $\vect{W}%\triangleq\Bool^W
+% $. 
+For  $t\in \Nat$, we denote the state of the system at time $t$ by $\vect{v}(t)$.
+% with 
+% %\begin{align*}
+% $\vect{v}(t)\triangleq \AsSequence{v_1(t), \ldots, v_n(t)}$. %,g_1(t),\ldots,g_o(t));
+% %\end{align*} 
+The initial state is $\vect{v}(0)$. %, defined by the initial equations for the latches. 
+Similarly, we denote the input of the system at time $t$ by $\vect{w}(t)$. %, with $\vect{w}(t)\triangleq\AsSequence{w_1(t), \ldots, w_n(t)}$. 
+There are no restrictions or assumptions over the value of $\vect{w}(t)$.%, so it can take any value in $\vect{W}$ at every time $t$.
 
+\paragraph{Expressions.}
+An \emph{expression} $e$ is described by the grammar $e::= 0\ |\ 1\ |\ c\ |\ \lnot c$, where $c \in C$. The set of all expressions is $E$. We use AIG expressions to describe a system of equations over discrete time steps $t=0,1,..$. To each latch $v\in V$ we associate a transition {equation} of the form $v(t+1) = e(t)$ and an initial equation of the form $v(0)=b$, where $e\in E$ and $b\in \Bool$. To each gate $g\in G$ we associate an equation of the form $g(t)=e_1(t)\land e_2(t)$, where $e_1,e_2\in E$. 
+
+\paragraph{Invariant Requirements.}
+Given an expression $e\in E$, the \emph{invariant $\Always e$} is the property that requires $e(t)$ to be true for all $t\geq 0$. The system $S$ \emph{fails the invariant $\Always e$} iff there exists a finite sequence of inputs ${\vect{w}_0, \ldots, \vect{w}_t}$ such that, if $\vect{w}(i)=\vect{w}_i$ for $0\leq i \leq t$, then $e(t)$ is false. The system \emph{satisfies} the invariant $\Always e$ if no such sequence of inputs exists. Every expression $e$ represents a boolean predicate over the state of the latches of the system, and can be used to characterise states that are unsafe. These expressions are particularly useful in safety-critical hardware, as they can signal the proximity of a critical state.
+
+
+\begin{example}
+Consider the AIG shown on the left of Figure~\ref{fig:Classification:Example} with $W=\set{w_1,w_2}$, $V=\set{v_1}$ and $G=\set{g_1,g_2}$. This AIG models the system of equations
+\begin{align*}
+&v_1(0)=1, & v_1(t+1)=\lnot g_2(t),\\
+&g_1(t)=\lnot w_1(t) \land \lnot w_2(t), & g_2(t)=g_1(t) \land \lnot v_1(t).
+\end{align*}
+The set of states of this system is $\vect{V}=2^{\set{v_1}}$, its set of inputs is $\vect{W}=2^{\set{w_1,w_2}}$
+%\set{\!\AsSequence{(w_1,0),(w_2,0)},\AsSequence{(w_1,0),(w_2,1)},\AsSequence{(w_1,1),(w_2,0)},\AsSequence{(w_1,1),(w_2,1)}\!}$
+, and the initial state is $\vect{v}(0)$, where $\vec{v}(0)[v_1]=1$.
+
+For this example, we define three requirements: $r_1\triangleq\Always g_1$, $r_2 \triangleq\Always \lnot g_2$, and $r_3\triangleq\Always v_1$. This system satisfies $r_2$ and $r_3$, but it fails $r_1$ because $w_1=1$ and $w_2=0$ results in $g_1(0)$ being 0.
+\end{example}
+
+\paragraph{Cone of Influence (COI) and its dual.}
+% \todo[inline]{This connects with model checking, information flow analysis, and other research areas. Add appropriate citations.}
+The \emph{Cone-of-Influence} (COI) is a mapping from an expression to the components that can potentially influence its value. We obtain the COI of an expression $e \in E$, denoted $\blacktriangledown(e)$, by transitively tracing its dependencies to inputs, latches and gates. More precisely, 
+\begin{itemize}
+\item $\blacktriangledown(0)=\emptyset$ and $\blacktriangledown(1)=\emptyset$;
+\item if $e=\lnot c$ for $c \in C$, then $\blacktriangledown(e)= \blacktriangledown(c)$;
+\item if $e=w$ and $w$ is an input, then $\blacktriangledown(e)=\set{w}$;
+\item if $e=v$ and $v$ is a latch whose transition equation is $l(t+1) = e'(t)$, then $\blacktriangledown(e)=\set{v} \cup \blacktriangledown(e')$;
+\item if $e=g$ and $g$ is a gate whose equation is $g(t) = e_1(t) \land e_2(t)$ then $\blacktriangledown(e)=\set{g} \cup \blacktriangledown(e_1)\cup \blacktriangledown(e_2)$.
+\end{itemize}
+The COI of a requirement $r=\Always e$ is $\blacktriangledown(r)\triangleq \blacktriangledown(e)$.
+
+%\begin{quote}
+The set of \emph{sources} of an expression $e\in E$, denoted $\mathtt{src}(e)$ is the set of latches and inputs in the COI of $e$; formally, $\mathtt{src}(e)\triangleq \blacktriangledown(e) \cap (V \cup W)$. The \emph{Jaccard index} of two expressions $e_1$ and $e_2$ is equal to $
+\frac{|\mathtt{src}(e_1)\cap \mathtt{src}(e_2)|}{|\mathtt{src}(e_1)\cup\mathtt{src}(e_2)|}
+$. This index provides a measure of how similar the sources of $e_1$ and $e_2$ are. 
+
+The \emph{dual cone-of-influence} (IOC) of a component $c \in C$, denoted $\blacktriangle(c)$, is the set of components influenced by $c$; more precisely 
+$\blacktriangle(c) \triangleq \set{c' \in  C | c\in \blacktriangledown(c')}.$
+
+\begin{example}
+	\label{ex:simple}
+	For the AIG shown in Figure~\ref{fig:Classification:Example}, the COI of the requirements are $\blacktriangledown(\Always g_1)=\set{g_1,w_1,w_2}$, and $\blacktriangledown(\Always g_2)=\blacktriangledown(\Always g_3)=\set{g_1,g_2,v_1,w_1,w_2}$.
+	\end{example}
 \begin{figure}[!t]
 \centering
 \begin{minipage}{0.45\textwidth}
@@ -132,6 +171,57 @@ edge [post,color=red!50](g2);
 \caption{Left: classification of attackers for requirements $r_2$ and $r_3$. Right: classification of attackers for requirement $r_1$. A green attacker model cannot break the requirement, while a red attacker model can. The red arrows originate from minimal attacker models.}
 \label{fig:Classification:borders}
 \end{figure}
+
+
+
+\section{Motivational Example}
+\label{sec:Classification:Example}
+Consider the AIG shown in Figure~\ref{fig:Classification:Example}; 
+%\end{quote}
+% \begin{figure}[!t]
+% \begin{framed}
+% \includegraphics[width=\textwidth]{Example.pdf}
+% \end{framed}
+% \caption{\textbf{Left:} And-inverter graph describing a system with two
+% inputs $w_1$ and $w_2$ (green boxes), one latch $v_1$ with initial value 1 (grey box), two gates $g_1$ and $g_2$ (gray circles), and three invariant requirements $r_1=\Always g_1$, $r_2=\Always \lnot g_2$ and $r_3=\Always v_1$ (red circles). 
+% The arrows represent logical dependencies, and bullets in the arrows imply negation.}
+% \label{fig:Preliminaries:AIGExample}
+% \end{figure}
+    %
+
+
+
+\begin{figure}[!t]
+	\begin{minipage}{0.6\textwidth}
+	\begin{framed}
+	\includegraphics[width=\textwidth]{Example.pdf}
+	\end{framed}
+	\end{minipage}
+	\begin{minipage}{0.35\textwidth}
+	\centering
+	\begin{framed}
+	\includegraphics[width=\textwidth]{Attack2.pdf}\\
+	\end{framed}
+	\begin{framed}
+	\includegraphics[width=\textwidth]{Attack1.pdf}
+	\end{framed}
+	\end{minipage}
+	\caption{\textbf{Left:} An AIG with two
+	inputs $w_1$ and $w_2$ (green boxes), one latch $v_1$ with initial value 1 (grey box), two gates $g_1$ and $g_2$ (gray circles), and three invariant requirements $r_1=\Always g_1$, $r_2=\Always \lnot g_2$ and $r_3=\Always v_1$ (red circles). 
+	The arrows represent logical dependencies, and bullets in the arrows imply negation.
+	\textbf{Right above}: an attacker that controls latch $v_1$ can set its initial value to 0 to break $r_2$ and $r_3$ in 0 steps. This attacker uses a spatial transformation to implement this attack.
+	\textbf{Right below}: an attacker that controls gate $g_2$ can set its value to 1 at time 0 to break $r_2$ in 0 steps and $r_3$ in 1 step, because the value of $v_1$ at time 1 is 0. This attacker uses a dynamics transformation, since gates are not part of the state of AIGs.}%. An arrow with $!$ means negation}
+	\label{fig:Classification:Example}
+	\end{figure}
+
+% In this section, we provide a motivational example of the problem of model checking compromised systems, and we illustrate how to classify attackers given a list of security requirements. 
+ assume that an attacker $A$ controls the gate $g_2$ of the AIG shown on the left of Figure~\ref{fig:Classification:Example}. By controlling $g_2$, we mean that $A$ can choose the value of $g_2(t)$ at will for $t\geq 0$.This system fails $r_1$ at time $t$ if $w_1(t)=1$, so the attacker $A$ does not need to do anything to cause the system to fail $r_1$. Now, it is possible for $A$ to break $r_2$ at time $t=0$ and to break $r_3$ at time $t=1$ by setting $g_2(0)$ to $1$ via an attack, since $r_2=\Always \lnot g_2$, and by causing $v_1(1)$ to be equal to $0$. This attack breaks both requirements $r_2$ and $r_3$, but in general an attacker may need one attack to break one requirement, and a different attack to break another. We say that $A$ has the \emph{power to break the requirements} $r_1$, $r_2$ and $r_3$, since there are attacks in the capabilities of $A$ that break those requirements. Now, consider a different attacker $B$ which only controls the gate $g_1$. No matter what value $B$ chooses for $g_1(t)$ for all $t$, it is impossible for $B$ to break $r_2$ or $r_3$, so we say that $B$ only has the power to break $r_1$. 
+
+
+
+If we allow attackers to control any number of coordinates, then there are $8$ different attackers, described by the subsets of $\set{v_1,g_1,g_2}$. We do not consider attackers that control inputs, because the model checking of invariant properties requires the property to hold for all inputs, so giving control of inputs to an attacker does not make it more powerful (i.e. the attacker cannot break more requirements than it already could without the inputs). Figure~\ref{fig:Classification:borders} illustrates the classification of attackers depending on whether they break a given requirement or not. Based on it, we can provide the following security guarantees: 1) the system cannot enforce $r_1$, and 2) that the system can only enforce $r_2$ and $r_3$ in the presence of attackers that are as capable to interact with the system as $\set{g_1}$ (i.e. they only control $g_1$ or nothing).
+
+According to the classification, attacker $\set{g_2}$ is as powerful as the attacker $\set{v_1,g_1,g_2}$, since both attackers break the same requirements $r_1$, $r_2$ and $r_3$. This information may be useful to the designer of the system, because they may prioritise attackers that control less coordinates but are as powerful as attackers that control more when deploying defensive mechanisms.
 
 
 \section{AIGs as $F$-coalgebras}
@@ -681,9 +771,15 @@ Finally, if we consider alternative verification techniques to BMC, then IC3 \ci
 
 \paragraph{On Verifying Non-Safety Properties.} In this work, we focused our analysis exclusively on safety properties of the form $\Always e$. However, it is possible to extend this methodology to other types of properties, as it is possible to efficiently encode Linear Temporal Logic formulae for bounded model checking \cite{BMCWithoutBDDs,lmcs:2236}. The formulations of the SAT problem change for the different formulae, but both isolation and monotonicity should remain valid heuristics; ultimately, monotonicity and isolation are about the sound extrapolation of the validity of attack strategies among attacker models that have related capabilities.
 
+\section{Summary}
+\label{sec:Classification:Summary}
+\todo[inline]{TLDR of this chapter. We apply LBA to very restricted systems and we obtain ordering of attackers, which is an interesting thing to use when we want to find which attacker is the most pressing. Next chapter we show how to repair those attacks. }
+In this chapter we model AIGs as $F$-coalgebras, and we model their attackers as sets of spatial transformations. We use bounded model checking to classify and compare attackers, which provides an answer for Research Question~\ref{que:Classification} in the case of AIGs. Due to the exponential size of the problem, we propose a set of heuristics to perform bounded model efficiently, for which we provide experimental evidence.
+
+The contents of this chapter are published in ~\cite{ClassificationOfAttackers}.
 %-------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Conclusion}
-\label{sec:conclusion}
+\label{sec:Classification:conclusion}
 % In this chapter, we presented a methodology to model check systems in the presence of attackers with the objective of mapping each attacker model to the set of security requirements broken by attackers that fit the model. This mapping of attacker models creates a classification for them, defining equivalence classes of attacker models by both set inclusion and by the set of requirements broken by their attackers. While it is possible to perform a classification of attackers by exhaustively performing model checking, the exponential size of the set of attackers renders a naive approach impractical. Thus, we rely on ordering relations between attackers to efficiently classify a large percentage of them. We provide empirical evidence by applying our methodology to a set of AIG benchmarks, which describe hardware systems at a bit level.
 It surprised us that finding minimal attacker models that had only one coordinate was relatively simple. Informally, this means that the systems we studied were not robust: all it takes is for one single component to fail or be attacked, and the systems start to fail their security requirements. Since altering a single component already causes systems to fail, we conclude that using SAT solvers and BMC might have been a bit excessive for the purposes of attacker classification; it could have sufficed to systematically test the systems instead of checking them. In Chapter~\ref{ch:CPSRobustness}, we switch from a verification to a testing methodology.
 
