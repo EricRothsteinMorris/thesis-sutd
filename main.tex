@@ -50,7 +50,7 @@ headsepline, % Uncomment to get a line under the header
 \addbibresource{EGRM.bib} % The filename of the bibliography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
-\usepackage{minted}
+%\usepackage{minted}
 \usepackage{lscape}
 \usepackage{mathtools}
 \usepackage{amsfonts}
@@ -59,9 +59,11 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{stmaryrd}
-\usepackage{ mathrsfs }
-\usepackage{ upgreek }
+\usepackage{mathrsfs}
+\usepackage{upgreek}
 \usepackage{proof}
+\usepackage{subcaption}
+\usepackage{wrapfig}
 %\usepackage{mdsymbol}
 \usepackage{algorithmicx}
 %\usepackage{algorithmicx/algorithmicx}
@@ -74,6 +76,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{algpseudocode}
 \usepackage{tikz-cd}
 \usepackage{tikz}
+
 \usetikzlibrary{automata, positioning, arrows}
 
 
@@ -644,7 +647,6 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand{\AsPair}[1]{{\AsTuple{#1}}}
 
 %Notation for IMs
-\newcommand{\IM}{\AsFunctor{IM}}
 \newcommand{\Countable}{\omega}%\mathbb{N}}
 \newcommand{\Indexes}{V}%\mathbb{N}}
 \newcommand{\SomeIndexes}{I}
@@ -657,6 +659,16 @@ initial text=$ $, % sets the text that appears on the start arrow
 \newcommand{\IMone}{\IM^{\text{\ding{172}}}}
 \newcommand{\Count}{\mathtt{count}}
 
+\newcommand{\plc}{\texttt{PLC}}
+\newcommand{\attack}{\texttt{attack}}
+\newcommand{\High}{\mathcal{H}}
+\newcommand{\True}{\texttt{True}}
+\newcommand{\const}{{\Delta}}%{{\AsFunction{const}}}
+\newcommand{\TheRequirement}{\ensuremath{\mathcal{P}}}
+\newcommand{\TheSetOfRequirements}{\ensuremath{\mathbb{P}}}
+\newcommand{\IM}[1]{\ensuremath{\text{IM}\!\AsSequence{#1}}}
+\newcommand{\IMCT}{\IM{\Gamma_{\mathcal{K}}}}
+\newcommand{\TheSystem}{{\TheBehaviourOf{\cdot}}}
 
 
 %TIKZ

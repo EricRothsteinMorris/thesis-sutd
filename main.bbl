@@ -196,6 +196,219 @@
     \warn{\item Can't use 'location' + 'address'}
   \endentry
 
+  \entry{alur2015principles}{book}{}
+    \name{author}{1}{}{%
+      {{hash=AR}{%
+         family={Alur},
+         familyi={A\bibinitperiod},
+         given={Rajeev},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {MIT Press}%
+    }
+    \strng{namehash}{AR1}
+    \strng{fullhash}{AR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Alu15}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Principles of cyber-physical systems}
+    \field{year}{2015}
+  \endentry
+
+  \entry{ALUR19953}{article}{}
+    \name{author}{9}{}{%
+      {{hash=AR}{%
+         family={Alur},
+         familyi={A\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=CC}{%
+         family={Courcoubetis},
+         familyi={C\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HN}{%
+         family={Halbwachs},
+         familyi={H\bibinitperiod},
+         given={N.},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=HT}{%
+         family={Henzinger},
+         familyi={H\bibinitperiod},
+         given={T.A.},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=HPH}{%
+         family={Ho},
+         familyi={H\bibinitperiod},
+         given={P.-H.},
+         giveni={P\bibinithyphendelim H\bibinitperiod},
+      }}%
+      {{hash=NX}{%
+         family={Nicollin},
+         familyi={N\bibinitperiod},
+         given={X.},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=OA}{%
+         family={Olivero},
+         familyi={O\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Sifakis},
+         familyi={S\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=YS}{%
+         family={Yovine},
+         familyi={Y\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AR+1}
+    \strng{fullhash}{ARCCHNHTHPHNXOASJYS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Alu+95}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \verb{doi}
+    \verb http://dx.doi.org/10.1016/0304-3975(94)00202-T
+    \endverb
+    \field{issn}{0304-3975}
+    \field{note}{Hybrid Systems}
+    \field{number}{1}
+    \field{pages}{3 \bibrangedash  34}
+    \field{title}{The algorithmic analysis of hybrid systems}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/030439759400202T
+    \endverb
+    \field{volume}{138}
+    \field{journaltitle}{Theoretical Computer Science}
+    \field{year}{1995}
+  \endentry
+
+  \entry{6266165}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=AMS}{%
+         family={Alvim},
+         familyi={A\bibinitperiod},
+         given={M.\bibnamedelima S.},
+         giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=CK}{%
+         family={Chatzikokolakis},
+         familyi={C\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=PC}{%
+         family={Palamidessi},
+         familyi={P\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=SG}{%
+         family={Smith},
+         familyi={S\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \keyw{entropy;probability;security of data;Shannon capacity;deterministic
+  channels;g-capacity;g-leakage;generalized gain functions;information
+  lattice;information leakage measurement;min-capacity;min-entropy
+  model;probabilistic channels;quantitative information flow;secret property
+  guessing;Computer security;Databases;Entropy;Gain
+  measurement;Lattices;Probabilistic logic}
+    \strng{namehash}{AMS+1}
+    \strng{fullhash}{AMSCKPCSG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Alv+12}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{booktitle}{2012 IEEE 25th Computer Security Foundations Symposium}
+    \verb{doi}
+    \verb 10.1109/CSF.2012.26
+    \endverb
+    \field{issn}{1063-6900}
+    \field{pages}{265\bibrangedash 279}
+    \field{title}{Measuring Information Leakage Using Generalized Gain
+  Functions}
+    \field{year}{2012}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{CPSInvariantsForDetection}{inbook}{}
+    \name{author}{2}{}{%
+      {{hash=AS}{%
+         family={Adepu},
+         familyi={A\bibinitperiod},
+         given={Sridhar},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=MA}{%
+         family={Mathur},
+         familyi={M\bibinitperiod},
+         given={Aditya},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=HJH}{%
+         family={Hoepman},
+         familyi={H\bibinitperiod},
+         given={Jaap-Henk},
+         giveni={J\bibinithyphendelim H\bibinitperiod},
+      }}%
+      {{hash=KS}{%
+         family={Katzenbeisser},
+         familyi={K\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer International Publishing}%
+    }
+    \strng{namehash}{ASMA1}
+    \strng{fullhash}{ASMA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{AM16}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{booktitle}{ICT Systems Security and Privacy Protection: 31st IFIP TC
+  11 International Conference, SEC 2016, Ghent, Belgium, May 30 - June 1, 2016,
+  Proceedings}
+    \verb{doi}
+    \verb 10.1007/978-3-319-33630-5\_7
+    \endverb
+    \field{isbn}{978-3-319-33630-5}
+    \field{pages}{91\bibrangedash 104}
+    \field{title}{Using Process Invariants to Detect Cyber Attacks on a Water
+  Treatment System}
+    \verb{url}
+    \verb http://dx.doi.org/10.1007/978-3-319-33630-5\_7
+    \endverb
+    \list{location}{1}{%
+      {Cham}%
+    }
+    \field{year}{2016}
+  \endentry
+
   \entry{ProvingMorePropertiesWithBMC}{inproceedings}{}
     \name{author}{2}{}{%
       {{hash=AM}{%
@@ -637,6 +850,31 @@
   'date'}
   \endentry
 
+  \entry{BibaIntegrity}{report}{}
+    \name{author}{1}{}{%
+      {{hash=BKJ}{%
+         family={Biba},
+         familyi={B\bibinitperiod},
+         given={Kenneth\bibnamedelima J},
+         giveni={K\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BKJ1}
+    \strng{fullhash}{BKJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Bib77}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{number}{MTR-3153}
+    \field{title}{Integrity considerations for secure computer systems}
+    \list{institution}{1}{%
+      {MITRE Corporation}%
+    }
+    \field{type}{techreport}
+    \field{year}{1977}
+  \endentry
+
   \entry{lmcs:2236}{article}{}
     \name{author}{5}{}{%
       {{hash=BA}{%
@@ -1034,6 +1272,41 @@
     \field{year}{2017}
   \endentry
 
+  \entry{Gupta2}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=BCZ}{%
+         family={Bai},
+         familyi={B\bibinitperiod},
+         given={C.\bibnamedelima Z.},
+         giveni={C\bibinitperiod\bibinitdelim Z\bibinitperiod},
+      }}%
+      {{hash=PF}{%
+         family={Pasqualetti},
+         familyi={P\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=GV}{%
+         family={Gupta},
+         familyi={G\bibinitperiod},
+         given={V.},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BCZPFGV1}
+    \strng{fullhash}{BCZPFGV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BPG15}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{booktitle}{American Control Conference (ACC), 2015}
+    \field{pages}{195\bibrangedash 200}
+    \field{title}{Security in stochastic control systems: Fundamental
+  limitations and performance bounds}
+    \field{year}{2015}
+  \endentry
+
   \entry{IC3}{inproceedings}{}
     \name{author}{1}{}{%
       {{hash=BAR}{%
@@ -1178,6 +1451,79 @@
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{labelalpha}{C\'+11}
+    \field{extraalpha}{1}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{Proceedings of the 6th ACM Symposium on Information,
+  Computer and Communications Security}
+    \verb{doi}
+    \verb 10.1145/1966913.1966959
+    \endverb
+    \field{isbn}{978-1-4503-0564-8}
+    \field{pages}{355\bibrangedash 366}
+    \field{series}{ASIACCS '11}
+    \field{title}{Attacks Against Process Control Systems: Risk Assessment,
+  Detection, and Response}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/1966913.1966959
+    \endverb
+    \list{location}{1}{%
+      {Hong Kong, China}%
+    }
+    \field{year}{2011}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{CPSAttacksAgainstPCS}{inproceedings}{}
+    \name{author}{6}{}{%
+      {{hash=CAA}{%
+         family={C\'{a}rdenas},
+         familyi={C\bibinitperiod},
+         given={Alvaro\bibnamedelima A.},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Amin},
+         familyi={A\bibinitperiod},
+         given={Saurabh},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=LZS}{%
+         family={Lin},
+         familyi={L\bibinitperiod},
+         given={Zong-Syun},
+         giveni={Z\bibinithyphendelim S\bibinitperiod},
+      }}%
+      {{hash=HYL}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Yu-Lun},
+         giveni={Y\bibinithyphendelim L\bibinitperiod},
+      }}%
+      {{hash=HCY}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Chi-Yen},
+         giveni={C\bibinithyphendelim Y\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Sastry},
+         familyi={S\bibinitperiod},
+         given={Shankar},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{IDS, SCADA, control systems, critical infrastructure protection,
+  cyber-physical systems, security}
+    \strng{namehash}{CAA+1}
+    \strng{fullhash}{CAAASLZSHYLHCYSS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{C\'+11}
+    \field{extraalpha}{2}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{booktitle}{Proceedings of the 6th ACM Symposium on Information,
@@ -1796,6 +2142,81 @@
     \endverb
   \endentry
 
+  \entry{QuantitativeIntegrity}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CMR}{%
+         family={Clarkson},
+         familyi={C\bibinitperiod},
+         given={M.\bibnamedelima R.},
+         giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=SFB}{%
+         family={Schneider},
+         familyi={S\bibinitperiod},
+         given={F.\bibnamedelima B.},
+         giveni={F\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+    }
+    \keyw{data integrity;data privacy;database management systems;channel
+  suppression measures;database privacy;information flow
+  confidentiality;integrity measures;integrity quantification;program
+  suppression measures;untrusted information;Contamination;Databases;Mutual
+  information;Pollution measurement;Receivers;Tin;Integrity;database
+  privacy;information theory;quantitative information flow}
+    \strng{namehash}{CMRSFB1}
+    \strng{fullhash}{CMRSFB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CS10}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{2010 23rd IEEE Computer Security Foundations Symposium}
+    \verb{doi}
+    \verb 10.1109/CSF.2010.10
+    \endverb
+    \field{issn}{1063-6900}
+    \field{pages}{28\bibrangedash 43}
+    \field{title}{Quantification of Integrity}
+    \field{year}{2010}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{ClarkWilson87}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CDD}{%
+         family={Clark},
+         familyi={C\bibinitperiod},
+         given={D.\bibnamedelima D.},
+         giveni={D\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=WDR}{%
+         family={Wilson},
+         familyi={W\bibinitperiod},
+         given={D.\bibnamedelima R.},
+         giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \keyw{Computational modeling;Computer security;Computers;Data
+  processing;Information security;Military computing}
+    \strng{namehash}{CDDWDR1}
+    \strng{fullhash}{CDDWDR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CW87}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{1987 IEEE Symposium on Security and Privacy}
+    \verb{doi}
+    \verb 10.1109/SP.1987.10001
+    \endverb
+    \field{issn}{1540-7993}
+    \field{pages}{184\bibrangedash 194}
+    \field{title}{A Comparison of Commercial and Military Computer Security
+  Policies}
+    \field{year}{1987}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{CacheAudit}{inproceedings}{}
     \name{author}{5}{}{%
       {{hash=DG}{%
@@ -1853,6 +2274,84 @@
     }
     \field{month}{08}
     \field{year}{2013}
+  \endentry
+
+  \entry{CPSStealthAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=DG}{%
+         family={Dan},
+         familyi={D\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Sandberg},
+         familyi={S\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \keyw{power system protection;power system security;power system state
+  estimation;smart power grids;IEEE benchmark power networks;communication
+  channels;control centers;measurement devices;power flows;power system state
+  estimator;protection cost models;protection schemes;smart power grids;stealth
+  false-data attacks;system security;Cryptography;Indexes;Power
+  measurement;Power systems;Transmission line measurements;Upper bound}
+    \strng{namehash}{DGSH1}
+    \strng{fullhash}{DGSH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{DS10}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{booktitle}{2010 First IEEE International Conference on Smart Grid
+  Communications}
+    \verb{doi}
+    \verb 10.1109/SMARTGRID.2010.5622046
+    \endverb
+    \field{pages}{214\bibrangedash 219}
+    \field{title}{Stealth Attacks and Protection Schemes for State Estimators
+  in Power Systems}
+    \field{year}{2010}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{DolevYao}{article}{}
+    \name{author}{2}{}{%
+      {{hash=DD}{%
+         family={Dolev},
+         familyi={D\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=YA}{%
+         family={Yao},
+         familyi={Y\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \keyw{Cryptography;Protocols;Communication system security;Computer
+  science;Cryptography;Decoding;Helium;Information
+  security;Mathematics;National security;Protocols;Public key}
+    \strng{namehash}{DDYA1}
+    \strng{fullhash}{DDYA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{DY83}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \verb{doi}
+    \verb 10.1109/TIT.1983.1056650
+    \endverb
+    \field{issn}{0018-9448}
+    \field{number}{2}
+    \field{pages}{198\bibrangedash 208}
+    \field{title}{On the security of public key protocols}
+    \field{volume}{29}
+    \field{journaltitle}{IEEE Transactions on Information Theory}
+    \field{year}{1983}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{Giraldo2018}{article}{}
@@ -1941,6 +2440,182 @@
     \field{journaltitle}{ACM Comput. Surv.}
     \field{month}{07}
     \field{year}{2018}
+  \endentry
+
+  \entry{CPSSec}{inbook}{}
+    \name{author}{2}{}{%
+      {{hash=GD}{%
+         family={Gollmann},
+         familyi={G\bibinitperiod},
+         given={Dieter},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=KM}{%
+         family={Krotofil},
+         familyi={K\bibinitperiod},
+         given={Marina},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \name{editor}{3}{}{%
+      {{hash=RPYA}{%
+         family={Ryan},
+         familyi={R\bibinitperiod},
+         given={Peter Y.\bibnamedelima A.},
+         giveni={P\bibinitperiod\bibinitdelim Y\bibinitperiod\bibinitdelim
+  A\bibinitperiod},
+      }}%
+      {{hash=ND}{%
+         family={Naccache},
+         familyi={N\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=QJJ}{%
+         family={Quisquater},
+         familyi={Q\bibinitperiod},
+         given={Jean-Jacques},
+         giveni={J\bibinithyphendelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{GDKM1}
+    \strng{fullhash}{GDKM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{GK16}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{booktitle}{The New Codebreakers: Essays Dedicated to David Kahn on
+  the Occasion of His 85th Birthday}
+    \verb{doi}
+    \verb 10.1007/978-3-662-49301-4\_14
+    \endverb
+    \field{isbn}{978-3-662-49301-4}
+    \field{pages}{195\bibrangedash 204}
+    \field{title}{Cyber-Physical Systems Security}
+    \verb{url}
+    \verb http://dx.doi.org/10.1007/978-3-662-49301-4\_14
+    \endverb
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2016}
+  \endentry
+
+  \entry{Gamage2010}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=GTT}{%
+         family={Gamage},
+         familyi={G\bibinitperiod},
+         given={T.\bibnamedelima T.},
+         giveni={T\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+      {{hash=MBM}{%
+         family={McMillin},
+         familyi={M\bibinitperiod},
+         given={B.\bibnamedelima M.},
+         giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=RTP}{%
+         family={Roth},
+         familyi={R\bibinitperiod},
+         given={T.\bibnamedelima P.},
+         giveni={T\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \keyw{authorisation;access control;compensation;cyber-physical
+  system;enforcement mechanism;information flow security;cyber-physical
+  systems;execution monitoring enforcement;information flow security;runtime
+  security}
+    \strng{namehash}{GTTMBMRTP1}
+    \strng{fullhash}{GTTMBMRTP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{GMR10}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{booktitle}{2010 IEEE 34th Annual Computer Software and Applications
+  Conference Workshops}
+    \verb{doi}
+    \verb 10.1109/COMPSACW.2010.36
+    \endverb
+    \field{pages}{158\bibrangedash 163}
+    \field{title}{Enforcing Information Flow Security Properties in
+  Cyber-Physical Systems: A Generalized Framework Based on Compensation}
+    \field{year}{2010}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{CPSSecVinyl}{inproceedings}{}
+    \name{author}{6}{}{%
+      {{hash=GD}{%
+         family={Gollmann},
+         familyi={G\bibinitperiod},
+         given={Dieter},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=GP}{%
+         family={Gurikov},
+         familyi={G\bibinitperiod},
+         given={Pavel},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=IA}{%
+         family={Isakov},
+         familyi={I\bibinitperiod},
+         given={Alexander},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KM}{%
+         family={Krotofil},
+         familyi={K\bibinitperiod},
+         given={Marina},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Larsen},
+         familyi={L\bibinitperiod},
+         given={Jason},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=WA}{%
+         family={Winnicki},
+         familyi={W\bibinitperiod},
+         given={Alexander},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \strng{namehash}{GD+1}
+    \strng{fullhash}{GDGPIAKMLJWA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Gol+15}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{booktitle}{Proceedings of the 1st ACM Workshop on Cyber-Physical
+  System Security}
+    \verb{doi}
+    \verb 10.1145/2732198.2732208
+    \endverb
+    \field{isbn}{978-1-4503-3448-8}
+    \field{pages}{1\bibrangedash 12}
+    \field{series}{CPSS '15}
+    \field{title}{Cyber-Physical Systems Security: Experimental Analysis of a
+  Vinyl Acetate Monomer Plant}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2732198.2732208
+    \endverb
+    \list{location}{1}{%
+      {Singapore, Republic of Singapore}%
+    }
+    \field{year}{2015}
+    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{JustAssume}{inproceedings}{}
@@ -2119,6 +2794,49 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
+  \entry{StuxnetOnCPS}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=HG}{%
+         family={Howser},
+         familyi={H\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=MB}{%
+         family={McMillin},
+         familyi={M\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \keyw{security of data;trusted computing;CPS;MSDND;Stuxnet attacks;belief
+  manipulation;cyber physical system;cyber security;cyber-physical
+  systems;electronic monitors;event system analysis;human operators;implicit
+  trust;information flow disruption attacks;modal frames;modal model;multiple
+  security domains nondeducibility;security models;trust state
+  manipulation;Analytical models;Bismuth;Cognition;Cost
+  accounting;Monitoring;Security;Software;Stuxnet;cyber-physical
+  systems;doxastic logic;information flow security;nondeducibility;security
+  models}
+    \strng{namehash}{HGMB1}
+    \strng{fullhash}{HGMB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{HM14}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{booktitle}{2014 Eighth International Conference on Software Security
+  and Reliability (SERE)}
+    \verb{doi}
+    \verb 10.1109/SERE.2014.36
+    \endverb
+    \field{pages}{225\bibrangedash 234}
+    \field{title}{A Modal Model of Stuxnet Attacks on Cyber-physical Systems: A
+  Matter of Trust}
+    \field{year}{2014}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{HWMCC2011}{misc}{}
     \field{labelalpha}{Hwm}
     \field{extraalpha}{1}
@@ -2165,6 +2883,33 @@
     \endverb
     \field{month}{11}
     \field{year}{2020}
+  \endentry
+
+  \entry{krotofil2015rocking}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=KM}{%
+         family={Krotofil},
+         familyi={K\bibinitperiod},
+         given={Marina},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Larsen},
+         familyi={L\bibinitperiod},
+         given={Jason},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KMLJ1}
+    \strng{fullhash}{KMLJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{KL15}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{DefCon Conference, DEFCON}
+    \field{title}{Rocking the pocket book: Hacking chemical plants}
+    \field{year}{2015}
   \endentry
 
   \entry{KMO12}{inproceedings}{}
@@ -2509,6 +3254,52 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
+  \entry{Lagebericht2014}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Lag}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+  \field{howpublished}{\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/\\Lageberichte/Lagebericht2014.pdf}}
+    \field{title}{{Bericht zur Lage der IT-Sicherheit in Deutschland 2014}}
+    \field{year}{2017}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Stuxnet}{article}{}
+    \name{author}{1}{}{%
+      {{hash=LR}{%
+         family={Langner},
+         familyi={L\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \keyw{security of data;Stuxnet;availability
+  thinking;confidentiality;cybersecurity;cyberwarfare
+  weapon;integrity;malware;military target;Aircraft propulsion;Computer
+  security;Driver circuits;Industrial engineering;Malware;Military
+  communication;Process control;Ralph
+  Langner;SCADA;Stuxnet;cyberwarfare;digital code signing}
+    \strng{namehash}{LR1}
+    \strng{fullhash}{LR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Lan11}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.1109/MSP.2011.67
+    \endverb
+    \field{issn}{1540-7993}
+    \field{number}{3}
+    \field{pages}{49\bibrangedash 51}
+    \field{title}{Stuxnet: Dissecting a Cyberwarfare Weapon}
+    \field{volume}{9}
+    \field{journaltitle}{IEEE Security Privacy}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{CompCert}{inproceedings}{}
     \name{author}{1}{}{%
       {{hash=LX}{%
@@ -2745,6 +3536,50 @@
     \field{year}{2015}
   \endentry
 
+  \entry{TSVPLC}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=MSE}{%
+         family={McLaughlin},
+         familyi={M\bibinitperiod},
+         given={Stephen\bibnamedelima E.},
+         giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=ZSA}{%
+         family={Zonouz},
+         familyi={Z\bibinitperiod},
+         given={Saman\bibnamedelima A.},
+         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=PDJ}{%
+         family={Pohly},
+         familyi={P\bibinitperiod},
+         given={Devin\bibnamedelima J.},
+         giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=MPD}{%
+         family={McDaniel},
+         familyi={M\bibinitperiod},
+         given={Patrick\bibnamedelima D.},
+         giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MSE+1}
+    \strng{fullhash}{MSEZSAPDJMPD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{McL+14}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{21st Annual Network and Distributed System Security
+  Symposium, {NDSS} 2014, San Diego, California, USA, February 23-26, 2014}
+    \field{title}{A Trusted Safety Verifier for Process Controller Code}
+    \verb{url}
+    \verb http://www.internetsociety.org/doc/trusted-safety-verifier-process-co
+    \verb ntroller-code
+    \endverb
+    \field{year}{2014}
+  \endentry
+
   \entry{Interpolation}{inproceedings}{}
     \name{author}{1}{}{%
       {{hash=MKL}{%
@@ -2795,6 +3630,54 @@
     \field{year}{2003}
   \endentry
 
+  \entry{CPSDetectingIntegrityAttacksScada}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MY}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CR}{%
+         family={Chabukswar},
+         familyi={C\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \keyw{SCADA systems;probability;security of data;SCADA systems;control
+  performance;control system;detection probability;integrity attacks
+  detection;model-based techniques;supervisory control and data acquisition
+  systems;system security;Detectors;Kalman filters;SCADA
+  systems;Security;Sensor systems;Control;cyber-physical systems
+  (CPS);secure;supervisory control and data acquisition (SCADA);supervisory
+  control and data acquisition (SCADA).}
+    \strng{namehash}{MYCRSB1}
+    \strng{fullhash}{MYCRSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MCS14}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \verb{doi}
+    \verb 10.1109/TCST.2013.2280899
+    \endverb
+    \field{issn}{1063-6536}
+    \field{number}{4}
+    \field{pages}{1396\bibrangedash 1407}
+    \field{title}{Detecting Integrity Attacks on SCADA Systems}
+    \field{volume}{22}
+    \field{journaltitle}{IEEE Transactions on Control Systems Technology}
+    \field{year}{2014}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{Molnar}{inproceedings}{}
     \name{author}{4}{}{%
       {{hash=MD}{%
@@ -2841,6 +3724,179 @@
     \field{year}{2005}
   \endentry
 
+  \entry{Carlos_Justin1}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MC}{%
+         family={Murguia},
+         familyi={M\bibinitperiod},
+         given={Carlos},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Ruths},
+         familyi={R\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MCRJ1}
+    \strng{fullhash}{MCRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MR16}
+    \field{extraalpha}{1}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{proceedings of the 55th IEEE Conference on Decision and
+  Control (CDC)}
+    \field{title}{Characterization of a CUSUM Model-Based Sensor Attack
+  Detector}
+    \field{year}{2016}
+  \endentry
+
+  \entry{Carlos_Justin2}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MC}{%
+         family={Murguia},
+         familyi={M\bibinitperiod},
+         given={Carlos},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Ruths},
+         familyi={R\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MCRJ1}
+    \strng{fullhash}{MCRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MR16}
+    \field{extraalpha}{2}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{proceedings of the IEEE Multi-Conference on Systems and
+  Control (MSC)}
+    \field{title}{CUSUM and Chi-Squared Attack Detection of Compromised
+  Sensors}
+    \field{year}{2016}
+  \endentry
+
+  \entry{CPSReplayAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MY}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \keyw{discrete time systems;linear quadratic Gaussian control;security of
+  data;control system;discrete time linear time invariant Gaussian
+  system;failure detector;linear quadratic Gaussian controller;replay
+  attacks;secure control;sensors;Aerodynamics;Communication system
+  control;Computer crime;Control systems;Detection
+  algorithms;Detectors;National security;Robust control;Steady-state;Video
+  recording}
+    \strng{namehash}{MYSB1}
+    \strng{fullhash}{MYSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MS09}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{2009 47th Annual Allerton Conference on Communication,
+  Control, and Computing (Allerton)}
+    \verb{doi}
+    \verb 10.1109/ALLERTON.2009.5394956
+    \endverb
+    \field{pages}{911\bibrangedash 918}
+    \field{title}{Secure control against replay attacks}
+    \field{year}{2009}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{CPSDataInjectionAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MY}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MYSB1}
+    \strng{fullhash}{MYSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MS10}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{Proc. 1st Workshop Secure Control Syst., Stocholm,
+  Sweeden}
+    \field{title}{False data injection attacks in control systems}
+    \field{year}{2010}
+  \endentry
+
+  \entry{CPSIntegrityAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MY}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Yilin},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={Bruno},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{cyber-physical systems, reachability analysis, security}
+    \strng{namehash}{MYSB2}
+    \strng{fullhash}{MYSB2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MS12}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{Proceedings of the 1st International Conference on High
+  Confidence Networked Systems}
+    \verb{doi}
+    \verb 10.1145/2185505.2185514
+    \endverb
+    \field{isbn}{978-1-4503-1263-9}
+    \field{pages}{47\bibrangedash 54}
+    \field{series}{HiCoNS '12}
+    \field{title}{Integrity Attacks on Cyber-physical Systems}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2185505.2185514
+    \endverb
+    \list{location}{1}{%
+      {Beijing, China}%
+    }
+    \field{year}{2012}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
   \entry{Menezes1996}{book}{}
     \name{author}{3}{}{%
       {{hash=MAJ}{%
@@ -2880,6 +3936,78 @@
       {Boca Raton, FL, USA}%
     }
     \field{year}{1996}
+  \endentry
+
+  \entry{ReachableSets}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=MC}{%
+         family={Murguia},
+         familyi={M\bibinitperiod},
+         given={Carlos},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=vdWN}{%
+         prefix={van\bibnamedelima de},
+         prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod},
+         family={Wouw},
+         familyi={W\bibinitperiod},
+         given={Nathan},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Ruths},
+         familyi={R\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MCWNvdRJ1}
+    \strng{fullhash}{MCWNvdRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MWR17}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{IFAC 2017 World Congress}
+    \field{title}{Reachable Sets of Hidden CPS Sensor Attacks: Analysis and
+  Synthesis Tools}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Carlos_Justin3}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=MC}{%
+         family={Murguia},
+         familyi={M\bibinitperiod},
+         given={Carlos},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=vdWN}{%
+         prefix={van\bibnamedelima de},
+         prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod},
+         family={Wouw},
+         familyi={W\bibinitperiod},
+         given={Nathan},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Ruths},
+         familyi={R\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MCWNvdRJ1}
+    \strng{fullhash}{MCWNvdRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MWRce}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{proceedings of the IFAC World Congress}
+    \field{title}{Reachable Sets of Hidden CPS Sensor Attacks: Analysis and
+  Synthesis Tools}
+    \field{year}{accepred, 2016}
   \endentry
 
   \entry{7958606}{inproceedings}{}
@@ -2945,6 +4073,60 @@
     \verb https://github.com/openssl/openssl
     \endverb
     \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{CPSAttackDetection}{article}{}
+    \name{author}{3}{}{%
+      {{hash=PF}{%
+         family={Pasqualetti},
+         familyi={P\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=DF}{%
+         family={D{\"o}rfler},
+         familyi={D\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=BF}{%
+         family={Bullo},
+         familyi={B\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \keyw{fault diagnosis;graph theory;network theory (graphs);reliability
+  theory;centralized attack detection monitor design;centralized attack
+  identification monitor design;critical infrastructures;cyber-physical
+  attacks;cyber-physical monitors;cyber-physical systems;distributed attack
+  detection monitor design;distributed attack identification monitor
+  design;external malicious attacks;failure analysis;graph theory;industrial
+  control processes;mathematical framework;power systems;system
+  theory;transportation networks;Biomedical monitoring;Control
+  systems;Monitoring;Noise;Power system
+  dynamics;Security;Sensors;Cyber-physical systems;descriptor
+  systems;distributed control;fault detection;geometric control;graph
+  theory;networks;security}
+    \strng{namehash}{PFDFBF1}
+    \strng{fullhash}{PFDFBF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{PDB13}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \verb{doi}
+    \verb 10.1109/TAC.2013.2266831
+    \endverb
+    \field{issn}{0018-9286}
+    \field{number}{11}
+    \field{pages}{2715\bibrangedash 2729}
+    \field{title}{Attack Detection and Identification in Cyber-Physical
+  Systems}
+    \field{volume}{58}
+    \field{journaltitle}{IEEE Transactions on Automatic Control}
+    \field{year}{2013}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{LowStar}{article}{}
@@ -3262,6 +4444,71 @@
     \warn{\item Can't use 'location' + 'address'}
   \endentry
 
+  \entry{CPSDolevYao}{inbook}{}
+    \name{author}{2}{}{%
+      {{hash=RM}{%
+         family={Rocchetto},
+         familyi={R\bibinitperiod},
+         given={Marco},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=TNO}{%
+         family={Tippenhauer},
+         familyi={T\bibinitperiod},
+         given={Nils\bibnamedelima Ole},
+         giveni={N\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+    }
+    \name{editor}{3}{}{%
+      {{hash=OK}{%
+         family={Ogata},
+         familyi={O\bibinitperiod},
+         given={Kazuhiro},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=LM}{%
+         family={Lawford},
+         familyi={L\bibinitperiod},
+         given={Mark},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LS}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Shaoying},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer International Publishing}%
+    }
+    \strng{namehash}{RMTNO1}
+    \strng{fullhash}{RMTNO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{RT16}
+    \field{extraalpha}{1}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{Formal Methods and Software Engineering: 18th
+  International Conference on Formal Engineering Methods, ICFEM 2016, Tokyo,
+  Japan, November 14-18, 2016, Proceedings}
+    \verb{doi}
+    \verb 10.1007/978-3-319-47846-3\_12
+    \endverb
+    \field{isbn}{978-3-319-47846-3}
+    \field{pages}{175\bibrangedash 192}
+    \field{title}{CPDY: Extending the Dolev-Yao Attacker with Physical-Layer
+  Interactions}
+    \verb{url}
+    \verb http://dx.doi.org/10.1007/978-3-319-47846-3\_12
+    \endverb
+    \list{location}{1}{%
+      {Cham}%
+    }
+    \field{year}{2016}
+  \endentry
+
   \entry{CPSProfiles}{inproceedings}{}
     \name{author}{2}{}{%
       {{hash=RM}{%
@@ -3311,6 +4558,7 @@
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{labelalpha}{RT16}
+    \field{extraalpha}{2}
     \field{sortinit}{R}
     \field{sortinithash}{R}
     \field{abstract}{%
@@ -3340,6 +4588,45 @@
       {Cham}%
     }
     \field{year}{2016}
+  \endentry
+
+  \entry{doi:10.1137/0325013}{article}{}
+    \name{author}{2}{}{%
+      {{hash=RPJ}{%
+         family={Ramadge},
+         familyi={R\bibinitperiod},
+         given={P.\bibnamedelima J.},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=WWM}{%
+         family={Wonham},
+         familyi={W\bibinitperiod},
+         given={W.\bibnamedelima M.},
+         giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RPJWWM1}
+    \strng{fullhash}{RPJWWM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{RW87}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \verb{doi}
+    \verb 10.1137/0325013
+    \endverb
+    \verb{eprint}
+    \verb https://doi.org/10.1137/0325013
+    \endverb
+    \field{number}{1}
+    \field{pages}{206\bibrangedash 230}
+    \field{title}{Supervisory Control of a Class of Discrete Event Processes}
+    \verb{url}
+    \verb https://doi.org/10.1137/0325013
+    \endverb
+    \field{volume}{25}
+    \field{journaltitle}{SIAM Journal on Control and Optimization}
+    \field{year}{1987}
   \endentry
 
   \entry{WhatYouCisWhatYouGet}{inproceedings}{}
@@ -3427,6 +4714,39 @@
     }
     \field{year}{2007}
     \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{CPSCovertAttacks}{article}{}
+    \name{author}{1}{}{%
+      {{hash=SRS}{%
+         family={Smith},
+         familyi={S\bibinitperiod},
+         given={Roy\bibnamedelima S.},
+         giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SRS1}
+    \strng{fullhash}{SRS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Smi11}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \verb{doi}
+    \verb http://dx.doi.org/10.3182/20110828-6-IT-1002.01721
+    \endverb
+    \field{issn}{1474-6670}
+    \field{note}{18th {IFAC} World Congress}
+    \field{number}{1}
+    \field{pages}{90 \bibrangedash  95}
+    \field{title}{A Decoupled Feedback Structure for Covertly Appropriating
+  Networked Control Systems}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S1474667016435925
+    \endverb
+    \field{volume}{44}
+    \field{journaltitle}{{IFAC} Proceedings Volumes}
+    \field{year}{2011}
   \endentry
 
   \entry{GKAT}{article}{}
@@ -3529,6 +4849,41 @@
     \field{pages}{200\bibrangedash 210}
     \field{title}{Memory-Safe Elimination of Side Channels}
     \field{year}{2021}
+  \endentry
+
+  \entry{StuxnetWeb}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Stu}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+  \field{howpublished}{\url{https://eugene.kaspersky.com/2011/11/02/the-man-who-found-stuxnet-sergey-ulasen-in-the-spotlight/}}
+    \field{note}{{Accessed: 2017-01-09}}
+    \field{title}{{The Man Who Found Stuxnet -- Sergey Ulasen in the
+  Spotlight}}
+    \field{year}{2011}
+  \endentry
+
+  \entry{Nondeducibility}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=SD}{%
+         family={Sutherland},
+         familyi={S\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SD1}
+    \strng{fullhash}{SD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Sut86}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{Proccedings of the National Computer Security Conference}
+    \field{pages}{175\bibrangedash 183}
+    \field{title}{A Model of Information}
+    \field{year}{1986}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{gdklib}{online}{}
@@ -3756,6 +5111,97 @@
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{labelalpha}{Urb+16}
+    \field{extraalpha}{1}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{booktitle}{Proceedings of the 2016 ACM SIGSAC Conference on Computer
+  and Communications Security}
+    \verb{doi}
+    \verb 10.1145/2976749.2978388
+    \endverb
+    \field{isbn}{978-1-4503-4139-4}
+    \field{pages}{1092\bibrangedash 1105}
+    \field{series}{CCS '16}
+    \field{title}{Limiting the Impact of Stealthy Attacks on Industrial Control
+  Systems}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2976749.2978388
+    \endverb
+    \list{location}{1}{%
+      {Vienna, Austria}%
+    }
+    \field{year}{2016}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{LimitingImpactStealthyAttacks}{inproceedings}{}
+    \name{author}{9}{}{%
+      {{hash=UDI}{%
+         family={Urbina},
+         familyi={U\bibinitperiod},
+         given={David\bibnamedelima I.},
+         giveni={D\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+      {{hash=GJA}{%
+         family={Giraldo},
+         familyi={G\bibinitperiod},
+         given={Jairo\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=CAA}{%
+         family={Cardenas},
+         familyi={C\bibinitperiod},
+         given={Alvaro\bibnamedelima A.},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=TNO}{%
+         family={Tippenhauer},
+         familyi={T\bibinitperiod},
+         given={Nils\bibnamedelima Ole},
+         giveni={N\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+      {{hash=VJ}{%
+         family={Valente},
+         familyi={V\bibinitperiod},
+         given={Junia},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FM}{%
+         family={Faisal},
+         familyi={F\bibinitperiod},
+         given={Mustafa},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Ruths},
+         familyi={R\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CR}{%
+         family={Candell},
+         familyi={C\bibinitperiod},
+         given={Richard},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Sandberg},
+         familyi={S\bibinitperiod},
+         given={Henrik},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{industrial control systems, intrusion detection, physics-based
+  detection, security metrics, stealthy attacks}
+    \strng{namehash}{UDI+1}
+    \strng{fullhash}{UDIGJACAATNOVJFMRJCRSH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Urb+16}
+    \field{extraalpha}{2}
     \field{sortinit}{U}
     \field{sortinithash}{U}
     \field{booktitle}{Proceedings of the 2016 ACM SIGSAC Conference on Computer
@@ -3976,6 +5422,47 @@
     \field{title}{Information flow for security in control systems}
     \field{year}{2016}
     \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{WiredArticle}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Wir}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\url{https://www.wired.com/2015/01/german-steel-mill-hack-destruction/}}
+    \field{title}{{A Cyberattack Has Caused Confirmed Physical Damage for the
+  Second Time Ever}}
+    \field{year}{2017}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Weerakkody}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=WS}{%
+         family={Weerakkody},
+         familyi={W\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WSSB1}
+    \strng{fullhash}{WSSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{WS15}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{booktitle}{2015 54th IEEE Conference on Decision and Control (CDC)}
+    \field{pages}{5820\bibrangedash 5826}
+    \field{title}{Detecting integrity attacks on control systems using a moving
+  target approach}
+    \field{year}{2015}
   \endentry
 
   \entry{SCEliminator}{inproceedings}{}

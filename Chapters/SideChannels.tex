@@ -87,7 +87,6 @@ This paper is structured as follows: we first provide a brief background in Sect
 Section~\ref{sec:Conclusion}. 
 %\section{Motivational Example}
 }
-{\color{red}
 \section{Preliminaries}
 \label{sec:Preliminaries}
 In this section, we provide the definitions and notation that we use through this work. 
@@ -164,6 +163,7 @@ For example, under the MAP leakage model, the program
 reveals both $s$ and $A[s]$, because the state of the cache is different for different values of $s$. This program does not reveal $B[A[s]]$, only the indices used to access it.
 
 % \todo[inline]{Do we really want to do GKAT expressions? They did help me solve an engineering problem in LLVM, but they might not be super justified here. We can probably benefit better from a small imperative language.}
+
 \subsection{Guarded Kleene Algebra with Tests (GKAT)}
 \emph{Guarded Kleene Algebra with Tests} (GKAT) is a modern formalism that offers a propositional abstraction of imperative while programs with uninterpreted actions~\cite{GKAT}. The specialty of GKAT is to enable reasoning about properties of programs \emph{by merely looking at their structure and not at their (functional) semantics}. This makes GKAT interesting for modelling transformations at the compiler level~\cite{KATForCompilers}, because a general-purpose compiler should not need know the exact semantics of a program to optimise it; in general, the compiler should look for structural patterns which enable optimisations, just as GKAT does for reasoning. 
 
@@ -211,7 +211,11 @@ w\alpha \diamond \beta v \triangleq
 		\text{undefined,}& \text{otherwise.}
 	\end{cases}
 \end{align}
-The fusion product of sets $L_1,L_2\subseteq \GuardedString$ is defined by $L_1\diamond L_2 \triangleq \set{g_1\diamond g_2\ |\ g_1\in L_1,g_2\in L_2,\text{ and $g_1\diamond g_2$ is defined}}.$ 
+The fusion product of sets $L_1,L_2\subseteq \GuardedString$ is defined by $L_1\diamond L_2$, where 
+
+\begin{align*}
+    L_1\diamond L_2 \triangleq \set{g_1\diamond g_2\ |\ g_1\in L_1,g_2\in L_2,\text{ and $g_1\diamond g_2$ is defined}}.
+\end{align*}
 \paragraph*{Language-based Semantics}
 The \emph{language-based semantics} of a GKATx is a {set of guarded strings} (i.e., a language) defined by%and it can be found in \cite[\S2.2]{GKAT}.\todo{Is this ok?}
 \begin{align*}
@@ -391,6 +395,7 @@ Existing program repair solutions for TSCF \cite{Racoon,SCEliminator,MSESC} offe
 In the following, we present an enriched language of while programs, and we study the possible causes for different MAPs. First, we define a concrete GKAT and give more precise definitions about what their time consumption means. Then, we formally present the ORIGAMI program transformation rules, and we justify their soundness formally; i.e., we prove that they enforce TSCF for the MAP leakage model. Then, given that the MAP model implies the baseline model, we include for completeness the well-known repair rules used to repair branches and loops. We proceed to discuss limitations of enforcement, and finally we show a natural extension of ORIGAMI from arrays to multidimensional fixed-size data structures.
 
 \subsection{A Concrete GKAT}
+\label{sec:SideChannels:ConcreteGKAT}
 We want to keep the GKAT as abstract as possible, but we do need to define when a variable hits or misses the cache. 
 
 We start small by considering uni-dimensional arrays. Let $\Variables$ be the set of variables names; let $\Structures$ be the set of names of arrays. We define the set of \emph{atomic expressions} $\mathscr{A}$ by the grammar
@@ -581,8 +586,21 @@ If the attacker clears the cache before the $i$-th instruction $A[i]:=\sel(x=i,y
     
 \end{proof}
 %A detailed proof can be found in the Appendix. 
+\subsection{ORIGAMI Rules as Spatial Transformations}
+\todo[inline]{I'm sketching this section, needs to be heavily rewritten}
+The ORIGAMI rules are functions that take a GKATX as an input and produce a GKATX as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself.  
 
-\subsection{Repair Rules for the Baseline Model}
+We define the coalgebra $(\mathscr{E}, (\gamma,\delta))$ where $(\gamma,\delta)\colon \mathscr{E}\rightarrow 2^V\times \mathscr{E}$ which tells us for each variable $v\in V$ whether $v$ is a miss or a hit in the cache, respectively modelled by $\gamma(v)=0$ and $\gamma(v)=1$. 
+
+\todo[inline]{We can model the actions of the attacker tampering with the cache by extending the state, but do we wan to do that?}
+
+ORIGAMI rules are idempotent: given a GKATX $e$, the programs $\mathscr{O}(e)$ and $(\mathscr{O}\circ\mathscr{O})(e)$
+% Let $\mathcal{E}$ be the set of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}.
+
+{\color{red}
+
+
+\section{Repair Rules for the Baseline Model}
 Since the MAP implies the baseline model, we must repair programs also with respect to the baseline model. The baseline repair rules are well known, but we briefly mention them here for completeness. Existing repair tools, including \cite{Racoon,SCEliminator,MSESC}, are in general capable of repairing programs with respect to the baseline leakage model using the following repair rules, whose basic strategy consists of removing branches via {predication} and by unrolling loops once they have been fixed to have a constant number of iterations. 
 
 \paragraph*{Branch predication} Given a program of the form 
