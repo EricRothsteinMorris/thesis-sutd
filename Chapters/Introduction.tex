@@ -9,8 +9,29 @@
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
+\section{Motivation: Integrity Attacks and Faults}
+\todo[inline]{Attacker models are usually informal,}
+
+\todo[inline]{Biba Duality}
+\todo[inline]{Basin Cremers attackers as sets of effects KYE}
+\todo[inline]{Confidentiality: test if attackers have some knowledge; Integrity: test if the system is too corrupted.}
+\todo[inline]{What, when, how? Modelling attacks}
+\todo[inline]{if we know what attacker models are mathematically, we can ask the computer to do analysis for us in integrity. }
+\todo[inline]{YOU HAVE TO ADDRESS the problem for confidentiality and cite relevant papers, and quantificaiton}
+\todo[inline]{What does Unifying Facets of Information Integrity say?}
+\begin{quote}
+Sabelfeld and Myers [42] observe that integrity has an important difference from
+confidentiality: a computing system can damage integrity without any external interaction, simply by computing data incorrectly. Thus, strong enforcement of integrity
+requires proving program correctness.
+\end{quote}
+\todo[inline]{The idea is that there is a lot of stuff, but they ultimately belong to a bigger set of ``program correctness''. We argue that those are behavioural properties}
+
+\todo[inline]{Coalgebras provide a clear view of the set of behavioural properties for families of systems. That makes them really attractive for studying. Not only that, they offer generalised processes for the incorporation of computational effects (e.g., non-determinism, exceptions, termination, etc.) because of category theory.}
+
+Probably the most important is to motivate the quantification of attackers and how it gave rise to the general treatment of latent behaviours.
+\todo[inline]{}
 \todo[inline]{The first thing we need to do is describe why latent behaviours are interesting. This requires a historical context. }
-\section{A Brief History of Coalgebras}
+\section{Coalgebras}
 \todo[inline]{This section explains the importance of coalgebras as a modelling system, why they are so compatible with computability (monads), and in general why they are useful.}
 \todo[inline]{I could probably be inspired on how to structure this section by publications on coalgebras. There is a large body of literature I can use.}
 \todo[inline]{At least cover that systems are of a form $\delta\colon X\rightarrow D$ where $D$ is some domain, and that there is a way to go from $D$ back to $X$ to continue computation.}

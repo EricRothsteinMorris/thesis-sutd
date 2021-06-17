@@ -9,6 +9,7 @@
 \section{Introduction}
 \label{sec:introduction} 
 We now consider a scenario where we are applying a spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
+\todo[inline]{Not very convinced about this motivation...}
 
 % \todo[inline]{Candidate conferences: FM 2021 (abs 30 apr/6 may), CSF 2022 (may 14)}
 \paragraph*{What are timing side-channel attacks?} Timing attacks are among the best known side-channel attacks~\cite{timing-channel-survey} 
@@ -309,12 +310,18 @@ Given a GS $g$, the \emph{MAP of $g$}, denoted $\RC_\cache(g)$, is the accumulat
 \end{align*}
 The metric $\cache$ is \emph{causal}, since the resource consumption of actions depends on the history of the execution. 
 
-Now, consider two values for a secret $s$, say $s=0$ and $s=n$; the $\cache$ values of $x:=A[s]$ is 
+Now, consider two values for a secret $s$, say $s=0$ or $s=n$; the $\cache$ values of $x:=A[s]$ when executing with an empty cache is 
 \begin{align*}
-    \cache(1)(x:=A[s])&=\eta\times\set{x,A[0],s}+\mu\times\emptyset,\text{   if $s=0$},\\
-    \cache(1)(x:=A[s])&=\eta\times\set{x,A[n],s}+\mu\times\emptyset,\text{   if $s=n$}.
+    \cache(1)(x:=A[s])&=\begin{cases}
+        \eta\times\set{x,A[0],s}+\mu\times\emptyset,\quad \text{   if $s=0$}\\
+        \eta\times\set{x,A[n],s}+\mu\times\emptyset,\quad \text{   if $s=n$}.
+    \end{cases}
 \end{align*}
-The secret $s$ leaks because the MAP of the expression $x:=A[s]$ depends on the value of $s$.When $A[0]$ and $A[n]$ are loaded into the cache, and they are placed in different regions of the cache; thus, the attacker can infer the value of $s$ by looking at which regions corresponding to $A$ are loaded. %Only in very specific conditions (e.g. $A$ fits entirely in a cache line), the attacker 
+The secret $s$ leaks because the MAP of the expression $x:=A[s]$ depends on the value of $s$. When loading $A[0]$ or $A[n]$ into the cache, if they touch different regions of the cache, the attacker can infer the value of $s$ by looking at which regions corresponding to $A$ are loaded. 
+
+A preloading strategy, as the one shown in~\cite{SCEliminator}, places the contents of the structure $A$ in the cache so that $\cache(1)(x:=A[s])=\eta\times\emptyset+\mu\times\set{x,A[s],s}$ for all $s$, implying that the attacker cannot infer information from checking which regions are loaded when we use a secret as an index in $A$, since all relevant regions are loaded if $A$ fits in the cache. However, recall that the attacker can flush the contents of the cache after preloading, so preloading is not a viable strategy: as long as there is an instruction $x:=A[s]$ or $A[s]:=x$, a preloading strategy is not sound with respect to TSCFs.
+
+%Only in very specific conditions (e.g. $A$ fits entirely in a cache line), the attacker 
 % Due to its causal nature, the metric \cache is not compositional; i.e., $\RC_\cache(g\cdot h)\neq \RC_\cache(g)+\RC_\cache(h)$. This means we cannot compute the MAP of a program by just adding the independently computed MAPs parts.
 % \todo[inline]{This is interesting but not very helpful.}
 % %\todo[inline]{This part in red... are there relevant cases where this is not true? Answer: actually, yes, the memory footprint may probably be one of these cases (more precisely, memory footprint should also consider the interaction environment in shared caches... it can get really complicated if we want to model everything...)}
@@ -588,9 +595,34 @@ If the attacker clears the cache before the $i$-th instruction $A[i]:=\sel(x=i,y
 %A detailed proof can be found in the Appendix. 
 \subsection{ORIGAMI Rules as Spatial Transformations}
 \todo[inline]{I'm sketching this section, needs to be heavily rewritten}
-The ORIGAMI rules are functions that take a GKATX as an input and produce a GKATX as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself.  
+The ORIGAMI rules are functions that take a GKATX as an input and produce a GKATX as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself. 
 
-We define the coalgebra $(\mathscr{E}, (\gamma,\delta))$ where $(\gamma,\delta)\colon \mathscr{E}\rightarrow 2^V\times \mathscr{E}$ which tells us for each variable $v\in V$ whether $v$ is a miss or a hit in the cache, respectively modelled by $\gamma(v)=0$ and $\gamma(v)=1$. 
+The idea of ORIGAMI is to replace all programs with dangerous instructions (e.g. $x:=A[s]$ and $A[s]:=x$) with programs that have the same functionality, but do not have those dangerous instructions. 
+
+\todo[inline]{Do we model the attacker or do we model the origami rules as spatial transformations?} Modelling the attacker is probably the easiest.
+
+\todo[inline]{It really depends what we want to model as observation and what not.}
+For coalgebraic modelling, we need to define over which aspects of the system we want to define behavioural properties. We could do something interesting: we put the state of the cache as part of the system, and we have variable assignments and cache state, and the idea is that even if the attacker does something, (modelled by a transformation of the cache) the attacker does not learn any new information. 
+
+The problem with this is that we don't really care about what happens on the cache, what we care about is that we assume that there is in fact leakage if we index with a sensitive variable. The 
+
+
+
+% \todo[inline]{Ok, I have the following plan:}
+% \begin{itemize}
+%     % \item Model the state as a pair $(p,c)$ where $p$ is the program and $c$ is the cache. 
+%     % \item A program is a sequence of the concrete GKAT instructions. Each instruction has a set of variables
+%     % \item The variables that appear in an action $a$ are \emph{touched} by $a$
+%     % \item If a variable is touched, and it is in the cache, then we have a hit, otherwise it is a miss
+%     % \item What we really want is to never index
+% \end{itemize}
+
+We define the coalgebra $(\mathscr{E}, (\gamma,\delta))$ where $(\gamma,\delta)\colon \mathscr{E}\rightarrow 1+2^V\times \mathscr{E}$ which tells us for each variable $v\in V$ whether $v$ is a miss or a hit in the cache, respectively modelled by $\gamma(v)=0$ and $\gamma(v)=1$. This is an $F$-coalgebra of the functor $F(X)=1+2^V\times X$. The final $F$-coalgebra is $(\sigma F,1_\gamma, 1_\delta)$ where $\sigma F = (1+2^V)^\mathbb{N}$ such that for $\phi\in \sigma F$, if $\phi(n)=\iota_1(0)$, then $\phi(n+k)=\iota_1(0)$ for all $n,k\in \nat$; the value $\iota_1(0)$ models termination. 
+
+
+
+
+
 
 \todo[inline]{We can model the actions of the attacker tampering with the cache by extending the state, but do we wan to do that?}
 
