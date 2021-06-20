@@ -177,7 +177,7 @@ semantic equivalence is defined over uninterpreted actions using languages of \e
  %We also use GKAT to formalise abstract leakage models.
 % \todo[inline]{Should we work with the small imperative language presented in GKAT? I think we should} 
 \paragraph*{Actions, Tests and Expressions}
-Every GKAT is parametrised by a set of abstract \emph{actions} $\Sigma$ and a finite set of abstract \emph{primitive tests} $T$. We assume $T$ and $\Sigma$ are disjoint and non-empty. A test $t\in T$ is an atomic proposition about the state of the program, and the execution of an action $p \in \Sigma$ can affect the state. We form \emph{GKAT expressions} (GKATx) with the grammar presented in Figure~\ref{tab:GKAT}. 
+Every GKAT is parametrised by a set of abstract \emph{actions} $\Sigma$ and a finite set of abstract \emph{primitive tests} $T$. We assume $T$ and $\Sigma$ are disjoint and non-empty. A test $t\in T$ is an atomic proposition about the state of the program, and the execution of an action $p \in \Sigma$ can affect the state. We form \emph{GKAT expressions} with the grammar presented in Figure~\ref{tab:GKAT}. 
 
 % For example, the expression 
 % \begin{align*}
@@ -188,7 +188,7 @@ Every GKAT is parametrised by a set of abstract \emph{actions} $\Sigma$ and a fi
 % \begin{align*}
 % i:=0\cdot r:=1\cdot \iteration{i<n}{\left(\left(\branch{$s$[i]\neq\texttt{g}[i]}{(r:=0)}{1}\right)\cdot (i:=i+1)\right)}\cdot r
 % \end{align*}
-% models the example program of Section~\ref{sec:TimingAttacks}, where $r$ is the variable that would be returned. %We remark that there no notion of \texttt{break} for GKATx, however, we can defer 
+% models the example program of Section~\ref{sec:TimingAttacks}, where $r$ is the variable that would be returned. %We remark that there no notion of \texttt{break} for GKAT expression, however, we can defer 
 
 %$\branch{b}{p}{1}$ models \textbf{if} $b$ \textbf{then} $p$ and $\iteration{b}{\left(p\cdot q\right)}$ models \textbf{while} $b$ \textbf{do} $p;q$ \textbf{end}.
 
@@ -218,7 +218,7 @@ The fusion product of sets $L_1,L_2\subseteq \GuardedString$ is defined by $L_1\
     L_1\diamond L_2 \triangleq \set{g_1\diamond g_2\ |\ g_1\in L_1,g_2\in L_2,\text{ and $g_1\diamond g_2$ is defined}}.
 \end{align*}
 \paragraph*{Language-based Semantics}
-The \emph{language-based semantics} of a GKATx is a {set of guarded strings} (i.e., a language) defined by%and it can be found in \cite[\S2.2]{GKAT}.\todo{Is this ok?}
+The \emph{language-based semantics} of a GKAT expression is a {set of guarded strings} (i.e., a language) defined by%and it can be found in \cite[\S2.2]{GKAT}.\todo{Is this ok?}
 \begin{align*}
 \semantics{p} &\triangleq \set{\alpha p \beta\ |\ \alpha,\beta\in \Atom},\\
 %
@@ -235,11 +235,11 @@ The \emph{language-based semantics} of a GKATx is a {set of guarded strings} (i.
 %
 %
 \end{align*}
-where $L^0\triangleq\Atom$ and $L^{n+1}\triangleq L^{n} \diamond L$, for $L \subseteq \GuardedString$. Since actions in GKATx are uninterpreted, language-based semantics are an over-approximation of functional semantics. %i.e., once actions and tests are instantiated, they are guaranteed to exist within the abstract semantics.
+where $L^0\triangleq\Atom$ and $L^{n+1}\triangleq L^{n} \diamond L$, for $L \subseteq \GuardedString$. Since actions in GKAT expressions are uninterpreted, language-based semantics are an over-approximation of functional semantics. %i.e., once actions and tests are instantiated, they are guaranteed to exist within the abstract semantics.
 % \paragraph*{Axiom}
-% A \emph{GKAT axiom} establishes equivalences between syntactically different GKATx.  yet semantically equivalent; e.g., $b\cdot\left(\branch{b}{e}{f} \right) \equiv b\cdot e$.
+% A \emph{GKAT axiom} establishes equivalences between syntactically different GKAT expression.  yet semantically equivalent; e.g., $b\cdot\left(\branch{b}{e}{f} \right) \equiv b\cdot e$.
 \paragraph*{Rules}
-A \emph{GKAT rule} is an equivalence that lets us transform an arbitrary GKATx into a GKATx that is syntactically different, yet semantically equivalent; e.g., $b\cdot\left(\branch{b}{e}{f} \right) \equiv b\cdot e$.
+A \emph{GKAT rule} is an equivalence that lets us transform an arbitrary GKAT expression into a GKAT expression that is syntactically different, yet semantically equivalent; e.g., $b\cdot\left(\branch{b}{e}{f} \right) \equiv b\cdot e$.
 
 \begin{figure}[t]
 \centering
@@ -360,7 +360,7 @@ Now, guarded strings satisfy either the pattern $(\valuation,\alpha)$ or the pat
 Two guarded strings $g_1$ and $g_2$ are equal on their public variables, denoted $g_1=_p g_2$, if and only if their \emph{initial} valuations are equal on public variables. 
 %\end{definition}
 
-%\todo[inline]{There is an important notion in GSLangs that is called determinacy. In a few words, determinacy of a language is: if any two words in the language coincide on their first $n$ atoms, then they also coincide on their first $n$ actions (or their lack of them). This makes sense for deterministic programs because the initial state (represented by the initial atom), should determine the entire trace (hence the name, determinacy). Languages generated by GKATx satisfy determinacy.  Thus, it is not necessary to require variable assignments to be equal on the first $k$ step.}
+%\todo[inline]{There is an important notion in GSLangs that is called determinacy. In a few words, determinacy of a language is: if any two words in the language coincide on their first $n$ atoms, then they also coincide on their first $n$ actions (or their lack of them). This makes sense for deterministic programs because the initial state (represented by the initial atom), should determine the entire trace (hence the name, determinacy). Languages generated by GKAT expression satisfy determinacy.  Thus, it is not necessary to require variable assignments to be equal on the first $k$ step.}
 We now define a formal notion of constant resource consumption, which we apply to the $\cache$ metric.
 \begin{definition}[TSCF with MAP]
     \label{def:MemoryTSCF}
@@ -371,7 +371,7 @@ g_1=_p g_2\Rightarrow\RC_{\cache}(g_1)=\RC_{\cache}(g_2).
 \end{align*}
 Equivalently, we say that $L$ satisfies TSCF.
 \end{definition}
-This definition naturally extends to GKATx. A GKATx $e$ satisfies TSCF if and only if $\semantics{e}$ satisfies TSCF. 
+This definition naturally extends to GKAT expressions. A GKAT expression $e$ satisfies TSCF if and only if $\semantics{e}$ satisfies TSCF. 
 %\begin{definition}[
 
 %\end{definition}
@@ -381,7 +381,7 @@ This definition naturally extends to GKATx. A GKATx $e$ satisfies TSCF if and on
 \paragraph*{Attacker model} Definition \ref{def:MemoryTSCF} characterises an attacker model where 
 %The \emph{attacker models} respective to these metrics are the following: 
 % For \texttt{time}, we consider an attacker that can manipulate public inputs and, at the end of the execution, measure the total number of instructions. For \cache, we consider an 
-the attacker that can choose all the values of public variable before execution of every GKATx and, at the end of the execution of the GKATx, can measure the total number of hits and misses to the cache. Additionally, the attacker can execute Prime+Probe~\cite{prime-probe} or Flush+Reload~\cite{Flush+Reload} attacks, either remotely or locally. More precisely, this attacker can see which addresses are loaded in the cache but cannot see their contents, and can flush the cache at will. This attacker is similar to the attacker which exploits a Spectre V1 vulnerability to extract secrets via the cache, but our attacker does not rely on speculative execution (speculative execution is beyond the scope of this work). 
+the attacker that can choose all the values of public variable before execution of every GKAT expression and, at the end of the execution of the GKAT expression, can measure the total number of hits and misses to the cache. Additionally, the attacker can execute Prime+Probe~\cite{prime-probe} or Flush+Reload~\cite{Flush+Reload} attacks, either remotely or locally. More precisely, this attacker can see which addresses are loaded in the cache but cannot see their contents, and can flush the cache at will. This attacker is similar to the attacker which exploits a Spectre V1 vulnerability to extract secrets via the cache, but our attacker does not rely on speculative execution (speculative execution is beyond the scope of this work). 
 
 In the following sections, we provide a concrete GKAT for an enriched language of while programs. Using this GKAT, we describe existing repair rules used by other repair tools to enforce TSCF under the baseline leakage model. We discuss why these rules are not enough to enforce TSCF under the MAP leakage model, and we propose our own set of rules to fill this gap.
 
@@ -486,8 +486,8 @@ The semantics of the language is standard, and we omit the details since they ar
 % The exact semantics of the language are not critical for the purposes of enforcing TSCF, since sound transformation rules guarantee that rules preserve semantics. However, we need resource metrics to formally define TSCF for LLVM-IR.
 \subsection{ORIGAMI Rules}
 It is impossible to repair programs that are not TSCF with traditional GKAT rules. Since GKAT rules preserve semantics, non-TSCF expressions are never transformed into TSCF expressions via these rules. 
-%when the semantics of a GKATx is a non-TSCF language of GSs, then no matter how we transform the GKATx using GKAT rules, the semantics of the resulting GKATx is the same as the original GKATx. 
-Thus, for the purposes of enforcing TSCF, we assume two equivalences between actions and GKATX: the \emph{read equivalence} $(y:=A[x])\equiv\ \mathscr{O}(y:=A[x])$ and the \emph{write equivalence} $(A[x]:=y)\equiv\ \mathscr{O}(A[x]:=y)$, where 
+%when the semantics of a GKAT expression is a non-TSCF language of GSs, then no matter how we transform the GKAT expression using GKAT rules, the semantics of the resulting GKAT expression is the same as the original GKAT expression. 
+Thus, for the purposes of enforcing TSCF, we assume two equivalences between actions and GKAT expressions: the \emph{read equivalence} $(y:=A[x])\equiv\ \mathscr{O}(y:=A[x])$ and the \emph{write equivalence} $(A[x]:=y)\equiv\ \mathscr{O}(A[x]:=y)$, where 
 %To justify the soundness of the following repair rules,  one that lets us prove the soundness of the ORIGAMI rule $(y:=A[x])\leadsto\ \mathscr{O}(y:=A[x])$, 
 \begin{align*}
     \mathscr{O}(y:=A[x])\triangleq\  
@@ -593,43 +593,7 @@ If the attacker clears the cache before the $i$-th instruction $A[i]:=\sel(x=i,y
     
 \end{proof}
 %A detailed proof can be found in the Appendix. 
-\subsection{ORIGAMI Rules as Spatial Transformations}
-\todo[inline]{I'm sketching this section, needs to be heavily rewritten}
-The ORIGAMI rules are functions that take a GKATX as an input and produce a GKATX as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself. 
 
-The idea of ORIGAMI is to replace all programs with dangerous instructions (e.g. $x:=A[s]$ and $A[s]:=x$) with programs that have the same functionality, but do not have those dangerous instructions. 
-
-\todo[inline]{Do we model the attacker or do we model the origami rules as spatial transformations?} Modelling the attacker is probably the easiest.
-
-\todo[inline]{It really depends what we want to model as observation and what not.}
-For coalgebraic modelling, we need to define over which aspects of the system we want to define behavioural properties. We could do something interesting: we put the state of the cache as part of the system, and we have variable assignments and cache state, and the idea is that even if the attacker does something, (modelled by a transformation of the cache) the attacker does not learn any new information. 
-
-The problem with this is that we don't really care about what happens on the cache, what we care about is that we assume that there is in fact leakage if we index with a sensitive variable. The 
-
-
-
-% \todo[inline]{Ok, I have the following plan:}
-% \begin{itemize}
-%     % \item Model the state as a pair $(p,c)$ where $p$ is the program and $c$ is the cache. 
-%     % \item A program is a sequence of the concrete GKAT instructions. Each instruction has a set of variables
-%     % \item The variables that appear in an action $a$ are \emph{touched} by $a$
-%     % \item If a variable is touched, and it is in the cache, then we have a hit, otherwise it is a miss
-%     % \item What we really want is to never index
-% \end{itemize}
-
-We define the coalgebra $(\mathscr{E}, (\gamma,\delta))$ where $(\gamma,\delta)\colon \mathscr{E}\rightarrow 1+2^V\times \mathscr{E}$ which tells us for each variable $v\in V$ whether $v$ is a miss or a hit in the cache, respectively modelled by $\gamma(v)=0$ and $\gamma(v)=1$. This is an $F$-coalgebra of the functor $F(X)=1+2^V\times X$. The final $F$-coalgebra is $(\sigma F,1_\gamma, 1_\delta)$ where $\sigma F = (1+2^V)^\mathbb{N}$ such that for $\phi\in \sigma F$, if $\phi(n)=\iota_1(0)$, then $\phi(n+k)=\iota_1(0)$ for all $n,k\in \nat$; the value $\iota_1(0)$ models termination. 
-
-
-
-
-
-
-\todo[inline]{We can model the actions of the attacker tampering with the cache by extending the state, but do we wan to do that?}
-
-ORIGAMI rules are idempotent: given a GKATX $e$, the programs $\mathscr{O}(e)$ and $(\mathscr{O}\circ\mathscr{O})(e)$
-% Let $\mathcal{E}$ be the set of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}.
-
-{\color{red}
 
 
 \section{Repair Rules for the Baseline Model}
@@ -641,8 +605,8 @@ Since the MAP implies the baseline model, we must repair programs also with resp
     \text{if $b$ then $x:=e_1$ else $x:=e_2$}
 \end{align*}
 % \end{verbatim}
-whose corresponding GKATx is $\branch{b}{(x:=e_1)}{(x:=e_2)}$, the \emph{predication repair rule} replaces the branch by the select instruction $x:=\sel(b,e_1,e_2)$. The tools \cite{Racoon,SCEliminator,MSESC} implement this rule to remove leaks due to branching.
-There are a couple of minor complications; repairing the GKATx $\branch{c\neq0}{(a:=b/c)}{1}$
+whose corresponding GKAT expression is $\branch{b}{(x:=e_1)}{(x:=e_2)}$, the \emph{predication repair rule} replaces the branch by the select instruction $x:=\sel(b,e_1,e_2)$. The tools \cite{Racoon,SCEliminator,MSESC} implement this rule to remove leaks due to branching.
+There are a couple of minor complications; repairing the GKAT expression $\branch{c\neq0}{(a:=b/c)}{1}$
 % \begin{verbatim}
 %     if c!=0 then a:=b/c else a:=a
 % \end{verbatim}
@@ -666,7 +630,7 @@ could introduce runtime exceptions that were previously prevented by the conditi
 % \begin{verbatim}
     
 % \end{verbatim}
-which corresponds to the GKATx $\iteration{b}{e}$, the \emph{loop unrolling rule} replaces the program with a sequence of linearisable branches 
+which corresponds to the GKAT expression $\iteration{b}{e}$, the \emph{loop unrolling rule} replaces the program with a sequence of linearisable branches 
 \begin{align*}
     \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times}.
     \end{align*}
@@ -740,6 +704,244 @@ For higher dimensions the ORIGAMI rules extend similarly, and they can be custom
 \end{align*}
 We can use the index $k$ directly because it is public, i.e., if it leaks via the cache, the attacker does not learn any new information about the secret $i$.
 
+\subsection{ORIGAMI Rules as Spatial Transformations}
+The MAP leakage model is rather strict, and it can be summarised as the following set of leakage assumptions:
+\begin{itemize}
+    \item for any expression of the form $\branch{b}{e_1}{e_2}$, we assume that it leaks information if $b$ depends on a secret,
+    \item for any expression of the form $\iterate{b}{e}$, we assume that it leaks information if $b$ depends on a secret,
+    \item for any expression of the form $x:=A[s]$ or $A[s]:=x$, we assume that it leaks information if $s$ depends on a secret,
+    \item if an expression $e$ leaks information, then the expressions $e\cdot e'$, $\branch{b}{e}{e'}$, $\iterate{b}{e}$, and their equivalent expressions leak information for any other expression $e$' if $b\neq 0$.
+\end{itemize}
+The assumptions of the MAP model correspond to attacks that are practical. An expression of the form $e_1 +_b e_2$ leaks information about $b$ via the program counter $PC$; an attacker observing $PC$ can deduce whether $b$ is true or false based on the instruction that follows the evaluation of $b$. The reasoning for $e^b$ is similar: the program counter leaks $b$, and the attacker may even obtain more information based on how long it took for the loop to execute. The expressions $x:=A[s]$ and $A[s]:=x$ leak $s$ via the cache because an attacker can flush the cache before their execution, and then probe the cache after their execution; the regions that result in a hit correspond to the neighbourhood of $A[s]$, meaning that $s$ can be inferred with high probability from this analysis. The last assumption concerns the safety nature of confidentiality leaks: once a secret has been leaked, it cannot be recovered.
+
+Given the assumptions of the MAP leakage model, we approach the problem of repairing TSCF by treating it as a safety enforcement problem, which we solve by  we replacing all dangerous actions in programs without altering their functional semantics. In the following, we show how to enforce TSCF by using spatial transformations in a coalgebraic specification language of concrete GKAT expressions. 
+
+% The branch predication and loop unrolling remove branches and iteration from GKAT expressions, which leaves us with a language of linear programs. Programs are then sequences of the form 
+
+% \todo[inline]{Maybe it is best to assume that we obtain a program without loops and branches, which represent a repaired program WRT the baseline model. Yeah, that's the easiest}
+
+\subsection{A GKAT Coalgebraic Specification Language}
+In the following, we summarise the method used by the authors of ~\cite{GKAT} to give coalgebraic semantics to GKAT expressions. Consider the functor $G(X)=(2+\Sigma\times X)^A$. A $G$-coalgebra $(X,c)$ has the following operational semantics: for $x\in X$, $x$ receives an atom $\alpha\in A$, which represents a precondition, and either terminates well, terminates badly, or continues executing the next action. Formally, if $c(x)(\alpha)=\iota_1(0)$, then $x$ terminates badly if $\alpha$ holds at $x$; if $c(x)(\alpha)=\iota_1(1)$, then $x$ terminates well if $\alpha$ holds at $x$; finally, if $c(x)(\alpha)=\iota_2(p,y)$, then $x$ transitions to state $y$, during the execution of action $p$. 
+%\todo[inline]{This is not yet enough to create a specification language}
+
+Let $A^{+}$ be the set of non-empty finite sequences of atoms; we define the set $\sigma G$, a subset of $(2+\Sigma)^{A^{+}}$ as follows: for $\phi \in (2+\Sigma)^{A^{+}}$, $\phi \in \sigma G$ iff $\phi(\alpha)=\iota_1(b)$ implies that $\phi(\alpha\cdot \omega)=\iota_1(b)$ for all $\alpha\in A$, $\omega\in A^*$, and $b\in2$. The expression $\phi(\alpha)=\iota_1(b)$ models good or bad termination depending on whether $b=1$ or $b=0$ respectively, assuming that the last state satisfies the atom $\alpha$. 
+
+The final $G$-coalgebra is $(\sigma G, 1)$, whose final map $1\colon \sigma G\rightarrow (A\rightarrow (2+\Sigma\times\sigma G))$ is defined for $\phi\in \sigma G$, $\alpha\in A$ and $\omega^+$ by
+\begin{align}
+    1(\phi)(\alpha)&\triangleq
+    \begin{cases}
+        \iota_1(b),&\quad \text{if $\phi(\alpha)=\iota_1(b)$},\\
+        \iota_2(p, \phi^\alpha),&\quad \text{if $\phi(\alpha)=\iota_2(p)$}
+    \end{cases}\\
+    \text{where}\quad
+\phi^\alpha(\omega)&\triangleq \phi(\alpha\cdot \omega).
+\end{align}
+
+A coalgebraic specification language for the functor $G$ that uses the set of GKAT expressions as its carrier would, given an expression $e\in \mathscr{E}$ and a precondition modelled by an atom $\alpha\in \Atom$, state via $\delta(e)(\alpha)$ whether we finish well (i.e.,$\delta(e)(\alpha)=\iota_1(1)$), we finish badly (i.e.,$\delta(e)(\alpha)=\iota_1(0)$), or we continue execution with an action $p\in \Sigma$, yielding a remainder program $e'$ (i.e.,$\delta(e)(\alpha)=\iota_2(p,e')$)). The rules shown in \cite[Figure 2]{GKATCoequations} define a $G$-coalgebra $(\mathscr{E},\delta)$ that implements a coalgebraic specification language. We compile them here for completeness. First, let us introduce some notation; for $e\in \mathscr{E}$, $\alpha\in \Atom$, 
+\begin{itemize}
+    \item the expression $e\uparrow \alpha $ denotes $\delta(e)(\alpha)=\iota_1(1)$; i.e. if the atom $\alpha$ holds as a precondition for $e$, then $e$ terminates well as its next step;
+    \item the expression $e\downarrow \alpha$ denotes $\delta(e)(\alpha)=\iota_1(0)$; i.e. if the atom $\alpha$ holds as a precondition for $e$, then $e$ terminates badly as its next step;
+    \item the expression $e\xrightarrow{\alpha|p}e'$ represents $\delta(e)(\alpha)=\iota_2(p,e')$; i.e., if $\alpha$ holds before the execution of $e$, then the next step is to execute the action $p$ and continue execution from the expression $e'$.
+\end{itemize}
+We explain each of the inference rules: the rule
+\begin{align*}
+    \inferrule
+    {b\in \bexp\\\alpha\in \Atom \\ \alpha \Rightarrow b }
+    {b\uparrow \alpha}    
+\end{align*}
+means that the program \textbf{assert} $b$ ends well if its precondition $\alpha$ implies the assertion. 
+
+The rule
+\begin{align*}
+    \inferrule
+    {p\in \Sigma\\\alpha\in \Atom}
+    {p\xrightarrow{\alpha|p} 1}    
+\end{align*}
+states that the program $p$ can always continue to the program \textbf{assert true} after executing the action $p$. 
+
+The next four rules describe the dynamics of branch expressions. The rule
+\begin{align*}
+    \inferrule
+    {b\in \bexp\\\alpha\in \Atom \\ \alpha \Rightarrow b \\ f\uparrow \alpha }
+    {\branch{b}{f}{g}\uparrow \alpha}    
+\end{align*}
+means that the program $\branch{b}{f}{g}$ ends well if its precondition $\alpha$ implies the branch condition $b$ and the expression $f$ ends well. It is dual to the rule
+\begin{align*}
+    \inferrule
+    {b\in \bexp\\\alpha\in \Atom \\ \alpha \Rightarrow \bar{b} \\ g\uparrow \alpha }
+    {\branch{b}{f}{g}\uparrow \alpha}.    
+\end{align*}
+The following rule
+\begin{align*}
+    \inferrule
+    {b\in \bexp\\\alpha\in \Atom \\p\in \Sigma \\\alpha \Rightarrow b \\ f\xrightarrow{\alpha|p}f' }
+    {\branch{b}{f}{g}\xrightarrow{\alpha|p} f'}
+\end{align*}
+states that the program $\branch{b}{f}{g}$ continues by executing the action $p$ if the precondition $\alpha$ satisfies the branch guard $b$, and the program $f$ continues by executing the action $p$. The dual of this rule is 
+\begin{align*}
+    \inferrule
+    {b\in \bexp\\\alpha\in \Atom \\p\in \Sigma\\ \alpha \Rightarrow \bar{b} \\ g\xrightarrow{\alpha|p}g' }
+    {\branch{b}{f}{g}\xrightarrow{\alpha|p} f'}.    
+\end{align*}
+
+The following four rules describe the behaviour of composite expressions. The rule
+\begin{align*}
+    \inferrule
+    {f\Rightarrow \alpha\\ g\Rightarrow \alpha }
+    {f\cdot g\uparrow \alpha}    
+\end{align*}
+states that if $f$ would terminate well given $\alpha$ and $g$ would terminate well given $\alpha$, then $f\cdot g$ terminates well given $\alpha$. The next rule is similar, 
+\begin{align*}
+    \inferrule
+    {f\Rightarrow \alpha\\ g\xrightarrow{\alpha|p} g' }
+    {f\cdot g\xrightarrow{\alpha|p} g'}    
+\end{align*}
+means that $f$ would terminate well given $\alpha$ and $g$ continues by executing $p$ given $\alpha$, then $f\cdot g$ continues by executing $p$ given $\alpha$, and then continues with the execution of $g'$.
+
+The rule
+\begin{align*}
+    \inferrule
+    {f\xrightarrow{\alpha|p} f' }
+    {f\cdot g\xrightarrow{\alpha|p} f'\cdot g}    
+\end{align*}
+means that if $f$ continues by executing $p$ given $\alpha$, then $f\cdot g$ continues by executing $p$ given $\alpha$ and then continue with the execution of $f'$, delaying $g$.
+
+The rule 
+\begin{align*}
+    \inferrule
+    {f\xrightarrow{\alpha|p} f' }
+    {f\cdot g\xrightarrow{\alpha|p} f'\cdot g}    
+\end{align*}
+means that if $f$ continues by executing $p$ given $\alpha$, then $f\cdot g$ continues by executing $p$ given $\alpha$ and then continue with the execution of $f'$, delaying $g$.
+
+The last two rules address the evolution of loops. The rule
+\begin{align*}
+    \inferrule
+    {b\in \bexp \\\alpha \Rightarrow b \\ f\xrightarrow{\alpha|p}f'}
+    {\iterate{b}{f}\xrightarrow{\alpha|p}f'\cdot \iterate{b}{f}}    
+\end{align*}
+states that if $f$ continues by executing $p$ given $\alpha$, and $\alpha$ satisfies the loop condition $b$, then $\iterate{b}{f}$ continues by executing $p$ given $\alpha$ to then continue with the execution of $f'$, delaying a new iteration $\iterate{b}{f}$.
+
+Finally, the rule 
+\begin{align*}
+    \inferrule
+    {b\in \bexp \\\alpha \Rightarrow \bar{b} }
+    {\iterate{b}{f}\uparrow \alpha}    
+\end{align*}
+means that the program $\iterate{b}{f}$ finishes correctly given $\alpha$ if $\alpha$ implies the negation of the loop condition $b$. 
+
+We conclude this exposition by stating that if an expression $e\in \mathscr{e}$ does not satisfy any of the inference rules presented above, then $e\downarrow \alpha$ for $\alpha\in \Atom$; i.e., $e$ terminates badly unconditionally. 
+
+
+\todo[inline]{We can now transform programs, but preserving their semantics! Yahoo!} 
+% \begin{align*}
+%     \inferrule
+%     {one \\ two \\ three \\ or \\ more \\ premisses}
+%     {and \\ any \\ number \\ of \\ conclusions \\ as \\ well}    
+% \end{align*}
+
+
+% \begin{align*}
+%     \delta(e)(\alpha)\triangleq
+%     \begin{cases}
+%         \iota_1(\alpha\Rightarrow b),&\quad\text{if $e=b$, and $b\in \bexp$};\\
+%         \iota_2(p,1),&\quad\text{if $e=p$ and $p\in \Sigma$  };\\
+%         \iota_2(p,1),&\quad\text{if $e=\branch{b}{f}{g}$ and $\delta(f)(\alpha)=$ };\\
+%         ,&\quad\text{if    };\\
+%     \end{cases}
+% \end{align*}
+
+% $(\Gamma,\delta)\colon \mathscr{E}\rightarrow \vec{\Variables}^{\vec{\Variables}}\times(2+\mathscr{E})^A$; 
+% the function $\Gamma\colon \mathscr{E}\rightarrow \vec{\Variables}^{\vec{\Variables}}$ returns for an expression $e\in \mathscr{E}$, an update function of type $\Gamma(e)\colon \vec{\Variables}\rightarrow{\vec{\Variables}}$ which updates valuations; this lets us update a valuation $\vec{v}\in\vec{\Variables}$ to $\Gamma(e)(\vec{v})$,modelling the changes that $e$ would have over $\vec{v}$.
+
+% If we make the carrier set $\mathscr{E}$, then given an atom we would know how to continue, right? Yeah
+% \todo[inline]{HERE! This is where things make sense!!}
+
+% If $c(x)(\alpha)=\iota_2(v:=A[s],y)$, we map $x$ via $m$ to a state coinductively defined by
+% \begin{align*}
+%     m(x)(\alpha)=\iota_2(acc:=\textbf{sel}(s=0,A[0],acc),)
+% \end{align*}
+
+% Let $\vec{\Variables}=\Nat_\perp^\Variables$ where $\Nat_\perp=\set{\perp}\cup\nat$; we use the elements of $\vec{\Variables}$ to define \emph{valuation functions}; i.e., a valuation function $\zeta$ maps a variable $v\in \Variables$ to their current value (if $\zeta(v)=\perp$, then the value of $v$ is undefined).
+
+
+
+% We define the coalgebra $(\mathscr{E}, (\Gamma,\delta))$ where 
+% $(\Gamma,\delta)\colon \mathscr{E}\rightarrow \vec{\Variables}^{\vec{\Variables}}\times(2+\mathscr{E})^A$; 
+% the function $\Gamma\colon \mathscr{E}\rightarrow \vec{\Variables}^{\vec{\Variables}}$ returns for an expression $e\in \mathscr{E}$, an update function of type $\Gamma(e)\colon \vec{\Variables}\rightarrow{\vec{\Variables}}$ which updates valuations; this lets us update a valuation $\vec{v}\in\vec{\Variables}$ to $\Gamma(e)(\vec{v})$,modelling the changes that $e$ would have over $\vec{v}$. For example, 
+% \begin{align*}
+%     \Gamma(x:=5)(\vec{v})[y]=\begin{cases}
+%         5,\quad&\text{if $y=x$};\\
+%         \vec{v}[y],\quad&å\text{otherwise};
+%     \end{cases}
+% \end{align*}
+% The intuition behind $\Gamma$ is to model the change of state for the next GKAT expression to be executed; 
+% The effects of complex expressions can be aggregated; for example, 
+% \begin{align*}
+%     \Gamma(\iterate{i<10}{x:=2x\cdot i:=i+1}\cdot (x:=x+1))(\vec{v})[y]=\begin{cases}
+%         10,\quad&\text{if $y=i$ and $\vec{v}[]<10$};\\
+%         2^{10-i}\vec{v}[x],\quad&\text{if $y=x$};\\
+%         \vec{v}[y],\quad&å\text{otherwise};
+%     \end{cases}
+% \end{align*}
+% $\Gamma(\iterate{i<10}{x:=2x\cdot i:=i+1}\cdot (x:=x+1))=\Gamma(\iterate{i<10}{x:=2x\cdot i:=i+1})$ because the operational semantics of , because the action of $x:=x+1$ has its own $\Gamma(x:=x+1)$
+
+% The function $\delta\colon \mathscr{E}\rightarrow 2+\mathscr{E}$ is a transition function which maps an expression $e\in \mathscr{E}$ to its continuation or to termination. Formally, if $e\equiv b$ with $b\in2$, then $\delta(e)=\iota_1(b)$ and it indicates good termination if $b=1$ and bad termination if $b=0$ (e.g. due to asserting false); if $e\not\equiv b$, then $e=e_1\cdot e_2$ with $e_1\not\in 2$, and $\delta(e)=\iota_2(e_2)$, implying that after executing $e_1$, we need to continue with $e_2$.  
+
+
+
+% We define operational semantics recursively, $\Gamma(e)$ for $e\in \mathscr{E}$ in a manner similar to Hoare triples~\cite{HoareTriples}. A state $e$ with $\Gamma(e)$ as its precondition makes a transition via $\delta$ to an expression $e_2$ such that $\gamma(e')$ is the postcondition of executing $e_1$, with $e=e_1\cdot e_2$.
+
+
+% The tuple $(\mathscr{E}, (\Gamma,\delta))$ is an $F$-coalgebra of the functor $F(X)=\Nat_\perp^\Variables\times(2+X)$. The final $F$-coalgebra is $(\sigma F,1_\Gamma, 1_\delta)$ where $\sigma F = (2\times\nat^V+\nat^V)^\mathbb{N}$ such that for $\phi\in \sigma F$, if $\phi(n)=\iota_1(b,\psi)$, then $\phi(n+k)=\iota_1(b,\psi)$ for all $n,k\in \nat$, $b\in2$, and $\psi\in \nat^V$. The expression $\phi(n)=\iota_1(b,\psi)$ models good or bad termination at discrete time $n$ when the valuation is $\psi$, depending on whether $b=1$ or $b=0$ respectively. 
+
+% Given a function $\phi \in \sigma F$, 
+
+\todo[inline]{Finish the transformations}
+
+There are other potential vulnerabilities that leak information. If $s$ is a secret and a pointer, then it is safe to assume that accessing it reveal the value of $s$. While $A[s]$ can be considered a pointer, it is given a context by the data structure $A$; for an arbitrary secret pointer $s$, we would need to generate a memory access pattern that is equal for all possible values of $s$. ORIGAMI only solves the problem in the context of a data structure, which is why the loading of arbitrary pointers is a vulnerability that ORIGAMI does not solve. 
+
+\todo[inline]{why would some loose pointer be a secret though? Maybe a location of a secret function?}
+
+The ORIGAMI rules are functions that take a GKAT expression as an input and produce a GKAT expression as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself. 
+
+The idea of ORIGAMI is to replace all programs with dangerous instructions (e.g. $x:=A[s]$ and $A[s]:=x$) with programs that have the same functionality, but do not have those dangerous instructions. 
+
+\todo[inline]{Do we model the attacker or do we model the origami rules as spatial transformations?} Modelling the attacker is probably easier: the attacks restart the cache, but preserve the program
+
+\todo[inline]{It really depends what we want to model as observation and what not.}
+For coalgebraic modelling, we need to define over which aspects of the system we want to define behavioural properties. We could do something interesting: we put the state of the cache as part of the system, and we have variable assignments and cache state, and the idea is that even if the attacker does something, (modelled by a transformation of the cache) the attacker does not learn any new information. 
+
+The problem with this is that we don't really care about what happens on the cache, what we care about is that we assume that there is in fact leakage if we index with a sensitive variable. So, maybe it is actually easier than we think.
+
+% We define the coalgebra $(\mathscr{E}, (\gamma,\delta))$ where $(\gamma,\delta)\colon \mathscr{E}\rightarrow 1+2^V\times \mathscr{E}$ which tells us for each variable $v\in V$ whether $v$ is a miss or a hit in the cache, respectively modelled by $\gamma(v)=0$ and $\gamma(v)=1$. This is an $F$-coalgebra of the functor $F(X)=1+2^V\times X$. The final $F$-coalgebra is $(\sigma F,1_\gamma, 1_\delta)$ where $\sigma F = (1+2^V)^\mathbb{N}$ such that for $\phi\in \sigma F$, if $\phi(n)=\iota_1(0)$, then $\phi(n+k)=\iota_1(0)$ for all $n,k\in \nat$; the value $\iota_1(0)$ models termination. 
+
+
+
+This $F$-coalgebra is boring. It has no observations. What if, what we do is from every instruction to obtain all dangerous observations of the expression?? I like this. What we do is that we can define this pattern matching, and we just want a property that says: no bad observations. 
+
+% \todo[inline]{Ok, I have the following plan:}
+% \begin{itemize}
+%     % \item Model the state as a pair $(p,c)$ where $p$ is the program and $c$ is the cache. 
+%     % \item A program is a sequence of the concrete GKAT instructions. Each instruction has a set of variables
+%     % \item The variables that appear in an action $a$ are \emph{touched} by $a$
+%     % \item If a variable is touched, and it is in the cache, then we have a hit, otherwise it is a miss
+%     % \item What we really want is to never index
+% \end{itemize}
+
+
+
+
+
+
+
+
+\todo[inline]{We can model the actions of the attacker tampering with the cache by extending the state, but do we wan to do that?}
+
+ORIGAMI rules are idempotent: given a GKAT expression $e$, the programs $\mathscr{O}(e)$ and $(\mathscr{O}\circ\mathscr{O})(e)$
+% Let $\mathcal{E}$ be the set of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}.
+
+{\color{red}
 \section{Evaluation}
 \label{sec:Evaluation}
 Three research questions motivate an empirical evaluation:

@@ -125,11 +125,9 @@ The \emph{category of sets and functions} $\AsCategory{Set}$ is the category who
 Given a function $f\colon X\rightarrow Y \rightarrow Z$ and $x\in X$, the \emph{partial application} of $f$ given $x$ is the function $f_x\colon Y \rightarrow Z$, defined for $y\in Y$ by $f_x(y)=f(x)(y)$.
 
 \subsection{Monoids and Sequences} 
-A \emph{monoid} in the category $\AsCategory{Set}$ is a set $X$ paired with a sum function $+\colon X\rightarrow X\rightarrow X$ and a unit element $0\in X$ such that $0$ is neutral for $+$ and $+$ is associative. 
+A \emph{monoid} is a set $X$ paired with a sum function $+\colon X\rightarrow X\rightarrow X$ and a unit element $0\in X$ such that $0$ is neutral for $+$ and $+$ is associative. We highlight two monoids for a given set $X$: the \emph{free monoid of $X$} and the \emph{endofunctions monoid of $X$}.
 
-We highlight two monoids for a given set $X$: the \emph{free monoid of $X$} and the \emph{endofunctions monoid of $X$}.
-
-The \emph{free monoid of $X$} is the set $X^*$ of finite sequences of elements of $X$, where the sum function is sequence concatenation $\cdot$ and the unit is the empty sequence $\varepsilon$.
+The \emph{free monoid of $X$} is the set $X^*$ of finite sequences of elements of $X$, where the sum function is sequence concatenation $\cdot$ and the unit is the empty sequence $\varepsilon$. 
 
 The \emph{endofunctions monoid of $X$} is the set $X^X$ of endofunctions in $X$, where the sum is function composition $\circ$ and the unit is the identity function $\id_X$.
 
@@ -152,7 +150,7 @@ The denotational semantics of a DFA is the language with alphabet $A$ whose sequ
     \item $2\times X\simeq X+X$,
     \item $X^1\simeq X$,
     \item $X^2\simeq X\times X$,
-    \item $Z^{X\times Y}\simeq Z^{Y^X}$,
+    \item $Z^{X\times Y}\simeq Z^{(Y^X)}$,
     \item $X\times Y \simeq Y\times X$
     \item $X + Y \simeq Y+ X$
     \item $|X|=n$ iff $X\simeq n$.
