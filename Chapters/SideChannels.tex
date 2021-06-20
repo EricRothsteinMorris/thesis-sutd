@@ -60,7 +60,7 @@ The authors of ~\cite{WhatYouCisWhatYouGet} describe a philosophy which aims to 
 
 We implement ORIGAMI as an LLVM opt pass to make it compatible with other target-independent compiler optimizations. The tool lets the compiler first perform optimisations, and then the tool applies the ORIGAMI repair rules to the resulting intermediate representation code. Our pass ensures that compiled programs have a constant memory footprint when indexing fixed-size array-like data structures using secrets. Our proposed solution only requires minimal annotation to the source code (i.e., to inform the compiler which variables and function arguments are secrets, and for loops whose bounds cannot be automatically derived by the compiler) and provides theoretical guarantees that the transformed code is secure under the memory access pattern leakage model. 
 
-There are a couple of clear limitations when repairing programs with ORIGAMI, (e.g. ORIGAMI can obfuscate a read access to a data structure whose values are secret pointers, but fails to protect the program if such resulting pointer is later used to load or store a value) which we discuss in Section~\ref{sec:Limitations}. These limitations illustrate the impossibility of repairing every program program with respect to the the memory access patterns leakage model while keeping the program functional, efficient, and secure. 
+There are a couple of clear limitations when repairing programs with ORIGAMI, (e.g. ORIGAMI can obfuscate a read access to a data structure whose values are secret pointers, but fails to protect the program if such resulting pointer is later used to load or store a value) which we discuss in Section~\ref{sec:SideChannels:Limitations}. These limitations illustrate the impossibility of repairing every program program with respect to the the memory access patterns leakage model while keeping the program functional, efficient, and secure. 
 
 %These l if the secrets to be protected are pointers, or the if the secrets have unbounded values and we use them to access a dynamic data structure. To improve efficiency, we suggest a couple of optimisations that increase efficiency at the cost of security.
 
@@ -485,6 +485,7 @@ The semantics of the language is standard, and we omit the details since they ar
 
 % The exact semantics of the language are not critical for the purposes of enforcing TSCF, since sound transformation rules guarantee that rules preserve semantics. However, we need resource metrics to formally define TSCF for LLVM-IR.
 \subsection{ORIGAMI Rules}
+\label{sec:SideChannels:OrigamiRules}
 It is impossible to repair programs that are not TSCF with traditional GKAT rules. Since GKAT rules preserve semantics, non-TSCF expressions are never transformed into TSCF expressions via these rules. 
 %when the semantics of a GKAT expression is a non-TSCF language of GSs, then no matter how we transform the GKAT expression using GKAT rules, the semantics of the resulting GKAT expression is the same as the original GKAT expression. 
 Thus, for the purposes of enforcing TSCF, we assume two equivalences between actions and GKAT expressions: the \emph{read equivalence} $(y:=A[x])\equiv\ \mathscr{O}(y:=A[x])$ and the \emph{write equivalence} $(A[x]:=y)\equiv\ \mathscr{O}(A[x]:=y)$, where 
@@ -644,7 +645,7 @@ Neither predication nor unrolling repair programs with respect to the MAP leakag
 \paragraph*{Vulnerable to OS Leakage} Since the MAP leakage model is weaker than the OS leakage model, ORIGAMI does not repair timing side-channel vulnerabilities that arise by the use of operations whose execution time varies depending on their parameters. We only repair leakage that occurs due to accesses to data structures using secret indices.
 
 \subsection{Limitations of ORIGAMI}
-\label{sec:Limitations}
+\label{sec:SideChannels:Limitations}
 There are a couple of limitations and side effects to applying the ORIGAMI rules. 
 
 \paragraph*{Secret Pointers} While we can fold a data structure whose data are secret pointers without revealing the value of the resulting pointer or the value used to access it, once this resulting pointer is loaded, it is leaked to the attacker via the cache. Thus, ORIGAMI should not be used to repair programs which contain secret pointers that are naively accessed. %Fixed-size multi-dimensional data structures do not perform intermediate pointer %This does not occur when folding a multi-dimensional data-structures; accessing these multi-dimensional data structures can be soundly repaired without leaking information using ORIGAMI.
@@ -845,11 +846,44 @@ The branch predication rule $\mathscr{B}\colon \mathscr{E}\rightarrow \mathscr{E
 \end{align*}
 to
 \begin{align*}
-    \delta(x:=\textbf{sel}(b,e_1,e_2))(\alpha)=\iota_2(x:=\textbf{sel}(b,e_1,e_2),1),
+    \delta(x:=\textbf{sel}(b,e_1,e_2))(\alpha)=\iota_2(x:=\textbf{sel}(b,e_1,e_2),1).
 \end{align*}
-now, since $x:=\textbf{sel}(b,e_1,e_2)$ is supposed to be equivalent to $x:=e_1$ if $b$ is true, and equivalent to $x:=e_2$ if $b$ is false, the functionality of the program $\branch{b}{(x:=e_1)}{(x:=e_2)}$ is not affected by the transformation rule. By replacing an expression with an action, we remove the problematic branch while preserving the functional semantics.
+The functional semantics are preserved if $\iota_2(x:=e_1,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $b$, and if $\iota_2(x:=e_2,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $\bar{b}$; fortunately, those two equalities describe the semantics of the action $x:=\textbf{sel}(b,e_1,e_2)$, so the functionality of the program $\branch{b}{(x:=e_1)}{(x:=e_2)}$ is not affected by the transformation rule $\mathscr{B}$. By applying $\mathscr{B}$, we remove the problematic branch while preserving the functional semantics.
 
-The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ transforms $\iterate{b}{e}$ into $\underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times}$, where $k$ is the maximum number of iterations of the loop. The functional semantics are preserved; by combining the guarded loop axiom $\iterate{b}{(\branch{c}{e}{1})}\equiv \iterate{b}{(ce)}$ (see~\cite[Figure 1, W2]{GKAT}) and the guarded iteration fact $\iterate{b}{(be)}\equiv \iterate{b}{e}$ (see~\cite[Figure 2, W4']{GKAT}) we obtain $\iterate{b}{(\branch{b}{e}{1})}\equiv \iterate{b}{e}$. If we are sure that the loop iterates at most $k$ times, then $\delta(\iterate{b}{e})=\delta(\mathscr{L}(\iterate{b}{e}))$; for $0\leq j\leq k$, if $\bar{b}$ is true after $j$ iterations, the program $\branch{b}{e}{1}$ is equivalent to $1$, and it does not alter the result of the computation; however, if $k$ is poorly computed, and $b$ holds after $k$ iterations, then the semantics of $\iterate{b}{e}$ and $\mathscr{L}(\iterate{b}{e})$ are no longer equal in general.
+The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ transforms $\iterate{b}{e}$ into $\underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times}$, where $k$ is the maximum number of iterations of the loop. The functional semantics are preserved; by combining the guarded loop axiom $\iterate{b}{(\branch{c}{e}{1})}\equiv \iterate{b}{(ce)}$ (see~\cite[Figure 1, W2]{GKAT}) and the guarded iteration fact $\iterate{b}{(be)}\equiv \iterate{b}{e}$ (see~\cite[Figure 2, W4']{GKAT}) we obtain $\iterate{b}{(\branch{b}{e}{1})}\equiv \iterate{b}{e}$. If we are sure that the loop iterates at most $k$ times, then $\delta(\iterate{b}{e})=\delta(\mathscr{L}(\iterate{b}{e}))$. More precisely, for $0\leq j\leq k$, if $\bar{b}$ is true after $j$ iterations, the program $\branch{b}{e}{1}$ is equivalent to $1$, and it does not alter the result of the computation; however, if $k$ is poorly computed, and $b$ holds after $k$ iterations, then the semantics of $\iterate{b}{e}$ and $\mathscr{L}(\iterate{b}{e})$ are no longer equal in general.
+
+The ORIGAMI read and write rules $\mathscr{O}\colon \mathscr{E}\rightarrow \mathscr{E}$ map $x:=A[s]$ and $A[s]:=x$ respectively to $\mathscr{O}(x:=A[s])$ and $\mathscr{O}(A[s]:=x)$ following the definitions in Section~\ref{sec:SideChannels:OrigamiRules}. To prove that $\mathscr{O}$ preserves the functional semantics, we need to show both that $\delta(A[s]:=x)= \delta(\mathscr{O}(A[s]:=x))$ and that $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$.
+
+Recall that
+\begin{align*}
+    \delta(A[s]:=x)(\alpha)&=\iota_2(A[s]:=x,1)\\
+    %\delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)
+\end{align*}
+while
+\begin{align*}
+    \delta(\mathscr{O}(A[s]:=x))(\alpha)=\iota_2(A[0]:=\textbf{sel}(s=0,x,A[0]),e')
+\end{align*}
+where $e'$ is the rest of the expression; i.e., 
+\begin{align*}
+    e'=A[1]:=\textbf{sel}(s=1,x,A[1])\cdot\ldots \cdot A[n]:=\textbf{sel}(s=n,x,A[n]).
+\end{align*}
+However, just like the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{x:=e_1}{x:=e_2}$, we define the equivalence 
+\begin{align*}
+    x:=A[s]&\equiv \textbf{switch}(x,A,s,0..n),\quad \text{where}\\
+    \textbf{switch}(x,A,s,0..n)&\triangleq(\branch{(s=0)}{(x:=A[0])}{1})\cdot (\branch{(s=1)}{(x:=A[1])}{1})\cdot \ldots \cdot (\branch{s=n}{x:=A[n]}{1}).
+\end{align*}
+This equivalence is justified since, for $\alpha \in \Atom$, 
+\begin{align*}
+    \delta(\textbf{switch}(x,A,s,0..n))(\alpha)=
+    \begin{cases}
+        \iota_2(x:=A[0],\textbf{switch}(x,A,s,1..n)),&\quad\text{if $\alpha \Rightarrow s=0$},\\
+        \iota_2(1,\textbf{switch}(x,A,s,1..n)),&\quad\text{otherwise};
+    \end{cases}
+\end{align*}
+moreover, for all $\alpha\in \Atom$, at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied, for $0\leq i\leq n$. In the extreme cases when $s<0$ or $s>n$, the semantics of $x:=A[s]$ is normally undefined; however, the semantics of $\textbf{switch}(x,A,s,0..n)$ is always defined. Therefore, the equivalence $x:=A[s]\equiv \textbf{switch}(x,A,s,0..n)$ is only sound with respect to functionality if the equivalence $x:=A[s]\equiv 1$ is valid when $s<0$ or $s>n$; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations}.
+
+\todo[inline]{Finish the equivalences and justify }
+
 
 
 % \begin{align*}
@@ -867,7 +901,7 @@ The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ t
 %         \iota_1(1),&\quad\text{if $\alpha \Rightarrow \bar{b}$}\\
 %     \end{cases}
 % \end{align*}
-since the GKAT expression $1$ does not alter the current state, and we can iterate 
+
 
 The final spatial transformation that implements the repair for TSCF under the MAP model is the composition $\mathscr{O}\circ \mathscr{B}\circ \mathscr{L}$; we first unfold loops, then we predicate branches, and finally we replace dangerous accesses to data structures by folding them using ORIGAMI. 
 
@@ -1335,7 +1369,7 @@ Dcache accesses & 114107.12 & 115544 & 1.013 & 94.61    & 0 & 113920.44 & 211036
 \end{table}
 
 % \section{Discussion}
-% \label{sec:Limitations}
+% \label{sec:SideChannels:Limitations}
 % In this section, we briefly discuss the limitations and possible extensions of our approach.
 % %The crypto benchmarks are written following CryptoCoding guidelines, and their results illustrate how enabling compiler optimization could introduce variance in terms of cache hits and misses. Thus, it is worth remarking the following:
 % %\paragraph*{Variance in NumCycles after repair with optimizations disabled:} we attribute this variance to other micro-architectural aspects that are not considered by our repair rules (e.g., speculative load and stores). These, however, are not present when compiling with optimizations enabled.
