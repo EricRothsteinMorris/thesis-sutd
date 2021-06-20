@@ -4668,6 +4668,54 @@
     \field{year}{2018}
   \endentry
 
+  \entry{GKATCoequations}{article}{}
+    \name{author}{4}{}{%
+      {{hash=ST}{%
+         family={Schmid},
+         familyi={S\bibinitperiod},
+         given={Todd},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=KT}{%
+         family={Kapp{\'{e}}},
+         familyi={K\bibinitperiod},
+         given={Tobias},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=KD}{%
+         family={Kozen},
+         familyi={K\bibinitperiod},
+         given={Dexter},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Silva},
+         familyi={S\bibinitperiod},
+         given={Alexandra},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ST+1}
+    \strng{fullhash}{STKTKDSA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Sch+21}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \verb{eprint}
+    \verb 2102.08286
+    \endverb
+    \field{title}{Guarded Kleene Algebra with Tests: Coequations, Coinduction,
+  and Completeness}
+    \verb{url}
+    \verb https://arxiv.org/abs/2102.08286
+    \endverb
+    \field{volume}{abs/2102.08286}
+    \field{journaltitle}{CoRR}
+    \field{eprinttype}{arXiv}
+    \field{year}{2021}
+  \endentry
+
   \entry{ROP}{inproceedings}{}
     \name{author}{1}{}{%
       {{hash=SH}{%

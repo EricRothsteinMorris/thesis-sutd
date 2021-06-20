@@ -832,6 +832,44 @@ means that the program $\iterate{b}{f}$ finishes correctly given $\alpha$ if $\a
 
 We conclude this exposition by stating that if an expression $e\in \mathscr{e}$ does not satisfy any of the inference rules presented above, then $e\downarrow \alpha$ for $\alpha\in \Atom$; i.e., $e$ terminates badly unconditionally. 
 
+\subsection{Transforming GKAT expressions}
+Now that we have a dynamics function that defines how GKAT expressions evolve during computations, we enforce TSCF by applying a spatial transformations which implement the branch predication, loop unrolling and the read and write ORIGAMI rules. 
+
+The branch predication rule $\mathscr{B}\colon \mathscr{E}\rightarrow \mathscr{E}$ maps $\branch{b}{(x:=e_1)}{(x:=e_2)}$ to $x:=\textbf{sel}(b,e_1,e_2)$; this causes a change of dynamics from
+\begin{align*}
+    \delta(\branch{b}{(x:=e_1)}{(x:=e_2)})(\alpha)=
+    \begin{cases}
+        \iota_2(x:=e_1,1),&\quad\text{if $\alpha \Rightarrow b$}\\
+        \iota_2(x:=e_2,1),&\quad\text{if $\alpha \Rightarrow \bar{b}$}\\
+    \end{cases}
+\end{align*}
+to
+\begin{align*}
+    \delta(x:=\textbf{sel}(b,e_1,e_2))(\alpha)=\iota_2(x:=\textbf{sel}(b,e_1,e_2),1),
+\end{align*}
+now, since $x:=\textbf{sel}(b,e_1,e_2)$ is supposed to be equivalent to $x:=e_1$ if $b$ is true, and equivalent to $x:=e_2$ if $b$ is false, the functionality of the program $\branch{b}{(x:=e_1)}{(x:=e_2)}$ is not affected by the transformation rule. By replacing an expression with an action, we remove the problematic branch while preserving the functional semantics.
+
+The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ transforms $\iterate{b}{e}$ into $\underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times}$, where $k$ is the maximum number of iterations of the loop. The functional semantics are preserved; by combining the guarded loop axiom $\iterate{b}{(\branch{c}{e}{1})}\equiv \iterate{b}{(ce)}$ (see~\cite[Figure 1, W2]{GKAT}) and the guarded iteration fact $\iterate{b}{(be)}\equiv \iterate{b}{e}$ (see~\cite[Figure 2, W4']{GKAT}) we obtain $\iterate{b}{(\branch{b}{e}{1})}\equiv \iterate{b}{e}$. If we are sure that the loop iterates at most $k$ times, then $\delta(\iterate{b}{e})=\delta(\mathscr{L}(\iterate{b}{e}))$; for $0\leq j\leq k$, if $\bar{b}$ is true after $j$ iterations, the program $\branch{b}{e}{1}$ is equivalent to $1$, and it does not alter the result of the computation; however, if $k$ is poorly computed, and $b$ holds after $k$ iterations, then the semantics of $\iterate{b}{e}$ and $\mathscr{L}(\iterate{b}{e})$ are no longer equal in general.
+
+
+% \begin{align*}
+%     \delta(\iterate{b}{e})(\alpha)=
+%     \begin{cases}
+%         \iota_2(p,e'\cdot \iterate{b}{e}),&\quad\text{if $\alpha \Rightarrow b$ and $e\xrightarrow{\alpha|p}e'$}\\
+%         \iota_1(1),&\quad\text{if $\alpha \Rightarrow \bar{b}$}\\
+%     \end{cases}
+% \end{align*}
+% and
+% \begin{align*}
+%     \delta(\iterate{b}{e})(\alpha)=
+%     \begin{cases}
+%         \iota_2(p,e'\cdot \iterate{b}{e}),&\quad\text{if $\alpha \Rightarrow b$ and $e\xrightarrow{\alpha|p}e'$}\\
+%         \iota_1(1),&\quad\text{if $\alpha \Rightarrow \bar{b}$}\\
+%     \end{cases}
+% \end{align*}
+since the GKAT expression $1$ does not alter the current state, and we can iterate 
+
+The final spatial transformation that implements the repair for TSCF under the MAP model is the composition $\mathscr{O}\circ \mathscr{B}\circ \mathscr{L}$; we first unfold loops, then we predicate branches, and finally we replace dangerous accesses to data structures by folding them using ORIGAMI. 
 
 \todo[inline]{We can now transform programs, but preserving their semantics! Yahoo!} 
 % \begin{align*}
@@ -903,43 +941,43 @@ There are other potential vulnerabilities that leak information. If $s$ is a sec
 
 \todo[inline]{why would some loose pointer be a secret though? Maybe a location of a secret function?}
 
-The ORIGAMI rules are functions that take a GKAT expression as an input and produce a GKAT expression as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself. 
+% The ORIGAMI rules are functions that take a GKAT expression as an input and produce a GKAT expression as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself. 
 
-The idea of ORIGAMI is to replace all programs with dangerous instructions (e.g. $x:=A[s]$ and $A[s]:=x$) with programs that have the same functionality, but do not have those dangerous instructions. 
+% The idea of ORIGAMI is to replace all programs with dangerous instructions (e.g. $x:=A[s]$ and $A[s]:=x$) with programs that have the same functionality, but do not have those dangerous instructions. 
 
-\todo[inline]{Do we model the attacker or do we model the origami rules as spatial transformations?} Modelling the attacker is probably easier: the attacks restart the cache, but preserve the program
+% \todo[inline]{Do we model the attacker or do we model the origami rules as spatial transformations?} Modelling the attacker is probably easier: the attacks restart the cache, but preserve the program
 
-\todo[inline]{It really depends what we want to model as observation and what not.}
-For coalgebraic modelling, we need to define over which aspects of the system we want to define behavioural properties. We could do something interesting: we put the state of the cache as part of the system, and we have variable assignments and cache state, and the idea is that even if the attacker does something, (modelled by a transformation of the cache) the attacker does not learn any new information. 
+% \todo[inline]{It really depends what we want to model as observation and what not.}
+% For coalgebraic modelling, we need to define over which aspects of the system we want to define behavioural properties. We could do something interesting: we put the state of the cache as part of the system, and we have variable assignments and cache state, and the idea is that even if the attacker does something, (modelled by a transformation of the cache) the attacker does not learn any new information. 
 
-The problem with this is that we don't really care about what happens on the cache, what we care about is that we assume that there is in fact leakage if we index with a sensitive variable. So, maybe it is actually easier than we think.
+% The problem with this is that we don't really care about what happens on the cache, what we care about is that we assume that there is in fact leakage if we index with a sensitive variable. So, maybe it is actually easier than we think.
 
-% We define the coalgebra $(\mathscr{E}, (\gamma,\delta))$ where $(\gamma,\delta)\colon \mathscr{E}\rightarrow 1+2^V\times \mathscr{E}$ which tells us for each variable $v\in V$ whether $v$ is a miss or a hit in the cache, respectively modelled by $\gamma(v)=0$ and $\gamma(v)=1$. This is an $F$-coalgebra of the functor $F(X)=1+2^V\times X$. The final $F$-coalgebra is $(\sigma F,1_\gamma, 1_\delta)$ where $\sigma F = (1+2^V)^\mathbb{N}$ such that for $\phi\in \sigma F$, if $\phi(n)=\iota_1(0)$, then $\phi(n+k)=\iota_1(0)$ for all $n,k\in \nat$; the value $\iota_1(0)$ models termination. 
-
-
-
-This $F$-coalgebra is boring. It has no observations. What if, what we do is from every instruction to obtain all dangerous observations of the expression?? I like this. What we do is that we can define this pattern matching, and we just want a property that says: no bad observations. 
-
-% \todo[inline]{Ok, I have the following plan:}
-% \begin{itemize}
-%     % \item Model the state as a pair $(p,c)$ where $p$ is the program and $c$ is the cache. 
-%     % \item A program is a sequence of the concrete GKAT instructions. Each instruction has a set of variables
-%     % \item The variables that appear in an action $a$ are \emph{touched} by $a$
-%     % \item If a variable is touched, and it is in the cache, then we have a hit, otherwise it is a miss
-%     % \item What we really want is to never index
-% \end{itemize}
+% % We define the coalgebra $(\mathscr{E}, (\gamma,\delta))$ where $(\gamma,\delta)\colon \mathscr{E}\rightarrow 1+2^V\times \mathscr{E}$ which tells us for each variable $v\in V$ whether $v$ is a miss or a hit in the cache, respectively modelled by $\gamma(v)=0$ and $\gamma(v)=1$. This is an $F$-coalgebra of the functor $F(X)=1+2^V\times X$. The final $F$-coalgebra is $(\sigma F,1_\gamma, 1_\delta)$ where $\sigma F = (1+2^V)^\mathbb{N}$ such that for $\phi\in \sigma F$, if $\phi(n)=\iota_1(0)$, then $\phi(n+k)=\iota_1(0)$ for all $n,k\in \nat$; the value $\iota_1(0)$ models termination. 
 
 
+
+% This $F$-coalgebra is boring. It has no observations. What if, what we do is from every instruction to obtain all dangerous observations of the expression?? I like this. What we do is that we can define this pattern matching, and we just want a property that says: no bad observations. 
+
+% % \todo[inline]{Ok, I have the following plan:}
+% % \begin{itemize}
+% %     % \item Model the state as a pair $(p,c)$ where $p$ is the program and $c$ is the cache. 
+% %     % \item A program is a sequence of the concrete GKAT instructions. Each instruction has a set of variables
+% %     % \item The variables that appear in an action $a$ are \emph{touched} by $a$
+% %     % \item If a variable is touched, and it is in the cache, then we have a hit, otherwise it is a miss
+% %     % \item What we really want is to never index
+% % \end{itemize}
 
 
 
 
 
 
-\todo[inline]{We can model the actions of the attacker tampering with the cache by extending the state, but do we wan to do that?}
 
-ORIGAMI rules are idempotent: given a GKAT expression $e$, the programs $\mathscr{O}(e)$ and $(\mathscr{O}\circ\mathscr{O})(e)$
-% Let $\mathcal{E}$ be the set of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}.
+
+% \todo[inline]{We can model the actions of the attacker tampering with the cache by extending the state, but do we wan to do that?}
+
+
+% % Let $\mathcal{E}$ be the set of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}.
 
 {\color{red}
 \section{Evaluation}
