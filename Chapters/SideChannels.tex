@@ -834,7 +834,7 @@ means that the program $\iterate{b}{f}$ finishes correctly given $\alpha$ if $\a
 
 We conclude this exposition by stating that if an expression $e\in \mathscr{e}$ does not satisfy any of the inference rules presented above, then $e\downarrow \alpha$ for $\alpha\in \Atom$; i.e., $e$ terminates badly unconditionally. 
 
-\subsection{Transforming GKAT expressions}
+\subsection{Transforming GKAT expressions to enforce TSCF}
 Now that we have a dynamics function that defines how GKAT expressions evolve during computations in the forme of the $G$-coalgebra $(\mathscr{E},\delta)$, we enforce TSCF by applying a spatial transformations which implement the branch predication, loop unrolling and the read and write ORIGAMI rules. 
 
 \paragraph{Branch Predication.} The branch predication rule $\mathscr{B}\colon \mathscr{E}\rightarrow \mathscr{E}$ maps $\branch{b}{(x:=e_1)}{(x:=e_2)}$ to $x:=\textbf{sel}(b,e_1,e_2)$; this causes a change of dynamics from
@@ -849,7 +849,8 @@ to
 \begin{align*}
     \delta(x:=\textbf{sel}(b,e_1,e_2))(\alpha)=\iota_2(x:=\textbf{sel}(b,e_1,e_2),1).
 \end{align*}
-The functional semantics are preserved if $\iota_2(x:=e_1,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $b$, and if $\iota_2(x:=e_2,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $\bar{b}$; fortunately, those two equalities describe the semantics of the action $x:=\textbf{sel}(b,e_1,e_2)$, so the functionality of the program $\branch{b}{(x:=e_1)}{(x:=e_2)}$ is not affected by the transformation rule $\mathscr{B}$. By applying $\mathscr{B}$, we remove the problematic branch while preserving the functional semantics.
+The functional semantics are preserved if $\iota_2(x:=e_1,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $b$, and if $\iota_2(x:=e_2,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $\bar{b}$. 
+Fortunately, the concrete semantics of the action $x:=\textbf{sel}(b,e_1,e_2)$ is precisely given by those conditions. We conclude that the functionality of the program $\branch{b}{(x:=e_1)}{(x:=e_2)}$ is not affected by the transformation rule $\mathscr{B}$. By applying $\mathscr{B}$, we remove the problematic branch while preserving the functional semantics.
 
 \paragraph{Loop Unrolling.} The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ transforms $\iterate{b}{e}$ into the GKAT expression 
 \begin{align*}
@@ -864,17 +865,18 @@ under the assumption that the loop iterates at most $k$ times. Only if the assum
 The ORIGAMI read and write rules $\mathscr{O}\colon \mathscr{E}\rightarrow \mathscr{E}$ map $x:=A[s]$ and $A[s]:=x$ respectively to $\mathscr{O}(x:=A[s])$ and $\mathscr{O}(A[s]:=x)$ following the definitions in Section~\ref{sec:SideChannels:OrigamiRules}. To prove that $\mathscr{O}$ preserves the functional semantics, we need to show both that $\delta(A[s]:=x)= \delta(\mathscr{O}(A[s]:=x))$ and that $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$.
 
 
-\paragraph{ORIGAMI read rule.} Recall that
-\begin{align*}
-    \delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)\\
-    %\delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)
-    \delta(\mathscr{O}(x:=A[s]))(\alpha)&=\iota_2(x:=\textbf{sel}(s=0,A[0],x),e')
-\end{align*}
-where $e'$ is the rest of the expression; i.e., 
-\begin{align*}
-    e'=x:=\textbf{sel}(s=1,A[1],x)\cdot\ldots \cdot x:=\textbf{sel}(s=n,A[n],x).
-\end{align*}
-The equality $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$ is not obvious at first, since we are introducing more actions during repair. We must consider the concrete semantics of actions now, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$.
+\paragraph{ORIGAMI read rule.} 
+% Recall that
+% \begin{align*}
+%     \delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)\\
+%     %\delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)
+%     \delta(\mathscr{O}(x:=A[s]))(\alpha)&=\iota_2(x:=\textbf{sel}(s=0,A[0],x),e')
+% \end{align*}
+% where $e'$ is the rest of the expression; i.e., 
+% \begin{align*}
+%     e'=x:=\textbf{sel}(s=1,A[1],x)\cdot\ldots \cdot x:=\textbf{sel}(s=n,A[n],x).
+% \end{align*}
+The equality $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$ is not obvious at first, since we are introducing more actions when we apply $mathscr{O}$. We must consider the concrete semantics of actions again, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$.
 
 Let us now define the GKAT expression $\textbf{rFold}(x,A,s,i..n))$, for $0\leq i\leq n$, by
 \begin{align*}
@@ -899,24 +901,24 @@ which is justified since, for $\alpha \in \Atom$ and $0\leq i\leq n$,
         \iota_2(1,\textbf{rFold}(x,A,s,i+1..n)),&\quad\text{otherwise}.
     \end{cases}
 \end{align*}
-If $\alpha \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=A[i]$, which is equal to $x:=A[s]$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $1$, and by the inference rule in Equation~\ref{eq:SideChannels:EndFst}, we know that $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$; i.e., $\delta(e)(\alpha)$ skips trivial actions. Since at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied for $0\leq i\leq n$, the next action of $\textbf{rFold}(x,A,s,i..n)$ is either $x:=A[i]$ or an extreme case when $s<0$ or $s>n$, which causes $\textbf{rFold}(x,A,s,i..n)$ to terminate well.% Finally, for all $\alpha\in \Atom$, 
+If $\alpha \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=A[i]$, which is equal to $x:=A[s]$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=x$. To continue, we must accept that actions of the form $v:=v$ are equivalent to 1 (i.e., they are no-ops), which we believe is a reasonable assumption. Now, by the inference rule in Equation~\ref{eq:SideChannels:EndFst}, we know that $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$; i.e., $\delta(e)(\alpha)$ skips trivial actions. Since at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied for $0\leq i\leq n$, the next action of $\textbf{rFold}(x,A,s,i..n)$ is either $x:=A[i]$ or an extreme case when $s<0$ or $s>n$, which causes $\textbf{rFold}(x,A,s,i..n)$ to terminate well.% Finally, for all $\alpha\in \Atom$, 
 
 In the extreme case when $s<0$ or $s>n$, the semantics of $x:=A[s]$ is normally undefined; however, the semantics of $\textbf{rFold}(x,A,s,0..n)$ is to simply terminate well. Therefore, the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ is only sound with respect to functionality if the equivalence $x:=A[s]\equiv 1$ is valid when $s<0$ or $s>n$; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations}.
 
-\paragraph{ORIGAMI write rule.} Similarly to the write rule, we have
-\begin{align*} 
-    \delta(A[s]:=x)(\alpha)&=\iota_2(A[s]:=x,1)\\
-    %\delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)
-    \delta(\mathscr{O}(A[s]:=x))(\alpha)&=\iota_2(A[0]:=\textbf{sel}(s=0,x,A[0]),e')
-\end{align*}
-where $e'$ is the rest of the expression; i.e., 
-\begin{align*}
-    e'=A[1]:=\textbf{sel}(s=1,x,A[1])\cdot\ldots \cdot A[n]:=\textbf{sel}(s=n,x,A[n]).
-\end{align*}
+\paragraph{ORIGAMI write rule.} Similarly to the read rule, to prove the equality $\delta(A[s]:=x)=\delta(\mathscr{O}(x:=A[s]))$, 
+% we have
+% \begin{align*} 
+%     \delta(A[s]:=x)(\alpha)&=\iota_2(A[s]:=x,1)\\
+%     %\delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)
+%     \delta(\mathscr{O}(A[s]:=x))(\alpha)&=\iota_2(A[0]:=\textbf{sel}(s=0,x,A[0]),e')
+% \end{align*}
+% where $e'$ is the rest of the expression; i.e., 
+% \begin{align*}
+%     e'=(A[1]:=\textbf{sel}(s=1,x,A[1]))\cdot\ldots \cdot (A[n]:=\textbf{sel}(s=n,x,A[n])).
+% \end{align*}
 % The equality $\delta(A[s]:=x)=\delta(\mathscr{O}(A[s]:=x))$ is not obvious at first, since we are introducing more actions during repair. 
 % We must consider the concrete semantics of actions now, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$.
-
-We define another GKAT expression $\textbf{wFold}(x,A,s,i..n))$, for $0\leq i\leq n$, by
+we define another GKAT expression $\textbf{wFold}(x,A,s,i..n))$, for $0\leq i\leq n$, by
 \begin{align*}
     \textbf{wFold}(x,A,s,i..n)\triangleq&(\branch{(s=i)}{(A[i]:=x)}{1})\cdot \\
     &(\branch{(s=i+1)}{(A[i+1]:=x)}{1})\cdot 
@@ -924,11 +926,11 @@ We define another GKAT expression $\textbf{wFold}(x,A,s,i..n))$, for $0\leq i\le
     \ldots \cdot \\
     &(\branch{s=n}{A[n]:=x}{1}).
 \end{align*}
-We now define the equivalence 
+We also define the equivalence 
 \begin{align*}
     A[s]:=x&\equiv \textbf{wFold}(x,A,s,0..n),
 \end{align*}
-which is again justified since, for $\alpha \in \Atom$ and $0\leq i\leq n$,
+that satisfies, for $\alpha \in \Atom$ and $0\leq i\leq n$,
 \begin{align*}
     \delta(\textbf{wFold}(x,A,s,i..n))(\alpha)=
     \begin{cases}
@@ -936,6 +938,10 @@ which is again justified since, for $\alpha \in \Atom$ and $0\leq i\leq n$,
         \iota_2(1,\textbf{wFold}(x,A,s,i+1..n)),&\quad\text{otherwise};
     \end{cases}
 \end{align*}
+A reasoning for soundness similar to that of the read rule follows. If $\alpha \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[s]:=a$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[i]:=A[i]$. Because $A[i]:=A[i]$ is equivalent to $1$, we again use the inference rule in Equation~\ref{eq:SideChannels:EndFst}, to conclude $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$. The next action of $\textbf{wFold}(x,A,s,i..n)$ is either $A[i]:=x$ or to terminate well in the extreme case when $s<0$ or $s>n$. 
+% Finally, for all $\alpha\in \Atom$, 
+
+Again, we must accept that the dynamics of $\textbf{wFold}(x,A,s,0..n)$ is to simply terminate well in the case when $s<0$ or $s>n$; i.e., $A[s]:=x\equiv 1$ if $s<0$ or $s>n$. Otherwise, we encounter the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations} once more.
 % \begin{align*}
 %     \delta(\iterate{b}{e})(\alpha)=
 %     \begin{cases}
