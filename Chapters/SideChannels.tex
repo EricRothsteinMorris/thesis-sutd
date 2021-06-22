@@ -745,98 +745,99 @@ A coalgebraic specification language for the functor $G$ that uses the set of GK
     \item the expression $e\xrightarrow{\alpha|p}e'$ represents $\delta(e)(\alpha)=\iota_2(p,e')$; i.e., if $\alpha$ holds before the execution of $e$, then the next step is to execute the action $p$ and continue execution from the expression $e'$.
 \end{itemize}
 We explain each of the inference rules: the rule
-\begin{align*}
+\begin{align}
     \inferrule
     {b\in \bexp\\\alpha\in \Atom \\ \alpha \Rightarrow b }
     {b\uparrow \alpha}    
-\end{align*}
+\end{align}
 means that the program \textbf{assert} $b$ ends well if its precondition $\alpha$ implies the assertion. 
 
 The rule
-\begin{align*}
+\begin{align}
     \inferrule
     {p\in \Sigma\\\alpha\in \Atom}
     {p\xrightarrow{\alpha|p} 1}    
-\end{align*}
+\end{align}
 states that the program $p$ can always continue to the program \textbf{assert true} after executing the action $p$. 
 
 The next four rules describe the dynamics of branch expressions. The rule
-\begin{align*}
+\begin{align}
     \inferrule
     {b\in \bexp\\\alpha\in \Atom \\ \alpha \Rightarrow b \\ f\uparrow \alpha }
     {\branch{b}{f}{g}\uparrow \alpha}    
-\end{align*}
+\end{align}
 means that the program $\branch{b}{f}{g}$ ends well if its precondition $\alpha$ implies the branch condition $b$ and the expression $f$ ends well. It is dual to the rule
-\begin{align*}
+\begin{align}
     \inferrule
     {b\in \bexp\\\alpha\in \Atom \\ \alpha \Rightarrow \bar{b} \\ g\uparrow \alpha }
     {\branch{b}{f}{g}\uparrow \alpha}.    
-\end{align*}
+\end{align}
 The following rule
-\begin{align*}
+\begin{align}
     \inferrule
     {b\in \bexp\\\alpha\in \Atom \\p\in \Sigma \\\alpha \Rightarrow b \\ f\xrightarrow{\alpha|p}f' }
     {\branch{b}{f}{g}\xrightarrow{\alpha|p} f'}
-\end{align*}
+\end{align}
 states that the program $\branch{b}{f}{g}$ continues by executing the action $p$ if the precondition $\alpha$ satisfies the branch guard $b$, and the program $f$ continues by executing the action $p$. The dual of this rule is 
-\begin{align*}
+\begin{align}
     \inferrule
     {b\in \bexp\\\alpha\in \Atom \\p\in \Sigma\\ \alpha \Rightarrow \bar{b} \\ g\xrightarrow{\alpha|p}g' }
     {\branch{b}{f}{g}\xrightarrow{\alpha|p} f'}.    
-\end{align*}
+\end{align}
 
 The following four rules describe the behaviour of composite expressions. The rule
-\begin{align*}
+\begin{align}
     \inferrule
     {f\Rightarrow \alpha\\ g\Rightarrow \alpha }
     {f\cdot g\uparrow \alpha}    
-\end{align*}
+\end{align}
 states that if $f$ would terminate well given $\alpha$ and $g$ would terminate well given $\alpha$, then $f\cdot g$ terminates well given $\alpha$. The next rule is similar, 
-\begin{align*}
+\begin{align}
+    \label{eq:SideChannels:EndFst}
     \inferrule
     {f\Rightarrow \alpha\\ g\xrightarrow{\alpha|p} g' }
     {f\cdot g\xrightarrow{\alpha|p} g'}    
-\end{align*}
+\end{align}
 means that $f$ would terminate well given $\alpha$ and $g$ continues by executing $p$ given $\alpha$, then $f\cdot g$ continues by executing $p$ given $\alpha$, and then continues with the execution of $g'$.
 
 The rule
-\begin{align*}
+\begin{align}
     \inferrule
     {f\xrightarrow{\alpha|p} f' }
     {f\cdot g\xrightarrow{\alpha|p} f'\cdot g}    
-\end{align*}
+\end{align}
 means that if $f$ continues by executing $p$ given $\alpha$, then $f\cdot g$ continues by executing $p$ given $\alpha$ and then continue with the execution of $f'$, delaying $g$.
 
 The rule 
-\begin{align*}
+\begin{align}
     \inferrule
     {f\xrightarrow{\alpha|p} f' }
     {f\cdot g\xrightarrow{\alpha|p} f'\cdot g}    
-\end{align*}
+\end{align}
 means that if $f$ continues by executing $p$ given $\alpha$, then $f\cdot g$ continues by executing $p$ given $\alpha$ and then continue with the execution of $f'$, delaying $g$.
 
 The last two rules address the evolution of loops. The rule
-\begin{align*}
+\begin{align}
     \inferrule
     {b\in \bexp \\\alpha \Rightarrow b \\ f\xrightarrow{\alpha|p}f'}
     {\iterate{b}{f}\xrightarrow{\alpha|p}f'\cdot \iterate{b}{f}}    
-\end{align*}
+\end{align}
 states that if $f$ continues by executing $p$ given $\alpha$, and $\alpha$ satisfies the loop condition $b$, then $\iterate{b}{f}$ continues by executing $p$ given $\alpha$ to then continue with the execution of $f'$, delaying a new iteration $\iterate{b}{f}$.
 
 Finally, the rule 
-\begin{align*}
+\begin{align}
     \inferrule
     {b\in \bexp \\\alpha \Rightarrow \bar{b} }
     {\iterate{b}{f}\uparrow \alpha}    
-\end{align*}
+\end{align}
 means that the program $\iterate{b}{f}$ finishes correctly given $\alpha$ if $\alpha$ implies the negation of the loop condition $b$. 
 
 We conclude this exposition by stating that if an expression $e\in \mathscr{e}$ does not satisfy any of the inference rules presented above, then $e\downarrow \alpha$ for $\alpha\in \Atom$; i.e., $e$ terminates badly unconditionally. 
 
 \subsection{Transforming GKAT expressions}
-Now that we have a dynamics function that defines how GKAT expressions evolve during computations, we enforce TSCF by applying a spatial transformations which implement the branch predication, loop unrolling and the read and write ORIGAMI rules. 
+Now that we have a dynamics function that defines how GKAT expressions evolve during computations in the forme of the $G$-coalgebra $(\mathscr{E},\delta)$, we enforce TSCF by applying a spatial transformations which implement the branch predication, loop unrolling and the read and write ORIGAMI rules. 
 
-The branch predication rule $\mathscr{B}\colon \mathscr{E}\rightarrow \mathscr{E}$ maps $\branch{b}{(x:=e_1)}{(x:=e_2)}$ to $x:=\textbf{sel}(b,e_1,e_2)$; this causes a change of dynamics from
+\paragraph{Branch Predication.} The branch predication rule $\mathscr{B}\colon \mathscr{E}\rightarrow \mathscr{E}$ maps $\branch{b}{(x:=e_1)}{(x:=e_2)}$ to $x:=\textbf{sel}(b,e_1,e_2)$; this causes a change of dynamics from
 \begin{align*}
     \delta(\branch{b}{(x:=e_1)}{(x:=e_2)})(\alpha)=
     \begin{cases}
@@ -850,42 +851,91 @@ to
 \end{align*}
 The functional semantics are preserved if $\iota_2(x:=e_1,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $b$, and if $\iota_2(x:=e_2,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $\bar{b}$; fortunately, those two equalities describe the semantics of the action $x:=\textbf{sel}(b,e_1,e_2)$, so the functionality of the program $\branch{b}{(x:=e_1)}{(x:=e_2)}$ is not affected by the transformation rule $\mathscr{B}$. By applying $\mathscr{B}$, we remove the problematic branch while preserving the functional semantics.
 
-The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ transforms $\iterate{b}{e}$ into $\underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times}$, where $k$ is the maximum number of iterations of the loop. The functional semantics are preserved; by combining the guarded loop axiom $\iterate{b}{(\branch{c}{e}{1})}\equiv \iterate{b}{(ce)}$ (see~\cite[Figure 1, W2]{GKAT}) and the guarded iteration fact $\iterate{b}{(be)}\equiv \iterate{b}{e}$ (see~\cite[Figure 2, W4']{GKAT}) we obtain $\iterate{b}{(\branch{b}{e}{1})}\equiv \iterate{b}{e}$. If we are sure that the loop iterates at most $k$ times, then $\delta(\iterate{b}{e})=\delta(\mathscr{L}(\iterate{b}{e}))$. More precisely, for $0\leq j\leq k$, if $\bar{b}$ is true after $j$ iterations, the program $\branch{b}{e}{1}$ is equivalent to $1$, and it does not alter the result of the computation; however, if $k$ is poorly computed, and $b$ holds after $k$ iterations, then the semantics of $\iterate{b}{e}$ and $\mathscr{L}(\iterate{b}{e})$ are no longer equal in general.
+\paragraph{Loop Unrolling.} The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ transforms $\iterate{b}{e}$ into the GKAT expression 
+\begin{align*}
+    \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times},
+\end{align*}
+where $k$ is the maximum number of iterations of the loop. The transformation $\mathscr{L}$ preserves functional semantics under an assumption: by combining the guarded loop axiom $\iterate{b}{(\branch{c}{e}{1})}\equiv \iterate{b}{(ce)}$ (see~\cite[Figure 1, W2]{GKAT}) and the guarded iteration fact $\iterate{b}{(be)}\equiv \iterate{b}{e}$ (see~\cite[Figure 2, W4']{GKAT}), we obtain $\iterate{b}{(\branch{b}{e}{1})}\equiv \iterate{b}{e}$, which we unfold $k$ times into 
+\begin{align*}
+    \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times},
+\end{align*}
+under the assumption that the loop iterates at most $k$ times. Only if the assumption that the loop iterates at most $k$ times is satisfied, then $\delta(\iterate{b}{e})=\delta(\mathscr{L}(\iterate{b}{e}))$. More precisely, for $0\leq j\leq k$, if $\bar{b}$ is true after $j$ iterations, the program $\branch{b}{e}{1}$ is equivalent to $1$, and it does not alter the result of the computation; however, if $k$ is poorly computed, and $b$ holds after $k$ iterations, then the semantics of $\iterate{b}{e}$ and $\mathscr{L}(\iterate{b}{e})$ are no longer equal in general.
 
 The ORIGAMI read and write rules $\mathscr{O}\colon \mathscr{E}\rightarrow \mathscr{E}$ map $x:=A[s]$ and $A[s]:=x$ respectively to $\mathscr{O}(x:=A[s])$ and $\mathscr{O}(A[s]:=x)$ following the definitions in Section~\ref{sec:SideChannels:OrigamiRules}. To prove that $\mathscr{O}$ preserves the functional semantics, we need to show both that $\delta(A[s]:=x)= \delta(\mathscr{O}(A[s]:=x))$ and that $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$.
 
-Recall that
+
+\paragraph{ORIGAMI read rule.} Recall that
 \begin{align*}
+    \delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)\\
+    %\delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)
+    \delta(\mathscr{O}(x:=A[s]))(\alpha)&=\iota_2(x:=\textbf{sel}(s=0,A[0],x),e')
+\end{align*}
+where $e'$ is the rest of the expression; i.e., 
+\begin{align*}
+    e'=x:=\textbf{sel}(s=1,A[1],x)\cdot\ldots \cdot x:=\textbf{sel}(s=n,A[n],x).
+\end{align*}
+The equality $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$ is not obvious at first, since we are introducing more actions during repair. We must consider the concrete semantics of actions now, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$.
+
+Let us now define the GKAT expression $\textbf{rFold}(x,A,s,i..n))$, for $0\leq i\leq n$, by
+\begin{align*}
+    \textbf{rFold}(x,A,s,i..n)\triangleq&
+    x:=\textbf{sel}(s=i,A[i],x)\cdot\\
+    %(\branch{(s=i)}{(x:=A[i])}{1})\cdot \\
+    %&(\branch{(s=i+1)}{(x:=A[i+1])}{1})\cdot 
+    &x:=\textbf{sel}(s=i+1,A[i+1],x)\cdot\\
+    &\ldots \cdot \\
+    &x:=\textbf{sel}(s=n,A[n],x).
+    %&(\branch{(s=n)}{(x:=A[n])}{1}).
+\end{align*}
+We now define the equivalence 
+\begin{align*}
+    x:=A[s]&\equiv \textbf{rFold}(x,A,s,0..n),
+\end{align*}
+which is justified since, for $\alpha \in \Atom$ and $0\leq i\leq n$, 
+\begin{align*}
+    \delta(\textbf{rFold}(x,A,s,i..n))(\alpha)=
+    \begin{cases}
+        \iota_2(x:=A[i],\textbf{rFold}(x,A,s,i+1..n)),&\quad\text{if $\alpha \Rightarrow s=i$},\\
+        \iota_2(1,\textbf{rFold}(x,A,s,i+1..n)),&\quad\text{otherwise}.
+    \end{cases}
+\end{align*}
+If $\alpha \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=A[i]$, which is equal to $x:=A[s]$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $1$, and by the inference rule in Equation~\ref{eq:SideChannels:EndFst}, we know that $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$; i.e., $\delta(e)(\alpha)$ skips trivial actions. Since at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied for $0\leq i\leq n$, the next action of $\textbf{rFold}(x,A,s,i..n)$ is either $x:=A[i]$ or an extreme case when $s<0$ or $s>n$, which causes $\textbf{rFold}(x,A,s,i..n)$ to terminate well.% Finally, for all $\alpha\in \Atom$, 
+
+In the extreme case when $s<0$ or $s>n$, the semantics of $x:=A[s]$ is normally undefined; however, the semantics of $\textbf{rFold}(x,A,s,0..n)$ is to simply terminate well. Therefore, the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ is only sound with respect to functionality if the equivalence $x:=A[s]\equiv 1$ is valid when $s<0$ or $s>n$; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations}.
+
+\paragraph{ORIGAMI write rule.} Similarly to the write rule, we have
+\begin{align*} 
     \delta(A[s]:=x)(\alpha)&=\iota_2(A[s]:=x,1)\\
     %\delta(x:=A[s])(\alpha)&=\iota_2(x:=A[s],1)
-\end{align*}
-while
-\begin{align*}
-    \delta(\mathscr{O}(A[s]:=x))(\alpha)=\iota_2(A[0]:=\textbf{sel}(s=0,x,A[0]),e')
+    \delta(\mathscr{O}(A[s]:=x))(\alpha)&=\iota_2(A[0]:=\textbf{sel}(s=0,x,A[0]),e')
 \end{align*}
 where $e'$ is the rest of the expression; i.e., 
 \begin{align*}
     e'=A[1]:=\textbf{sel}(s=1,x,A[1])\cdot\ldots \cdot A[n]:=\textbf{sel}(s=n,x,A[n]).
 \end{align*}
-However, just like the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{x:=e_1}{x:=e_2}$, we define the equivalence 
+% The equality $\delta(A[s]:=x)=\delta(\mathscr{O}(A[s]:=x))$ is not obvious at first, since we are introducing more actions during repair. 
+% We must consider the concrete semantics of actions now, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$.
+
+We define another GKAT expression $\textbf{wFold}(x,A,s,i..n))$, for $0\leq i\leq n$, by
 \begin{align*}
-    x:=A[s]&\equiv \textbf{switch}(x,A,s,0..n),\quad \text{where}\\
-    \textbf{switch}(x,A,s,0..n)&\triangleq(\branch{(s=0)}{(x:=A[0])}{1})\cdot (\branch{(s=1)}{(x:=A[1])}{1})\cdot \ldots \cdot (\branch{s=n}{x:=A[n]}{1}).
+    \textbf{wFold}(x,A,s,i..n)\triangleq&(\branch{(s=i)}{(A[i]:=x)}{1})\cdot \\
+    &(\branch{(s=i+1)}{(A[i+1]:=x)}{1})\cdot 
+    \\&
+    \ldots \cdot \\
+    &(\branch{s=n}{A[n]:=x}{1}).
 \end{align*}
-This equivalence is justified since, for $\alpha \in \Atom$, 
+We now define the equivalence 
 \begin{align*}
-    \delta(\textbf{switch}(x,A,s,0..n))(\alpha)=
+    A[s]:=x&\equiv \textbf{wFold}(x,A,s,0..n),
+\end{align*}
+which is again justified since, for $\alpha \in \Atom$ and $0\leq i\leq n$,
+\begin{align*}
+    \delta(\textbf{wFold}(x,A,s,i..n))(\alpha)=
     \begin{cases}
-        \iota_2(x:=A[0],\textbf{switch}(x,A,s,1..n)),&\quad\text{if $\alpha \Rightarrow s=0$},\\
-        \iota_2(1,\textbf{switch}(x,A,s,1..n)),&\quad\text{otherwise};
+        \iota_2(A[i]:=x,\textbf{wFold}(x,A,s,i+1..n)),&\quad\text{if $\alpha \Rightarrow s=i$},\\
+        \iota_2(1,\textbf{wFold}(x,A,s,i+1..n)),&\quad\text{otherwise};
     \end{cases}
 \end{align*}
-moreover, for all $\alpha\in \Atom$, at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied, for $0\leq i\leq n$. In the extreme cases when $s<0$ or $s>n$, the semantics of $x:=A[s]$ is normally undefined; however, the semantics of $\textbf{switch}(x,A,s,0..n)$ is always defined. Therefore, the equivalence $x:=A[s]\equiv \textbf{switch}(x,A,s,0..n)$ is only sound with respect to functionality if the equivalence $x:=A[s]\equiv 1$ is valid when $s<0$ or $s>n$; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations}.
-
-\todo[inline]{Finish the equivalences and justify }
-
-
-
 % \begin{align*}
 %     \delta(\iterate{b}{e})(\alpha)=
 %     \begin{cases}
@@ -903,9 +953,8 @@ moreover, for all $\alpha\in \Atom$, at most one of the conditions $\alpha \Righ
 % \end{align*}
 
 
-The final spatial transformation that implements the repair for TSCF under the MAP model is the composition $\mathscr{O}\circ \mathscr{B}\circ \mathscr{L}$; we first unfold loops, then we predicate branches, and finally we replace dangerous accesses to data structures by folding them using ORIGAMI. 
+In summary, the final spatial transformation that implements the repair for TSCF under the MAP model is the composition $\mathscr{O}\circ \mathscr{B}\circ \mathscr{L}$; we first unfold loops, then we predicate branches, and finally we replace dangerous accesses to data structures by switching over the indices of the data structure or by folding the data structure using ORIGAMI. 
 
-\todo[inline]{We can now transform programs, but preserving their semantics! Yahoo!} 
 % \begin{align*}
 %     \inferrule
 %     {one \\ two \\ three \\ or \\ more \\ premisses}
@@ -969,11 +1018,11 @@ The final spatial transformation that implements the repair for TSCF under the M
 
 % Given a function $\phi \in \sigma F$, 
 
-\todo[inline]{Finish the transformations}
+% \todo[inline]{Finish the transformations}
 
-There are other potential vulnerabilities that leak information. If $s$ is a secret and a pointer, then it is safe to assume that accessing it reveal the value of $s$. While $A[s]$ can be considered a pointer, it is given a context by the data structure $A$; for an arbitrary secret pointer $s$, we would need to generate a memory access pattern that is equal for all possible values of $s$. ORIGAMI only solves the problem in the context of a data structure, which is why the loading of arbitrary pointers is a vulnerability that ORIGAMI does not solve. 
+% There are other potential vulnerabilities that leak information. If $s$ is a secret and a pointer, then it is safe to assume that accessing it reveal the value of $s$. While $A[s]$ can be considered a pointer, it is given a context by the data structure $A$; for an arbitrary secret pointer $s$, we would need to generate a memory access pattern that is equal for all possible values of $s$. ORIGAMI only solves the problem in the context of a data structure, which is why the loading of arbitrary pointers is a vulnerability that ORIGAMI does not solve. 
 
-\todo[inline]{why would some loose pointer be a secret though? Maybe a location of a secret function?}
+% \todo[inline]{why would some loose pointer be a secret though? Maybe a location of a secret function?}
 
 % The ORIGAMI rules are functions that take a GKAT expression as an input and produce a GKAT expression as an output. We model the ORIGAMI rules as endofunctions in the set $\mathcal{E}$ of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}, which is a coalgebraic specification language itself. 
 
