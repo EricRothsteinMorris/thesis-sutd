@@ -8,7 +8,8 @@
 
 \section{Introduction}
 \label{sec:introduction} 
-We now consider a scenario where we are applying a spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
+\todo[inline]{This chapter is not so connected; we do no longer to integrity but confidentiality, and we modify the behaviour of programs by changing them, but we do not modify their functionality, so that's how we connect with LBA...}
+We now consider a scenario where we are applying spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
 \todo[inline]{Not very convinced about this motivation...}
 
 % \todo[inline]{Candidate conferences: FM 2021 (abs 30 apr/6 may), CSF 2022 (may 14)}
@@ -488,15 +489,22 @@ The semantics of the language is standard, and we omit the details since they ar
 \label{sec:SideChannels:OrigamiRules}
 It is impossible to repair programs that are not TSCF with traditional GKAT rules. Since GKAT rules preserve semantics, non-TSCF expressions are never transformed into TSCF expressions via these rules. 
 %when the semantics of a GKAT expression is a non-TSCF language of GSs, then no matter how we transform the GKAT expression using GKAT rules, the semantics of the resulting GKAT expression is the same as the original GKAT expression. 
-Thus, for the purposes of enforcing TSCF, we assume two equivalences between actions and GKAT expressions: the \emph{read equivalence} $(y:=A[x])\equiv\ \mathscr{O}(y:=A[x])$ and the \emph{write equivalence} $(A[x]:=y)\equiv\ \mathscr{O}(A[x]:=y)$, where 
+Thus, for the purposes of enforcing TSCF, we require two functional equivalences between actions and GKAT expressions: the \emph{read equivalence} $(y:=A[x])\equiv\ \mathscr{O}(y:=A[x])$ and the \emph{write equivalence} $(A[x]:=y)\equiv\ \mathscr{O}(A[x]:=y)$, where 
 %To justify the soundness of the following repair rules,  one that lets us prove the soundness of the ORIGAMI rule $(y:=A[x])\leadsto\ \mathscr{O}(y:=A[x])$, 
+% \begin{align*}
+%     \mathscr{O}(y:=A[x])\triangleq\  
+%     &acc:=\sel(x=0,A[0],acc)\cdot \\
+%     &acc:=\sel(x=1,A[1],acc)\cdot \\
+%     &\ldots\\
+%     &acc:=\sel(x=n,A[n],acc)\cdot \\
+%     &y:=acc,
+% \end{align*} and 
 \begin{align*}
     \mathscr{O}(y:=A[x])\triangleq\  
-    &acc:=\sel(x=0,A[0],acc)\cdot \\
-    &acc:=\sel(x=1,A[1],acc)\cdot \\
+    &y:=\sel(x=0,A[0],y)\cdot \\
+    &y:=\sel(x=1,A[1],y)\cdot \\
     &\ldots\\
-    &acc:=\sel(x=n,A[n],acc)\cdot \\
-    &y:=acc,
+    &y:=\sel(x=n,A[n],y)
 \end{align*} and 
 \begin{align*}
     \mathscr{O}(A[x]:=y)\triangleq\  
@@ -513,8 +521,7 @@ and the \emph{write ORIGAMI rule} is
 \begin{align}
     (A[x]:=y)\leadsto\ \mathscr{O}(A[x]:=y).
 \end{align}
-
-Functionally, these read and write rules are sound: $\mathscr{O}(y:=A[x])$ implements an iteration over $A$, loading every value $A[i]$ but only storing it in $acc$ if $i=x$, and $\mathscr{O}(A[x]:=y)$ also implements an iteration, which loads $A[i]$ and stores it back at $A[i]$ if $i\neq x$, or loads $A[i]$ but stores $y$ otherwise.
+Intuitively, the read and write rules are sound: $\mathscr{O}(y:=A[x])$ implements an iteration over $A$, loading every value $A[i]$ but only storing it in $y$ if $i=x$; the program $\mathscr{O}(A[x]:=y)$ also implements an iteration, which loads $A[i]$ and stores it back at $A[i]$ if $i\neq x$, or loads $A[i]$ but stores $y$ instead when $i=x$. We provide stronger arguments for the soundness of these rules in Section~\ref{sec:SideChannels:SpatialTransformations}.
 
 We now provide an argument for why these rules are sound with respect to TSCF. We assume that $0\leq x \leq n$, which we consider a reasonable assumption since in many languages the semantics of the expression $A[x]$ where $x>n$ is undefined or triggers an exception. 
 % For the read equivalence, independently of the original value of $acc$, the action $acc:=\sel(x=i,A[i],acc)$ works as an identity over $acc$, i.e., $sel(x=i,A[i],acc)=acc$, if and only if $x\neq i$; since $0\leq x \leq n$, there is one and only one index $i$ for which $sel(x=i,A[i],acc)=A[i]$, i.e., when $x=i$. Thus, $acc$ preserves its initial value until $x=i$, when it gets updated to $A[x]$; this new value is preserved until the end of the execution, since we do not update the value of $x$ through the expression. 
@@ -644,7 +651,7 @@ Neither predication nor unrolling repair programs with respect to the MAP leakag
 
 \paragraph*{Vulnerable to OS Leakage} Since the MAP leakage model is weaker than the OS leakage model, ORIGAMI does not repair timing side-channel vulnerabilities that arise by the use of operations whose execution time varies depending on their parameters. We only repair leakage that occurs due to accesses to data structures using secret indices.
 
-\subsection{Limitations of ORIGAMI}
+\section{Limitations of ORIGAMI}
 \label{sec:SideChannels:Limitations}
 There are a couple of limitations and side effects to applying the ORIGAMI rules. 
 
@@ -652,31 +659,45 @@ There are a couple of limitations and side effects to applying the ORIGAMI rules
 
 \paragraph*{Secret Data Structure Sizes} The MAP of $\mathscr{O}(y:=A[x])$ and of $\mathscr{O}(A[x]:=y)$ depends on the size of $A$. This adds a caveat for using ORIGAMI to enforce TSCF under MAP: the size of data structures indexed by secrets must be public, since the size of $A$ can be inferred via timing. We believe this caveat is acceptable, since several cryptographic algorithms fix the size of the data structures that hold secrets (e.g. AES has key sizes 128, 192 or 256 bits). We also believe this case is dual to trying to repair a loop by unrolling it if the loop bound depends on an unbounded secret: it is impossible to repair without compromising its functionality\cite{SCEliminator,MSESC}.
 
-\paragraph*{Out-of-bounds Accesses} As a side-effect of applying the ORIGAMI rules, accessing a data structure $A$ of size $n$ using a sensitive index $x$ such that $x>n$ no longer results in a runtime error. The repaired version of $y:=A[x]$ simply sets $y$ to the initial value of the accumulator $acc$ if $x>n$. Similarly, a repaired version of $A[x]:=y$ where $x>n$ never stores $y$; it simply loads all $A[i]$ and writes them back. Consequently, these new behaviours leak to the attacker the information $x>n$, assuming that $n$ is public. This limitation is arguably artificial, since the original program possibly also leaks this information through a runtime error.
+\paragraph*{Out-of-bounds Accesses} As a side-effect of applying the ORIGAMI rules, accessing a data structure $A$ of size $n$ using a sensitive index $x$ such that $x>n$ no longer results in a runtime error. The repaired version of $y:=A[x]$ simply casues $y$ to keep its current value if $x>n$. Similarly, a repaired version of $A[x]:=y$ where $x>n$ never stores $y$; it simply loads all $A[i]$ and writes them back. Consequently, these new behaviours leak to the attacker the information $x>n$, assuming that $n$ is public. This limitation is arguably artificial, since the original program possibly also leaks this information through a runtime error.
 
 \paragraph*{Vulnerabilities Beyond MAP} As we previously stated, ORIGAMI does not offer security guarantees for programs that are vulnerable due to speculative execution or that are vulnerable in the OS leakage model, since these have leakage and attacker models that are beyond the scope of this work.
 % and we focused on protecting the value of the secret when it is leaked via timing under the MAP leakage model, not via runtime errors.
 
 % \todo[inline]{Probably the most important section, where we blame the parts we could not do to the general problem of enforcement. Pointers CANNOT be secrets, since their value leaks when you read them from memory. Structures whose values are pointers can be folded, but the value of the secret (i.e., the pointer) leaks once we resolve the pointer and load the pointee in memory.}
 
-\subsection{Multidimensional ORIGAMI}
+\section{Multidimensional ORIGAMI}
 So far, we presented and illustrated ORIGAMI using array-like data structures $A$ of fixed size $n$. However, ORIGAMI can be applied to repair programs that use any iterable structure of fixed size. These data structures include, e.g., C structures and multidimensional arrays. 
 
 For example, we can apply ORIGAMI to a fixed-size multidimensional structure $A$ of size $(n+1)\times (m+1)$ by systematically folding all of its $(n+1)\times (m+1)$ elements. More precisely, to repair $y:=A[i][j]$, we compute
+% \begin{align*}
+%     \mathscr{O}(y:=A[i][j])\triangleq\  
+%     &acc:=\sel(i=0\land j=0,A[0][0],acc)\cdot \\
+%     &acc:=\sel(i=0\land j=1,A[0][1],acc)\cdot \\
+%     &\ldots\\
+%     &acc:=\sel(i=0\land j=m,A[0][m],acc)\cdot \\
+%     &acc:=\sel(i=1\land j=0,A[1][0],acc)\cdot \\
+%     &\ldots\\
+%     &acc:=\sel(i=1\land j=m,A[1][m],acc)\cdot \\
+%     &\ldots\\
+%     % &acc:=\sel(i=n\land j=0,A[n][0],acc)\cdot \\
+%     % &\ldots\\
+%     &acc:=\sel(i=n\land j=m,A[n][m],acc)\cdot \\
+%     &y:=acc.
+% \end{align*}
 \begin{align*}
     \mathscr{O}(y:=A[i][j])\triangleq\  
-    &acc:=\sel(i=0\land j=0,A[0][0],acc)\cdot \\
-    &acc:=\sel(i=0\land j=1,A[0][1],acc)\cdot \\
+    &y:=\sel(i=0\land j=0,A[0][0],y)\cdot \\
+    &y:=\sel(i=0\land j=1,A[0][1],y)\cdot \\
     &\ldots\\
-    &acc:=\sel(i=0\land j=m,A[0][m],acc)\cdot \\
-    &acc:=\sel(i=1\land j=0,A[1][0],acc)\cdot \\
+    &y:=\sel(i=0\land j=m,A[0][m],y)\cdot \\
+    &y:=\sel(i=1\land j=0,A[1][0],y)\cdot \\
     &\ldots\\
-    &acc:=\sel(i=1\land j=m,A[1][m],acc)\cdot \\
+    &y:=\sel(i=1\land j=m,A[1][m],y)\cdot \\
     &\ldots\\
-    % &acc:=\sel(i=n\land j=0,A[n][0],acc)\cdot \\
+    % &y:=\sel(i=n\land j=0,A[n][0],y)\cdot \\
     % &\ldots\\
-    &acc:=\sel(i=n\land j=m,A[n][m],acc)\cdot \\
-    &y:=acc.
+    &y:=\sel(i=n\land j=m,A[n][m],y).
 \end{align*}
 Similarly, to repair $A[i][j]:=y$, we compute
 \begin{align*}
@@ -697,15 +718,23 @@ Similarly, to repair $A[i][j]:=y$, we compute
 For higher dimensions the ORIGAMI rules extend similarly, and they can be customised if some indices are secrets and some are not. Informally, we only need to fold those indices that hold secrets, e.g., if a read access $y:=A[i][k]$ uses a secret $i$ and a public value $k$, it suffices to fold as follows: 
 \begin{align*}
     \mathscr{O}(y:=A[i][k])\triangleq\  
-    &acc:=\sel(i=0,A[0][k],acc)\cdot \\
-    &acc:=\sel(i=1,A[1][k],acc)\cdot \\
+    &y:=\sel(i=0,A[0][k],y)\cdot \\
+    &y:=\sel(i=1,A[1][k],y)\cdot \\
     &\ldots\\
-    &acc:=\sel(i=n,A[n][k],acc)\cdot \\
-    &y:=acc.
+    &y:=\sel(i=n,A[n][k],y)%\cdot \\
+    %&y:=acc.
 \end{align*}
+% \begin{align*}
+%     \mathscr{O}(y:=A[i][k])\triangleq\  
+%     &acc:=\sel(i=0,A[0][k],acc)\cdot \\
+%     &acc:=\sel(i=1,A[1][k],acc)\cdot \\
+%     &\ldots\\
+%     &acc:=\sel(i=n,A[n][k],acc)\cdot \\
+%     &y:=acc.
+% \end{align*}
 We can use the index $k$ directly because it is public, i.e., if it leaks via the cache, the attacker does not learn any new information about the secret $i$.
 
-\subsection{ORIGAMI Rules as Spatial Transformations}
+\section{ORIGAMI Rules as Spatial Transformations}
 The MAP leakage model is rather strict, and it can be summarised as the following set of leakage assumptions:
 \begin{itemize}
     \item for any expression of the form $\branch{b}{e_1}{e_2}$, we assume that it leaks information if $b$ depends on a secret,
@@ -836,6 +865,7 @@ means that the program $\iterate{b}{f}$ finishes correctly given $\alpha$ if $\a
 We conclude this exposition by stating that if an expression $e\in \mathscr{e}$ does not satisfy any of the inference rules presented above, then $e$ terminates badly for all $\alpha\in \Atom$; i.e., $\delta(e)(\alpha)=\iota_1(0)$. 
 
 \subsection{Transforming GKAT expressions to enforce TSCF}
+\label{sec:SideChannels:SpatialTransformations}
 Now that we have a dynamics function that defines how GKAT expressions evolve during computations in the form of the $G$-coalgebra $(\mathscr{E},\delta)$, we enforce TSCF by applying a spatial transformations which implement the branch predication, loop unrolling and the read and write ORIGAMI rules. Through this section, we assume that the equivalence $(v:=v)\equiv 1$ is valid for all $v\in\Variable$.
 
 \paragraph{Branch Predication.} The branch predication rule $\mathscr{B}\colon \mathscr{E}\rightarrow \mathscr{E}$ maps $\branch{b}{(x:=e_1)}{(x:=e_2)}$ to $x:=\textbf{sel}(b,e_1,e_2)$; this causes a change of dynamics from
@@ -887,7 +917,7 @@ The ORIGAMI read and write rules $\mathscr{O}\colon \mathscr{E}\rightarrow \math
 % \begin{align*}
 %     e'=x:=\textbf{sel}(s=1,A[1],x)\cdot\ldots \cdot x:=\textbf{sel}(s=n,A[n],x).
 % \end{align*}
-The equality $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$ is not obvious at first, since we are introducing more actions when we apply $\mathscr{O}$. We must consider the concrete semantics of actions again, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$ for the branch predication rule. We define the GKAT expression $\textbf{rFold}(x,A,s,i..n)$, for $0\leq i\leq n$, by
+We define the GKAT expression $\textbf{rFold}(x,A,s,i..n)$, for $0\leq i\leq n$, by
 \begin{align*}
     \textbf{rFold}(x,A,s,i..n)\triangleq&
     x:=\textbf{sel}(s=i,A[i],x)\cdot\\
@@ -900,11 +930,13 @@ The equality $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$ is not obvious at fi
 \end{align*}
 Our goal now is to justify the equivalence 
 \begin{align*}
-    x:=A[s]&\equiv \textbf{rFold}(x,A,s,0..n).
+    x:=A[s]&\equiv \mathscr{O}(x:=A[s])\\
+    &\equiv \textbf{rFold}(x,A,s,0..n).
 \end{align*}
 by means of coinduction; i.e., by showing for $\alpha \in \Atom$ that $\delta(\textbf{rFold}(x,A,s,i..n))(\alpha)=\delta(x:=A[s])(\alpha)$. 
+The equality $\delta(x:=A[s])=\delta(\textbf{rFold}(x,A,s,0..n))$ is not obvious at first, since we are introducing more actions when we apply $\mathscr{O}$. We must consider the concrete semantics of actions again, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$ for the branch predication rule. 
 
-For $\alpha \in \Atom$ and $0\leq i\leq n$, we have two cases: when $\alpha \Rightarrow s=i$ and when $\alpha \not\Rightarrow s=i$. If $\alpha \Rightarrow s=i$ then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=A[s]$ since $s=i$ given $\alpha$. If $\alpha \not \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=x$ and to 1. Now, by the inference rule in Equation~\ref{eq:SideChannels:EndFst}, we know that $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$; i.e., $\delta(e)(\alpha)$ skips trivial actions. Now, at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied; for such an index $i$, the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=A[i]$. In the case when no condition $\alpha \Rightarrow s=i$ is satisfied, i.e. when $s<0$ or $s>n$, the program $\textbf{rFold}(x,A,s,i..n)$ simply terminates well. The semantics of $x:=A[s]$ is normally undefined when $s<0$ or $s>n$, unlike the semantics of $\textbf{rFold}(x,A,s,0..n)$ to terminate well. Therefore, we must assume the equivalence $x:=A[s]\equiv 1$ when $s<0$ or $s>n$ for the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ to be sound with respect to functionality; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations} (we cannot assume $x:=A[s]\equiv 1$ for C/C++ programs during out-of-bounds accesses, which is why ORIGAMI has this limitation).
+For $\alpha \in \Atom$ and $0\leq i\leq n$, we have two cases: when $\alpha \Rightarrow s=i$ and when $\alpha \not\Rightarrow s=i$. If $\alpha \Rightarrow s=i$ then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=A[s]$ since $s=i$ given $\alpha$. If $\alpha \not \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=x$ and to 1. Now, by the inference rule in Equation~\ref{eq:SideChannels:EndFst}, we know that $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$; i.e., $\delta(e)(\alpha)$ skips trivial actions. Now, at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied; for such an index $i$, the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=A[i]$. In the case when no condition $\alpha \Rightarrow s=i$ is satisfied, i.e. when $s<0$ or $s>n$, the program $\textbf{rFold}(x,A,s,i..n)$ simply terminates well. The semantics of $x:=A[s]$ is normally undefined when $s<0$ or $s>n$, unlike the semantics of $\textbf{rFold}(x,A,s,0..n)$ to terminate well. Therefore, we must assume the equivalence $x:=A[s]\equiv 1$ when $s<0$ or $s>n$ for the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ to be sound with respect to functionality; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations} (we cannot assume $x:=A[s]\equiv 1$ for C/C++ programs during out-of-bounds accesses, which is why the ORIGAMI tool has this limitation).
 
 In summary, we have shown that for $\alpha \in \Atom$, 
 \begin{align*}
@@ -918,9 +950,9 @@ and
 \begin{align*}
     \delta(x:=A[s])(\alpha)= \iota_2(x:=A[s],1)
 \end{align*}
-describe the same dynamics, which is why we believe the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ is justified.
+describe the same dynamics, which is why we believe the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ is justified. If $x:=A[s]$ is equivalent to $\textbf{rFold}(x,A,s,0..n)$, and $\mathscr{O}(x:=A[s])=\textbf{rFold}(x,A,s,0..n)$, we conclude that $\mathscr{O}$ does not affect the functionality of the action $x:=A[s]$.
 
-\paragraph{ORIGAMI write rule.} Similarly to the read rule, to prove the equality $\delta(A[s]:=x)=\delta(\mathscr{O}(x:=A[s]))$, 
+\paragraph{ORIGAMI write rule.} 
 % we have
 % \begin{align*} 
 %     \delta(A[s]:=x)(\alpha)&=\iota_2(A[s]:=x,1)\\
@@ -933,48 +965,42 @@ describe the same dynamics, which is why we believe the equivalence $x:=A[s]\equ
 % \end{align*}
 % The equality $\delta(A[s]:=x)=\delta(\mathscr{O}(A[s]:=x))$ is not obvious at first, since we are introducing more actions during repair. 
 % We must consider the concrete semantics of actions now, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$.
-we define another GKAT expression $\textbf{wFold}(x,A,s,i..n))$, for $0\leq i\leq n$, by
+Consider the GKAT expression $\textbf{wFold}(x,A,s,i..n))$, defined for $0\leq i\leq n$ by
 \begin{align*}
-    \textbf{wFold}(x,A,s,i..n)\triangleq&(\branch{(s=i)}{(A[i]:=x)}{1})\cdot \\
-    &(\branch{(s=i+1)}{(A[i+1]:=x)}{1})\cdot 
-    \\&
-    \ldots \cdot \\
-    &(\branch{s=n}{A[n]:=x}{1}).
+    \textbf{wFold}(x,A,s,i..n)\triangleq
+    &A[i]:=\textbf{sel}(s=i,x,A[i])\cdot\\
+    %(\branch{(s=i)}{(x:=A[i])}{1})\cdot \\
+    %&(\branch{(s=i+1)}{(x:=A[i+1])}{1})\cdot 
+    &A[i+1]:=\textbf{sel}(s=i+1,x,A[i+1])\cdot\\
+    &\ldots\\
+    &A[n]:=\textbf{sel}(s=n,x,A[n]).
+    %&(\branch{(s=n)}{(x:=A[n])}{1}).
 \end{align*}
-We also define the equivalence 
+We want to show that the equivalence
 \begin{align*}
-    A[s]:=x&\equiv \textbf{wFold}(x,A,s,0..n),
+    A[s]:=x&\equiv \mathscr{O}(x:=A[s]))\\
+    &\equiv \textbf{wFold}(x,A,s,0..n),
 \end{align*}
-that satisfies, for $\alpha \in \Atom$ and $0\leq i\leq n$,
+is justified. We follow a similar approach than the one we used for the read rule: by showing that 
+$\delta(A[s]:=x)=\delta(\textbf{wFold}(x,A,s,0..n))$, we use coinduction to justify $A[s]:=x\equiv \mathscr{O}(x:=A[s]))$.
+
+For $\alpha \in \Atom$ and $0\leq i\leq n$, we have two cases: when $\alpha \Rightarrow s=i$ and when $\alpha \not\Rightarrow s=i$. If $\alpha \Rightarrow s=i$ then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[s]:=x$. If $\alpha \not \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[i]:=A[i]$, which in turn is equivalent to 1. We use again the inference rule in Equation~\ref{eq:SideChannels:EndFst} to derive $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$. Similarly to the read rule, at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied, and for such index $i$, the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=x$. Dually, in the case when no condition $\alpha \Rightarrow s=i$ is satisfied, i.e. when $s<0$ or $s>n$, the program $\textbf{wFold}(x,A,s,i..n)$ simply terminates well. In the out-of-bounds case when $s<0$ or $s>n$, the semantics of $A[s]:=x$ is again undefined while the semantics of $\textbf{wFold}(x,A,s,0..n)$ to terminate well. Therefore, we must assume the equivalence $A[s]:=x\equiv 1$ when $s<0$ or $s>n$ for the equivalence $A[s]:=x\equiv \textbf{wFold}(x,A,s,0..n)$ to be sound with respect to functionality.
+
+To summarise, we have shown that for $\alpha \in \Atom$, 
 \begin{align*}
-    \delta(\textbf{wFold}(x,A,s,i..n))(\alpha)=
+    \delta(\textbf{wFold}(x,A,s,0..n))(\alpha)=
     \begin{cases}
-        \iota_2(A[i]:=x,\textbf{wFold}(x,A,s,i+1..n)),&\quad\text{if $\alpha \Rightarrow s=i$},\\
-        \iota_2(1,\textbf{wFold}(x,A,s,i+1..n)),&\quad\text{otherwise};
+        \iota_2(A[0]:=x,\textbf{wFold}(x,A,s,1..n)),&\quad\text{if $\alpha \Rightarrow s=0$},\\
+        \iota_2(1,\textbf{wFold}(x,A,s,1..n)),&\quad\text{otherwise}.
     \end{cases}
 \end{align*}
-A reasoning for soundness similar to that of the read rule follows. If $\alpha \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[s]:=a$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[i]:=A[i]$. Because $A[i]:=A[i]$ is equivalent to $1$, we again use the inference rule in Equation~\ref{eq:SideChannels:EndFst}, to conclude $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$. The next action of $\textbf{wFold}(x,A,s,i..n)$ is either $A[i]:=x$ or to terminate well in the extreme case when $s<0$ or $s>n$.  
-% Finally, for all $\alpha\in \Atom$, 
+and
+\begin{align*}
+    \delta(A[s]:=x)(\alpha)= \iota_2(A[s]:=x,1)
+\end{align*}
+describe the same dynamics, which is why we believe the equivalence $A[s]:=x\equiv \textbf{wFold}(x,A,s,0..n)$ is justified, implying that the ORIGAMI write rule preserves the functionality of the program.
 
-Again, we must accept that the dynamics of $\textbf{wFold}(x,A,s,0..n)$ is to simply terminate well in the case when $s<0$ or $s>n$; i.e., $A[s]:=x\equiv 1$ if $s<0$ or $s>n$. Otherwise, we encounter the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations} once more.
-% \begin{align*}
-%     \delta(\iterate{b}{e})(\alpha)=
-%     \begin{cases}
-%         \iota_2(p,e'\cdot \iterate{b}{e}),&\quad\text{if $\alpha \Rightarrow b$ and $e\xrightarrow{\alpha|p}e'$}\\
-%         \iota_1(1),&\quad\text{if $\alpha \Rightarrow \bar{b}$}\\
-%     \end{cases}
-% \end{align*}
-% and
-% \begin{align*}
-%     \delta(\iterate{b}{e})(\alpha)=
-%     \begin{cases}
-%         \iota_2(p,e'\cdot \iterate{b}{e}),&\quad\text{if $\alpha \Rightarrow b$ and $e\xrightarrow{\alpha|p}e'$}\\
-%         \iota_1(1),&\quad\text{if $\alpha \Rightarrow \bar{b}$}\\
-%     \end{cases}
-% \end{align*}
-
-
-In summary, the final spatial transformation that implements the repair for TSCF under the MAP model is the composition $\mathscr{O}\circ \mathscr{B}\circ \mathscr{L}$; we first unfold loops, then we predicate branches, and finally we replace dangerous accesses to data structures by switching over the indices of the data structure or by folding the data structure using ORIGAMI. 
+We conclude this section by stating that the final spatial transformation that implements the repair for TSCF under the MAP model is the composition $\mathscr{O}\circ \mathscr{B}\circ \mathscr{L}$; we first unfold loops, then we predicate branches, and finally we replace dangerous accesses to data structures by switching over the indices of the data structure or by folding the data structure using ORIGAMI. 
 
 % \begin{align*}
 %     \inferrule
@@ -1087,9 +1113,9 @@ In summary, the final spatial transformation that implements the repair for TSCF
 \section{Evaluation}
 \label{sec:Evaluation}
 Three research questions motivate an empirical evaluation:
-\paragraph*{RQ\ref{ch:SideChannelRepair}.1} How effectively can we enforce TSCF?
-\paragraph*{RQ\ref{ch:SideChannelRepair}.2} How efficiently can we enforce TSCF?
-\paragraph*{RQ\ref{ch:SideChannelRepair}.3} How do our enforcement results vary when compiler optimizations are considered?
+\paragraph*{RQ\ref{ch:SideChannelRepair}.1} How effectively can we enforce TSCF? In other words, which metrics can we use to show that programs are actually repaired by ORIGAMI?
+\paragraph*{RQ\ref{ch:SideChannelRepair}.2} How efficiently can we enforce TSCF? More precisely, what is the overhead incurred by the application of the ORIGAMI repair rules.
+\paragraph*{RQ\ref{ch:SideChannelRepair}.3} How do our enforcement results vary when compiler optimizations are considered? 
 %We recall the research questions that motivate this work:
 %
 % \todo[inline]{i.e., what is the variance in the repaired executables} 
