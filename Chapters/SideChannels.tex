@@ -768,6 +768,7 @@ The next four rules describe the dynamics of branch expressions. The rule
 \end{align}
 means that the program $\branch{b}{f}{g}$ ends well if its precondition $\alpha$ implies the branch condition $b$ and the expression $f$ ends well. It is dual to the rule
 \begin{align}
+    \label{eq:SideChannels:NegGuard}
     \inferrule
     {b\in \bexp\\\alpha\in \Atom \\ \alpha \Rightarrow \bar{b} \\ g\uparrow \alpha }
     {\branch{b}{f}{g}\uparrow \alpha}.    
@@ -832,10 +833,10 @@ Finally, the rule
 \end{align}
 means that the program $\iterate{b}{f}$ finishes correctly given $\alpha$ if $\alpha$ implies the negation of the loop condition $b$. 
 
-We conclude this exposition by stating that if an expression $e\in \mathscr{e}$ does not satisfy any of the inference rules presented above, then $e\downarrow \alpha$ for $\alpha\in \Atom$; i.e., $e$ terminates badly unconditionally. 
+We conclude this exposition by stating that if an expression $e\in \mathscr{e}$ does not satisfy any of the inference rules presented above, then $e$ terminates badly for all $\alpha\in \Atom$; i.e., $\delta(e)(\alpha)=\iota_1(0)$. 
 
 \subsection{Transforming GKAT expressions to enforce TSCF}
-Now that we have a dynamics function that defines how GKAT expressions evolve during computations in the forme of the $G$-coalgebra $(\mathscr{E},\delta)$, we enforce TSCF by applying a spatial transformations which implement the branch predication, loop unrolling and the read and write ORIGAMI rules. 
+Now that we have a dynamics function that defines how GKAT expressions evolve during computations in the form of the $G$-coalgebra $(\mathscr{E},\delta)$, we enforce TSCF by applying a spatial transformations which implement the branch predication, loop unrolling and the read and write ORIGAMI rules. Through this section, we assume that the equivalence $(v:=v)\equiv 1$ is valid for all $v\in\Variable$.
 
 \paragraph{Branch Predication.} The branch predication rule $\mathscr{B}\colon \mathscr{E}\rightarrow \mathscr{E}$ maps $\branch{b}{(x:=e_1)}{(x:=e_2)}$ to $x:=\textbf{sel}(b,e_1,e_2)$; this causes a change of dynamics from
 \begin{align*}
@@ -852,6 +853,16 @@ to
 The functional semantics are preserved if $\iota_2(x:=e_1,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $b$, and if $\iota_2(x:=e_2,1)$ is equal to $\iota_2(x:=\textbf{sel}(b,e_1,e_2),1)$ when $\alpha$ implies $\bar{b}$. 
 Fortunately, the concrete semantics of the action $x:=\textbf{sel}(b,e_1,e_2)$ is precisely given by those conditions. We conclude that the functionality of the program $\branch{b}{(x:=e_1)}{(x:=e_2)}$ is not affected by the transformation rule $\mathscr{B}$. By applying $\mathscr{B}$, we remove the problematic branch while preserving the functional semantics.
 
+If a branch is of the form $\branch{b}{(x:=e_1)}{(y:=e_2)}$, given the equivalence $v:=v\equiv 1$, we can rewrite it as 
+\begin{align*}
+    \branch{b}{(x:=e_1\cdot y:=y)}{(x:=x\cdot y:=e_2)}
+\end{align*}
+and the rule $\mathscr{B}$ maps $\branch{b}{(x:=e_1)}{(y:=e_2)}$ to 
+\begin{align}
+    x:=\textbf{sel}(b^\star,e_1,x)\cdot y:=\textbf{sel}(b^\star,y,e_2).
+\end{align}
+where $b^\star$ is the value of $b$ before any $\textbf{sel}$ instructions are executed.
+
 \paragraph{Loop Unrolling.} The loop unrolling rule $\mathscr{L}\colon \mathscr{E}\rightarrow \mathscr{E}$ transforms $\iterate{b}{e}$ into the GKAT expression 
 \begin{align*}
     \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times},
@@ -860,7 +871,7 @@ where $k$ is the maximum number of iterations of the loop. The transformation $\
 \begin{align*}
     \underbrace{\left(\branch{b}{e}{1}\right)\cdot\left(\branch{b}{e}{1}\right)\cdot\ldots\cdot\left(\branch{b}{e}{1}\right)}_\text{$k$ times},
 \end{align*}
-under the assumption that the loop iterates at most $k$ times. Only if the assumption that the loop iterates at most $k$ times is satisfied, then $\delta(\iterate{b}{e})=\delta(\mathscr{L}(\iterate{b}{e}))$. More precisely, for $0\leq j\leq k$, if $\bar{b}$ is true after $j$ iterations, the program $\branch{b}{e}{1}$ is equivalent to $1$, and it does not alter the result of the computation; however, if $k$ is poorly computed, and $b$ holds after $k$ iterations, then the semantics of $\iterate{b}{e}$ and $\mathscr{L}(\iterate{b}{e})$ are no longer equal in general.
+under the assumption that the loop iterates at most $k$ times. Only if the assumption that the loop iterates at most $k$ times is satisfied, then $\delta(\iterate{b}{e})=\delta(\mathscr{L}(\iterate{b}{e}))$. More precisely, for $0\leq j\leq k$, if $\bar{b}$ is true after $j$ iterations, the program $\branch{b}{e}{1}$ is equivalent to $1$ (by the inference rule in Equation~\ref{eq:SideChannels:NegGuard}), and it does not alter the result of the computation; however, if $k$ is poorly computed, and $b$ holds after $k$ iterations, then the semantics of $\iterate{b}{e}$ and $\mathscr{L}(\iterate{b}{e})$ are no longer equal in general.
 
 The ORIGAMI read and write rules $\mathscr{O}\colon \mathscr{E}\rightarrow \mathscr{E}$ map $x:=A[s]$ and $A[s]:=x$ respectively to $\mathscr{O}(x:=A[s])$ and $\mathscr{O}(A[s]:=x)$ following the definitions in Section~\ref{sec:SideChannels:OrigamiRules}. To prove that $\mathscr{O}$ preserves the functional semantics, we need to show both that $\delta(A[s]:=x)= \delta(\mathscr{O}(A[s]:=x))$ and that $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$.
 
@@ -876,34 +887,38 @@ The ORIGAMI read and write rules $\mathscr{O}\colon \mathscr{E}\rightarrow \math
 % \begin{align*}
 %     e'=x:=\textbf{sel}(s=1,A[1],x)\cdot\ldots \cdot x:=\textbf{sel}(s=n,A[n],x).
 % \end{align*}
-The equality $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$ is not obvious at first, since we are introducing more actions when we apply $mathscr{O}$. We must consider the concrete semantics of actions again, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$.
-
-Let us now define the GKAT expression $\textbf{rFold}(x,A,s,i..n))$, for $0\leq i\leq n$, by
+The equality $\delta(x:=A[s])=\delta(\mathscr{O}(x:=A[s]))$ is not obvious at first, since we are introducing more actions when we apply $\mathscr{O}$. We must consider the concrete semantics of actions again, just as we did when defining the equivalence $x:=\textbf{sel}(b,e_1,e_2)\equiv \branch{b}{(x:=e_1)}{(x:=e_2)}$ for the branch predication rule. We define the GKAT expression $\textbf{rFold}(x,A,s,i..n)$, for $0\leq i\leq n$, by
 \begin{align*}
     \textbf{rFold}(x,A,s,i..n)\triangleq&
     x:=\textbf{sel}(s=i,A[i],x)\cdot\\
     %(\branch{(s=i)}{(x:=A[i])}{1})\cdot \\
     %&(\branch{(s=i+1)}{(x:=A[i+1])}{1})\cdot 
     &x:=\textbf{sel}(s=i+1,A[i+1],x)\cdot\\
-    &\ldots \cdot \\
+    &\ldots\\
     &x:=\textbf{sel}(s=n,A[n],x).
     %&(\branch{(s=n)}{(x:=A[n])}{1}).
 \end{align*}
-We now define the equivalence 
+Our goal now is to justify the equivalence 
 \begin{align*}
-    x:=A[s]&\equiv \textbf{rFold}(x,A,s,0..n),
+    x:=A[s]&\equiv \textbf{rFold}(x,A,s,0..n).
 \end{align*}
-which is justified since, for $\alpha \in \Atom$ and $0\leq i\leq n$, 
+by means of coinduction; i.e., by showing for $\alpha \in \Atom$ that $\delta(\textbf{rFold}(x,A,s,i..n))(\alpha)=\delta(x:=A[s])(\alpha)$. 
+
+For $\alpha \in \Atom$ and $0\leq i\leq n$, we have two cases: when $\alpha \Rightarrow s=i$ and when $\alpha \not\Rightarrow s=i$. If $\alpha \Rightarrow s=i$ then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=A[s]$ since $s=i$ given $\alpha$. If $\alpha \not \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=x$ and to 1. Now, by the inference rule in Equation~\ref{eq:SideChannels:EndFst}, we know that $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$; i.e., $\delta(e)(\alpha)$ skips trivial actions. Now, at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied; for such an index $i$, the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=A[i]$. In the case when no condition $\alpha \Rightarrow s=i$ is satisfied, i.e. when $s<0$ or $s>n$, the program $\textbf{rFold}(x,A,s,i..n)$ simply terminates well. The semantics of $x:=A[s]$ is normally undefined when $s<0$ or $s>n$, unlike the semantics of $\textbf{rFold}(x,A,s,0..n)$ to terminate well. Therefore, we must assume the equivalence $x:=A[s]\equiv 1$ when $s<0$ or $s>n$ for the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ to be sound with respect to functionality; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations} (we cannot assume $x:=A[s]\equiv 1$ for C/C++ programs during out-of-bounds accesses, which is why ORIGAMI has this limitation).
+
+In summary, we have shown that for $\alpha \in \Atom$, 
 \begin{align*}
-    \delta(\textbf{rFold}(x,A,s,i..n))(\alpha)=
+    \delta(\textbf{rFold}(x,A,s,0..n))(\alpha)=
     \begin{cases}
-        \iota_2(x:=A[i],\textbf{rFold}(x,A,s,i+1..n)),&\quad\text{if $\alpha \Rightarrow s=i$},\\
-        \iota_2(1,\textbf{rFold}(x,A,s,i+1..n)),&\quad\text{otherwise}.
+        \iota_2(x:=A[0],\textbf{rFold}(x,A,s,1..n)),&\quad\text{if $\alpha \Rightarrow s=0$},\\
+        \iota_2(1,\textbf{rFold}(x,A,s,1..n)),&\quad\text{otherwise}.
     \end{cases}
 \end{align*}
-If $\alpha \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=A[i]$, which is equal to $x:=A[s]$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{rFold}(x,A,s,i..n)$ is $x:=\textbf{sel}(s=i,A[i],x)$, which is equivalent to $x:=x$. To continue, we must accept that actions of the form $v:=v$ are equivalent to 1 (i.e., they are no-ops), which we believe is a reasonable assumption. Now, by the inference rule in Equation~\ref{eq:SideChannels:EndFst}, we know that $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$; i.e., $\delta(e)(\alpha)$ skips trivial actions. Since at most one of the conditions $\alpha \Rightarrow s=i$ is satisfied for $0\leq i\leq n$, the next action of $\textbf{rFold}(x,A,s,i..n)$ is either $x:=A[i]$ or an extreme case when $s<0$ or $s>n$, which causes $\textbf{rFold}(x,A,s,i..n)$ to terminate well.% Finally, for all $\alpha\in \Atom$, 
-
-In the extreme case when $s<0$ or $s>n$, the semantics of $x:=A[s]$ is normally undefined; however, the semantics of $\textbf{rFold}(x,A,s,0..n)$ is to simply terminate well. Therefore, the equivalence $x:=A[s]\equiv \textbf{rFold}(x,A,s,0..n)$ is only sound with respect to functionality if the equivalence $x:=A[s]\equiv 1$ is valid when $s<0$ or $s>n$; otherwise, we face the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations}.
+and
+\begin{align*}
+    \delta(x:=A[s])(\alpha)= \iota_2(x:=A[s],1)
+\end{align*}
+describe the same dynamics, which is why we believe the equivalence $x:=A[s]&\equiv \textbf{rFold}(x,A,s,0..n)$ is justified.
 
 \paragraph{ORIGAMI write rule.} Similarly to the read rule, to prove the equality $\delta(A[s]:=x)=\delta(\mathscr{O}(x:=A[s]))$, 
 % we have
@@ -938,7 +953,7 @@ that satisfies, for $\alpha \in \Atom$ and $0\leq i\leq n$,
         \iota_2(1,\textbf{wFold}(x,A,s,i+1..n)),&\quad\text{otherwise};
     \end{cases}
 \end{align*}
-A reasoning for soundness similar to that of the read rule follows. If $\alpha \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[s]:=a$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[i]:=A[i]$. Because $A[i]:=A[i]$ is equivalent to $1$, we again use the inference rule in Equation~\ref{eq:SideChannels:EndFst}, to conclude $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$. The next action of $\textbf{wFold}(x,A,s,i..n)$ is either $A[i]:=x$ or to terminate well in the extreme case when $s<0$ or $s>n$. 
+A reasoning for soundness similar to that of the read rule follows. If $\alpha \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[s]:=a$. If $\alpha \lnot \Rightarrow s=i$, then the next action of $\textbf{wFold}(x,A,s,i..n)$ is $A[i]:=\textbf{sel}(s=i,x,A[i])$, which is equivalent to $A[i]:=A[i]$. Because $A[i]:=A[i]$ is equivalent to $1$, we again use the inference rule in Equation~\ref{eq:SideChannels:EndFst}, to conclude $\delta(1\cdot e)(\alpha)=\delta(e)(\alpha)$. The next action of $\textbf{wFold}(x,A,s,i..n)$ is either $A[i]:=x$ or to terminate well in the extreme case when $s<0$ or $s>n$.  
 % Finally, for all $\alpha\in \Atom$, 
 
 Again, we must accept that the dynamics of $\textbf{wFold}(x,A,s,0..n)$ is to simply terminate well in the case when $s<0$ or $s>n$; i.e., $A[s]:=x\equiv 1$ if $s<0$ or $s>n$. Otherwise, we encounter the \emph{out-of-bounds accesses} limitation from Section~\ref{sec:SideChannels:Limitations} once more.
@@ -1068,17 +1083,17 @@ In summary, the final spatial transformation that implements the repair for TSCF
 
 % % Let $\mathcal{E}$ be the set of GKAT expressions for the concrete GKAT presented in Section~\ref{sec:SideChannels:ConcreteGKAT}.
 
-{\color{red}
+
 \section{Evaluation}
 \label{sec:Evaluation}
 Three research questions motivate an empirical evaluation:
-\paragraph*{RQ1} How effectively can we enforce TSCF?
-\paragraph*{RQ2} How efficiently can we enforce TSCF?
-\paragraph*{RQ3} How do our enforcement results vary when compiler optimizations are considered?
+\paragraph*{RQ\ref{ch:SideChannelRepair}.1} How effectively can we enforce TSCF?
+\paragraph*{RQ\ref{ch:SideChannelRepair}.2} How efficiently can we enforce TSCF?
+\paragraph*{RQ\ref{ch:SideChannelRepair}.3} How do our enforcement results vary when compiler optimizations are considered?
 %We recall the research questions that motivate this work:
 %
 % \todo[inline]{i.e., what is the variance in the repaired executables} 
-%\paragraph*{RQ2}  How efficient is our transformation to eliminate side channels?
+%\paragraph*{RQ\ref{ch:SideChannelRepair}.2}  How efficient is our transformation to eliminate side channels?
 %\
 
 %We implement our repair rules as LLVM 12 \texttt{opt} passes. 
@@ -1097,7 +1112,7 @@ The compilation chain is as follows: using \texttt{clang} with either the \textt
 \subsection{Experimental Setup}
 To evaluate the ORIGAMI repair rules, we use Gem5 \cite{gem5}. Gem5 is a highly-configurable simulator which encompasses system-level architecture and processor microarchitecture. The setup for the simulated environment in Gem5 consists of a single simple timing CPU with a 1Gz processor, possessing only a level one 2-set associative cache with a cache-line size of 64 bytes, the data cache has size 8kB and the instruction cache has size 16kB and is 2-set associative.
 
-Gem5 provides statistical data of the execution, including the number of CPU cycles, the number of committed instructions, and the number of hits and misses on both data and instruction caches (among other metrics). We measure the variance of these metrics to evaluate RQ1. We use the growth factor $m_{repaired}/m_{original}$ of each metric $m$ to evaluate RQ2. Finally, to address RQ3, we repair executables compiled with \texttt{O0} and with \texttt{O3} to see if there are any significant differences.
+Gem5 provides statistical data of the execution, including the number of CPU cycles, the number of committed instructions, and the number of hits and misses on both data and instruction caches (among other metrics). We measure the variance of these metrics to evaluate RQ\ref{ch:SideChannelRepair}.1. We use the growth factor $m_{repaired}/m_{original}$ of each metric $m$ to evaluate RQ\ref{ch:SideChannelRepair}.2. Finally, to address RQ\ref{ch:SideChannelRepair}.3, we repair executables compiled with \texttt{O0} and with \texttt{O3} to see if there are any significant differences.
 
  %We use a tournament type branch predictor for speculative execution.
 %  We remark that we also ran our experiments without branch speculation, but it did not show any significant changes to the metrics presented with branch speculation enabled, and thus we decided to omit them.
@@ -1515,4 +1530,3 @@ ORIGAMI does not defend against Spectre type attacks. Our security guarantees on
 Although ORIGAMI offers a sound approach to enforcing timing side-channel freedom (TSCF) with respect to the memory access pattern (MAP) leakage model, there is still a long way to go until true TSCF is achieved. Most notably, ORIGAMI does not repair programs that are vulnerable with respect to the operand sensitive leakage model (OS), but adds another layer of security by repairing programs that are safe with respect to the baseline leakage model, but unsafe with respect to MAP leakage. 
 
 While we share the philosophy of ~\cite{WhatYouCisWhatYouGet}, and we expect compilers to take over the task of enforcement of TSCF instead of the programmer, we believe that as long as hardware does not offer strong TSCF guarantees which can be depended on and rightfully used by compilers, any software based solution for TSCF enforcement, including ORIGAMI, will remain conditional, and thus not entirely reliable. Nevertheless, while this type of hardware is available, software-based solutions can mitigate timing side-channel vulnerabilities.
-}
