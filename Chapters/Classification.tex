@@ -2,6 +2,67 @@
 \chapter{Systematic Classification of Attacker Models} %using Latent Behaviour Analysis}
 \label{ch:Classification}
 \section{Introduction}
+% {\color{red}
+% Our goal is the following: given an \emph{attacker model} (whatever that is), we want to automatically obtain a set of attacks $\mathcal{M}$, which we can use to perform LBA on the $F$-coalgebra $(X,c)$. We can use the results of this analysis to quantify robustness as shown in Chapter~\ref{ch:CPSRobustness}. In this section, we are interested in also varying the attacker model, and in comparing them.
+
+% Consider an $F$-coalgebra $(\vec{X},c)$ such that $\vec{X}$ is a product type of finite types; e.g., $\vec{X}=2\times 2$. We use the coordinates of $\vec{X}$, e.g., $\fst$ and $\snd$ to define attacker models. 
+% \begin{definition}[Attacker Model]
+% \label{def:Latent:AttackerModel}
+% Let $(\vec{X},c)$ be an $F$-coalgebra such that $\vec{X}=X_1\times\ldots\times X_n$ is a product type whose coordinates are $\Pi=\set{\pi_1, \ldots, \pi_n}$ where $\pi_i\colon \vec{X}\rightarrow X_i$, and let $\alpha$ be a set of coordinates, with $\alpha\subseteq \Pi$; the \emph{attacker model characterised by $\alpha$} is the set of transformations in $\vec{X}$, denoted $\AsSequence{\alpha}$, such that $m\colon \vec{X}\rightarrow \vec{X}$ is an element of $\AsSequence{\alpha}$ if and only, for all states $\vec{x}\in \vec{X}$ and coordinates $\pi\in \Pi$, 
+% \begin{align}
+%     m(\vec{x})[\pi]\neq \vec{x}[\pi]\text{ implies that $\pi\in \alpha$}.
+% \end{align}
+% In other words, if $m$ modifies any state $\vec{x}$ at coordinate $\pi$, then $\pi$ must be in $\alpha$. Note that the identity transformation is in every attacker model, since the modification requirement is not strict; %i.e., an attacker can use a transformation $m$ where $m(\vec{x})[\pi]= \vec{x}[\pi]$ for all $\vec{x}\in \vec{X}$ and for all $\pi \in \alpha$. 
+% what an attacker fitting the model characterised by $\alpha$ cannot do is to modify a state in a coordinate that is not in $\alpha$. In Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}, we show how to systematically generate attacks for an attacker fitting a particular attacker model; more precisely, we show how to automatically generate elements of $\AsSequence{\alpha}$.
+
+% We give attackers fitting an attacker model characterised by $\alpha$ full control over the coordinates in $\alpha$. More precisely, for $0\leq i \leq n$, if $\pi_i\colon \vec{X}\rightarrow X_i$ is a coordinate in $\alpha$, then, for every value in $x_i\in X_i$, the attackers fitting the model characterised by $\alpha$ can always find a transformation $m$ in $\AsSequence{\alpha}$ such that $m(\vec{x})[\pi_i]=x_i$, for all $\vec{x}\in \vec{X}$. We did not find any practical scenarios where restricting the control of attackers over a particular coordinate offered an advantage over attackers with full control over such a coordinate.
+% % to a set of transformations $\mathcal{T}_i\subseteq A_i^{A_i}$ such that the following conditions are satisfied:
+% % \begin{itemize}
+% %     \item the attacker can always do nothing, i.e., $\id_{A_i}\in \mathcal{T}_i$; 
+% %     \item if the attacker can transform the coordinate $\pi_i$ using $f\in \mathcal{T}_i$, and they can transform $\pi_i$ using $g\in \mathcal{T}_i$, then they should be able to transform $\pi_i$ using $g\circ f$; i.e., if $f,g\in \mathcal{T}_i$, then $g\circ f\in \mathcal{T}_i$.
+% % \end{itemize}
+% \end{definition}
+% % \begin{remark}[Attacker models as sets of spatial transformations]
+% % If an attacker model represents a set of spatial transformations, then we could have opted to generate arbitrary attacker models by using arbitrary subsets of endofunctions in the carrier $\vec{X}$. However, we opted to define attacker models by using coordinates since these attacker models are easier to associate with attackers that have some control over how and when a component
+% % \end{remark}
+
+% % For a coordinate $\pi\in \Pi$, a transformation $f\in\alpha(\pi)$ acts on a state $\vec{x}\in \vec{X}$ by substituting the value of coordinate $\pi_i$ at state $\vec{x}$ with $f(x[\pi_i])$; i.e., we can extend $f$ to a function of type $f^\flat\colon X\rightarrow X$ defined by 
+% % \begin{align*}
+% %     f^\flat(\vec{x})[\pi_j]\triangleq\begin{cases}
+% %         f(\vec{x}[\pi_j]),&\quad\text{if $i=j$};\\
+% %         \vec{x}[\pi_j],&\quad\text{otherwise.}
+% %     \end{cases}
+% % \end{align*}
+% % The natural extensions from $f\in \alpha(\pi)$ to $f^\flat\in \vec{X}^{\vec{X}}$ lifts the attacker model $\alpha$ into a set of generator functions for the set $\AsSequence{\alpha}\subseteq \vec{X}^{\vec{X}}$, where $\AsSequence{\alpha}$ is smallest set satisfying the following conditions:
+% % \begin{itemize}
+% %     \item for all $\pi\in \Pi$ and $f\in \alpha(\pi)$, $f^\flat \in \AsSequence{\alpha}$;
+% %     \item for all $f,g\in \AsSequence{\alpha}$, $g\circ f \in\AsSequence{\alpha}$.
+% % \end{itemize}
+
+% \begin{example}[Some Invariant Attacker Models for Example~\ref{ex:Latent:TheExample}]
+% \label{ex:Latent:ExampleAttacker}
+%     Since $\vec{X}=2\times 2$, we have two coordinates: $\fst\colon \vec{X}\rightarrow 2$ and $\snd\colon \vec{X}\rightarrow 2$ mapping $(x,y)\xmapsto{\fst}x$ and $(x,y)\xmapsto{\snd}y$. The trivial attacker model is an attacker that does nothing because it cannot transform states in any component, and it corresponds to the attacker model for the empty subset of coordinates $\emptyset$. An attacker fitting the model characterised by $\emptyset$ can only use the $\id$ spatial transformation, since $\AsSequence{\emptyset}=\set{\id}$. 
+
+%     We consider three other attacker models now: one which has full control over $\fst$ but no control over $\snd$ (i.e., the attacker model characterised by $\set{\fst}$), one which has full control over $\snd$ but not over $\fst$ (i.e., the attacker model characterised by $\set{\snd}$), and one attacker that has full control over both $\fst$ and $\snd$ (i.e., the attacker model characterised by $\set{\fst, \snd}$). The set $\AsSequence{\set{\fst}}$ is the set of endofunctions in $\vec{X}$ which only affect the $\fst$ coordinate (if any).
+%     % Similarly, the attacker with full control over $\snd$, denoted $\alpha_2$, maps $\fst$ to $\set{\id_2}$ and $\snd$ to $2^2$. Dually, the set $\AsSequence{\alpha_2}$ is the set of functions in $\vec{X}^{\vec{X}}$ which only affect the $\snd$ coordinate. 
+%     Dually, the set $\AsSequence{\set{\snd}}$ is the set of endofunctions in $\vec{X}$ which only affect the $\snd$ coordinate (if any). Finally, the set $\AsSequence{\set{\fst,\snd}}$ is the set of all endofunctions $\vec{X}^{\vec{X}}$, so attackers fitting this model can use any arbitrary spatial transformations. 
+    
+%      %to add a more flexibility to attacker models so that they are no longer invariant, and we can generate arbitrary functions in $\vec{X}^{\vec{X}}$.
+    
+%     % We remark that attackers with partial control over $\fst$ and $\snd$; e.g., an attacker $\beta$ which maps $\fst$ to $\set{\Delta_1, \id}$ ($\Delta_1$ is the constant function that maps $b\in 2$ to 1), which generates $\AsSequence{\beta}=\set{\Delta^\flat_1, \id_2^\flat}$, where
+%     % \begin{align*}
+%     %     \Delta^\flat_1(\vec{x})[\fst]=1,\quad\text{and}\quad \Delta^\flat_1(\vec{x})[\snd]=\vec{x}[\snd].
+%     % \end{align*}
+%     % Note that $\AsSequence{\beta}\subseteq\AsSequence{\alpha_1}$. 
+
+
+    
+
+%     % The attacker with full control over $\fst$ and $\snd$, denoted $\alpha^*$, can affect both $\fst$ and $\snd$ at the same time. However, this does not mean that $\AsSequence{\alpha^*}$ is equal to $\vec{X}^{\vec{X}}$, since there are still functions that cannot be generated by the combination of individual effects on independent coordinates. For example, with $\vec{X}=2\times 2$, consider the function $m\colon \vec{X}\rightarrow \vec{X}$ where $m(x,y)\triangleq(y,x)$; this function cannot be written in terms of a product function $f\times g\colon 2\times 2\rightarrow 2\times 2$, with $f\colon 2\rightarrow 2$ and $g\colon 2\rightarrow 2$.
+% \end{example}
+% }
+
+
 \label{sec:Classification:ClassificationProblem}
 \paragraph{Problem Statement}
 Some systems are designed to provide security guarantees in the presence of attackers. For example, the Diffie-Hellman key agreement protocol guarantees \emph{perfect forward secrecy} (PFS) \cite{Gunther1990,Menezes1996}. PFS is the security property which guarantees that the session key remains secret even if the long-term keys are compromised. These security guarantees are only valid in the context of the attacker models for which they were proven; it is unknown whether those guarantees apply for stronger or incomparable attacker models. For instance, PFS describes an attacker model, say $\mathcal{M}_{DH}$, that can compromise the long-term keys \emph{and only those}, and it also describes a property (i.e., the confidentiality of the session keys) that is guaranteed in the presence of an attacker that fits the model $\mathcal{M}_{DH}$. However, if we consider a stronger attacker model (e.g., an attacker that can directly compromise the session key), then Diffie-Hellman can no longer guarantee the confidentiality of the session keys. It is difficult to provide any guarantees against an attacker model that is too proficient/powerful, so it is in the interest of the system designer to choose an adequate attacker model that puts the security guarantees of the system in the context of realistic and relevant attackers. 

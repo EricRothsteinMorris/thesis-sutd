@@ -269,6 +269,13 @@ Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $
 \subsection{Soundness}
 Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1\equiv e_2$, then $e_1\sim e_2$; i.e., if two expressions are equivalent, then they have the same behaviour.
 
+
+\subsection{Behavioural Property}
+\label{sec:preliminaries:BehaviouralProperty}
+Let $F$ be a functor for which a final $F$-coalgebra $(\sigma F, 1)$ exists. A \emph{behavioural property} $P$ is a function $P\colon \sigma F\rightarrow 2$. Given an arbitrary $F$-coalgebra $(X,c)$, we say that $x\in X$ satisfies the behavioural property $P$ if and only if $(P\circ !_c)(x)=1$.
+
+We use {behavioural properties} to formalise properties of a system. Behavioural properties come in all shapes and forms, and are often described using logics like LTL~\cite{LTL}. CTL~\cite{CTL}, and $\mu$ calculus~\cite{MuCalculus}.
+
 \section{Coinduction}
 Coinduction is a dual principle to induction, and we use it to define what things are in terms of how they behave. 
 \todo[inline]{I'll come back to this}

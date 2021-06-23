@@ -1,13 +1,9 @@
 %!TEX root = ../main.tex
 \chapter{Transforming Programs for Timing Side-Channel Repair}
 \label{ch:SideChannelRepair}
-\todo[inline]{Here comes the paper we sent to CSF. It needs to be re-written for consistency}
-\todo[inline]{This chapter is interesting because we are going to target programs as states. }
-
-
-
 \section{Introduction}
 \label{sec:introduction} 
+Until now, we have considered the effect of spatial transformations from an integrity perspective.Attacks modelled as spatial transformations alter the behaviour of systems, and we quantified how resilient a system is with respect to a set of attacks derived from a given attacker model. 
 \todo[inline]{This chapter is not so connected; we do no longer to integrity but confidentiality, and we modify the behaviour of programs by changing them, but we do not modify their functionality, so that's how we connect with LBA...}
 We now consider a scenario where we are applying spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
 \todo[inline]{Not very convinced about this motivation...}
@@ -535,31 +531,37 @@ To show why $\mathscr{O}(y:=A[x])$ is TSCF with respect to the MAP leakage, we d
 
     %Assume a cache configuration set by an adversary. 
     To prove that $\semantics{\mathscr{O}(y:=A[x])}$ satisfies TSCF, we do a proof by induction.
-    For $n=0$, $\mathscr{O}(y:=A[x])$ is equal to $acc:=\sel(x=0,A[x],acc)\cdot y:=acc$. Now, since $\cache$ only depends on the actions of GSs and not on its atoms, we can take the symbolic GS $g=\alpha\cdot acc:=\sel(x=0,A[x],acc)\cdot \beta \cdot y:=acc\cdot \gamma$, where $\alpha, \beta$ and $\gamma$ are symbolic variables for atoms, and compute $\RC_{\cache}(g)$. Assume that $h=\alpha\cdot acc:=\sel(x=0,A[x],acc)\cdot \beta$,  the value of $\RC_{\cache}(g)$ in the base case where $n=0$ is
+    For $n=0$, $\mathscr{O}(y:=A[x])$ is equal to $y:=\sel(x=0,A[x],y)$. Now, since $\cache$ only depends on the actions of GSs and not on its atoms, we can take the symbolic GS 
     \begin{align*}
-        \RC_{\cache}(g)&=\RC_{\cache}(h)+\cache(h)(y:=acc) \\
-        &=\cache(\alpha)(acc:=\sel(x=0,A[x],acc))\\
-        &+\cache(h)(y:=acc)
-    \end{align*}
-which is given by the sequence
+        g=\alpha\cdot (y:=\sel(x=0,A[x],y))\cdot \beta,
+    \end{align*}where $\alpha$ and $\beta$  are symbolic variables for atoms, and compute $\RC_{\cache}(g)$. %Assume that $h=\alpha\cdot y:=\sel(x=0,A[x],y)\cdot \beta$, 
+    The value of $\RC_{\cache}(g)$ in the base case where $n=0$ is
     \begin{align*}
-        \RC_{\cache}(g)&=[\eta\times\set{acc,x,A[0]}+\mu\times \emptyset,\\
-        &\eta\times\set{y}+\mu\times\set{acc}].
+        \RC_{\cache}(g)%&=\RC_{\cache}(h) \\
+        &=\cache(\alpha)(y:=\sel(x=0,A[x],y))\\%\\
+        %&+\cache(h)(y:=acc)
+%     \end{align*}
+% which is given by the sequence
+%     \begin{align*}
+        %\RC_{\cache}(g)
+        &=[\eta\times\set{y,x,A[0]}+\mu\times \emptyset].%\\
+        %&\eta\times\set{y}+\mu\times\set{acc}].
     \end{align*}
 In the inductive case where $n>0$, we have
     \begin{align*}
-        \RC_{\cache}(g)&=[\eta\times\set{acc,x,A[0]}+\mu\times \emptyset,\\
-        &\eta\times\set{A[1]}+\mu\times \set{acc,x},\\
-        &\eta\times\set{A[2]}+\mu\times \set{acc,x},\\
+        \RC_{\cache}(g)&=[\eta\times\set{y,x,A[0]}+\mu\times \emptyset,\\
+        &\eta\times\set{A[1]}+\mu\times \set{y,x},\\
+        &\eta\times\set{A[2]}+\mu\times \set{y,x},\\
         &\ldots\\
-        &\eta\times\set{A[n]}+\mu\times \set{acc,x},\\
-        &\eta\times\set{y}+\mu\times\set{acc}]
+        &\eta\times\set{A[n]}+\mu\times \set{y,x}].
+        % \\
+        % &\eta\times\set{y}+\mu\times\set{acc}]
     \end{align*}
-We remark that if the attacker clears the cache before the $i$-th instruction $acc:=\sel(x=i+1,A[x],acc)$, then the MAP changes from $\eta\times\set{A[2]}+\mu\times \set{acc,x}$ to $\eta\times\set{acc,x,A[i]}+\mu\times \emptyset$, as if it were a base case; the secret $x$ does not leak because we are loading $A[i]$ and not $A[x]$, and the attacker cannot decide whether $i=x$ (the attacker can only observe whether $i$ and $x$ are loaded, but not their values). We conclude that the MAP is indistinguishable for all values of $x$, and only depends on the size of $A$ (i.e., $n+1$). 
+We remark that if the attacker clears the cache before the $i$-th instruction $y:=\sel(x=i+1,A[x],y)$, then the MAP changes from $\eta\times\set{A[2]}+\mu\times \set{y,x}$ to $\eta\times\set{y,x,A[i]}+\mu\times \emptyset$, as if it were a base case; the secret $x$ does not leak because we are loading $A[i]$ and not $A[x]$, and the attacker cannot decide whether $i=x$ (the attacker can only observe whether $i$ and $x$ are loaded, but not their values). We conclude that the MAP is indistinguishable for all values of $x$, and only depends on the size of $A$ (i.e., $n+1$). 
 %     
 %     \begin{align*}
-%         &\semantics{acc:=\sel(x=0,A[x],acc)\cdot y:=acc}\\
-%         &=\semantics{acc:=\sel(x=0,A[x],acc)}\diamond\semantics{y:=acc}
+%         &\semantics{y:=\sel(x=0,A[x],y)\cdot y:=y}\\
+%         &=\semantics{y:=\sel(x=0,A[x],y)}\diamond\semantics{y:=y}
 %     \end{align*} 
     
 \end{proof}
