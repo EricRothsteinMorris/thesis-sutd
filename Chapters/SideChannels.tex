@@ -3,10 +3,11 @@
 \label{ch:SideChannelRepair}
 \section{Introduction}
 \label{sec:introduction} 
-Until now, we have considered the effect of spatial transformations from an integrity perspective.Attacks modelled as spatial transformations alter the behaviour of systems, and we quantified how resilient a system is with respect to a set of attacks derived from a given attacker model. 
-\todo[inline]{This chapter is not so connected; we do no longer to integrity but confidentiality, and we modify the behaviour of programs by changing them, but we do not modify their functionality, so that's how we connect with LBA...}
-We now consider a scenario where we are applying spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
-\todo[inline]{Not very convinced about this motivation...}
+Until now, we have considered the effect of spatial transformations from an integrity perspective. We have used spatial transformations that model integrity attacks to alter the behaviour of systems, and we have quantified how robust a system is with respect to a set of attacks derived from a given attacker model. Figuratively, we say that we have so far used spatial transformations for destructive purposes. In this chapter, we explore the possibility of using spatial transformations for constructive purposes, i.e., we use them to change the behaviour of programs such that the resulting programs satisfy behavioural properties they did not before. More precisely, we are interested in enforcing protection against side-channel attacks that use the timing channel to leak secrets by means of spatial transformations. 
+
+% \todo[inline]{This chapter is not so connected; we do no longer to integrity but confidentiality, and we modify the behaviour of programs by changing them, but we do not modify their functionality, so that's how we connect with LBA...}
+% We now consider a scenario where we are applying spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
+% \todo[inline]{Not very convinced about this motivation...}
 
 % \todo[inline]{Candidate conferences: FM 2021 (abs 30 apr/6 may), CSF 2022 (may 14)}
 \paragraph*{What are timing side-channel attacks?} Timing attacks are among the best known side-channel attacks~\cite{timing-channel-survey} 
