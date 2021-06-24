@@ -3,7 +3,11 @@
 \label{ch:SideChannelRepair}
 \section{Introduction}
 \label{sec:introduction} 
-Until now, we have considered the effect of spatial transformations from an integrity perspective. We have used spatial transformations that model integrity attacks to alter the behaviour of systems, and we have quantified how robust a system is with respect to a set of attacks derived from a given attacker model. Figuratively, we say that we have so far used spatial transformations for destructive purposes. In this chapter, we explore the possibility of using spatial transformations for constructive purposes, i.e., we use them to change the behaviour of programs such that the resulting programs satisfy behavioural properties they did not before. More precisely, we are interested in enforcing protection against side-channel attacks that use the timing channel to leak secrets by means of spatial transformations. 
+Until now, we have considered the effect of spatial transformations from an integrity perspective. The attacker has used spatial transformations to perform integrity attacks to alter the behaviour of systems, and we have quantified how robust a system is with respect to a set of attacks derived from a given attacker model. 
+Figuratively, the attacker has used spatial transformations for destructive purposes. 
+In this chapter, we explore the possibility of using spatial transformations for constructive purposes only, i.e., only for the defender while the attacker is using weaknesses of the system that leak confidential information. 
+%i.e., we use them to change the behaviour of programs such that the resulting programs satisfy behavioural properties they did not before. 
+More precisely, we are interested in using spatial transformations for enforcing protection against side-channel attacks that use the timing channel to leak secrets. 
 
 % \todo[inline]{This chapter is not so connected; we do no longer to integrity but confidentiality, and we modify the behaviour of programs by changing them, but we do not modify their functionality, so that's how we connect with LBA...}
 % We now consider a scenario where we are applying spatial transformations to reveal a latent behaviour that satisfies a behavioural property we are interested in. For this case study, we choose a system whose states are programs and whose observations are the state of some cache memory, and we use spatial transformations to repair side-channel attacks that leak information via the cache.
@@ -928,9 +932,11 @@ We define the GKAT expression $\textbf{rFold}(x,A,s,i..n)$, for $0\leq i\leq n$,
     %&(\branch{(s=i+1)}{(x:=A[i+1])}{1})\cdot 
     &x:=\textbf{sel}(s=i+1,A[i+1],x)\cdot\\
     &\ldots\\
-    &x:=\textbf{sel}(s=n,A[n],x).
+    &x:=\textbf{sel}(s=n,A[n],x),
     %&(\branch{(s=n)}{(x:=A[n])}{1}).
 \end{align*}
+where $s$ is a variable different from $x$.
+
 Our goal now is to justify the equivalence 
 \begin{align*}
     x:=A[s]&\equiv \mathscr{O}(x:=A[s])\\
@@ -976,9 +982,11 @@ Consider the GKAT expression $\textbf{wFold}(x,A,s,i..n))$, defined for $0\leq i
     %&(\branch{(s=i+1)}{(x:=A[i+1])}{1})\cdot 
     &A[i+1]:=\textbf{sel}(s=i+1,x,A[i+1])\cdot\\
     &\ldots\\
-    &A[n]:=\textbf{sel}(s=n,x,A[n]).
+    &A[n]:=\textbf{sel}(s=n,x,A[n]),
     %&(\branch{(s=n)}{(x:=A[n])}{1}).
 \end{align*}
+where $s$ is a variable different from $x$.
+
 We want to show that the equivalence
 \begin{align*}
     A[s]:=x&\equiv \mathscr{O}(x:=A[s]))\\
