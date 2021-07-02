@@ -1247,81 +1247,6 @@
     \field{year}{2011}
   \endentry
 
-  \entry{CoBrzozowski}{inbook}{}
-    \name{author}{4}{}{%
-      {{hash=BF}{%
-         family={Bonchi},
-         familyi={B\bibinitperiod},
-         given={Filippo},
-         giveni={F\bibinitperiod},
-      }}%
-      {{hash=BMM}{%
-         family={Bonsangue},
-         familyi={B\bibinitperiod},
-         given={Marcello\bibnamedelima M.},
-         giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod},
-      }}%
-      {{hash=RJJMM}{%
-         family={Rutten},
-         familyi={R\bibinitperiod},
-         given={Jan J. M.\bibnamedelima M.},
-         giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim
-  M\bibinitperiod\bibinitdelim M\bibinitperiod},
-      }}%
-      {{hash=SA}{%
-         family={Silva},
-         familyi={S\bibinitperiod},
-         given={Alexandra},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \name{editor}{2}{}{%
-      {{hash=CRL}{%
-         family={Constable},
-         familyi={C\bibinitperiod},
-         given={Robert\bibnamedelima L.},
-         giveni={R\bibinitperiod\bibinitdelim L\bibinitperiod},
-      }}%
-      {{hash=SA}{%
-         family={Silva},
-         familyi={S\bibinitperiod},
-         given={Alexandra},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Springer Berlin Heidelberg}%
-    }
-    \strng{namehash}{BF+1}
-    \strng{fullhash}{BFBMMRJJMMSA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{abstract}{%
-    We give a new presentation of Brzozowski's algorithm to minimize finite
-  automata, using elementary facts from universal algebra and coalgebra, and
-  building on earlier work by Arbib and Manes on the duality between
-  reachability and observability. This leads to a simple proof of its
-  correctness and opens the door to further generalizations.%
-    }
-    \field{booktitle}{Logic and Program Semantics: Essays Dedicated to Dexter
-  Kozen on the Occasion of His 60th Birthday}
-    \verb{doi}
-    \verb 10.1007/978-3-642-29485-3_2
-    \endverb
-    \field{isbn}{978-3-642-29485-3}
-    \field{pages}{12\bibrangedash 23}
-    \field{title}{Brzozowski's Algorithm (Co)Algebraically}
-    \verb{url}
-    \verb https://doi.org/10.1007/978-3-642-29485-3_2
-    \endverb
-    \list{location}{1}{%
-      {Berlin, Heidelberg}%
-    }
-    \field{year}{2012}
-  \endentry
-
   \entry{Vale}{inproceedings}{}
     \name{author}{9}{}{%
       {{hash=BB}{%
@@ -4740,6 +4665,29 @@
     }
     \field{year}{2007}
     \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{KleeneCoalgebra}{thesis}{}
+    \name{author}{1}{}{%
+      {{hash=SA}{%
+         family={Silva},
+         familyi={S\bibinitperiod},
+         given={Alexandra},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SA1}
+    \strng{fullhash}{SA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{{Kleene Coalgebras}}
+    \list{institution}{1}{%
+      {Radboud University Nijmegen}%
+    }
+    \field{type}{phdthesis}
+    \field{year}{2010}
   \endentry
 
   \entry{GeneralisingDetermination}{article}{}
