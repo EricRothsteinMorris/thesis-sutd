@@ -512,9 +512,9 @@ Thus, for the purposes of enforcing TSCF, we require two functional equivalences
     &A[0]:=\sel(x=0,y,A[0])\cdot \\
     &A[1]:=\sel(x=1,y,A[1])\cdot \\
     &\ldots\\
-    &A[n]:=\sel(x=n,y,A[n]).
+    &A[n]:=\sel(x=n,y,A[n]),
 \end{align*}
-and $A$ has a fixed size of $n+1$. The \emph{read ORIGAMI rule} is transforming $(y:=A[x])$ into $\mathscr{O}(y:=A[x])$, denoted 
+such that $A$ has a fixed size of $n+1$ and $x$ and $y$ are different variables. The \emph{read ORIGAMI rule} is transforming $(y:=A[x])$ into $\mathscr{O}(y:=A[x])$, denoted 
 \begin{align}
     (y:=A[x])\leadsto\ \mathscr{O}(y:=A[x]),
 \end{align}

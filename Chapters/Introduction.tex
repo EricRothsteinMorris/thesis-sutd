@@ -28,15 +28,69 @@
 % \end{itemize}
 
 % Modern systems must not only be correct, but also secure. Proving that a system is correct is a difficult problem, but I would say that proving that a system is secure is exponentially more difficult. Correctness proofs study properties of the system in isolation or under strong interaction guarantees, i.e., the environment never misbehaves. 
+\section{Motivation: Classifying Attackers}
+To protect our systems, we need to understand what attackers can do to them. Basin and Cremers~\cite{KnowYourEnemy} quantify the power attackers in security protocols by defining a security protocols hierarchy with respect to a set of attacker models where %introduced \emph{Scyther}~\cite{Scyther}, 
+the position of a protocol in the hierarchy depends on its level of assurance with respect to a confidentiality property that the attackers aim to break: protocols higher in the hierarchy can tolerate the presence of more powerful attackers (i.e., attackers with more capabilities). More precisely, the protocol hierarchy is directed acyclic graph whose nodes are pairs of a protocol and a set of attacker capabilities, where two nodes share an edge if the source protocol-set of capabilities satisfies the state property, but adding an additional capabilities would break the state property in the protocol, whilst the property is still satisfied in the destination node despite the addition of those capabilities.
 
-Basin and Cremers~\cite{KnowYourEnemy} introduced \emph{Scyther}~\cite{Scyther}, a protocol analysis tool that classifies security protocols in a hierarchy given a set of attacker models. 
-The position of a protocol in a hierarchy depends on its level of assurance with respect to a state property: protocols higher in the hierarchy can tolerate the presence of more powerful attackers, i.e., attackers with more capabilities. More precisely, the protocol hierarchy is directed acyclic graph whose nodes are pairs of a protocol and a set of attacker capabilities, where two nodes share an edge if the source protocol-set of capabilities satisfies the state property, but adding an additional capabilities would break the state property in the protocol, whilst the property is still satisfied in the destination node despite the addition of those capabilities.
+To check if a protocol satisfies a state property (e.g. perfect forward secrecy) in the presence of adversaries, Basin and Cremers model the protocol as symbolic transition system, and they model an adversary as a set of capabilities that enable previously inexistent transitions in the protocol. These new transitions expand the set of reachable states in the protocol, and this new set of reachable states may contain a state where the knowledge of the attacker has enough sensitive information to break the state property being verified. The idea of an attacker adding new transitions to an existing system is simple yet powerful, because it allows us to study exceptional behaviours of the system. However, to which extend can an attacker add new transitions to a system? Can they add arbitrary transitions? Can they also remove existing transitions? All these are pertinent questions, and their answers have interesting implications. Basin and Cremers~\cite{KnowYourEnemy} do not allow attackers to create arbitrary transitions; attackers can only create them based on the following three aspects: \emph{which} kind of data is compromised, \emph{whose} data is it, and \emph{when} the compromise occurs. 
 
-To check if a protocol satisfies a state property (e.g. perfect forward secrecy) in the presence of adversaries, Basin and Cremers model the protocol as symbolic transition system, and they model an adversary as a set of capabilities that enable previously inexistent transitions in the protocol. These new transitions expand the set of reachable states in the protocol, and this new set of reachable states may contain a state where the knowledge of the attacker has enough sensitive information to break the state property being verified . 
+Basin and Cremers illustrate how we can model attackers symbolically as sets of capabilities that abstract the concrete implementation of attacks and focus exclusively on their effects. The semantics of a new transition $a\rightarrow b$ introduced by attackers corresponds to an abstraction of the effect of some attack at the source state $a$ which causes the system to reach a state $b$. In this sense, the attacker has capabilities to change the state of the system. Arbitrary transitions are theoretically possible, but they may be practically infeasible; for example, we could create a transition from a state where the attacker has no knowledge about any secrets to a state where the attacker has knowledge of all of the secrets; such attacker could clearly break any confidentiality protocol, but the realism of such attacker model is questionable. 
 
-The idea of an attacker adding new transitions to an existing system is simple yet powerful. However, to which extend can an attacker add new transitions to a system? Can they add arbitrary transitions? Can they also remove existing transitions? All these are pertinent questions, and their answers have interesting implications. Basin and Cremers~\cite{KnowYourEnemy} do not allow attackers to create arbitrary transitions; attackers can only create them based on the following three aspects: \emph{which} kind of data is compromised, \emph{whose} data is it, and \emph{when} the compromise occurs. Arbitrary transitions are theoretically possible, but they may be practically infeasible; for example, we could create a transition from a state where the attacker has no knowledge about the secrets to a state where the attacker has knowledge of all of the secrets, and such attacker could break any confidentiality protocol, but the realism of such attacker model is questionable. 
+\section{Beyond Confidentiality and Symbolic Attackers}
+The work by Basin and Cremers verifies protocols with respect to confidentiality properties, but more precisely with respect to safety properties, since it uses a reachability approach. It is possible to study similar safety properties using their method, even if the properties address domains beyond confidentiality, i.e., integrity or availability. We are particularly interested in studying the \emph{robustness} of systems, a concept which is closer to integrity properties than it is to confidentiality.
 
-We face a difficult challenge: how can we define realistic attacker models for transition systems? 
+Robustness is a property related to the integrity of systems in the presence of adversaries. Informally, a \emph{robust system} preserves its integrity in the presence of adversaries; i.e., despite the effect of attacks, the system does not reach any critical states. If we are to use a method similar to the one shown by Basin and Cremers, we need to define attacker models in such a way that these attackers enable new transitions. 
+
+Basin and Cremers describe attackers with symbolic capabilities (e.g., an attacker can reveal a long-term secret key). This simplifies the verification process, since the details of the process of how information is revealed is abstracted away. Unfortunately, due to this high level of abstraction, we do not learn how an attacker can actually obtain those secrets. We are interested not only in quantifying how robust a system is, but also in the concrete strategies that attackers may use when attacking the system. We can achieve both by lowering the level of abstraction of the attacker; i.e., we are going to define attackers as sets of actions instead of a set of assumptions. %Under this formulation, attackers correspond to sets of \emph{spatial transformations}. 
+
+\section{Idea: Attackers as Sets of Spatial Transformations}
+A \emph{spatial transformation} is an endofunction in the universe of states of a transition system; i.e. it is a function that maps states to states. We now give an idea of how the the compromise rules of attackers in ~\cite{KnowYourEnemy} can be generalised to spatial transformations. 
+
+In a simple setting, consider the set of natural numbers $\Nat$ and the successor function $+_1\colon \Nat\rightarrow \Nat$ that maps $x\in \Nat$ to $x+1$. The pair $(\Nat, +_1)$ defines a transition system, which we represent as a vector space in Figure~\ref{fig:IntroVectorSpace}.
+\missingfigure{\label{fig:IntroVectorSpace}}
+The behaviour of $x\in \Nat$ is the sequence that results from the iterated application of $+_1$ starting from $x$; i.e., $x+1,x+2,x+3,x+4,\ldots$. Now, consider the endofunction $*_2\colon \Nat\rightarrow \Nat$ that maps $x\in \Nat$ to $2x$. The transformation $*_2$ generates a second vector space, shown in Figure~\ref{fig:SpatialDeformation}. Vector addition in this scenario is non-commutative; applying $+_1$ first and then $*_2$ maps $x$ to $2x+2$ while applying $*_2$ first and then $+_1$ maps $x$ to $2x+1$. Since the original transition system is $(\Nat, +_1)$, the effect of $*_2$ models an external perturbation over $(\Nat, +_1)$.
+
+To aggregate the vector spaces, we assume that we apply $*_2$ first and then $+_1$. Now, the behaviour of $x\in\Nat$ changes from $x+1,x+2,x+3,x+4,\ldots$ to $2x+1,4x+3,8x+7,16x+15\ldots$. The original system $(\Nat, +_1)$ this not have these behaviours, as they are only revealed after applying $*_2$ by, e.g., an attacker. Each spatial transformation $m\colon \Nat\rightarrow \Nat$ reveals a behaviour that uses the transition function of the system $(\Nat, +_1)$. In the dual case, to apply $+_1$ first and then $*_2$ is equivalent to reveal a new behaviour for the transition system $(\Nat, *_2)$ using $+_1$. These new behaviours are \emph{latent}, since they are only revealed in the presence of a non-trivial spatial transformation. 
+\missingfigure{\label{fig:SpatialDeformation}}
+
+In this thesis, we intend to model attackers of a system as sets of spatial transformations, forcing them to reveal new behaviours only by affecting the state space, leaving the transition function intact; in other words, an attacker can produce new denotational semantics, but they cannot affect the operational semantics of the system. This creates a ``game" between attacker and system: the attacker moves first and transforms the initial state, the system then moves by applying its transition function, and then the attacker moves again, transforming the resulting states. The system moves again, and this process iterates. We do not consider cases where the attacker takes two turns in a row or where the system takes two turns in a row, since we can emulate them by an intercalated game. More precisely, an attacker that takes two turns in a row to transform a state $x$ into a state $y$ and then to a state $z$ is equivalent to an attacker that takes only one turn and transforms $x$ into $z$ directly. A system that takes two turns in a row by mapping a state $a$ to a state $b$ and then to a state $c$ is equivalent to a turn-based game between an attacker and system where the attacker used an identity transformation to map $a$ to itself and $b$ to itself. 
+
+We define attacker models by imposing restrictions over the spatial transformations that are available to an attacker. An attacker that can only apply an identity spatial transformation (i.e., one that maps a state to itself) has only trivial capabilities, and fits a passive attacker model that can only watch as the system executes. An attacker that can apply any spatial transformations can manipulate the state space of the transition system as they wish, rendering the dynamics of the system obsolete because they can be bypassed via spatial transformations. However, when we restrict the set of spatial transformations available to an attacker, we observe interesting interactions. For example, the attackers in ~\cite{KnowYourEnemy} cannot enable arbitrary transitions; instead, there is a set of
+%Although this formalism discards attackers that can change the program of the system,  %By protecting the operational semantics of the transition system (i.e., the transition function), we force attackers to follow the rules 
+compromise rules that only enable specific state transitions. An attacker model is a set of compromise rules, so more capable attackers have more enabled transitions at their disposal. We interpret the transitions enabled by the compromise rules as a spatial transformation that reveals latent behaviours. 
+
+Not all systems have their operational semantics described in terms of endofunctions. For example, reactive systems require an external input to proceed. To define a unified methodology for the application of spatial transformations in transition systems, we use \emph{universal coalgebra}.
+
+
+% % Without any restrictions, spatial transformations can map states in any imaginable way.
+
+% From a high-level perspective, we compose the effect of the attacker with the effects of the normal behaviour of the system, and we study the composition to measure robustness and find ways to improve it.
+
+\section{Universal Coalgebra to the Rescue}
+We would like our definitions of attacker models, attacks and robustness to be as general as they possibly can so that they apply to as many systems as possible. For that reason, we model systems and attackers using the framework of \emph{universal coalgebra}~\cite{UniversalCoalgebra}. Using universal coalgebra, several authors have generalised results previously exclusive to certain formalisms; e.g., the powerset construction, which is used to discretise a non-deterministic finite automaton, generalises to other computational effects beyond non-determinism~\cite{GeneralisingDetermination}, or e.g., Brzozowski's algorithm for the minimisation of deterministic finite automata can be generalised to deterministic Moore automata~\cite{CoBrzozowski}.
+
+Universal coalgebra has also been used for applications in system security. 
+
+\section{Our Goals}
+
+\section{Thesis Outline and Summary of Contributions}
+We divide this thesis into two major modules: \emph{theory} and \emph{applications}. The theory module presents LBA in the framework of universal coalgebra, and the application module shows three different instances of the application of LBA to three practical problems: the classification of attacker models, the quantification and repair of robustness in cyber-physical systems, and the enforcement of timing side-channel freedom with respect to memory access patterns for LLVM-IR programs.
+ 
+We do not claim to expand beyond the state of the art in coaglebras, instead, our interest lies primarily on applications for which spatial transformations of transition systems provide an insight or a benefit for an application. 
+\section{Related Work}
+
+Due to the diversity of the applications we consider for the framework presented in this thesis, each chapter on applications contains its own related work section.
+\todo[inline]{Heap}
+
+
+%; in other words, the attackers can \emph{corrupt} the current state of systems.
+
+
+
+Although the work of Basin and Cremers addresses a confidentiality issue, 
+
+How do we define realistic attacker models for transition systems? Perhaps it is easier if we start with a system as simple as possible. 
+\todo[inline]{maybe something on fault analysis? I dunno.}
 
 %If an attacker can arbitrarily change the transition structure of a system, is it possible to defend against such attacker? 
 %It is an idea compatible with both model checking and testing, which is how we can obtain hierarchies of systems. 
@@ -99,7 +153,7 @@ Probably the most important is to motivate the quantification of attackers and h
 In latent behaviours we use a transformation $X\rightarrow X$ to affect the behaviour of the system. This transformation is an abstraction; the original system naturally transforms to a system $X\rightarrow D \rightarrow X$ using composition, also of type $X\rightarrow X$. Each function $X\rightarrow X$ can be seen as a black-box of some behaviour. Their interweaving means that they are acting simultaneously. 
 
 \section{Research Questions}
-We consider the following broad yet interesting research questions that are pervasive in systems security to motivate our work.
+To show the usefulness of LBA, we consider the following broad yet interesting research questions that are pervasive in systems security to motivate our work. We analyse these questions in the context of the three different application scenarios that we consider in this thesis for LBA. 
 \begin{question}
 \label{que:AttackerModel}
 How do we precisely describe and generate attacker models, attacks and attackers?
@@ -110,7 +164,7 @@ How do we efficiently quantify the effect that a given attacker has on a given s
 \end{question}
 \begin{question}
 \label{que:Classification}
-How do we compare attacker models and attackers with respect to the effect they potentially have on a given system?
+How do we compare attacker models and attackers with respect to the effect that they potentially have on a given system?
 \end{question}
 % \begin{question}
 % \label{que:Countering}
@@ -120,13 +174,17 @@ How do we compare attacker models and attackers with respect to the effect they 
 \label{que:Repair}
 How do we repair a system that is vulnerable with respect to a given attacker model?
 \end{question}
-We do not pretend to solve these questions at this broad level, but we address concrete instances of these questions, which appear as we instantiate systems, attacker models, security requirements, etc. in the following sections.
-\section{Applications}
-\subsection{Attacker Classification}
-How can we model attackers? How can we model their actions? How can we prepare against them?
-\subsection{Cyber-Physical System Redesign}
-Many attacks are discovered through testing: an experienced hacker creates a proof of concept to illustrate how some system may be attacked. Then, an abstraction is created to explain why the attack works, and to suggest countermeasures against it. 
-\subsection{Program Repair}
+
+% We do not pretend to solve these questions at this broad level, but we address concrete instances of these questions, which appear as we instantiate systems, attacker models, security requirements, etc. in the following sections.
+% \section{Applications}
+% \subsection{Attacker Classification}
+% How can we model attackers? How can we model their actions? How can we prepare against them?
+% \subsection{Cyber-Physical System Redesign}
+% Many attacks are discovered through testing: an experienced hacker creates a proof of concept to illustrate how some system may be attacked. Then, an abstraction is created to explain why the attack works, and to suggest countermeasures against it. 
+% \subsection{Program Repair}
+
+
+
 %Fuzzing is probably one of the most popular techniques for system transformations. 
 
 % \todo[inline]{Actually, the thesis would be super interesting if potential behaviour problems are presented in terms of a game between the system and the attacker, with the attacker following some sort of reactive strategy, and the system as well. At some point, one or the other wins because it is a deterministic game if the system is deterministic. }

@@ -36,7 +36,7 @@ Abstractly, an attack $m$ is a fault purposely injected by an attacker. The atta
 
 If we model the behaviour of a CPS as a function $\TheSystem\colon\Pi\rightarrow\Pi$, where $\Pi$ is the set of states, which evolves the state of the system over time, we can compose $\TheSystem$ with a state transformation $m\colon \Pi\rightarrow\Pi$ and reveal a behaviour $\TheSystem\circ m\colon\Pi\rightarrow\Pi$. We call $\TheSystem\circ m$ the \emph{latent behaviour revealed by $m$}, because it depends on the behavioural variable $m$. The normal behaviour of the system corresponds to the latent behaviour revealed by the identity transformation, since $\TheSystem\circ \id=\TheSystem$. If $m$ models an attack, then we can introduce an additional behavioural variable $w$ to reveal an additional latent behaviour $\TheSystem\circ w\circ m$, and if $w$ counters the actions of $m$, then we could use $w$ constructively instead of destructively to implement contingency methods for when the attack $m$ is detected via runtime monitors.
 
-Theoretically, if the set of states $\Pi$ is finite, there are $|\Pi|^{|\Pi|}$ possible values for the latent variables $m$ and $w$.  However, in the case of $m$, this set of transformations models an attacker that is capable of arbitrarily morphing the state of the CPS, including both cyber and physical aspects, in any form and at any time. This attacker is trivially too powerful to defend against, not to mention impractical, since it can in theory bypass physical invariants (e.g. Boyle's law). In this work, we show how to systematically generate a set of transformations $m$ which represent realistic and practical attacks. We use the revealed latent behaviours $\TheSystem\circ m$ to quantify the robustness of the system in the same spirit as fault injection. Then, because attacks and counter-attacks are duals of the same type, we use a similarly-generated of transformations to try to find, for each attack $m\colon\Pi\rightarrow\Pi$, a counter-attack $w\colon\Pi\rightarrow\Pi$. Each attack+counter-attack pair can give the designer of the CPS useful insights on how to make the control strategy more robust and how to implement mitigation mechanisms that are more effective.
+Theoretically, if the set of states $\Pi$ is finite, there are $|\Pi|^{|\Pi|}$ possible values for the latent variables $m$ and $w$.  However, in the case of $m$, this set of transformations models an attacker that is capable of arbitrarily morphing the state of the CPS, including both cyber and physical aspects, in any form and at any time. This attacker is trivially too powerful to defend against, not to mention impractical, since it can in theory bypass physical invariants (e.g. Boyle's law). In this work, we show how to systematically generate a set of transformations $m$ which represent realistic and practical attacks. We use the revealed latent behaviours $\TheSystem\circ m$ to quantify the robustness of the system in the same spirit as fault injection. Then, because attacks and counterattacks are duals of the same type, we use a similarly-generated of transformations to try to find, for each attack $m\colon\Pi\rightarrow\Pi$, a counterattack $w\colon\Pi\rightarrow\Pi$. Each attack+counterattack pair can give the designer of the CPS useful insights on how to make the control strategy more robust and how to implement mitigation mechanisms that are more effective.
 
 % Formally, any transformation $m\colon\Pi\rightarrow\Pi$ can be used to reveal a latent behaviour. 
 % However, we are interested in those $m$ that model realistic attacks. 
@@ -210,13 +210,13 @@ Now that we have a description of the model of the CPS, we define a set of secur
 %\subsection{Security Requirements and Additive Attacks}
 \subsection*{Security Requirements}
 \begin{wrapfigure}{r}{0.4\textwidth} 
-  \vspace{-1cm}
+  %\vspace{-1cm}
   \centering
   \includegraphics[width=0.4\textwidth]{Figures/Stage3Normal.png}
   \vspace{-0.25cm}
   \caption{Normal steady state behaviour of the water level of Stage 3.}
   \label{fig:Stage3Normal}
-  \vspace{-1cm}
+  \vspace{-1.5cm}
 \end{wrapfigure}
 We establish two simple security requirements for Stage 3: the tank is never empty and the tank never overflows. Formally, these requirements correspond to the invariants $\Always{\vec{x}[L]< 1200}$ and $\Always{\vec{x}[L]> 0}$, defined by
 
@@ -236,19 +236,18 @@ We explain how we obtain the size of the attack universe in Section~\ref{sec:Att
 
 Informally, the robustness of Stage 3 with respect to this attacker model can be measured by the number of attacks that do not break any requirements. Testing shows that 40 out of 64 attacks can break at least one requirement, so the robustness factor of this system is 24/64 with respect to an attacker that controls $\vec{y}[L]$. We explain the process of computing robustness more precisely in Section~\ref{sec:LatentBehaviours}.
 
-\subsection*{Counter-attackers}
+\subsection*{Counterattackers}
 So far, we have used a traditional fault-injection to quantify the robustness of Stage 3 with respect to an attacker that controls the sensor $\vec{y}[L]$. 
 Now, we rely on the fundamental observation that an attack $m$ on the original version of Stage 3 reveals a latent behaviour, which we denote Stage $3_m$. 
 A transformation $w$ on the revealed system Stage $3_m$ may reveal a latent behaviour Stage $3^w_m$ which satisfies all security requirements. 
-In such a case, we say that \emph{$w$ is a counter-attack of $m$}.
+In such a case, we say that \emph{$w$ is a counterattack of $m$}.
 
-We now adopt the role of the counter-attacker. Our counter-attacker model allows us to set the values $\vec{q}[P]$ and $\vec{q}[MV]$ in the controller at any time by any arbitrary value we choose; we also assume that we can observe the value $\vec{y}[L]$, which is currently controlled by the original attacker. Under this counter-attacker model, we can define a universe of 729 counter-attacks. We explain how we obtain the size of the counter-attack universe in Section~\ref{sec:CounterAttacks}.
+We now adopt the role of the counterattacker. Our counterattacker model allows us to set the values $\vec{q}[P]$ and $\vec{q}[MV]$ in the controller at any time by any arbitrary value we choose; we also assume that we can observe the value $\vec{y}[L]$, which is currently controlled by the original attacker. Under this counterattacker model, we can define a universe of 729 counterattacks. We explain how we obtain the size of the counterattack universe in Section~\ref{sec:CounterAttacks}.
 
-We test counter-attacks on the latent behaviours revealed by successful attacks until we find new behaviours that satisfy all security requirements. For example, consider the attack where...
-\todo[inline]{@John: please let me know when the visuals are ready. I can choose one attack, one counterattack and put the results here.}
+We test counterattacks on the latent behaviours revealed by successful attacks until we find new behaviours that satisfy all security requirements. For example, consider the attack where...
 
 \subsection*{Latent Robustness}
-If we can find a counterattacks for each of the 40 successful attacks in the original model, we say the system has a \emph{latent robustness of 64/64} with respect to the given attacker and counter-attacker models; a score of 24 is given by its original robustness and 40 more if counter-attacks are properly implemented. To effectively implement these counter-attacks, we assume that there is a runtime monitor can detect with high accuracy which attack on $\vec{y}[L]$ is taking place, so that we can react to it accordingly. Choosing the wrong counter-attack can be catastrophic, as it may not only not counter the running attack, it might exacerbate its effects.
+If we can find a counterattacks for each of the 40 successful attacks in the original model, we say the system has a \emph{latent robustness of 64/64} with respect to the given attacker and counterattacker models; a score of 24 is given by its original robustness and 40 more if counterattacks are properly implemented. To effectively implement these counterattacks, we assume that there is a runtime monitor can detect with high accuracy which attack on $\vec{y}[L]$ is taking place, so that we can react to it accordingly. Choosing the wrong counterattack can be catastrophic, as it may not only not counter the running attack, it might exacerbate its effects.
 
 \todo[inline]{Connector}
 
@@ -616,7 +615,7 @@ Now that we have a method to systematically generate attacks and to associate th
 % \end{definition}
 \section{Testing and Improving Robustness via Latent Behaviour Analysis}
 \label{sec:LatentBehaviours}
-The robustness of a system is a measure relative to some attacker model. The more attacks there are, and the more the system resists them without failing its requirements, the more robust it is. In this section, we formally define a notion of robustness for a CPS with respect to a given attacker model, and we show how to improve it with respect to a given counter-attacker model.
+The robustness of a system is a measure relative to some attacker model. The more attacks there are, and the more the system resists them without failing its requirements, the more robust it is. In this section, we formally define a notion of robustness for a CPS with respect to a given attacker model, and we show how to improve it with respect to a given counterattacker model.
 
 An attack $\vec{m}$ continuously changes the state of the system, altering its single-cycle semantics and revealing a \emph{latent behaviour}. More precisely, we can compose the single-cycle semantics $\TheSystem$ with an arbitrary state transformation $m\colon \Pi\rightarrow\Pi$ to reveal a new behaviour function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$. We call $\TheSystem\circ m$ the \emph{latent behaviour} revealed by $m$, because it depends on the latent/hidden variable $m$. 
 
@@ -649,15 +648,15 @@ Given an attacker model $\mathcal{A}$, and a set of requirements $\TheSetOfRequi
   In the context of the attacker model of Stage 3 where the basis is $[LL, OK, HH]^T$ and the coefficients are $\Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}$, there are 64 attacks, out of which 40 break at least one physical requirement. The robustness of Stage 3 with respect to this attacker model is 24/64.
 \end{example}
 %\todo[inline]{@All: can someone please edit the following sections? I'm writing extremelly informally}
-\subsection{Counter-Attacks and Latent Robustness}
+\subsection{Counterattacks and Latent Robustness}
 \label{sec:CounterAttacks}
-Latent behaviour analysis teaches us that attacks transform the single-cycle semantics, so it is possible for us to keep transforming the revealed latent behaviours with other transformations: \emph{counter-attacks}. Counter-attacks are exactly the same as attacks, but we use them to reveal second-degree latent behaviours; i.e. the latent behaviours of the latent behaviours revealed by attacks on the original system. 
+Latent behaviour analysis teaches us that attacks transform the single-cycle semantics, so it is possible for us to keep transforming the revealed latent behaviours with other transformations: \emph{counterattacks}. Counterattacks are exactly the same as attacks, but we use them to reveal second-degree latent behaviours; i.e. the latent behaviours of the latent behaviours revealed by attacks on the original system. 
 
-% \begin{definition}[Counter-Attack]
+% \begin{definition}[Counterattack]
 %   \label{def:CounterAttack}
 % Given a basis $\sum_{i=1}^n\Pi_i$ and coefficients $t_1, \ldots, t_n\in\IMCT$, 
 %  %generated by the representative values $\Gamma_c$ for each $c\in \mathbb{C}$, 
-% we define a \emph{counter-attack} $\vec{w}\colon \Pi\rightarrow \Pi$, for $\pi\in \Pi$, with the linear combination
+% we define a \emph{counterattack} $\vec{w}\colon \Pi\rightarrow \Pi$, for $\pi\in \Pi$, with the linear combination
 % \begin{align}
 %   \vec{w}=t_1\Pi_1 + t_2\Pi_2 + \ldots + t_n\Pi_n.
 % \end{align} 
@@ -679,24 +678,24 @@ Latent behaviour analysis teaches us that attacks transform the single-cycle sem
 % \end{align} 
 % \end{definition}
 
-A \emph{counter-attacker models} are dual to attacker models. Given that the controller or the operator would play the role of the counter-attacker, we can give them extraordinary privileges. More precisely, we believe it is sensible to describe the counter-attacker model as a rather capable attacker whose transformations directly affect the controller or the physical components the system. 
+A \emph{counterattacker models} are dual to attacker models. Given that the controller or the operator would play the role of the counterattacker, we can give them extraordinary privileges. More precisely, we believe it is sensible to describe the counterattacker model as a rather capable attacker whose transformations directly affect the controller or the physical components the system. 
 
 \begin{example}
   \label{ex:counterattack}
-  In the context of Stage 3 from Section~\ref{sec:example}, we define the counter-attacker model $(\Gamma_{\set{\vec{q}[MV],\vec{q}[P]}},\set{\widehat{LL},\widehat{OK},\widehat{HH}})$. The idempotent monoid of coefficients is generated by $\Gamma_{\vec{q}[MV],\vec{q}[P]}$, where 
+  In the context of Stage 3 from Section~\ref{sec:example}, we define the counterattacker model $(\Gamma_{\set{\vec{q}[MV],\vec{q}[P]}},\set{\widehat{LL},\widehat{OK},\widehat{HH}})$. The idempotent monoid of coefficients is generated by $\Gamma_{\vec{q}[MV],\vec{q}[P]}$, where 
   \begin{align*}
     \Gamma_{\set{\vec{q}[MV],\vec{q}[P]}}&=\Gamma_{\vec{q}[MV]}\cup\Gamma_{\vec{q}[P]}\\
     &=\set{\const^{\vec{q}[MV]}_{\texttt{open}},\const^{\vec{q}[MV]}_{\texttt{closed}}}\\
     &\cup \set{\const^{\vec{q}[P]}_{\texttt{on}},\const^{\vec{q}[P]}_{\texttt{off}}}
   \end{align*}
-  The basis $\set{\widehat{LL},\widehat{OK},\widehat{HH}}$ is defined by  $\widehat{LL}(\pi)=(\pi[\vec{y}[L]]<Lmin)$, $\widehat{HH}(\pi)=(\pi[\vec{y}[L]]>Lmax)$ and $\widehat{OK}(\pi)=(Lmin\leq \pi[\vec{y}[L]]\leq Lmax)$. Note that we arbitrarily choose the visibility of the counter-attacker to be affected by the attacker. More precisely, we use $\widehat{LL},\widehat{OK}$ and $\widehat{HH}$, which depend on the level provided by the attacker $\vec{y}[L]$, and not on the physical (real) water level $\vec{x}[L]$. 
+  The basis $\set{\widehat{LL},\widehat{OK},\widehat{HH}}$ is defined by  $\widehat{LL}(\pi)=(\pi[\vec{y}[L]]<Lmin)$, $\widehat{HH}(\pi)=(\pi[\vec{y}[L]]>Lmax)$ and $\widehat{OK}(\pi)=(Lmin\leq \pi[\vec{y}[L]]\leq Lmax)$. Note that we arbitrarily choose the visibility of the counterattacker to be affected by the attacker. More precisely, we use $\widehat{LL},\widehat{OK}$ and $\widehat{HH}$, which depend on the level provided by the attacker $\vec{y}[L]$, and not on the physical (real) water level $\vec{x}[L]$. 
   % (Y[L3]<L3min)=>[(Q[MV3]->closed), (Q[P3]->off)] + (L3min<=Y[L3]<=L3max)=>[id(Q[MV3]), id(Q[P3])] + (Y[L3]>L3max)=>[id(Q[MV3]), id(Q[P3])]
-  This counter-attacker model generates 729 different counter-attacks, 
+  This counterattacker model generates 729 different counterattacks, 
 since
 \begin{align*}
   \left| \IM{\Gamma_{\set{\vec{q}[MV],\vec{q}[P]}}}\right|^{\left|\set{\widehat{LL},\widehat{OK},\widehat{HH}}\right|}=9^3=729
 \end{align*}
-  An example counter-attack $\vec{w}$ from this model is 
+  An example counterattack $\vec{w}$ from this model is 
   \begin{align}
     \vec{w}=
     \begin{bmatrix}
@@ -715,23 +714,23 @@ since
 \end{example}
 
 \begin{definition}[Attack Countering]
-  We say that a counter-attack $\vec{w}$ \emph{counters} an attack $\vec{m}$ if and only if the latent behaviour $\TheSystem\circ\vec{m}$ fails at least one physical requirement, but $\TheSystem\circ(\vec{w}\circ\vec{m})$ does not fail any.
+  We say that a counterattack $\vec{w}$ \emph{counters} an attack $\vec{m}$ if and only if the latent behaviour $\TheSystem\circ\vec{m}$ fails at least one physical requirement, but $\TheSystem\circ(\vec{w}\circ\vec{m})$ does not fail any.
 \end{definition}
 \begin{example}
-  The counter-attack $\vec{w}$ from Example~\ref{ex:counterattack} counters the attack $\vec{m}$ from Example~\ref{ex:attack}, because the attack $\vec{m}$ tries to trick the controller into keeping the valve $MV$ open by making the controller believe that the level of water is low, but the counter-attack states that we should close the valve $MV$ and turn off the pump $P$ when the level of water is low.
+  The counterattack $\vec{w}$ from Example~\ref{ex:counterattack} counters the attack $\vec{m}$ from Example~\ref{ex:attack}, because the attack $\vec{m}$ tries to trick the controller into keeping the valve $MV$ open by making the controller believe that the level of water is low, but the counterattack states that we should close the valve $MV$ and turn off the pump $P$ when the level of water is low.
 \end{example}
 
 The \emph{latent robustness} of a system is characterised by the set of attacks that fail to break any requirement, plus the set of attacks that can be countered.
 
 \begin{definition}[Latent Robustness]
-  Given an attacker model $\mathcal{A}$, a counter-attacker model $\mathcal{B}$, and a set of physical requirements $\TheSetOfRequirements$, we define $\mathcal{B}(\mathcal{A}(\TheSetOfRequirements))$ to be the set of attacks in $\mathcal{A}$ that \emph{cannot be countered} by counter-attacks in $\mathcal{B}$. We define the \emph{latent robustness} of the system by 
+  Given an attacker model $\mathcal{A}$, a counterattacker model $\mathcal{B}$, and a set of physical requirements $\TheSetOfRequirements$, we define $\mathcal{B}(\mathcal{A}(\TheSetOfRequirements))$ to be the set of attacks in $\mathcal{A}$ that \emph{cannot be countered} by counterattacks in $\mathcal{B}$. We define the \emph{latent robustness} of the system by 
   \begin{align*}
     \frac{|\mathcal{A}|-|\mathcal{B}(\mathcal{A}(\TheSetOfRequirements))|}{|\mathcal{A}|}
   \end{align*}
 \end{definition}
 
 \begin{example}
-  In the context of the attacker model of Stage 3 from Section~\ref{sec:example}, the latent robustness of Stage 3 with respect of the attacker model from Example~\ref{ex:attack} and the counter-attacker model from Example~\ref{ex:counterattack} is 64/64, since every attack in the attacker model can be countered by a counter-attack in the counter-attacker model.
+  In the context of the attacker model of Stage 3 from Section~\ref{sec:example}, the latent robustness of Stage 3 with respect of the attacker model from Example~\ref{ex:attack} and the counterattacker model from Example~\ref{ex:counterattack} is 64/64, since every attack in the attacker model can be countered by a counterattack in the counterattacker model.
   % where the basis is $[LL, OK, HH]^T$ and the coefficients are $\Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}$, there are 64 attacks, out of which 40 break at least one physical requirement. The robustness of Stage 3 with respect to this attacker model is 24/64.
 \end{example}
 
@@ -780,7 +779,7 @@ Finally, Corollary~\ref{cor:insecure} is a special case of Corollary~\ref{cor:mo
 % To close this section, we provide a general notion of robustness of a system with respect to an attacker model.
 \subsection{Obtaining the Most Pressing Attacker Models}
 \begin{example}
-  For example, the attack from Example~\ref{ex:attack} creates a new mode in the controller where we implement the counter-attack from Example~\ref{ex:counterattack}.
+  For example, the attack from Example~\ref{ex:attack} creates a new mode in the controller where we implement the counterattack from Example~\ref{ex:counterattack}.
 \begin{align}
   \label{eq:ControllerStager3}
   \vec{q}_{\vec{m}}[MV](k+1)&=
@@ -796,7 +795,7 @@ Finally, Corollary~\ref{cor:insecure} is a special case of Corollary~\ref{cor:mo
 \end{cases}
 \end{align}
 \end{example}
-To redesign a CPS, we choose one attack $\vec{m}$ and implement its counterattack directly in the controller. We do not repair attacks that have no counter-attack; our options are to make the counter-attacker model made more capable, or to change change the model of the system and run the analysis again.
+To redesign a CPS, we choose one attack $\vec{m}$ and implement its counterattack directly in the controller. We do not repair attacks that have no counterattack; our options are to make the counterattacker model made more capable, or to change change the model of the system and run the analysis again.
 \todo[inline]{This is an interesting direction for future work: how can we change system modularly?}
 
 The controller has more modes now: normal operation mode, and response mode to attack $\vec{m}$. (Normal operation mode is equivalent to response mode to attack $\id$.) We assume that the monitor can effectively inform the controller about the nature of the current attack; i.e., we assume that the monitor can accurately identify any attack. If the monitor fails to characterise the attack, then incorrectly changing the mode of the controller might aggravate the situation. 
