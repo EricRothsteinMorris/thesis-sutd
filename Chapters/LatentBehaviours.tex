@@ -249,6 +249,14 @@ The transformation $m(x,y)=(\lnot x,\lnot y)$ reveals the latent coalgebra where
 \end{align}
 The behaviour of a state $x$ changes when $m$ acts on $x$. In particular, the image of state $(0,0)$ under the semantic map is no longer the language $(0|1)^*11$; it is the language $\varepsilon|(0|1)^*10$ instead.
 \end{example}
+\todo[inline]{Maybe connect these two examples better}
+\begin{example}
+    In the context of Example~\ref{ex:Latent:TheExample}, consider the behavioural property $Q\colon 2^{2^*}\rightarrow 2$ which accepts a language $\phi \in 2^{2^*}$ if and only if $\phi$ accepts a sequence $w\in 2^*$, then $w$ ends in 1 or $w$ is empty.
+
+    In the original $F$-coalgebra, all states in $2\times 2$ satisfy the property $Q$ since both $(0,0)$ and $(1,0)$ recognise the language $(0|1)^*11$, $(0,1)$ recognises the language $(0|1)^*1$, and $(1,1)$ recognises $\varepsilon + 0(0|1)^*11 + 1(0|1)^*1$. However, in the latent coalgebra revealed by the attack $m$, which maps $(a,b)$ to $(\lnot a, \lnot b)$, the state $(0,0)$ no longer satisfies $Q$, since it now recognises the language $\varepsilon|(0|1)^*10$. 
+
+    Now, if we use $m$ again in the latent coalgebra $(2\times 2, c\circ m)$ to reveal the latent coalgebra $(2\times 2, c\circ m\circ m)$, we repair the system with respect to the property $Q$, since $m \circ m=\id$. Thus, $m$ can be used as its own counterattack, but only when the latent coalgebra $(2\times 2, c\circ m)$ has been revealed (otherwise, the application of $m$ reveals $(2\times 2, c\circ m)$, and it breaks $Q$).
+\end{example}
 % \todo[inline]{There is no notion of distance or how different behaviours are in this setting. Things either are equal/isomorphic or they are not.}
 \section{Latent Behaviour Analysis}
 LBA is the study of the effects that a spatial transformation $m\colon X\rightarrow X$ has over the behaviour of states in $X$ in the context of an $F$-coalgebra $(X,X\xrightarrow{c} F(X))$. The choice to focus on spatial transformations seems arbitrary; clearly, it is also possible to affect the behaviour of states by composing $c$ with a {dynamics transformation} $b\colon F(X)\rightarrow F(X)$ to obtain the new dynamics function $b \circ c$, as shown in the "Arrow" from Figure~\ref{fig:TheArrow}. %Both $(X,b\circ c\colon X\rightarrow F(X))$ and $(X,b\circ c\circ m\colon X\rightarrow F(X))$ are $F$-coalgebras, since the type requirement is satisfied. 
@@ -307,6 +315,16 @@ In summary, we can represent $F$-coalgebras whose carrier is $\sigma F$ by endof
 
 % \todo[inline]{Explain that this corresponds to the point of The Arrow: $!c$ takes you from $X$ to $\sigma F$, and you can use $\omega$ to reveal a latent coalgebra of $(\sigma F, 1)$. This arrow $\omega$ models the behavioural change from $!c$ to $!_{b\circ c\circ m}$.}
 In the following, we return to arbitrary $F$-coalgebras $(X,c)$, but we keep in mind the following: when we reveal a latent coalgebra of $(X,c)$ under a spatial transformation $m$, we are implicitly sequentially composing the behaviour function $c$ with the behaviour function of the $F$-coalgebra implemented by $m$; first we apply $m$ and then we apply $c$.
+
+\section{The Arrow}
+Consider the following definition of \emph{arbitrary state-based attacks}.
+\begin{definition}[Arbitrary State-based Attack]
+    \label{def:Latent:StateAttacks}
+    Given an $F$-coalgebra $(X,c)$, the set of its \emph{state-based attacks} is the set of its spatial transformations, i.e., $X^X$. 
+    %We also define the set of its \emph{behaviour-based attacks} by $F(X)^{F(X)}$. 
+    \end{definition}
+Under this definition,
+\todo[inline]{Explain the arrow}
 
 \section{Some Applications of Latent Behaviour Analysis}
 % \todo[inline]{Describe in terms of coalgebras an introduction for the three application topics we have: attacker model classification, CPS redesign and Side-channel repair.}
@@ -367,30 +385,24 @@ We study the effects that spatial transformations have on the behaviour of the s
 
 \subsection{Formalisation of Integrity Attacks and Attacker Models}
 \label{sec:Latent:AttackerModels}
-Consider the following definition of \emph{arbitrary state-based attacks}.
-\begin{definition}[Arbitrary State-based Attack]
-    \label{def:Latent:StateAttacks}
-    Given an $F$-coalgebra $(X,c)$, the set of its \emph{state-based attacks} is the set of its spatial transformations, i.e., $X^X$. 
-    %We also define the set of its \emph{behaviour-based attacks} by $F(X)^{F(X)}$. 
-    \end{definition}
-Under this definition, LBA studies the effect of state-based attacks. Henceforth, when we refer to an attack, we implicitly mean a state-based attack (unless stated otherwise). In the particular case of final $F$-coalgebras, their state-based attacks coincide with their behaviour-based attacks. 
-\todo[inline]{Fix this and make the sections smaller and more coherent}
+LBA studies the effect of state-based attacks. Henceforth, when we refer to an attack, we implicitly mean a state-based attack (unless stated otherwise). In the particular case of final $F$-coalgebras, their state-based attacks coincide with their behaviour-based attacks. 
 
 \subsection{Classification of Attackers}
 \label{sec:Latent:Classification}
 In Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}, we compare and classify attackers based on their model. The intuition is the following: given an $F$-coalgebra $(\vec{X},c)$ where $\vec{X}$ is a product type of finite types whose coordinates are $\Pi=\set{\pi_1,\ldots,\pi_p}$, and a list of requirements $\mathcal{R}=\set{R_1, \ldots, R_n}$, we can systematically generate attacker models by choosing a subset of coordinates in $\Pi$. Under this formulation, the set of attacker models is characterised by $\ThePowersetOf{\Pi}$. Since attacker models are characterised by sets, we can compare them via set inclusion. This comparison sorts attackers by \emph{capabilities}; i.e., it classifies attackers with respect to the ways they can interact with the system. Then, using LBA, we obtain the set of requirements $\AsSequence{\alpha}[\mathcal{R}]$ broken by attackers fitting the model $\AsSequence{\alpha}$, and we compare these sets of requirements by set inclusion to compare attacker models by their \emph{power}; i.e., for two attacker models $\AsSequence{\alpha}$ and $\AsSequence{\beta}$, if $\AsSequence{\alpha}[\mathcal{R}]\subset \AsSequence{\beta}[\mathcal{R}]$, then $\AsSequence{\beta}$ breaks strictly more requirements than $\AsSequence{\alpha}$, making attackers which fit the model $\AsSequence{\beta}$ more dangerous adversaries than those which fit the model $\AsSequence{\alpha}$.%The attacker model corresponding to $\emptyset$ is the passive attacker, and the attacker 
 
-{\color{red}
+
 \subsection{Quantifying and Improving Robustness}
 \label{sec:Latent:Robustness}
-Informally, the robustness of a system quantifies how much stress the system can withstand without compromising its functionality. We explore the idea of modelling stress via state-based attacks and how we can quantify and improve the robustness of a system by studying properties of latent coalgebras.
+%Informally, the robustness of a system quantifies how much stress the system can withstand without compromising its functionality. We explore the idea of modelling stress via state-based attacks and how we can quantify and improve the robustness of a system by studying properties of latent coalgebras.
 
-Formally, we are given a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ which model both functional and security requirements of a system described by an $F$-coalgebra $(X,c)$ with an initial state $x_0\in X$, %and a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ and
-we are also given a spatial transformation $m\colon X\rightarrow X$ that models an attack or a fault;  %Normally, we would check if $x_0$ satisfies all behavioural properties in $\mathcal{R}$, but now 
-we say that the system is robust with respect to $m$ if $x_0$ still satisfies all the given behavioural properties despite the effects of the spatial transformation $m$.
-
-To check for robustness with respect to $m$, we might think that it suffices to check $(R_i\circ !_c)(m(x_0))=1$ for each requirement $R_i$, but that is incorrect: the expression $(R_i\circ !_c)(m(x_0))=1$ only checks if the effect of $m$ on the initial state is enough for $R_i$ to fail, and it ignores the effect of $m$ on the rest of the states. The correct way is to reveal the latent coalgebra $(X, c\circ m)$ and check if it satisfies the behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ using standard model checking/testing techniques. 
-
+%Formally, w
+Given a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ which model both functional and security requirements of a system described by an $F$-coalgebra $(X,c)$ with an initial state $x_0\in X$, %and a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ and
+and a spatial transformation $m\colon X\rightarrow X$ that models an attack or a fault;  %Normally, we would check if $x_0$ satisfies all behavioural properties in $\mathcal{R}$, but now 
+we say that the system is \emph{robust} with respect to $m$ if $x_0$ still satisfies all the given behavioural properties despite the effects of the spatial transformation $m$. To check for robustness with respect to $m$, we 
+%we might think that it suffices to check $(R_i\circ !_c)(m(x_0))=1$ for each requirement $R_i$, but that is incorrect: the expression $(R_i\circ !_c)(m(x_0))=1$ only checks if the effect of $m$ on the initial state is enough for $R_i$ to fail, and it ignores the effect of $m$ on the rest of the states. The correct way is to 
+reveal the latent coalgebra $(X, c\circ m)$ and check if it satisfies the behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ using standard model checking/testing techniques. 
+{%\color{red}
 % as illustrated by the following example.
 % \begin{example}[Faulty Verification]
 %     In the context of Example~\ref{ex:Latent:TheExample}, the functor is $F(X)=2\times X^2$, and it has a final $F$-coalgebra $(2^{2^*},(\varepsilon?,(\cdot)'))$ where $\varepsilon? \colon 2^{2^*}\rightarrow 2$ checks whether the empty sequence $\varepsilon$ belongs to the language and $(\cdot)'\colon 2^{2^*}\rightarrow (2\rightarrow {2^{2^*}})$ computes the Brzozowski derivative~\cite{BrzozowskiDerivative} of the language.  
@@ -402,24 +414,24 @@ To check for robustness with respect to $m$, we might think that it suffices to 
 % In the following, we illustrate how we can use spatial transformations to model attacks which target the state of systems rather than the program, and we study the details of this approach in Chapter~\ref{ch:CPSRobustness} when we apply it to cyber-physical systems.
 
 
-We know that an attack $m$ reveals a latent coalgebra $(X, c\circ m)$ which may or may not satisfy the same behavioural properties that $(X, c)$ satisfies. We could check whether $(X,c\circ m)$ satisfies all requirements in $\mathcal{R}$, but this is not very informative if we arbitrarily choose $m$. We propose to systematically generate a set of spatial transformations $\mathcal{M}=\set{m_1,\ldots, m_p}$ based on some attacker model, and test whether each revealed latent coalgebra $(X, c\circ m_i)$ satisfies each requirement $R_j$ for $m_i\in \mathcal{M}$ and $R_j\in \mathcal{R}$. If a requirement $R$ is not satisfied in some latent coalgebra $(X, c\circ m)$, then the attacker can use $m$ to break $R$ in the original system $(X,c)$; in this case, we say that \emph{the attack $m$ breaks the requirement $R$}. If no attack in $\mathcal{M}$ breaks any requirement in $\mathcal{R}$, then we say that the system is \emph{robust} against the attacker model that generated $\mathcal{M}$. This approach gives us a qualitative notion of robustness.
+%We know that an attack $m$ reveals a latent coalgebra $(X, c\circ m)$ which may or may not satisfy the same behavioural properties that $(X, c)$ satisfies. We could check whether $(X,c\circ m)$ satisfies all requirements in $\mathcal{R}$, but this is not very informative if we arbitrarily choose $m$. 
+To quantify the robustness of a system, we systematically generate a set of spatial transformations $\mathcal{M}=\set{m_1,\ldots, m_p}$ based on an attacker model, and we test whether each revealed latent coalgebra $(X, c\circ m_i)$ satisfies each requirement $R_j$ for $m_i\in \mathcal{M}$ and $R_j\in \mathcal{R}$. If a requirement $R$ is not satisfied in some latent coalgebra $(X, c\circ m)$, then the attacker can use $m$ to break $R$ in the original system $(X,c)$; in this case, we say that \emph{the attack $m$ breaks the requirement $R$}. %If no attack in $\mathcal{M}$ breaks any requirement in $\mathcal{R}$, then we say that the system is \emph{robust} against the attacker model that generated $\mathcal{M}$. This approach gives us a qualitative notion of robustness.
 
-We can extend qualitative robustness into quantitative robustness by discounting broken requirements. More precisely, given $(X,c)$, $\mathcal{M}$, and $\mathcal{R}$ such that $|\mathcal{R}|=n$, we can define the set $\mathcal{M}[\mathcal{R}]$ of requirements in $\mathcal{R}$ that are broken by one or more attacks in $\mathcal{M}$; similarly $m[\mathcal{R}]$ is the set of requirements that $m$ breaks. We estimate the robustness of the system by the formula 
-\begin{align*}
-    \sum_{i=i}^n{w_i(1-(R_i\in \mathcal{M}[\mathcal{R}]))},
-\end{align*}
-where $w_i\in \mathbb{R}^+$ is a weight which models the importance of requirement $R_i$.
+% We can extend qualitative robustness into quantitative robustness by discounting broken requirements. More precisely, given $(X,c)$, $\mathcal{M}$, and $\mathcal{R}$ such that $|\mathcal{R}|=n$, we can define the set $\mathcal{M}[\mathcal{R}]$ of requirements in $\mathcal{R}$ that are broken by one or more attacks in $\mathcal{M}$; similarly $m[\mathcal{R}]$ is the set of requirements that $m$ breaks. We estimate the robustness of the system by the formula 
+% \begin{align*}
+%     \sum_{i=i}^n{w_i(1-(R_i\in \mathcal{M}[\mathcal{R}]))},
+% \end{align*}
+% where $w_i\in \mathbb{R}^+$ is a weight which models the importance of requirement $R_i$.
 
-Let us consider the case where $(X,c)$ fails a non-empty set of requirements; this set, given the definitions, is equal to $\id[\mathcal{R}]$. Now, let $\mathcal{K}=\set{k_1, \ldots, k_q}$ be an arbitrary set of spatial transformations independent of $\mathcal{M}$; we say that a spatial transformation $k\in \mathcal{K}$ \emph{repairs $(X,c)$} if $k[\mathcal{R}]\subset \id[\mathcal{R}]$; we say that $k$ \emph{fully repairs $(X,c)$} if $k[\mathcal{R}]$ is empty. The set spatial transformations $\mathcal{K}$ corresponds to a repair toolkit, which we generate systematically just like we did with the set of attacks $\mathcal{M}$. We study the process of system repair in more detail in Chapter~\ref{ch:SideChannelRepair}.
+%Let us consider the case where $(X,c)$ fails a non-empty set of requirements; this set, given the definitions, is equal to $\id[\mathcal{R}]$. Now, let $\mathcal{K}=\set{k_1, \ldots, k_q}$ be an arbitrary set of spatial transformations independent of $\mathcal{M}$; 
+Spatial transformations can be used to repair systems as well. Given a set of spatial transformations $\mathcal{K}=\set{k_1,\ldots, k_q}$, we say that $k\in \mathcal{K}$ \emph{repairs $(X,c)$} with respect to a property $R$ if $(X,c)$ does not satisfy $R$ but $(X,c\circ k)$ does. The set $\mathcal{M}$ and $\mathcal{K}$ are both sets of spatial transformations, but the former describes an attacker model, while the latter describes a counterattacker model.
+%  requirements satisfied by %$k[\mathcal{R}]\subset \id[\mathcal{R}]$; 
+% we say that $k$ \emph{fully repairs $(X,c)$} if $k[\mathcal{R}]$ is empty. 
 
-We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ as follows: if an attack $m\in \mathcal{M}$ breaks some requirements, is there a \emph{counterattack} $k$ that fully repairs $(X,c\circ m)$? If so, we can improve the robustness of the system $(X,c)$ by transforming it into $(X,c\circ m \circ k)$ whenever we detect that the attack $m$ is affecting $(X,c)$; we refer to this dependent notion of robustness as \emph{latent robustness}, and we explore this concept in cyber-physical systems during Chapter~\ref{ch:CPSRobustness}.
-\begin{example}[An attack is its own counterattack]
-    In the context of Example~\ref{ex:Latent:TheExample}, consider the behavioural property $Q\colon 2^{2^*}\rightarrow 2$ which accepts a language $\phi \in 2^{2^*}$ if and only if $\phi$ accepts a sequence $w\in 2^*$, then $w$ ends in 1 or $w$ is empty.
+% Dual to attackerspatial transformations $\mathcal{K}$ corresponds to a repair toolkit, which we generate systematically just like we did with the set of attacks $\mathcal{M}$.
+We study the process of system repair in more detail in Chapters~\ref{ch:CPSRobustness}.~\ref{ch:SideChannelRepair}.
 
-    In the original $F$-coalgebra, all states in $2\times 2$ satisfy the property $Q$ since both $(0,0)$ and $(1,0)$ recognise the language $(0|1)^*11$, $(0,1)$ recognises the language $(0|1)^*1$, and $(1,1)$ recognises $\varepsilon + 0(0|1)^*11 + 1(0|1)^*1$. However, in the latent coalgebra revealed by the attack $m$, which maps $(a,b)$ to $(\lnot a, \lnot b)$, the state $(0,0)$ no longer satisfies $Q$, since it now recognises the language $\varepsilon|(0|1)^*10$. 
-
-    Now, if we use $m$ again in the latent coalgebra $(2\times 2, c\circ m)$ to reveal the latent coalgebra $(2\times 2, c\circ m\circ m)$, we repair the system with respect to the property $Q$, since $m \circ m=\id$. Thus, $m$ can be used as its own counterattack, but only when the latent coalgebra $(2\times 2, c\circ m)$ has been revealed (otherwise, the application of $m$ reveals $(2\times 2, c\circ m)$, and it breaks $Q$).
-\end{example}
+% We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ as follows: if an attack $m\in \mathcal{M}$ breaks some requirements, is there a \emph{counterattack} $k$ that fully repairs $(X,c\circ m)$? If so, we can improve the robustness of the system $(X,c)$ by transforming it into $(X,c\circ m \circ k)$ whenever we detect that the attack $m$ is affecting $(X,c)$; we refer to this dependent notion of robustness as \emph{latent robustness}, 
 
 % Given an attacker model which generates the set of attacks $\mathcal{M}$, 
 
@@ -427,7 +439,6 @@ We now consider an analysis that combines both $\mathcal{M}$ and $\mathcal{K}$ a
 
 % There are two dimensions we can explore: one, given $(X, c)$ and $m$, we can iterate over $\mathcal{R}$ and check whether $(X,c)$ and $(X,c\circ m)$ satisfy $R$ for $R\in \mathcal{R}$, or two, given $(X,c)$ and $\mathcal{R}$
 % % Different $F$-coalgebras have different sets of attacks. In our framework, a minimal $F$-coalgebra $(X,c)$ has as many attacks as $|X|^{|X|}$.
-}
 
 
 \subsection{Side-Channel Repair}

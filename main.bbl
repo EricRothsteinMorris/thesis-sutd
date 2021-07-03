@@ -353,79 +353,6 @@
     \field{year}{1995}
   \endentry
 
-  \entry{alur2015principles}{book}{}
-    \name{author}{1}{}{%
-      {{hash=AR}{%
-         family={Alur},
-         familyi={A\bibinitperiod},
-         given={Rajeev},
-         giveni={R\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {MIT Press}%
-    }
-    \strng{namehash}{AR1}
-    \strng{fullhash}{AR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{A}
-    \field{sortinithash}{A}
-    \field{title}{Principles of cyber-physical systems}
-    \field{year}{2015}
-  \endentry
-
-  \entry{6266165}{inproceedings}{}
-    \name{author}{4}{}{%
-      {{hash=AMS}{%
-         family={Alvim},
-         familyi={A\bibinitperiod},
-         given={M.\bibnamedelima S.},
-         giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
-      }}%
-      {{hash=CK}{%
-         family={Chatzikokolakis},
-         familyi={C\bibinitperiod},
-         given={K.},
-         giveni={K\bibinitperiod},
-      }}%
-      {{hash=PC}{%
-         family={Palamidessi},
-         familyi={P\bibinitperiod},
-         given={C.},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=SG}{%
-         family={Smith},
-         familyi={S\bibinitperiod},
-         given={G.},
-         giveni={G\bibinitperiod},
-      }}%
-    }
-    \keyw{entropy;probability;security of data;Shannon capacity;deterministic
-  channels;g-capacity;g-leakage;generalized gain functions;information
-  lattice;information leakage measurement;min-capacity;min-entropy
-  model;probabilistic channels;quantitative information flow;secret property
-  guessing;Computer security;Databases;Entropy;Gain
-  measurement;Lattices;Probabilistic logic}
-    \strng{namehash}{AMS+1}
-    \strng{fullhash}{AMSCKPCSG1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{A}
-    \field{sortinithash}{A}
-    \field{booktitle}{2012 IEEE 25th Computer Security Foundations Symposium}
-    \verb{doi}
-    \verb 10.1109/CSF.2012.26
-    \endverb
-    \field{issn}{1063-6900}
-    \field{pages}{265\bibrangedash 279}
-    \field{title}{Measuring Information Leakage Using Generalized Gain
-  Functions}
-    \field{year}{2012}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
   \entry{aig-ac-asset}{misc}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{A}
@@ -1805,6 +1732,52 @@
     \warn{\item Can't use 'location' + 'address'}
   \endentry
 
+  \entry{castellanos2021AttkFinder}{inproceedings}{}
+    \name{author}{5}{}{%
+      {{hash=CJH}{%
+         family={Castellanos},
+         familyi={C\bibinitperiod},
+         given={John\bibnamedelima H.},
+         giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=OM}{%
+         family={Ochoa},
+         familyi={O\bibinitperiod},
+         given={Mart{\'\i}n},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=CAA}{%
+         family={Cardenas},
+         familyi={C\bibinitperiod},
+         given={Alvaro\bibnamedelima A.},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=AO}{%
+         family={Arden},
+         familyi={A\bibinitperiod},
+         given={Owen},
+         giveni={O\bibinitperiod},
+      }}%
+      {{hash=ZJ}{%
+         family={Zhou},
+         familyi={Z\bibinitperiod},
+         given={Jianying},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CJH+1}
+    \strng{fullhash}{CJHOMCAAAOZJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{International Symposium on Research in Attacks,
+  Intrusions and Defenses ($\{$RAID$\}$)}
+    \field{title}{AttkFinder: Discovering Attack Vectors in PLC Programs using
+  Information Flow Analysis}
+    \field{year}{2021}
+  \endentry
+
   \entry{pitchfork}{inproceedings}{}
     \name{author}{7}{}{%
       {{hash=CS}{%
@@ -2074,6 +2047,72 @@
     \field{journaltitle}{ACM Trans. Embed. Comput. Syst.}
     \field{month}{01}
     \field{year}{2019}
+  \endentry
+
+  \entry{chen2019learning}{inproceedings}{}
+    \name{author}{5}{}{%
+      {{hash=CY}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Yuqi},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=PCM}{%
+         family={Poskitt},
+         familyi={P\bibinitperiod},
+         given={Christopher\bibnamedelima M.},
+         giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Sun},
+         familyi={S\bibinitperiod},
+         given={Jun},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Adepu},
+         familyi={A\bibinitperiod},
+         given={Sridhar},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=ZF}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Fan},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CY+1}
+    \strng{fullhash}{CYPCMSJASZF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{Automated Software Engineering (ASE)}
+    \field{title}{Learning-guided network fuzzing for testing cyber-physical
+  system defences}
+    \field{year}{2019}
+  \endentry
+
+  \entry{cherepanov2017industroyer}{article}{}
+    \name{author}{1}{}{%
+      {{hash=CA}{%
+         family={Cherepanov},
+         familyi={C\bibinitperiod},
+         given={Anton},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CA1}
+    \strng{fullhash}{CA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Win32/Industroyer, A new threat for industrial control
+  systems}
+    \field{journaltitle}{White Paper. {ESET}}
+    \field{year}{2017}
   \endentry
 
   \entry{ClarkWilson87}{inproceedings}{}
@@ -2840,6 +2879,57 @@
     \endverb
     \field{month}{11}
     \field{year}{2020}
+  \endentry
+
+  \entry{johnson2018attackers}{article}{}
+    \name{author}{6}{}{%
+      {{hash=JB}{%
+         family={Johnson},
+         familyi={J\bibinitperiod},
+         given={Blake},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=CD}{%
+         family={Caban},
+         familyi={C\bibinitperiod},
+         given={Dan},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=KM}{%
+         family={Krotofil},
+         familyi={K\bibinitperiod},
+         given={Marina},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Scali},
+         familyi={S\bibinitperiod},
+         given={Dan},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=BN}{%
+         family={Brubaker},
+         familyi={B\bibinitperiod},
+         given={Nathan},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=GC}{%
+         family={Glyer},
+         familyi={G\bibinitperiod},
+         given={Christopher},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JB+1}
+    \strng{fullhash}{JBCDKMSDBNGC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{title}{Attackers Deploy New {ICS Attack Framework" TRITON"} and
+  Cause Operational Disruption to Critical Infrastructure}
+    \field{journaltitle}{Threat Research Blog}
+    \field{year}{2017}
   \endentry
 
   \entry{Spectre}{inproceedings}{}

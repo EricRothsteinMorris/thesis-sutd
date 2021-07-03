@@ -67,7 +67,7 @@ Not all systems have their operational semantics described in terms of endofunct
 % From a high-level perspective, we compose the effect of the attacker with the effects of the normal behaviour of the system, and we study the composition to measure robustness and find ways to improve it.
 
 \section{Universal Coalgebra and Spatial Transformations}
-To soundly extend the applicability of the ``game" between spatial transformations and deterministic systems to other models of computation, we adopt the framework of \emph{universal coalgebra}~\cite{UniversalCoalgebra}. 
+To soundly extend the applicability of the ``game" between spatial transformations and deterministic systems to other models of computation, we adopt the framework of \emph{universal coalgebra}~\cite{UniversalCoalgebra}.  
 Several authors have used universal coalgebra to generalise results previously exclusive to certain computational models; e.g., the \emph{powerset construction}~\cite{PowersetConstruction}, which is used to discretise a non-deterministic finite automaton, generalises to other computational effects beyond non-determinism~\cite{GeneralisingDetermination}, or e.g., Kleene's Theorem~\cite{KleenesTheorem}, which states that every deterministic finite automaton has an equivalent regular expression, generalises to Mealy machines~\cite{KleeneCoalgebra}.
 
 In universal coalgebra, a dynamical system is often represented as a pair $(X,c)$ where $X$ is a set, called the \emph{carrier}, and $c\colon X\rightarrow F(X)$ is a function where $F(X)$, informally, is the set of the features that the elements of $X$ may have (e.g., continuation, termination, or other computational side effects). Using framework of universal coalgebra, our definitions naturally port from one computational model to another, widening their applicability. 
@@ -79,8 +79,38 @@ In universal coalgebra, a dynamical system is often represented as a pair $(X,c)
 % Universal coalgebra has also been used for applications in system security. 
 
 \section{Goal of the Thesis}
-The main objective of the thesis is to illustrate the usefulness and versatility of parametrising the study of transition systems with a spatial transformation that reveals latent behaviours, which we call \emph{latent behaviour analysis} (LBA). These latent behaviours capture extraordinary semantics that are realisable by the systems; including the behaviour of systems in the presence of adversaries or under the influence of a property enforcer. We use universal coalgebra to define LBA in an abstract setting, and we illustrate its applicability in three practical scenarios: the classification of attacker models in a reactive system, the quantification and improvement of robustness in cyber-physical systems, and the enforcement of timing side-channel freedom in LLVM-IR programs.
+\label{sec:Introduction:Goal}
+The main objective of the thesis is to illustrate the usefulness and versatility of parametrising the study of transition systems with a spatial transformation that reveals latent behaviours, a process that we call \emph{latent behaviour analysis} (LBA). These latent behaviours capture extraordinary semantics that are realisable by the systems under the effect of state corruption or alterations; using LBA we can systematically study the behaviour of systems in the presence of adversaries or under the influence of property enforcers. We use universal coalgebra to define LBA in an abstract setting, and we illustrate its applicability in three practical scenarios: the classification of attacker models in a reactive system, the quantification and improvement of robustness in cyber-physical systems, and the enforcement of timing side-channel freedom in LLVM-IR programs. 
 
+\section{Research Questions}
+\label{sec:Introduction:ResearchQuestions}
+To accomplish the goal of this thesis, we consider the following research questions. When appropriate, we analyse these questions in the context of the application scenarios for LBA that we consider in the following chapters. 
+\begin{question}
+\label{que:AttackerModel}
+How do we precisely and systematically describe and generate attacker models, attacks and attackers?
+\end{question}
+We approach this question by modelling attacker models as sets of capabilities that generate a set of spatial transformations that model the attacks available for attackers fitting that model. We discuss this question in detail in Chapters~\ref{ch:LatentBehaviours},~\ref{ch:Classification}, and ~\ref{ch:CPSRobustness}.
+\begin{question}
+\label{que:Quantification}
+How do we efficiently quantify the effects a set of attacker models attacker fitting a given attacker model on a system? 
+\end{question}
+The presence of an attacker does not necessarily imply a security risk, e.g., when the attacker can only slightly deviate the behaviour of the system without breaking any security requirements. To address this question, we propose a quantification method that uses bounded model checking in Chapter~\ref{ch:Classification} and one method that uses testing in Chapter~\ref{ch:CPSRobustness}. We implement the systematic quantification of the effect of attackers via LBA. 
+
+\begin{question}
+\label{que:Classification}
+How do we compare attacker models and attackers with respect to the effect that they potentially have on a given system?
+\end{question}
+Attackers that have more interaction points with a system are not necessarily the most dangerous. We take inspiration from Basin and Cremers ~\cite{KnowYourEnemy} to approach this question. To determine which attackers are more dangerous, we use the quantification methods proposed in Chapter~\ref{ch:Classification} and Chapter~\ref{ch:CPSRobustness} to obtain a partial order of attackers with respect to their harmful effects on systems. In particular, thanks to our proposed model of attackers as sets of spatial transformations, the partial order of attackers that naturally arises from set inclusion has a monotonicity property with respect to the harmful effects of attackers on a system. We explain this monotonicity property in Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}.
+% \begin{question}
+% \label{que:Countering}
+% How can we counter or mitigate the effect that an attacker has on the system?
+% \end{question}
+\begin{question}
+\label{que:Repair}
+How do we repair a system that is vulnerable with respect to a given attacker model?
+\end{question}
+Finally, 
+ 
 \section{Thesis Outline and Summary of Contributions}
 We divide this thesis into two major modules: \emph{theory} and \emph{applications}. The theory module presents LBA in the framework of universal coalgebra, and the application module shows three different instances of the application of LBA to three practical problems: the classification of attacker models, the quantification and repair of robustness in cyber-physical systems, and the enforcement of timing side-channel freedom with respect to memory access patterns for LLVM-IR programs.
  
@@ -163,28 +193,7 @@ Probably the most important is to motivate the quantification of attackers and h
 \todo[inline]{We present a light version of latent behaviours: you normally start at $X$, then you go to $D$ and then back to $X$, but what if we transformed $X$?}
 In latent behaviours we use a transformation $X\rightarrow X$ to affect the behaviour of the system. This transformation is an abstraction; the original system naturally transforms to a system $X\rightarrow D \rightarrow X$ using composition, also of type $X\rightarrow X$. Each function $X\rightarrow X$ can be seen as a black-box of some behaviour. Their interweaving means that they are acting simultaneously. 
 
-\section{Research Questions}
-To show the usefulness of LBA, we consider the following broad yet interesting research questions that are pervasive in systems security to motivate our work. We analyse these questions in the context of the three different application scenarios that we consider in this thesis for LBA. 
-\begin{question}
-\label{que:AttackerModel}
-How do we precisely describe and generate attacker models, attacks and attackers?
-\end{question}
-\begin{question}
-\label{que:Quantification}
-How do we efficiently quantify the effect that a given attacker has on a given system? 
-\end{question}
-\begin{question}
-\label{que:Classification}
-How do we compare attacker models and attackers with respect to the effect that they potentially have on a given system?
-\end{question}
-% \begin{question}
-% \label{que:Countering}
-% How can we counter or mitigate the effect that an attacker has on the system?
-% \end{question}
-\begin{question}
-\label{que:Repair}
-How do we repair a system that is vulnerable with respect to a given attacker model?
-\end{question}
+
 
 % We do not pretend to solve these questions at this broad level, but we address concrete instances of these questions, which appear as we instantiate systems, attacker models, security requirements, etc. in the following sections.
 % \section{Applications}
