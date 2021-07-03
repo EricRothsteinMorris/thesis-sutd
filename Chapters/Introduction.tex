@@ -46,16 +46,44 @@ Basin and Cremers describe attackers with symbolic capabilities (e.g., an attack
 \section{Idea: Attackers as Sets of Spatial Transformations}
 A \emph{spatial transformation} is an endofunction in the universe of states of a transition system; i.e. it is a function that maps states to states. We now give an idea of how the the compromise rules of attackers in ~\cite{KnowYourEnemy} can be generalised to spatial transformations. 
 
-In a simple setting, consider the set of natural numbers $\Nat$ and the successor function $+_1\colon \Nat\rightarrow \Nat$ that maps $x\in \Nat$ to $x+1$. The pair $(\Nat, +_1)$ defines a transition system, which we represent as a vector space in Figure~\ref{fig:IntroVectorSpace}.
-\missingfigure{\label{fig:IntroVectorSpace}}
-The behaviour of $x\in \Nat$ is the sequence that results from the iterated application of $+_1$ starting from $x$; i.e., $x+1,x+2,x+3,x+4,\ldots$. Now, consider the endofunction $*_2\colon \Nat\rightarrow \Nat$ that maps $x\in \Nat$ to $2x$. The transformation $*_2$ generates a second vector space, shown in Figure~\ref{fig:SpatialDeformation}. Vector addition in this scenario is non-commutative; applying $+_1$ first and then $*_2$ maps $x$ to $2x+2$ while applying $*_2$ first and then $+_1$ maps $x$ to $2x+1$. Since the original transition system is $(\Nat, +_1)$, the effect of $*_2$ models an external perturbation over $(\Nat, +_1)$.
+In a simple setting, consider the set of real number pairs $\Real\times\Real$ and the successor function $\delta\colon \Real\times\Real\rightarrow \Real\times\Real$ that maps $(x,y)\in \Real$ to $(x^2,y)$. The pair $(\Real\times\Real, \delta)$ defines a transition system, which we represent as a vector space in Figure~\ref{fig:IntroVectorSpace}.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/VectorSpace1.pdf} 
+    \caption{Vector space representation of the transition system $(\Real\times\Real, \delta)$ in the interval $[-20,20]\times[-20,20]$. The behaviour of pairs $(x,y)$ preserves the value of $y$, and the behaviour of $x$ diverges if $|x|>1$.}
+    \label{fig:IntroVectorSpace}
+  \end{figure}
+  \begin{figure}[t]
+    \centering  
+    \includegraphics[width=\textwidth]{Figures/VectorSpace2.pdf} 
+    \caption{Vector space representation of the spatial transformation $m$ in the interval $[-20,20]\times[-20,20]$.} 
+    \label{fig:SpatialDeformation} 
+\end{figure} 
+The behaviour of $(x,y)\in \Real\times\Real$ is the sequence that results from the iterated application of $\delta$ starting from $(x,y)$; i.e., $(x^2,y),(x^4,y),(x^8,y),$ etc. Now, consider the endofunction $m\colon \Real\times\Real\rightarrow \Real\times\Real$ that maps $(x,y)\in \Real\times\Real$ to $(-y,x)$. The transformation $m$ generates a second vector space, shown in Figure~\ref{fig:SpatialDeformation}. Vector addition is non-commutative in this scenario: applying $\delta$ first and then $m$ maps $(x,y)$ %to $(x/2,y/2)$ and then 
+to $(-y,x^2)$ (whose vector space we show in Figure~\ref{fig:FirstLatent}) while applying $m$ first and then $\delta$ maps $(x,y)$ to $(y^2,x)$ (whose vector space we show in Figure~\ref{fig:SecondLatent}). %Since the original transition system is $(\Nat, +_1)$, the effect of $*_2$ models an external perturbation over $(\Nat, +_1)$.
 
-To aggregate the vector spaces, we assume that we apply $*_2$ first and then $+_1$. Now, the behaviour of $x\in\Nat$ changes from $x+1,x+2,x+3,x+4,\ldots$ to $2x+1,4x+3,8x+7,16x+15\ldots$. The original system $(\Nat, +_1)$ this not have these behaviours, as they are only revealed after applying $*_2$ by, e.g., an attacker. Each spatial transformation $m\colon \Nat\rightarrow \Nat$ reveals a behaviour that uses the transition function of the system $(\Nat, +_1)$. In the dual case, to apply $+_1$ first and then $*_2$ is equivalent to reveal a new behaviour for the transition system $(\Nat, *_2)$ using $+_1$. These new behaviours are \emph{latent}, since they are only revealed in the presence of a non-trivial spatial transformation. 
-\missingfigure{\label{fig:SpatialDeformation}}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/VectorSpace4.pdf} 
+    \caption{Vector space representation of the latent behaviour of $(\Real\times\Real, \delta)$ revealed by the spatial transformation $m$ in the interval $[-20,20]\times[-20,20]$.}
+    \label{fig:FirstLatent}
+\end{figure} 
+
+\begin{figure}[t]
+    \includegraphics[width=\textwidth]{Figures/VectorSpace3.pdf} 
+    \caption{Vector space representation of the dual latent behaviour of the system $(\Real\times\Real, m)$ revealed by $\delta$ in the interval $[-20,20]\times[-20,20]$. It is a rotation of the behaviour shown in Figure~\ref{fig:FirstLatent}.}
+    \label{fig:SecondLatent} 
+  \end{figure}
+
+Since $(\Real\times\Real, \delta)$ is the current transition system and $m$ is interpreted a spatial transformation, we consider the system shown in Figure~\ref{fig:SecondLatent}, where we apply $m$ first and then $\delta$, mapping $(x,y)$ to $(y^2,x)$. This transformation causes the behaviour of the system to lose the behavioural property of preserving the $y$ value of $(x,y)$ pairs, so if an attacker was capable of applying $m$ to the system $(\Real\times\Real, \delta)$, then they can clearly break the value preservation property. 
+
+%Now, the behaviour of $x\in\Nat$ changes from $x+1,x+2,x+3,x+4,\ldots$ to $2x+1,4x+3,8x+7,16x+15\ldots$. 
+%The original system $(\Real\times\Real, \delta)$ not have these behaviours, as they are only revealed after applying $*_2$ by, e.g., an attacker. 
+% We can vary the spatial transformation $m\colon \Real\times\Real\rightarrow \Real\times\Real$ to reveal reveals a behaviour that uses the transition function of the system $(\Nat, +_1)$. In the dual case, to apply $+_1$ first and then $*_2$ is equivalent to reveal a new behaviour for the transition system $(\Nat, *_2)$ using $+_1$. These new behaviours are \emph{latent}, since they are only revealed in the presence of a non-trivial spatial transformation. 
 
 In this thesis, we intend to model attackers of a system as sets of spatial transformations, forcing them to reveal new behaviours only by affecting the state space, leaving the transition function intact; in other words, an attacker can produce new denotational semantics, but they cannot affect the operational semantics of the system. This creates a ``game" between attacker and system: the attacker moves first and transforms the initial state, the system then moves by applying its transition function, and then the attacker moves again, transforming the resulting states. The system moves again, and this process iterates. We do not consider cases where the attacker takes two turns in a row or where the system takes two turns in a row, since we can emulate them by an intercalated game. More precisely, an attacker that takes two turns in a row to transform a state $x$ into a state $y$ and then to a state $z$ is equivalent to an attacker that takes only one turn and transforms $x$ into $z$ directly. A system that takes two turns in a row by mapping a state $a$ to a state $b$ and then to a state $c$ is equivalent to a turn-based game between an attacker and system where the attacker used an identity transformation to map $a$ to itself and $b$ to itself. 
 
-We define attacker models by imposing restrictions over the spatial transformations that are available to an attacker. An attacker that can only apply an identity spatial transformation (i.e., one that maps a state to itself) has only trivial capabilities, and fits a passive attacker model that can only watch as the system executes. An attacker that can apply any spatial transformations can manipulate the state space of the transition system as they wish, rendering the dynamics of the system obsolete because they can be bypassed via spatial transformations. However, when we restrict the set of spatial transformations available to an attacker, we observe interesting interactions. For example, the attackers in ~\cite{KnowYourEnemy} cannot enable arbitrary transitions; instead, there is a set of
+We define attacker models by imposing restrictions over the spatial transformations that are available to an attacker. An attacker that can only apply an identity spatial transformation (i.e., one that maps a state to itself) has only trivial capabilities, and fits a passive attacker model that can only watch as the system executes. An attacker that can apply any spatial transformations can manipulate the state space of the transition system as they wish, rendering the dynamics of the system obsolete because they can be bypassed via spatial transformations. However, when we restrict the set of spatial transformations available to an attacker, we observe interesting interactions. For example, the attackers described by Basin and Cremers in ~\cite{KnowYourEnemy} cannot enable arbitrary transitions; instead, there is a set of
 %Although this formalism discards attackers that can change the program of the system,  %By protecting the operational semantics of the transition system (i.e., the transition function), we force attackers to follow the rules 
 compromise rules that only enable specific state transitions. An attacker model is a set of compromise rules, so more capable attackers have more enabled transitions at their disposal. We interpret the transitions enabled by the compromise rules as a spatial transformation that reveals latent behaviours. 
 
@@ -78,11 +106,13 @@ In universal coalgebra, a dynamical system is often represented as a pair $(X,c)
 
 % Universal coalgebra has also been used for applications in system security. 
 
-\section{Goal of the Thesis}
+\section{Goal of the Thesis and Outline}
 \label{sec:Introduction:Goal}
-The main objective of the thesis is to illustrate the usefulness and versatility of parametrising the study of transition systems with a spatial transformation that reveals latent behaviours, a process that we call \emph{latent behaviour analysis} (LBA). These latent behaviours capture extraordinary semantics that are realisable by the systems under the effect of state corruption or alterations; using LBA we can systematically study the behaviour of systems in the presence of adversaries or under the influence of property enforcers. We use universal coalgebra to define LBA in an abstract setting, and we illustrate its applicability in three practical scenarios: the classification of attacker models in a reactive system, the quantification and improvement of robustness in cyber-physical systems, and the enforcement of timing side-channel freedom in LLVM-IR programs. 
+The main objective of the thesis is to illustrate the usefulness and versatility of parametrising the study of transition systems with a spatial transformation that reveals latent behaviours, a process that we call \emph{latent behaviour analysis} (LBA). These latent behaviours capture extraordinary semantics that are realisable by the systems under the effect of state corruption or alterations; using LBA we can systematically study the behaviour of systems in the presence of adversaries or under the influence of property enforcers. We use universal coalgebra to define LBA in an abstract setting, and we illustrate its applicability in three practical scenarios: the classification of attacker models in a reactive system, the quantification and improvement of robustness in cyber-physical systems (CPS), and the enforcement of timing side-channel freedom in LLVM-IR programs. 
 
-\section{Research Questions}
+We divide this thesis into two major modules: \emph{theory} and \emph{applications}. The theory module presents LBA in the framework of universal coalgebra (Chapter~\ref{ch:LatentBehaviours}), and the application module shows three different instances of the application of LBA to three practical problems: the classification of attacker models in Chapter~\ref{ch:Classification}, the quantification and repair of robustness in CPS in Chapter~\ref{ch:CPSRobustness}, and the enforcement of timing side-channel freedom with respect to memory access patterns for LLVM-IR programs in Chapter~\ref{ch:SideChannelRepair}.
+
+\section{Research Questions and Summary of Contributions}
 \label{sec:Introduction:ResearchQuestions}
 To accomplish the goal of this thesis, we consider the following research questions. When appropriate, we analyse these questions in the context of the application scenarios for LBA that we consider in the following chapters. 
 \begin{question}
@@ -109,15 +139,12 @@ Attackers that have more interaction points with a system are not necessarily th
 \label{que:Repair}
 How do we repair a system that is vulnerable with respect to a given attacker model?
 \end{question}
-Finally, 
- 
-\section{Thesis Outline and Summary of Contributions}
-We divide this thesis into two major modules: \emph{theory} and \emph{applications}. The theory module presents LBA in the framework of universal coalgebra, and the application module shows three different instances of the application of LBA to three practical problems: the classification of attacker models, the quantification and repair of robustness in cyber-physical systems, and the enforcement of timing side-channel freedom with respect to memory access patterns for LLVM-IR programs.
- 
-We do not claim to expand beyond the state of the art in coaglebras, instead, our interest lies primarily on applications for which spatial transformations of transition systems provide an insight or a benefit for an application. 
-\section{Related Work}
+Finally, we approach this broad question from two directions: we show how LBA can suggest counterattacks for identified attacks in Chapters~\ref{ch:CPSRobustness}, 
+and we show how we can use spatial transformations to enforce a security property (i.e., timing side-channel freedom) in Chapter ~\ref{ch:SideChannelRepair}. 
 
-Due to the diversity of the applications we consider for the framework presented in this thesis, each chapter on applications contains its own related work section.
+% We do not claim to expand beyond the state of the art in coaglebras, instead, our interest lies primarily on applications for which spatial transformations of transition systems provide an insight or a benefit for an application. 
+\section{Related Work}
+We now discuss related work regarding the motivation presented in this chapter and the theory presented in Chapter~\ref{ch:LatentBehaviours}. Each chapter on the applications module, i.e. Chapters contains its own related work section.
 \subsection{Universal Coalgebra and Security}
 \todo[inline]{Write about kleene coalgebra and other applications }
 \todo[inline]{Heap}

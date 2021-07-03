@@ -46,3 +46,6 @@ Appendices/AppendixA.aux
 main.synctex(busy)
 Appendices/AppendixA.aux
 Version23-06-2021.pdf
+*.fdb_latexmk
+*.fls
+*.gz
