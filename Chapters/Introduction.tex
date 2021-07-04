@@ -114,33 +114,29 @@ We divide this thesis into two major modules: \emph{theory} and \emph{applicatio
 
 \section{Research Questions and Summary of Contributions}
 \label{sec:Introduction:ResearchQuestions}
-To accomplish the goal of this thesis, we consider the following research questions. When appropriate, we analyse these questions in the context of the application scenarios for LBA that we consider in the following chapters. 
+To accomplish the goal of this thesis, we study the following research questions. When appropriate, we analyse these questions in the context of the application scenarios for LBA that we present in the following chapters. 
 \begin{question}
 \label{que:AttackerModel}
 How do we precisely and systematically describe and generate attacker models, attacks and attackers?
 \end{question}
-We approach this question by modelling attacker models as sets of capabilities that generate a set of spatial transformations that model the attacks available for attackers fitting that model. We discuss this question in detail in Chapters~\ref{ch:LatentBehaviours},~\ref{ch:Classification}, and ~\ref{ch:CPSRobustness}.
+We approach this question by modelling attacker models with sets of capabilities that create spatial transformations that model the attacks available for attackers fitting that model. We discuss this question in detail in Chapters~\ref{ch:LatentBehaviours},~\ref{ch:Classification}, and ~\ref{ch:CPSRobustness}.
 \begin{question}
 \label{que:Quantification}
-How do we efficiently quantify the effects a set of attacker models attacker fitting a given attacker model on a system? 
+How do we efficiently quantify the effects of a set of attacker models attacker fitting a given attacker model on a system? 
 \end{question}
-The presence of an attacker does not necessarily imply a security risk, e.g., when the attacker can only slightly deviate the behaviour of the system without breaking any security requirements. To address this question, we propose a quantification method that uses bounded model checking in Chapter~\ref{ch:Classification} and one method that uses testing in Chapter~\ref{ch:CPSRobustness}. We implement the systematic quantification of the effect of attackers via LBA. 
+The presence of an attacker does not necessarily imply a security risk, e.g., when the attacker can only slightly deviate the behaviour of the system without breaking any security requirements. To address this question, we propose a quantification method that uses bounded model checking in Chapter~\ref{ch:Classification} and that uses testing in Chapter~\ref{ch:CPSRobustness}. We implement the systematic quantification of the effect of attackers via LBA. 
 
 \begin{question}
 \label{que:Classification}
-How do we compare attacker models and attackers with respect to the effect that they potentially have on a given system?
+How do we compare attacker models and attackers concerning the impact that they potentially have on a given system?
 \end{question}
-Attackers that have more interaction points with a system are not necessarily the most dangerous. We take inspiration from Basin and Cremers ~\cite{KnowYourEnemy} to approach this question. To determine which attackers are more dangerous, we use the quantification methods proposed in Chapter~\ref{ch:Classification} and Chapter~\ref{ch:CPSRobustness} to obtain a partial order of attackers with respect to their harmful effects on systems. In particular, thanks to our proposed model of attackers as sets of spatial transformations, the partial order of attackers that naturally arises from set inclusion has a monotonicity property with respect to the harmful effects of attackers on a system. We explain this monotonicity property in Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}.
-% \begin{question}
-% \label{que:Countering}
-% How can we counter or mitigate the effect that an attacker has on the system?
-% \end{question}
+Attackers that have more interaction points with a system are not necessarily the most dangerous. We take inspiration from Basin and Cremers ~\cite{KnowYourEnemy} to approach this question. To determine which attackers are more threatening, we use the quantification methods proposed in Chapter~\ref{ch:Classification} and Chapter~\ref{ch:CPSRobustness} to obtain a partial order of attackers relative to their harmful effects on systems. In particular, thanks to our modelling of attackers via sets of spatial transformations, the partial order of attackers that naturally arises from set inclusion has a monotonicity property for the harmful effects of attackers on a system. We explain this monotonicity property in Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}.
+
 \begin{question}
 \label{que:Repair}
-How do we repair a system that is vulnerable with respect to a given attacker model?
+How do we repair a system that is vulnerable to a given attacker model?
 \end{question}
-Finally, we approach this broad question from two directions: we show how LBA can suggest counterattacks for identified attacks in Chapters~\ref{ch:CPSRobustness}, 
-and we show how we can use spatial transformations to enforce a security property (i.e., timing side-channel freedom) in Chapter ~\ref{ch:SideChannelRepair}. 
+Finally, we approach this broad question from two directions: first, we show how LBA can suggest counterattacks for identified attacks in Chapters~\ref{ch:CPSRobustness}, and second, we explain how to use spatial transformations to enforce a security property (i.e., timing side-channel freedom) in Chapter ~\ref{ch:SideChannelRepair}. 
 
 % We do not claim to expand beyond the state of the art in coaglebras, instead, our interest lies primarily on applications for which spatial transformations of transition systems provide an insight or a benefit for an application. 
 \section{Related Work}

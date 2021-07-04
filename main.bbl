@@ -4561,40 +4561,7 @@
     \warn{\item Can't use 'location' + 'address'}
   \endentry
 
-  \entry{SystematicClassification}{article}{}
-    \name{author}{3}{}{%
-      {{hash=RME}{%
-         family={Rothstein-Morris},
-         familyi={R\bibinithyphendelim M\bibinitperiod},
-         given={Eric},
-         giveni={E\bibinitperiod},
-      }}%
-      {{hash=JS}{%
-         family={Jun},
-         familyi={J\bibinitperiod},
-         given={Sun},
-         giveni={S\bibinitperiod},
-      }}%
-      {{hash=CS}{%
-         family={Chattopadhyay},
-         familyi={C\bibinitperiod},
-         given={Sudipta},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{RMEJSCS1}
-    \strng{fullhash}{RMEJSCS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \field{title}{Systematic Classication of Attackers via Bounded Model
-  Checking}
-    \field{journaltitle}{Submitted to VMCAI 2020}
-    \field{year}{2019}
-  \endentry
-
-  \entry{ClassificationOfAttackers}{inproceedings}{}
+  \entry{SystematicClassification}{inproceedings}{}
     \name{author}{3}{}{%
       {{hash=RME}{%
          family={Rothstein-Morris},
