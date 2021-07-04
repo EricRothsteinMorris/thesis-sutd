@@ -145,80 +145,71 @@ and we show how we can use spatial transformations to enforce a security propert
 % We do not claim to expand beyond the state of the art in coaglebras, instead, our interest lies primarily on applications for which spatial transformations of transition systems provide an insight or a benefit for an application. 
 \section{Related Work}
 We now discuss related work regarding the motivation presented in this chapter and the theory presented in Chapter~\ref{ch:LatentBehaviours}. Each chapter on the applications module, i.e. Chapters contains its own related work section.
-\subsection{Universal Coalgebra and Security}
-\todo[inline]{Write about kleene coalgebra and other applications }
-\todo[inline]{Heap}
+\todo[inline]{Small introduction to the works mentioned before in coalgebra and some works that use coalgebra and security, like the one that Jorge told me...}
+% {\color{blue}
+% \subsection{Universal Coalgebra and Security}
+% \todo[inline]{Write about kleene coalgebra and other applications }
+% \todo[inline]{Heap}
 
 
-%; in other words, the attackers can \emph{corrupt} the current state of systems.
-
-
-
-Although the work of Basin and Cremers addresses a confidentiality issue, 
-
-How do we define realistic attacker models for transition systems? Perhaps it is easier if we start with a system as simple as possible. 
-\todo[inline]{maybe something on fault analysis? I dunno.}
-
-
-%If an attacker can arbitrarily change the transition structure of a system, is it possible to defend against such attacker? 
-%It is an idea compatible with both model checking and testing, which is how we can obtain hierarchies of systems. 
-%While Basin and Cremers study the effect of attackers for confidentiality, we are interested in studying the effect of attackers for integrity. Clarkson and Schneider write~\cite{QuantitativeIntegrity} 
-
-
-%  span over three dimensions: \emph{which} data is compromised, \emph{whose} data is it, and \emph{when} the compromise occurs. In a nutshell, a they model a protocol 
-
-% %Attackers that are powerful can replicate the actions of weaker attackers, 
-
-% Pairing systems and attacker models to obtain a position
+% %; in other words, the attackers can \emph{corrupt} the current state of systems.
 
 
 
-% In particular, \emph{cyber-physical systems} (CPS), which comprise a majority of the critical infrastructure in many countries, 
+% Although the work of Basin and Cremers addresses a confidentiality issue, 
 
-% \emph{Universal coalgebra}~\cite{UniversalCoalgebra} 
-
-
-
+% How do we define realistic attacker models for transition systems? Perhaps it is easier if we start with a system as simple as possible. 
+% \todo[inline]{maybe something on fault analysis? I dunno.}
 
 
-% %\todo[inline]{Attacker models are usually informal,}
-% % ``Can we attack a Turing Machine?" It seems a pointless question; Turing machines are models of computation, not real machines, so why bother pondering about this apparently nonsensical question? 
+% %If an attacker can arbitrarily change the transition structure of a system, is it possible to defend against such attacker? 
+% %It is an idea compatible with both model checking and testing, which is how we can obtain hierarchies of systems. 
+% %While Basin and Cremers study the effect of attackers for confidentiality, we are interested in studying the effect of attackers for integrity. Clarkson and Schneider write~\cite{QuantitativeIntegrity} 
 
-% Alice: ``I have a proof that my system is better than yours, Bob."\\
-% Bob: ``Seems unlikely, show me.''\\
-% Alice brings out a piece of paper, and points to two numbers, one clearly bigger than the other. "I ran an analysis on both systems, and mine scored better than yours" says Alice.
+
+% %  span over three dimensions: \emph{which} data is compromised, \emph{whose} data is it, and \emph{when} the compromise occurs. In a nutshell, a they model a protocol 
+
+% % %Attackers that are powerful can replicate the actions of weaker attackers, 
+
+% % Pairing systems and attacker models to obtain a position
+
+
+
+% % In particular, \emph{cyber-physical systems} (CPS), which comprise a majority of the critical infrastructure in many countries, 
+
+% % \emph{Universal coalgebra}~\cite{UniversalCoalgebra} 
 
 
 
 
 
 
-\todo[inline]{Biba Duality}
-\todo[inline]{Basin Cremers attackers as sets of effects KYE}
-\todo[inline]{Confidentiality: test if attackers have some knowledge; Integrity: test if the system is too corrupted.}
-\todo[inline]{What, when, how? Modelling attacks}
-\todo[inline]{if we know what attacker models are mathematically, we can ask the computer to do analysis for us in integrity. }
-\todo[inline]{YOU HAVE TO ADDRESS the problem for confidentiality and cite relevant papers, and quantificaiton}
-\todo[inline]{What does Unifying Facets of Information Integrity say?}
+% \todo[inline]{Biba Duality}
+% \todo[inline]{Basin Cremers attackers as sets of effects KYE}
+% \todo[inline]{Confidentiality: test if attackers have some knowledge; Integrity: test if the system is too corrupted.}
+% \todo[inline]{What, when, how? Modelling attacks}
+% \todo[inline]{if we know what attacker models are mathematically, we can ask the computer to do analysis for us in integrity. }
+% \todo[inline]{YOU HAVE TO ADDRESS the problem for confidentiality and cite relevant papers, and quantificaiton}
+% \todo[inline]{What does Unifying Facets of Information Integrity say?}
 
-\todo[inline]{The idea is that there is a lot of stuff, but they ultimately belong to a bigger set of ``program correctness''. We argue that those are behavioural properties}
+% \todo[inline]{The idea is that there is a lot of stuff, but they ultimately belong to a bigger set of ``program correctness''. We argue that those are behavioural properties}
 
-\todo[inline]{Coalgebras provide a clear view of the set of behavioural properties for families of systems. That makes them really attractive for studying. Not only that, they offer generalised processes for the incorporation of computational effects (e.g., non-determinism, exceptions, termination, etc.) because of category theory.}
+% \todo[inline]{Coalgebras provide a clear view of the set of behavioural properties for families of systems. That makes them really attractive for studying. Not only that, they offer generalised processes for the incorporation of computational effects (e.g., non-determinism, exceptions, termination, etc.) because of category theory.}
 
-Probably the most important is to motivate the quantification of attackers and how it gave rise to the general treatment of latent behaviours.
-\todo[inline]{}
-\todo[inline]{The first thing we need to do is describe why latent behaviours are interesting. This requires a historical context. }
-\section{Coalgebras}
-\todo[inline]{This section explains the importance of coalgebras as a modelling system, why they are so compatible with computability (monads), and in general why they are useful.}
-\todo[inline]{I could probably be inspired on how to structure this section by publications on coalgebras. There is a large body of literature I can use.}
-\todo[inline]{At least cover that systems are of a form $\delta\colon X\rightarrow D$ where $D$ is some domain, and that there is a way to go from $D$ back to $X$ to continue computation.}
-\todo[inline]{Final coalgebras are important because $D=X$, so it is obvious how to continue.}
+% Probably the most important is to motivate the quantification of attackers and how it gave rise to the general treatment of latent behaviours.
+% \todo[inline]{}
+% \todo[inline]{The first thing we need to do is describe why latent behaviours are interesting. This requires a historical context. }
+% \section{Coalgebras}
+% \todo[inline]{This section explains the importance of coalgebras as a modelling system, why they are so compatible with computability (monads), and in general why they are useful.}
+% \todo[inline]{I could probably be inspired on how to structure this section by publications on coalgebras. There is a large body of literature I can use.}
+% \todo[inline]{At least cover that systems are of a form $\delta\colon X\rightarrow D$ where $D$ is some domain, and that there is a way to go from $D$ back to $X$ to continue computation.}
+% \todo[inline]{Final coalgebras are important because $D=X$, so it is obvious how to continue.}
 
-\section{Latent Behaviours}
-\todo[inline]{Explain that in this document we explore the notion of creating new behaviours through transformations of the state space of systems.}
-\subsection{Intuition}
-\todo[inline]{We present a light version of latent behaviours: you normally start at $X$, then you go to $D$ and then back to $X$, but what if we transformed $X$?}
-In latent behaviours we use a transformation $X\rightarrow X$ to affect the behaviour of the system. This transformation is an abstraction; the original system naturally transforms to a system $X\rightarrow D \rightarrow X$ using composition, also of type $X\rightarrow X$. Each function $X\rightarrow X$ can be seen as a black-box of some behaviour. Their interweaving means that they are acting simultaneously. 
+% \section{Latent Behaviours}
+% \todo[inline]{Explain that in this document we explore the notion of creating new behaviours through transformations of the state space of systems.}
+% \subsection{Intuition}
+% \todo[inline]{We present a light version of latent behaviours: you normally start at $X$, then you go to $D$ and then back to $X$, but what if we transformed $X$?}
+% In latent behaviours we use a transformation $X\rightarrow X$ to affect the behaviour of the system. This transformation is an abstraction; the original system naturally transforms to a system $X\rightarrow D \rightarrow X$ using composition, also of type $X\rightarrow X$. Each function $X\rightarrow X$ can be seen as a black-box of some behaviour. Their interweaving means that they are acting simultaneously. 
 
 
 
