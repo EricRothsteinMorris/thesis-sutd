@@ -50,13 +50,13 @@ In a simple setting, consider the set of real number pairs $\Real\times\Real$ an
 \begin{figure}[t]
     \centering
     \includegraphics[width=\textwidth]{Figures/VectorSpace1.pdf} 
-    \caption{Vector space representation of the transition system $(\Real\times\Real, \delta)$ in the interval $[-20,20]\times[-20,20]$. The behaviour of pairs $(x,y)$ preserves the value of $y$, and the behaviour of $x$ diverges if $|x|>1$.}
+    \caption{Phase space of the transition system $(\Real\times\Real, \delta)$ in the interval $[-20,20]\times[-20,20]$. The behaviour of pairs $(x,y)$ preserves the value of $y$, and the behaviour of $x$ diverges if $|x|>1$.}
     \label{fig:IntroVectorSpace}
   \end{figure}
   \begin{figure}[t]
     \centering  
     \includegraphics[width=\textwidth]{Figures/VectorSpace2.pdf} 
-    \caption{Vector space representation of the spatial transformation $m$ in the interval $[-20,20]\times[-20,20]$.} 
+    \caption{Phase space of the spatial transformation $m$ in the interval $[-20,20]\times[-20,20]$.} 
     \label{fig:SpatialDeformation} 
 \end{figure} 
 The behaviour of $(x,y)\in \Real\times\Real$ is the sequence that results from the iterated application of $\delta$ starting from $(x,y)$; i.e., $(x^2,y),(x^4,y),(x^8,y),$ etc. Now, consider the endofunction $m\colon \Real\times\Real\rightarrow \Real\times\Real$ that maps $(x,y)\in \Real\times\Real$ to $(-y,x)$. The transformation $m$ generates a second vector space, shown in Figure~\ref{fig:SpatialDeformation}. Vector addition is non-commutative in this scenario: applying $\delta$ first and then $m$ maps $(x,y)$ %to $(x/2,y/2)$ and then 
@@ -65,13 +65,13 @@ to $(-y,x^2)$ (whose vector space we show in Figure~\ref{fig:FirstLatent}) while
 \begin{figure}[t]
     \centering
     \includegraphics[width=\textwidth]{Figures/VectorSpace4.pdf} 
-    \caption{Vector space representation of the latent behaviour of $(\Real\times\Real, \delta)$ revealed by the spatial transformation $m$ in the interval $[-20,20]\times[-20,20]$.}
+    \caption{Phase space of the latent behaviour of $(\Real\times\Real, \delta)$ revealed by the spatial transformation $m$ in the interval $[-20,20]\times[-20,20]$.}
     \label{fig:FirstLatent}
 \end{figure} 
 
-\begin{figure}[t]
+\begin{figure}[t] 
     \includegraphics[width=\textwidth]{Figures/VectorSpace3.pdf} 
-    \caption{Vector space representation of the dual latent behaviour of the system $(\Real\times\Real, m)$ revealed by $\delta$ in the interval $[-20,20]\times[-20,20]$. It is a rotation of the behaviour shown in Figure~\ref{fig:FirstLatent}.}
+    \caption{Phase space of the dual latent behaviour of the system $(\Real\times\Real, m)$ revealed by $\delta$ in the interval $[-20,20]\times[-20,20]$. It is a rotation of the behaviour shown in Figure~\ref{fig:FirstLatent}.}
     \label{fig:SecondLatent} 
   \end{figure}
 
@@ -146,6 +146,8 @@ and we show how we can use spatial transformations to enforce a security propert
 \section{Related Work}
 We now discuss related work regarding the motivation presented in this chapter and the theory presented in Chapter~\ref{ch:LatentBehaviours}. Each chapter on the applications module, i.e. Chapters contains its own related work section.
 \todo[inline]{Small introduction to the works mentioned before in coalgebra and some works that use coalgebra and security, like the one that Jorge told me...}
+
+
 % {\color{blue}
 % \subsection{Universal Coalgebra and Security}
 % \todo[inline]{Write about kleene coalgebra and other applications }

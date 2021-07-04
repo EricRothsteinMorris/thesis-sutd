@@ -118,8 +118,8 @@ These conditions ensure functors preserve the structure of the category they are
 \section{The Category of Sets and Functions}
 The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. The empty set $0$ is the initial object, and any set isomorphic to the range set 1 is a terminal object.
 
-\subsection{Currying}
-\emph{Currying} is the use of the isomorphism between the sets $Z^{X\times Y}$ and $Z^{Y^X}$ which maps a function $f\colon (X\times Y)\rightarrow Z$ to a function $g\colon X\rightarrow Z^Y$ such that $g(x)(y)=f(x,y)$ for $x\in X$ and $y\in Y$. We use currying to adjust the types between equivalent constructions (e.g. between Automata and $F$-coalgebras).
+% \subsection{Currying}
+% \emph{Currying} is the use of the isomorphism between the sets $Z^{X\times Y}$ and $Z^{Y^X}$ which maps a function $f\colon (X\times Y)\rightarrow Z$ to a function $g\colon X\rightarrow Z^Y$ such that $g(x)(y)=f(x,y)$ for $x\in X$ and $y\in Y$. We use currying to adjust the types between equivalent constructions (e.g. between Automata and $F$-coalgebras).
 
 \subsection{Partial Application}
 Given a function $f\colon X\rightarrow Y \rightarrow Z$ and $x\in X$, the \emph{partial application} of $f$ given $x$ is the function $f_x\colon Y \rightarrow Z$, defined for $y\in Y$ by $f_x(y)=f(x)(y)$.
@@ -142,8 +142,8 @@ Given a finite set $A$, a \emph{deterministic finite automaton} (DFA) is a tuple
 \end{itemize}
 The denotational semantics of a DFA is the language with alphabet $A$ whose sequences it accepts, rejecting the rest.
 
-\subsection{Set Isomorphisms}
-\todo[inline]{Homomorphisms and isomorphisms}
+% \subsection{Set Isomorphisms}
+% \todo[inline]{Homomorphisms and isomorphisms}
 % \subsubsection{List of Relevant Isomorphisms}
 % \begin{itemize}
 %     \item $1\times X \simeq X$,
@@ -156,19 +156,20 @@ The denotational semantics of a DFA is the language with alphabet $A$ whose sequ
 %     \item $|X|=n$ iff $X\simeq n$.
 %     \item $\underbrace{\left(X\times\ldots\times X\right)}_\text{$n$ times}\simeq X^n$ (for this case, we say that $n$ is the set of coordinates of $X^n$)
 % \end{itemize}
-\section{Universal (Co)Algebra Preliminaries and Notation}
+\section{Universal Coalgebra Preliminaries and Notation}
 \label{sec:Preliminaries:Coalgebras}
 % \todo[inline]{ntroduction to the world of (co)algebras and explain why you want to use them. They are a wonderful way to unify the formalism of the thesis.}
 % \todo[inline]{Complete here}
 %\todo[inline]{*Puts an Edna Mode face* NO MONADS (unless necessary)}
 %\subsection{$\Monad$-algebras, $\Functor$-coalgebras and $\lambda$-bialgebras}
-\subsection{$F$-(co)algebras}
-Given an endofunctor $F$ in a category $\AsCategory{C}$, an \emph{$F$-coalgebra} is a pair $(X,X\xrightarrow{c}F(X))$ of an object $X$ and a morphism $c\colon X\rightarrow F(X)$. We use $F$-coalgebras to model dynamic systems with state. We call $X$ the \emph{carrier} and $c$ the \emph{dynamics}.
+\subsection{$F$-coalgebras}
+Given an endofunctor $F$ in a category $\AsCategory{C}$, an \emph{$F$-coalgebra} is a pair $(X,X\xrightarrow{c}F(X))$ of an object $X$ and a morphism $c\colon X\rightarrow F(X)$. We use $F$-coalgebras to model dynamic systems with state. We call $X$ the \emph{carrier} and $c$ the \emph{dynamics}. We also refer to $c$ as the \emph{operational semantics} of the elements in $X$.
 
-Dually, an \emph{$F$-algebra} is a pair $(X,F(X)\xrightarrow{a}X)$.
+% Dually, an \emph{$F$-algebra} is a pair $(X,F(X)\xrightarrow{a}X)$.
 
 \subsection{Pointed coalgebras}
-Pointed coalgebras are coalgebras with a distinguished state, usually referred to as the \emph{initial state}. Formally, for a functor $F$, a pointed $F$-coalgebra is a triple $(X,c, x_0)$ where $(X,c)$ is an $F$-coalgebra and $(X, x_0)$ is a $\Delta_X$-algebra, i.e., $x_0\colon 1\rightarrow X$, and $x_0(\star)$ characterises the initial state.
+Pointed coalgebras are coalgebras with a distinguished state, usually referred to as the \emph{initial state}. Formally, for a functor $F$, a pointed $F$-coalgebra is a triple $(X,c, x_0)$ where $(X,c)$ is an $F$-coalgebra and %$(X, x_0)$ is a $\Delta_X$-algebra, i.e., 
+$x_0\colon 1\rightarrow X$ is a function where $x_0(0)$ characterises the initial state. 
 
 \subsection{Automata as Pointed Coalgebras}
 DFA which characterise languages with an alphabet $A$ can be modelled by coalgebras of the functor $F(X)=2\times X^A$. Given a DFA $(X,x_0,\delta,F)$, the corresponding $F$-coalgebra is $(X,(F,\delta))$, where $(F,\delta)\colon X\rightarrow 2\times X^2$ is a function pair. We can make this coalgebra pointed by adding a function $x_0\colon 1\rightarrow X$ to mark the initial state.
@@ -235,20 +236,22 @@ Let $F$ be a functor such that $F(X)=O\times (X)^I$, and let $I$ and $O$ be sets
     \phi? \triangleq \phi(\varepsilon),
     \phi'(i)(w) \triangleq \phi(i\cdot w)
 \end{align}
-Following convention, we write $\phi'(i)$ as $\phi^i$, and the pair $(?, (\cdot)')$ as $1_F$. The pair $(\sigma F, 1_F)$ is a \emph{final $F$-coalgebra}, since it is a final object in the category $\AsCategory{Coalg_F}$.
+Following convention, we write $\phi'(i)$ as $\phi^i$, and the pair of functions $((\cdot) ?, (\cdot)')$ as $1_F$. The pair $(\sigma F, 1_F)$ is the \emph{final $F$-coalgebra}, since it is the final object in the category of $F$-coalgebras $\AsCategory{Coalg_F}$.
 
 Given an $F$-coalgebra $(X,c)$ where $c=(\gamma,\delta)$, the unique $F$-homomorphism between $(X,c)$ and $(\sigma F, 1_F)$ is given by a function $!_c\colon X\rightarrow \sigma F$, which is defined for $x\in X$, $i\in I$ and $w\in I^*$ by 
 \begin{align}
     !_c(x)(\varepsilon)\triangleq \gamma(x),\quad \text{and} \quad 
     !_c(x)(i\cdot w)\triangleq !_c(x^i)(w).
 \end{align}
-The function $!_c$ is called the \emph{semantic map} because it maps $x\in X$ to its denotational semantics in $\sigma F$. For example, in the case of DFA as coalgebras, it maps each state $x$ in the carrier of the coalgebra to the language it would be recognised if $x$ were the initial state in the DFA.
+The function $!_c$ is the \emph{semantic map} because it maps $x\in X$ to its denotational semantics in $\sigma F$. For example, in the case of DFA as coalgebras, it maps each state $x$ in the carrier of the coalgebra to the language that the automaton would recognise if $x$ were the initial state.
 
 \subsection{Bisimilarity}
-Given $F$-coalgebras $(X,c)$ and $(Y,d)$, we say that states \emph{$x\in X$ and $y\in Y$ are bisimilar}, denoted $x\sim y$, if and only if $!_c(x)=!_d(y)$. In other words, $x$ and $y$ are bisimilar iff they have the same semantics.
+Given $F$-coalgebras $(X,c)$ and $(Y,d)$, we say that states \emph{$x\in X$ and $y\in Y$ are bisimilar}, denoted $x\sim y$, if and only if $!_c(x)=!_d(y)$. In other words, $x$ and $y$ are bisimilar iff they have the same denotational semantics.
 
 \subsection{Coalgebraic Specification Language}
-Given a functor $F(X)=O\times X^I$ where $O$ and $I$ are fixed sets, a \emph{coalgebraic specification language} for $F$ is an $F$-coalgebra $(\mathcal{E},c)$ where $\mathcal{E}$ is a set of expressions whose semantics are given by the semantic map $!_c$.
+Given a functor $F$
+%$F(X)=O\times X^I$ where $O$ and $I$ are fixed sets
+, a \emph{coalgebraic specification language} for $F$ is an $F$-coalgebra $(\mathcal{E},c)$ where $\mathcal{E}$ is a set of expressions whose operational semantics are given by $c$, and its denotational semantics are given by the semantic map $!_c$.
 
 For example, consider the functor $F(X)=2\times X^2$; we define the set of expressions $\mathcal{E}$ by the grammar
 \begin{align}
@@ -261,14 +264,20 @@ where $ID$ is a set of identifiers. We define the pair function $c=(\gamma,\delt
     \delta(x:0?y\land1?z\land\downarrow a)(1)&\triangleq z.
 \end{align*}
 The expression $x:0?x\land1?x\land\downarrow 1$ can be considered to describe a single-state automaton whose single state is  accepting, and it loops to itself on both inputs 0 and 1. The semantic map $!_c$ maps the expression $x:0?x\land1?x\land\downarrow 1$ to the language $2^*$.%, i.e., the language which contains every sequence in $2^*$.
-\todo[inline]{Cite Kleene Coalgebra somehow}
+%\todo[inline]{Cite Kleene Coalgebra somehow}
 
 \subsection{Completeness}
-Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$, we say that $L$ is \emph{complete} if and only if the semantic map $!_c\colon \mathcal{E}\rightarrow \sigma F$ is surjective. In other words, for every behaviour $\phi\in \sigma F$, there exists an expression $e\in \mathcal{E}$ such that $!_c(e)=\phi$.
+Given a coalgebraic specification language $L=(\mathcal{E},c)$ for a functor $F$, 
+%(X)=O\times X^I$
+we say that $L$ is \emph{complete} if and only if for every behaviour $\phi\in \sigma F$, there exists an expression $e\in \mathcal{E}$ such that $!_c(e)=\phi$; in other words, iff the semantic map $!_c\colon \mathcal{E}\rightarrow \sigma F$ is surjective.
 
 \subsection{Soundness}
-Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F(X)=O\times X^I$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1\equiv e_2$, then $e_1\sim e_2$; i.e., if two expressions are equivalent, then they have the same behaviour.
+Given a coalgebraic specification language $L=(\mathcal{E},c)$ for a functor $F$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1\equiv e_2$, then $e_1\sim e_2$; i.e., if two expressions are equivalent, then they have the same behaviour.
 
+%@Eric" This definition is for you
+% \subsection{Coherence}
+% Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{coherent} if and only if, for $e_1, e_2\in \mathcal{E}$, if $!_c(e_1) = !_c(e_2)$ then $e_1\equiv e_2$; i.e., if two expressions have the same behaviour, they must be somehow be equivalent.
+% (Sound and Coherent PLs match equivalence with bisimilarity)
 
 \subsection{Behavioural Property}
 \label{sec:preliminaries:BehaviouralProperty}
@@ -276,25 +285,25 @@ Let $F$ be a functor for which a final $F$-coalgebra $(\sigma F, 1)$ exists. A \
 
 We use {behavioural properties} to formalise properties of a system. Behavioural properties come in all shapes and forms, and are often described using logics like LTL~\cite{LTL}. CTL~\cite{CTL}, and $\mu$ calculus~\cite{MuCalculus}.
 
-\section{Coinduction}
-Coinduction is a dual principle to induction, and we use it to define what things are in terms of how they behave. 
-\todo[inline]{I'll come back to this}
+% \section{Coinduction}
+% Coinduction is a dual principle to induction, and we use it to define what things are in terms of how they behave. 
+% \todo[inline]{I'll come back to this}
 
-\subsection{Coinduction Proof Principle}
-\todo[inline]{Coinductive Definitions?}
-\subsection{Bisimulation}
-% \section{Spectre}
-% \label{sec:Preliminaries:Spectre}
-% \todo[inline]{And Meltdown?}
-% \subsection{Spectre V1}
-% %\todo[inline]{}
-% \subsection{Spectre V2}
+% \subsection{Coinduction Proof Principle}
+% \todo[inline]{Coinductive Definitions?}
+% \subsection{Bisimulation}
+% % \section{Spectre}
+% % \label{sec:Preliminaries:Spectre}
+% % \todo[inline]{And Meltdown?}
+% % \subsection{Spectre V1}
+% % %\todo[inline]{}
+% % \subsection{Spectre V2}
 
-\section{Computational Effects}
-\subsection{Termination}
-\subsection{Non-determinism}
-\subsection{Generalised Determinisation}
+% \section{Computational Effects}
+% \subsection{Termination}
+% \subsection{Non-determinism}
+% \subsection{Generalised Determinisation}
 
-\section{Cyber-Physical System} 
-\todo[inline]{This section probably makes more sense in its own chapter, when we explain what the latent behaviour of a CPS is.}
-\section{Side Channels}
+% \section{Cyber-Physical System} 
+% \todo[inline]{This section probably makes more sense in its own chapter, when we explain what the latent behaviour of a CPS is.}
+% \section{Side Channels}

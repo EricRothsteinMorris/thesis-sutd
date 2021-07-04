@@ -12,11 +12,13 @@
 
 \section{Introduction}
  
-A \emph{latent behaviour} is a functionality that is not coded into a system, so the system normally does not display it, but given extraordinary circumstances, the system displays such functionality. To reveal a latent behaviour, we transform the state space of the system. Normally, the state space is not transformed, so we can model "extraordinary circumstances" using these transformations. This concept is probably well illustrated by \emph{return-oriented programming} (ROP) as described in~\cite{ROP}, where the state of the call stack is transformed to alter the behaviour of the program being executed, but the program itself is not modified.
+A \emph{latent behaviour} is an unintended functionality of a system, which the system typically does not display. Still, given extraordinary circumstances, the system displays such functionality. To reveal a latent behaviour, we transform the state space of the system. Since the state space is usually not transformed, we model "extraordinary circumstances" using these transformations. This concept is probably well illustrated by \emph{return-oriented programming} (ROP) as described in~\cite{ROP}, where the attacker, to alter the behaviour of the running program, does not modify the code of the running program and instead transforms the state of the call stack.
 
-In ROP, the adversary manipulates the call stack to string code gadgets together and arbitrarily execute code. However, if the program is very small and does not have enough gadgets, then the computational power of the attacker is restricted, since it becomes impossible to create certain behaviours. This restriction is similar to the restrictions we face when working with non-Turing complete languages (e.g., we cannot use regular expressions to specify arbitrary Turing machines). However, given enough gadgets, we can reveal any behaviour we want if we appropriately compose the gadgets.
+In ROP, the adversary manipulates the call stack to string code gadgets together and arbitrarily execute code. However, if the program is small and does not have enough gadgets, then the attacker's computational power is restricted since it becomes impossible to create certain behaviours. This restriction is similar to the limitations we face when working with non-Turing complete languages (e.g., we cannot use regular expressions to specify arbitrary Turing machines). However, given enough gadgets, we can reveal any behaviour we want if we appropriately compose the gadgets.
 
-In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as the ``Arrow" of latent behaviour analysis, illustrates how spatial and dynamics transformations affect the behaviour of an arbitrary $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. The intuition behind the diagram of the Arrow is the following. Normally, an $F$-coalgebra $(X,c)$ gives semantics to the elements in $X$ via the semantic map $!_c$. When affected by a spatial transformation $m\colon X\rightarrow X$ and a dynamics transformation $b\colon F(X)\rightarrow F(X)$, the $F$-coalgebra $(X,c)$ reveals an $F$-coalgebra $(X,b\circ c\circ m)$. The behaviour of elements in $(X,b\circ c\circ m)$ may bear no resemblance to the original behaviour. At most, we can say that if $m$ and $b$ preserve bisimilarity, then there exists a transformation $\omega\colon \sigma F \rightarrow \sigma F$ in the carrier of the final $F$-coalgebra $(\sigma F, 1)$ which maps the original behaviours of the system into the new behaviours revealed by $m$ and $b$. 
+In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as \emph{the Arrow}, illustrates how spatial and dynamics transformations behaviourally affect an $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. 
+The intuitive meaning of Arrow is the following: normally, an $F$-coalgebra $(X,c)$ gives semantics to the elements in $X$ via the semantic map $!_c$. When affected by a spatial transformation $m\colon X\rightarrow X$ and a dynamics transformation $b\colon F(X)\rightarrow F(X)$, the $F$-coalgebra $(X,c)$ reveals an $F$-coalgebra $(X,b\circ c\circ m)$. 
+The behaviour of elements in $(X,b\circ c\circ m)$ may bear no resemblance to the original behaviour. At best, we can conclude that if $m$ and $b$ preserve bisimilarity, then there exists a transformation $\omega\colon \sigma F \rightarrow \sigma F$ in the carrier of the final $F$-coalgebra $(\sigma F, 1)$ where $\omega$ maps the original behaviours of the system into the new behaviours revealed by $m$ and $b$. 
 
 \begin{figure}[h]
         \centering
@@ -61,10 +63,10 @@ In this section, we explain the commutative diagram presented in Figure~\ref{fig
 \label{sec:Latent:Motivation}
 % \todo[inline]{Small intro to transformed systems. You should have mentioned already somewhere in the intro that there are two ways to mutate the behaviour of a system in the coalgebra world: by transforming the carrier or by transforming the co-carrier. We only study transformations of the carrier.}
 % \todo[inline]{I feel like we are missing some stuff? How are we going to structure the introduction?}
-Consider the automaton shown in Figure~\ref{fig:ExampleLatent}, which recognises the language of sequences in $2^*$ that end in two consecutive 1; i.e., the language $(0|1)^*11$. 
+Consider the automaton in Figure~\ref{fig:ExampleLatent}, which recognises the language of sequences in $2^*$ that end in two consecutive 1; i.e., the language $(0|1)^*11$. 
 This automaton is defined by the tuple $(\vec{X},\vec{x}_0,\delta,F)$; the carrier is $\vec{X}\triangleq2\times2$, the initial state selector is $\vec{x}_0\colon1\rightarrow \vec{X}$ with $\vec{x}_0(0)\triangleq(0,0)$, the transition function is $\delta\colon \vec{X}\rightarrow 2\rightarrow\vec{X}$, defined for $\vec{x}\in \vec{X}$ and $i \in 2$ by $\delta(\vec{x})(i)\triangleq(i,\vec{x}[0]),$ and the characteristic predicate of the set of accepting states is $F\colon\vec{X}\rightarrow 2$, where $F(x,y)\triangleq x \land y$
 %$F(1,1)\triangleq1$ and $F(x,y)\triangleq0$ otherwise
-(i.e. $(1,1)$ is the only accepting state). This automaton is not minimal, since the states $(0,0)$ and $(0,1)$ are different, yet they are bisimilar.
+(i.e. $(1,1)$ is the only accepting state). This automaton is not minimal since the states $(0,0)$ and $(0,1)$ are different, yet they are bisimilar. 
 
 \begin{figure}[t]
     \centering
@@ -88,7 +90,7 @@ This automaton is defined by the tuple $(\vec{X},\vec{x}_0,\delta,F)$; the carri
 
 Now, consider a transformation %assume that the programmer is malicious, and they purposely 
 % consider a transformation $m\colon \vec{X}\rightarrow\vec{X}$ which maps $(a,b)\in \vec{X}$ to $(\lnot a, \lnot b)$. 
-$m\colon \vec{X}\rightarrow\vec{X}$, defined by $m(\vec{x})\triangleq(\lnot \vec{x}[0],\lnot \vec{x}[1])$ for $\vec{x}\in \vec{X}$; i.e., $m$ maps $(a,b)$ to $(\lnot a, \lnot b)$. This transformation models some fault which could be introduced by a malicious programmer or by an attacker which corrupts the state of the system. Due to this transformation, %e compute state transformations before computing the behaviour; thus, 
+$m\colon \vec{X}\rightarrow\vec{X}$, defined by $m(\vec{x})\triangleq(\lnot \vec{x}[0],\lnot \vec{x}[1])$ for $\vec{x}\in \vec{X}$; i.e., $m$ maps $(a,b)$ to $(\lnot a, \lnot b)$. This transformation implements some fault which could be introduced by a malicious programmer or by an attacker which corrupts the state of the system. Due to this transformation, %e compute state transformations before computing the behaviour; thus, 
 if the current state is $\vec{x}=(a,b)$, when we intend to check whether $\vec{x}$ is accepting, we check whether $(\lnot a, \lnot b)$ is accepting instead, and when we intend to compute $\delta(\vec{x})(i)$, we instead compute $\delta(\lnot a, \lnot b)(i)$. 
 \begin{figure}[t]
     \centering
@@ -106,11 +108,11 @@ if the current state is $\vec{x}=(a,b)$, when we intend to check whether $\vec{x
     (11) edge[bend right, above] node{1} (10)
     (11) edge[bend right, above] node{0} (00)
     ;\end{tikzpicture}
-\caption{Automaton that models the transformed automaton, which now recognises $\varepsilon|(0|1)^*10$.}
+\caption{Automaton that implements the transformed automaton, which now recognises $\varepsilon|(0|1)^*10$.}
 \label{fig:Transformed}
 \end{figure}
 
-Figure~\ref{fig:Transformed} shows a model of the transformed automaton. This automaton recognises the language of sequences that are either empty or end in 10; i.e., $\varepsilon|(0|1)^*10$. 
+Figure~\ref{fig:Transformed} shows an implementation of the transformed automaton. This automaton recognises the language of sequences that are either empty or end in 10; i.e., $\varepsilon|(0|1)^*10$. 
 Before we explain why the automaton in Figure~\ref{fig:Transformed} is in fact the resulting system when we apply the transformation $m$, we can first test if the transformed system recognises sequences $\varepsilon|(0|1)^*10$ due to the transformation $m$. %$(0|1)(0|1)^*$. 
 To do so, let us consider pairs of states $[\vec{x},\vec{y}]$ where $\vec{x}=(x_1,x_2)$ and $\vec{y}=(y_1,y_2)$ such that the pair $\vec{x}$ follows the original behaviour while $\vec{y}$ follows the new behaviour. 
 Let $[(0,0),(0,0)]$ be the initial state, and let $\delta_i\colon \vec{X}\rightarrow \vec{X}$ be the functions defined by $\delta_i(\vec{x})=\delta(\vec{x})(i)$ for $i \in 2$ (i.e., $\delta_0$ is a partial application of $\delta$ given $0$ and $\delta_1$ is a partial application of $\delta$ given 1); %, since $(1,1)$ replaces $(0,0)$ due to the fault. 
@@ -153,7 +155,7 @@ the transformed automaton accepts $110$, but the original automaton does not. Fi
 %(We can alternatively see the function $m$ as a bad abstraction from the implementation.)
 
 %There are now two final states: $(1,1)$ and $(0,1)$ since both states are preimages of $(1,1)$ under $m$.
-We obtain the automaton shown in Figure~\ref{fig:Transformed} by ``copying'' the original behaviour from images of $m$ to their preimages. Figure~\ref{fig:ExampleWithFaults} shows this procedure for $(0,0)$ and $(1,1)$. This includes copying the behaviour under $\delta$ and under $F$. 
+We obtain the automaton in Figure~\ref{fig:Transformed} by ``copying'' the original behaviour from images of $m$ to their preimages. Figure~\ref{fig:ExampleWithFaults} shows this procedure for $(0,0)$ and $(1,1)$. This includes copying the behaviour under $\delta$ and under $F$. 
 
 We preserve the initial state because $\vec{x}_0$ is a selection/construction/algebraic operation, not a dynamics/behavioural/coalgebraic operation. We do not apply transformations to the results of algebraic operations to avoid aggregating the transformation erroneously due to composition of algebraic and coalgebraic operations. Consider the following: the initial state $\vec{x}_0$ is of type $1\rightarrow\vec{X}$ which is algebraic, so the only way to apply $m$ to $\vec{x}_0$ is by composing it on the left, i.e., $m\circ \vec{x}_0(0)$. Checking if the initial state is accepting in the original automaton corresponds to the expression $(F\circ\vec{x}_0)(*)$; however, the expression
 \begin{align*}
@@ -195,7 +197,7 @@ applies $m$ twice, and it fails to properly check if the initial state of the tr
         % (11) edge[above] node{1} (1,0)
         % (11) edge[bend right, above] node[near start]{0} (00)
         ;\end{tikzpicture}
-    \caption{Composition of the fault $m$ and the original behaviour for the states $(0,0)$ and $(1,1)$. The dotted, gray, bidirectional arrow in the centre models the effect of the fault $m$. The original behaviours appear as dashed, grey lines. The behaviour which results from the composition appears as solid, red lines.}
+    \caption{Composition of the fault $m$ and the original behaviour for the states $(0,0)$ and $(1,1)$. The dotted, gray, bidirectional arrow in the centre captures the effect of the fault $m$. The original behaviours appear as dashed, grey lines. The behaviour which results from the composition appears as solid, red lines.}
     \label{fig:ExampleWithFaults}
 \end{figure}
 We say that the transformed system is \emph{latent} with respect to the original system, since the application of the transformation $m$ reveals the new behaviour. In general, we cannot reveal arbitrary behaviours only through transformations of the state space; e.g., we cannot obtain an automaton that accepts every sequence from a single-state automaton that rejects all sequences by just transforming the state space. 
@@ -247,19 +249,24 @@ The transformation $m(x,y)=(\lnot x,\lnot y)$ reveals the latent coalgebra where
     (F\circ m)(x,y)&= \lnot x \land \lnot y\\
     (\delta\circ m)(x,y)(i)&= (i,\lnot x).
 \end{align}
-The behaviour of a state $x$ changes when $m$ acts on $x$. In particular, the image of state $(0,0)$ under the semantic map is no longer the language $(0|1)^*11$; it is the language $\varepsilon|(0|1)^*10$ instead.
-\end{example}
-\todo[inline]{Maybe connect these two examples better}
-\begin{example}
-    In the context of Example~\ref{ex:Latent:TheExample}, consider the behavioural property $Q\colon 2^{2^*}\rightarrow 2$ which accepts a language $\phi \in 2^{2^*}$ if and only if $\phi$ accepts a sequence $w\in 2^*$, then $w$ ends in 1 or $w$ is empty.
-
-    In the original $F$-coalgebra, all states in $2\times 2$ satisfy the property $Q$ since both $(0,0)$ and $(1,0)$ recognise the language $(0|1)^*11$, $(0,1)$ recognises the language $(0|1)^*1$, and $(1,1)$ recognises $\varepsilon + 0(0|1)^*11 + 1(0|1)^*1$. However, in the latent coalgebra revealed by the attack $m$, which maps $(a,b)$ to $(\lnot a, \lnot b)$, the state $(0,0)$ no longer satisfies $Q$, since it now recognises the language $\varepsilon|(0|1)^*10$. 
-
-    Now, if we use $m$ again in the latent coalgebra $(2\times 2, c\circ m)$ to reveal the latent coalgebra $(2\times 2, c\circ m\circ m)$, we repair the system with respect to the property $Q$, since $m \circ m=\id$. Thus, $m$ can be used as its own counterattack, but only when the latent coalgebra $(2\times 2, c\circ m)$ has been revealed (otherwise, the application of $m$ reveals $(2\times 2, c\circ m)$, and it breaks $Q$).
+The behaviour of a state $x$ changes when $m$ acts on $x$. In particular, the behaviour of state $(0,0)$ is the language $(0|1)^*11$, but its latent behaviour under $m$ is the language $\varepsilon|(0|1)^*10$.
 \end{example}
 % \todo[inline]{There is no notion of distance or how different behaviours are in this setting. Things either are equal/isomorphic or they are not.}
 \section{Latent Behaviour Analysis}
-LBA is the study of the effects that a spatial transformation $m\colon X\rightarrow X$ has over the behaviour of states in $X$ in the context of an $F$-coalgebra $(X,X\xrightarrow{c} F(X))$. The choice to focus on spatial transformations seems arbitrary; clearly, it is also possible to affect the behaviour of states by composing $c$ with a {dynamics transformation} $b\colon F(X)\rightarrow F(X)$ to obtain the new dynamics function $b \circ c$, as shown in the "Arrow" from Figure~\ref{fig:TheArrow}. %Both $(X,b\circ c\colon X\rightarrow F(X))$ and $(X,b\circ c\circ m\colon X\rightarrow F(X))$ are $F$-coalgebras, since the type requirement is satisfied. 
+LBA is the study of the effects that a spatial transformation $m\colon X\rightarrow X$ has over the behaviour of states in $X$ in the context of an $F$-coalgebra $(X,X\xrightarrow{c} F(X))$. We use LBA to understand the behavioural changes that the system $(X,c)$ may incur under the transformation $m$, as illustrated by the following example.
+
+\begin{example}
+    In the context of Example~\ref{ex:Latent:TheExample}, consider the behavioural property $Q\colon 2^{2^*}\rightarrow 2$, where, $\phi \in 2^{2^*}$, $Q(\phi)$ is true if and only if $\phi\subseteq \varepsilon | (0|1)^*1$, i.e., if $\phi$ accepts a sequence $w\in 2^*$, then $w$ ends in 1 or $w$ is empty. 
+
+   All states in $2\times 2$ satisfy the property $Q$ in the original $F$-coalgebra since both $(0,0)$ and $(1,0)$ recognise the language $(0|1)^*11$, the state $(0,1)$ recognises the language $(0|1)^*1$, and $(1,1)$ recognises $\varepsilon + 0(0|1)^*11 + 1(0|1)^*1$. 
+   However, in the latent coalgebra revealed by $m$, which maps $(a,b)$ to $(\lnot a, \lnot b)$, the state $(0,0)$ now recognises the language $\varepsilon|(0|1)^*10$, so it no longer satisfies the behavioural property $Q$.
+
+    We can repair the system with respect to the property $Q$ if we use $m$ again in the latent coalgebra $(2\times 2, c\circ m)$ to reveal the latent coalgebra $(2\times 2, c\circ m\circ m)$ as $m \circ m=\id$. Thus, if $m$ is an attack, then a second application of $m$ is a valid counterattack with respect to $Q$. 
+    %since the behavioural properties of $(2\times 2, c\circ m\circ m)$ are the same as those of the original system $(2\times 2, c)$. 
+    % but only when the latent coalgebra $(2\times 2, c\circ m)$ has been revealed (otherwise, the application of $m$ reveals $(2\times 2, c\circ m)$, and it breaks $Q$).
+\end{example}
+
+Our choice to focus on spatial transformations may seem arbitrary since it is also possible to affect the behaviour of states by composing $c$ with a {dynamics transformation} $b\colon F(X)\rightarrow F(X)$ to obtain the new dynamics function $b \circ c$, as in the "Arrow" in Figure~\ref{fig:TheArrow}. %Both $(X,b\circ c\colon X\rightarrow F(X))$ and $(X,b\circ c\circ m\colon X\rightarrow F(X))$ are $F$-coalgebras, since the type requirement is satisfied. 
 However, there are systems for which spatial and behavioural transformations can reveal the same behaviours; moreover, we can reveal any arbitrary behaviours via spatial transformations: \emph{final $F$-coalgebras}, and \emph{sound and complete coalgebraic specification languages}.
 
 %\subsection{Latent Coalgebras of Final $F$-coalgebras}
@@ -313,22 +320,14 @@ Given two $F$-coalgebras $(\sigma F, c_1)$ and $(\sigma F, c_2)$ whose respectiv
 \end{itemize}
 In summary, we can represent $F$-coalgebras whose carrier is $\sigma F$ by endofunctions in $\sigma F$, and we can reason about their composition as we would with functions in the monoid of endofunctions $(\sigma F\rightarrow \sigma F, \circ, \id)$. 
 
-% \todo[inline]{Explain that this corresponds to the point of The Arrow: $!c$ takes you from $X$ to $\sigma F$, and you can use $\omega$ to reveal a latent coalgebra of $(\sigma F, 1)$. This arrow $\omega$ models the behavioural change from $!c$ to $!_{b\circ c\circ m}$.}
+% \todo[inline]{Explain that this corresponds to the point of The Arrow: $!c$ takes you from $X$ to $\sigma F$, and you can use $\omega$ to reveal a latent coalgebra of $(\sigma F, 1)$. This arrow $\omega$ implements the behavioural change from $!c$ to $!_{b\circ c\circ m}$.}
 In the following, we return to arbitrary $F$-coalgebras $(X,c)$, but we keep in mind the following: when we reveal a latent coalgebra of $(X,c)$ under a spatial transformation $m$, we are implicitly sequentially composing the behaviour function $c$ with the behaviour function of the $F$-coalgebra implemented by $m$; first we apply $m$ and then we apply $c$.
-
-\section{The Arrow}
-Consider the following definition of \emph{arbitrary state-based attacks}.
-\begin{definition}[Arbitrary State-based Attack]
-    \label{def:Latent:StateAttacks}
-    Given an $F$-coalgebra $(X,c)$, the set of its \emph{state-based attacks} is the set of its spatial transformations, i.e., $X^X$. 
-    %We also define the set of its \emph{behaviour-based attacks} by $F(X)^{F(X)}$. 
-    \end{definition}
-Under this definition,
-\todo[inline]{Explain the arrow}
 
 \section{Some Applications of Latent Behaviour Analysis}
 % \todo[inline]{Describe in terms of coalgebras an introduction for the three application topics we have: attacker model classification, CPS redesign and Side-channel repair.}
 We study the effects that spatial transformations have on the behaviour of the system. Just like in geometry, some spatial transformations may preserve some properties of the system, while others may break them. In this section, we present three ideas for LBA to study four aspects of systems: \emph{formalisation of integrity attackers}, \emph{quantifying and improving robustness}, \emph{classification of attacker models}, and \emph{side-channel repair}.
+
+
 
 % Consider the system from Section~\ref{sec:Latent:Motivation} and it coalgebraic equivalent presented in Example~\ref{ex:Latent:TheExample}. This example has 256 different spatial transformations, which affect the system in different ways. 
 % \todo[inline]{I dunno where I was going with this}
@@ -385,7 +384,7 @@ We study the effects that spatial transformations have on the behaviour of the s
 
 \subsection{Formalisation of Integrity Attacks and Attacker Models}
 \label{sec:Latent:AttackerModels}
-LBA studies the effect of state-based attacks. Henceforth, when we refer to an attack, we implicitly mean a state-based attack (unless stated otherwise). In the particular case of final $F$-coalgebras, their state-based attacks coincide with their behaviour-based attacks. 
+LBA studies the effect of spatial transformations. Henceforth, when we refer to an attack, we implicitly mean a spatial transformation. In the particular case of final $F$-coalgebras, their spatial transformations attacks coincide with their dynamics transformations. 
 
 \subsection{Classification of Attackers}
 \label{sec:Latent:Classification}
@@ -397,11 +396,11 @@ In Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}, we compare and 
 %Informally, the robustness of a system quantifies how much stress the system can withstand without compromising its functionality. We explore the idea of modelling stress via state-based attacks and how we can quantify and improve the robustness of a system by studying properties of latent coalgebras.
 
 %Formally, w
-Given a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ which model both functional and security requirements of a system described by an $F$-coalgebra $(X,c)$ with an initial state $x_0\in X$, %and a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ and
-and a spatial transformation $m\colon X\rightarrow X$ that models an attack or a fault;  %Normally, we would check if $x_0$ satisfies all behavioural properties in $\mathcal{R}$, but now 
-we say that the system is \emph{robust} with respect to $m$ if $x_0$ still satisfies all the given behavioural properties despite the effects of the spatial transformation $m$. To check for robustness with respect to $m$, we 
+Let $\mathcal{R}=\set{R_1, \ldots, R_n}$ be a set of behavioural properties that describes both functional and security requirements of a system defined by an $F$-coalgebra $(X,c)$ with an initial state $x_0\in X$, and let %and a set of behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ and
+$m\colon X\rightarrow X$ be a spatial transformation that implements an attack or a fault; informally, %Normally, we would check if $x_0$ satisfies all behavioural properties in $\mathcal{R}$, but now 
+we say that the system $(X,c)$ is \emph{robust} with respect to $m$ if $x_0$ still satisfies all the properties in $\mathcal{R}$ despite the effects of the spatial transformation $m$. To check for robustness with respect to $m$, we 
 %we might think that it suffices to check $(R_i\circ !_c)(m(x_0))=1$ for each requirement $R_i$, but that is incorrect: the expression $(R_i\circ !_c)(m(x_0))=1$ only checks if the effect of $m$ on the initial state is enough for $R_i$ to fail, and it ignores the effect of $m$ on the rest of the states. The correct way is to 
-reveal the latent coalgebra $(X, c\circ m)$ and check if it satisfies the behavioural properties $\mathcal{R}=\set{R_1, \ldots, R_n}$ using standard model checking/testing techniques. 
+reveal the latent coalgebra $(X, c\circ m)$ and check if this new system satisfies all the behavioural properties in $\mathcal{R}$ using standard verification and  testing techniques. 
 {%\color{red}
 % as illustrated by the following example.
 % \begin{example}[Faulty Verification]
@@ -421,7 +420,7 @@ To quantify the robustness of a system, we systematically generate a set of spat
 % \begin{align*}
 %     \sum_{i=i}^n{w_i(1-(R_i\in \mathcal{M}[\mathcal{R}]))},
 % \end{align*}
-% where $w_i\in \mathbb{R}^+$ is a weight which models the importance of requirement $R_i$.
+% where $w_i\in \mathbb{R}^+$ is a weight which implements the importance of requirement $R_i$.
 
 %Let us consider the case where $(X,c)$ fails a non-empty set of requirements; this set, given the definitions, is equal to $\id[\mathcal{R}]$. Now, let $\mathcal{K}=\set{k_1, \ldots, k_q}$ be an arbitrary set of spatial transformations independent of $\mathcal{M}$; 
 Spatial transformations can be used to repair systems as well. Given a set of spatial transformations $\mathcal{K}=\set{k_1,\ldots, k_q}$, we say that $k\in \mathcal{K}$ \emph{repairs $(X,c)$} with respect to a property $R$ if $(X,c)$ does not satisfy $R$ but $(X,c\circ k)$ does. The set $\mathcal{M}$ and $\mathcal{K}$ are both sets of spatial transformations, but the former describes an attacker model, while the latter describes a counterattacker model.
@@ -444,7 +443,36 @@ We study the process of system repair in more detail in Chapters~\ref{ch:CPSRobu
 \subsection{Side-Channel Repair}
 The last application of LBA that we consider is of program repair. We briefly mentioned the idea in Section~\ref{sec:Latent:Robustness}: given an $F$-coalgebra $(X,c)$ and a set of requirements $\mathcal{R}=\set{R_1, \ldots, R_n}$, if $\AsSequence{\emptyset}[\mathcal{R}]$ is non-empty (i.e. the system fails some requirements), then we can look for spatial transformations to reveal a latent behaviour $(X,c\circ m)$ such that $\set{m}[\mathcal{R}]$ is empty. We consider an interesting case where the state $x$ is a program, and $R$ consists of a single requirement: constant memory access patterns. We propose an idempotent spatial transformation $\mathcal{O}$ which maps $x$ to a state which satisfies constant memory access patterns. In Chapter~\ref{ch:SideChannelRepair}, we show how we can use $\mathcal{O}$ to repair a family of timing side-channel leaks for LLVM programs.
 
+\section{The Arrow: a Summary of LBA}
+%We summarise the idea behind LBA using the Arrow. 
+Normally, for a functor $F$ that has a final $F$-coalgebra $(\sigma F, 1_F)$, any $F$-coalgebra $(X,c)$ satisfies the commutative diagram in Figure ~\ref{fig:SemanticsMap}. 
+When we compose a function $m\colon X\rightarrow X$ on the right of $c$ and a function $b\colon F(X)\rightarrow F(X)$ on the left of $c$, we obtain the pair $(X,b\circ c\circ m)$, which is an $F$-coalgebra. Since $(X,b\circ c\circ m)$ is an $F$-coalgebra, it has its own diagram similar to the one in Figure~\ref{fig:SemanticsMap} exists, replacing $c$ by $b\circ c\circ m$. However, the relation between the semantic maps $!_{c}$ and $!_{b\circ c\circ m}$ is not so simple: in general, the semantic map $!_{b\circ c\circ m}$ is not equal to the function $(!_{b\circ c})\circ m$, so we cannot directly lift the effects of a given spatial transformation $m$ to the behaviours of an $F$-coalgebra. At best, if $m$ is behaviourally consistent, we can create a map $\omega\colon \sigma F\rightarrow \sigma F$ that maps the old behaviours of the system to the new ones revealed by $m$. 
 
+This impossibility to soundly lift the effects of $m$ in $X$ to a function in $\sigma F$ indicates that, in general, we cannot deduce properties of latent coalgebras from their original systems, and we should study latent coalgebras as if they were independent systems. However, the properties proved in latent coalgebras act as a proof of behavioural properties of their original systems, as we show in the following chapters. For example, an $F$-coalgebra $(X,c)$ is robust with respect to a behavioural property $Q$ and a set of spatial transformations $M$ if, for all $m\in M$, the latent coalgebra $(X,c\circ m)$ satisfies the behavioural property $Q$.
 
-
-
+\begin{figure}[t]
+\centering
+\begin{tikzcd}[column sep=3cm, row sep=2cm]
+    X
+        \arrow[r,dotted, "!_{c}"]
+        \arrow[d,"c"] 
+    &\sigma F 
+        %\arrow[dd, "\simeq","\omega"']
+        \arrow[d, "\simeq"',"1_F"]
+    \\
+    F(X)
+        \arrow[r, dotted, "F(!_{c})"] 
+    &
+    F(\sigma F)
+\end{tikzcd}
+\caption{Typical commuting diagram for the semantic map $!_c$ in universal coalgebra.}
+\label{fig:SemanticsMap} 
+\end{figure}
+% Consider the following definition of \emph{arbitrary state-based attacks}.
+% \begin{definition}[Arbitrary State-based Attack]
+%     \label{def:Latent:StateAttacks}
+%     Given an $F$-coalgebra $(X,c)$, the set of its \emph{state-based attacks} is the set of its spatial transformations, i.e., $X^X$. 
+%     %We also define the set of its \emph{behaviour-based attacks} by $F(X)^{F(X)}$. 
+%     \end{definition}
+% Under this definition,
+% \todo[inline]{Explain the arrow}
