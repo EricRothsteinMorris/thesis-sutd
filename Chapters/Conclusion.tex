@@ -1,5 +1,16 @@
 %!TEX root = ../main.tex
-\chapter{Conclusion}
+\chapter{Discussion and Conclusion}
+Latent behaviour analysis 
+
+\section{Predictability} 
+By only using spatial transformations $m\colon X\rightarrow X$ and not dynamics transformations $b\colon F(X)\rightarrow F(X)$, we force every latent coalgebra $(X,c\circ m)$ to somehow factor through their original coaglebra $(X,c)$. While these latent coalgebras are clearly and undoubtedly related to their original coalgebra, the relations between the original behaviours and the revealed latent behaviours are in general hard predict from the spatial transformations. We attribute this unpredictability to the lack of restrictions over the choice of spatial transformations. 
+
+Just like symmetries in geometry --which are transformations whose effects on objects we can predict before they are applied-- we believe that there should be a non-trivial family of spatial transformations whose effect on the behaviour of systems is predictable before they are applied (the trivial families of spatial transformations are constants and identity transformations). Our intuition points towards spatial transformations that naturally lift to dynamics transformation; i.e., transformations where the latent coalgebra $(X,F(m)\circ c)$ and $(X,c\circ m)$ have the same behaviours. The systems that satisfy this property are know as \emph{bialgebras} \cite{JacobsBook}. We leave a formal proof of the predictability of effects of spatial transformation in these systems as future work.
+
+\section{A New Proof Method}
+In this thesis we studied the effects that a single spatial transformation $m\colon X\rightarrow X$ has on an $F$-coalgebra $(X,c)$; however, since $m$ is an element of the monoid of endofunctions in $X$, it can surely be non-uniquely decomposed  into a finite sequence of transformations $m_1, m_2, \ldots m_n$ where $m=m_n\circ\ldots \circ m_2\circ m_1$ each with $m_i\colon X\rightarrow X$, where all $m_i$ preserve a behavioural property $Q$. If that is the case, then $(X,c\circ m)$ should satisfy the property $Q$.
+
+This proof method seems particularly useful for a system $(X,d)$ that can be described as a latent coalgebra of a system $(X,c)$ and a spatial transformation $m$ (i.e., $d=c\circ m$), where $(X,c)$ is a system where proving the property $Q$ is relatively simple, but proving it in $(X,d)$ seems daunting. For example, consider the system in Figure~\ref{fig:FirstLatent}, which is a latent system from the one in Figure~\ref{fig:IntroVectorSpace} revealed by the spatial transformation in Figure~\ref{fig:SpatialDeformation}; perhaps it is easier to prove a property of the system in Figure~\ref{fig:FirstLatent} by studying it as a latent system instead of an isolated system. 
 
 \todo[inline]{General directions to continue this line of work. There are mainly three directions at the moment}
 \section{Applications to Security Analysis}

@@ -2881,6 +2881,33 @@
     \field{year}{2020}
   \endentry
 
+  \entry{JacobsBook}{book}{}
+    \name{author}{1}{}{%
+      {{hash=JB}{%
+         family={Jacobs},
+         familyi={J\bibinitperiod},
+         given={Bart},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Cambridge University Press}%
+    }
+    \strng{namehash}{JB1}
+    \strng{fullhash}{JB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \verb{doi}
+    \verb 10.1017/CBO9781316823187
+    \endverb
+    \field{series}{Cambridge Tracts in Theoretical Computer Science}
+    \field{title}{Introduction to Coalgebra: Towards Mathematics of States and
+  Observation}
+    \field{year}{2016}
+  \endentry
+
   \entry{johnson2018attackers}{article}{}
     \name{author}{6}{}{%
       {{hash=JB}{%
