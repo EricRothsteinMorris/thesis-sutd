@@ -16,11 +16,11 @@ A \emph{latent behaviour} is an unintended functionality of a system, which the 
 
 In ROP, the adversary manipulates the call stack to string code gadgets together and arbitrarily execute code. However, if the program is small and does not have enough gadgets, then the attacker's computational power is restricted since it becomes impossible to create certain behaviours. This restriction is similar to the limitations we face when working with non-Turing complete languages (e.g., we cannot use regular expressions to specify arbitrary Turing machines). However, given enough gadgets, we can reveal any behaviour we want if we appropriately compose the gadgets.
 
-In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as \emph{the Arrow}, illustrates how spatial and dynamics transformations behaviourally affect an $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. 
+In this section, we explain the commutative diagram presented in Figure~\ref{fig:TheArrow}. This diagram, which we refer to as \emph{the Arrow}, illustrates how spatial and dynamics transformations affect the behaviour of an $F$-coalgebra $(X,c)$ by changing the semantic map from $!_c$ to $!_{b\circ c\circ m}$. 
 The intuitive meaning of Arrow is the following: normally, an $F$-coalgebra $(X,c)$ gives semantics to the elements in $X$ via the semantic map $!_c$. When affected by a spatial transformation $m\colon X\rightarrow X$ and a dynamics transformation $b\colon F(X)\rightarrow F(X)$, the $F$-coalgebra $(X,c)$ reveals an $F$-coalgebra $(X,b\circ c\circ m)$. 
 The behaviour of elements in $(X,b\circ c\circ m)$ may bear no resemblance to the original behaviour. At best, we can conclude that if $m$ and $b$ preserve bisimilarity, then there exists a transformation $\omega\colon \sigma F \rightarrow \sigma F$ in the carrier of the final $F$-coalgebra $(\sigma F, 1)$ where $\omega$ maps the original behaviours of the system into the new behaviours revealed by $m$ and $b$. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
         \centering
         \begin{tikzcd}[column sep=1.75cm, row sep=1cm]
             &\sigma F
@@ -210,19 +210,19 @@ In the following, we present a general treatment for spatial transformations and
 %However, systems revealed by transformations of type $F(X)\xrightarrow{b}F(X)$ are not latent by definition. %In this thesis, we are interested in seeing how far we can go with just carrier transformations; i.e., with latent behaviours.
  
 % \todo[inline]{Remark eventually that we cannot model every malicious behaviour of the programmer, only those that affect state, not functionality.}
-\section{Latent $F$-coalgebras and Latent Behaviours}
+\section{Latent \texorpdfstring{$F$-coalgebras and Latent Behaviours}{F-coalgebras and Latent Behaviours}}
 Given an $F$-coalgebra $(X,c\colon X\rightarrow F(X))$, each state $x\in X$ has an associated dynamics function $c(x)\in F(X)$. In this section, we study the effect of a state transformation $m\colon X\rightarrow X$ over the $F$-coalgebra $(X,c)$, which changes the dynamics of $x\in X$ from $c(x)$ to $c\circ m(x)$. 
 
-In terms of types, we can always compose the function $c$ with any carrier transformation $m$; the composition $c \circ m\colon X\rightarrow F(X)$ exists and is well defined. However, the behaviour of elements might be greatly affected. In particular, states which are bisimilar under $c$ might no longer be bisimilar under $c \circ m$. If $m$ preserves bisimilarity, then we say that $m$ is \emph{behaviourally consistent}.
+In terms of types, we can always compose the function $c$ with any carrier transformation $m$; the composition $c \circ m\colon X\rightarrow F(X)$ exists and is well defined. However, the behaviour of elements might be greatly affected. In particular, states which are bisimilar under $c$ might no longer be bisimilar under $c \circ m$. If $m$ preserves bisimilarity, then we say that $m$ is \emph{sound and consistent}.
 
-\begin{definition}[Behaviourally Consistent Spatial Transformations]
-Given an $F$-coalgebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{spatial transformation}. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
-A spatial transformation $m$ is \emph{behaviourally consistent} if and only if, whenever $x\sim_c y$, then $m(x)\sim_{c} m(y)$, for all $x,y \in X$. %We denote the set of consistent transformations by $X^X|_\sim$. %
+\begin{definition}[Sound and Consistent Spatial Transformations]
+Given an $F$-co-algebra $(X,c)$, any function of type $m\colon X\rightarrow X$ is a \emph{spatial} \emph{transformation}. %A transformation $m\colon X \rightarrow X$ has \emph{finite support} iff $m(x)\neq x$ only for a finite number of $x\in X$. We denote the set of finitely supported transformations by $X^X_\omega$. 
+A spatial transformation $m$ is \emph{sound} if and only if $x\sim_c y$ implies $m(x)\sim_{c} m(y)$, for all $x,y \in X$. Similarly, a spatial transformation $m$ is \emph{consistent} if and only if $m(x)\sim_{c} m(y)$ implies $x\sim_c y$, for all $x,y \in X$. %We denote the set of consistent transformations by $X^X|_\sim$. %
 \end{definition}
 %Henceforth, we consider only minimal systems, unless explicitly mentioned otherwise. 
 \begin{corollary}
     If $(X,c)$ is a minimal $F$-coalgebra, then every spatial transformation %$m\colon X\rightarrow X$ 
-    is behaviourally consistent. %  This property also holds if $(X,c)$ is a sound coalgebraic specification language.
+    is sound. %  This property also holds if $(X,c)$ is a sound coalgebraic specification language.
 \end{corollary}
 Applying transformation function $m\colon X\rightarrow X$ in the context of an $F$-coalgebra $(X,c$) changes the normal behaviour of the states in $X$, and it reveals the \emph{latent coalgebra of $(X,c)$ under $m$}. 
 \begin{definition}[Latent Coalgebra and Latent Behaviour]
@@ -446,7 +446,7 @@ The last application of LBA that we consider is of program repair. We briefly me
 \section{The Arrow: a Summary of LBA}
 %We summarise the idea behind LBA using the Arrow. 
 Normally, for a functor $F$ that has a final $F$-coalgebra $(\sigma F, 1_F)$, any $F$-coalgebra $(X,c)$ satisfies the commutative diagram in Figure ~\ref{fig:SemanticsMap}. 
-When we compose a function $m\colon X\rightarrow X$ on the right of $c$ and a function $b\colon F(X)\rightarrow F(X)$ on the left of $c$, we obtain the pair $(X,b\circ c\circ m)$, which is an $F$-coalgebra. Since $(X,b\circ c\circ m)$ is an $F$-coalgebra, it has its own diagram similar to the one in Figure~\ref{fig:SemanticsMap} exists, replacing $c$ by $b\circ c\circ m$. However, the relation between the semantic maps $!_{c}$ and $!_{b\circ c\circ m}$ is not so simple: in general, the semantic map $!_{b\circ c\circ m}$ is not equal to the function $(!_{b\circ c})\circ m$, so we cannot directly lift the effects of a given spatial transformation $m$ to the behaviours of an $F$-coalgebra. At best, if $m$ is behaviourally consistent, we can create a map $\omega\colon \sigma F\rightarrow \sigma F$ that maps the old behaviours of the system to the new ones revealed by $m$. 
+When we compose a function $m\colon X\rightarrow X$ on the right of $c$ and a function $b\colon F(X)\rightarrow F(X)$ on the left of $c$, we obtain the pair $(X,b\circ c\circ m)$, which is an $F$-coalgebra. Since $(X,b\circ c\circ m)$ is an $F$-coalgebra, it has its own diagram similar to the one in Figure~\ref{fig:SemanticsMap} exists, replacing $c$ by $b\circ c\circ m$. However, the relation between the semantic maps $!_{c}$ and $!_{b\circ c\circ m}$ is not so simple: in general, the semantic map $!_{b\circ c\circ m}$ is not equal to the function $(!_{b\circ c})\circ m$, so we cannot directly lift the effects of a given spatial transformation $m$ to the behaviours of an $F$-coalgebra. At best, if $m$ is sound, then we can create a map $\omega\colon \sigma F\rightarrow \sigma F$ that maps the old behaviours of the system to the new ones revealed by $m$. 
 
 This impossibility to soundly lift the effects of $m$ in $X$ to a function in $\sigma F$ indicates that, in general, we cannot deduce properties of latent coalgebras from their original systems, and we should study latent coalgebras as if they were independent systems. However, the properties proved in latent coalgebras act as a proof of behavioural properties of their original systems, as we show in the following chapters. For example, an $F$-coalgebra $(X,c)$ is robust with respect to a behavioural property $Q$ and a set of spatial transformations $M$ if, for all $m\in M$, the latent coalgebra $(X,c\circ m)$ satisfies the behavioural property $Q$.
 

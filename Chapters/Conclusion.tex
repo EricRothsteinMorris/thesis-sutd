@@ -1,9 +1,18 @@
 %!TEX root = ../main.tex
-\chapter{Discussion and Conclusion}
-Latent behaviour analysis is a general technique for the study of extraordinary behaviours that a transition system may exhibit. 
+\chapter{Conclusion}
+LBA is a technique to study the unusual behaviours that a transition system may exhibit in the presence of an external force, which may be due to an attacker or a fault. In summary, LBA proposes to model the transition system as an $F$-coalgebra $(X,c)$ and the external force as an endofunction $m\colon X\rightarrow X$; we then study the effects that $m$ has on $(X,c)$ by working in the latent $F$-coalgebra $(X,c\circ m)$. Although the idea is quite simple, it has a variety of useful practical applications. For example, to model an attacker $\alpha$ of an $F$-coalgebra $(X,c)$, we use a set of spatial transformations; i.e., $\alpha$ is a subset of the set $X\rightarrow X$ of endofunctions in $X$. 
 
-Recall the research questions that motivate this thesis. We summarise the contributions 
-How do we precisely and systematically describe and generate attacker models, attacks and attackers?
+Due to its focus on spatial transformations, LBA has limitations in its applicability. For example, we cannot capture the attackers of a system $(X,c)$ that can directly change the program $c$. Nevertheless, LBA is expressive enough to model man-in-the-middle attackers, and attackers that can override the values of state variables while leaving the program of the transition system intact. 
+
+We use the Research Questions ~\ref{que:AttackerModel},~\ref{que:Quantification}, ~\ref{que:Classification} and ~\ref{que:Repair} to provide an intuition of the usefulness of LBA in the field of systems security. We studied these questions in three practical scenarios: the classification of attacker models in Chapter~\ref{ch:Classification}, the quantification of robustness in CPS in Chapter~\ref{ch:CPSRobustness}, and timing side-channel repair in Chapter~\ref{ch:SideChannelRepair}. Although these three applications are quite different in terms of the domain of their problems, we successfully approached them using LBA, attesting the applicability and generality of the method. 
+
+% \section{Summary of Contributions}
+% How do we precisely and systematically describe and generate attacker models, attacks and attackers?
+
+% \todo[inline]{complete}
+
+% In this thesis, 
+
 %     We approach this question by modelling attacker models with sets of capabilities that create spatial transformations that model the attacks available for attackers fitting that model. We discuss this question in detail in Chapters~\ref{ch:LatentBehaviours},~\ref{ch:Classification}, and ~\ref{ch:CPSRobustness}.
 %     \begin{question}
 %     \label{que:Quantification}
@@ -23,20 +32,23 @@ How do we precisely and systematically describe and generate attacker models, at
 %     \end{question}
 % In this section, 
 
-We present a small conclusion in each of the chapters of the application module of the thesis, i.e., Chapters~\ref{ch:Classification}, ~\ref{ch:CPSRobustness} and ~\ref{ch:SideChannelRepair}. In this chapter, we discuss and provide a conclusion of LBA as a paradigm for the study of systems, and we discuss possible avenues for future work.
-
-\section{Beyond Deterministic Transition Systems}
+% Each of the chapters of the application module of the thesis, i.e., Chapters~\ref{ch:Classification}, ~\ref{ch:CPSRobustness} and ~\ref{ch:SideChannelRepair}. In this chapter, we discuss and provide a conclusion of LBA as a paradigm for the study of systems, and we discuss possible avenues for future work.
+\section{Future Directions}
+To conclude this thesis, we briefly describe four directions for future work that, in our opinion, further develop the theory and applicability of LBA.
+\subsection{Beyond Deterministic Transition Systems}
 LBA is a framework rooted in universal coalgebra. 
 Thus, LBA directly benefits from the major results in the theory of coalgebras. Most notably, LBA is extensible to systems tht incorporate monadic computation by means of the generalised determinisation procedure presented by Silva et al. in~\cite{GeneralisingDetermination}. 
-Our intuition tells us that, given a monad $T$ with unit $\eta$ and multiplication $\mu$ that models a computational side-effect (e.g., non-determinism), and a functor $F$, the procedure in~\cite{GeneralisingDetermination} lifts an $FT$-coalgebra $(X,c)$ where $c\colon X\rightarrow F(T(X))$ to a semantically equivalent $F$-coalgebra $(T(X),c^\sharp)$ with $c^\sharp\colon T(X)\rightarrow F(T(X))$. A latent $FT$-coalgebra $(X,c\circ m)$ with $m\colon X\rightarrow X$ lifts to a semantically equivalent latent $F$-coalgebra $(T(X),c^\sharp\circ m^\flat)$ with $m^\flat\colon T(X)\rightarrow T(X)$ if $m^\flat\circ \eta=m$. The $\flat$ operator should somehow aggregate the effects of $m$ in $X$ to obtain the transformation $m^\flat$; e.g., in the case of non-determinism, if $X=\set{a,b}$ and $m\colon X\rightarrow X$ maps $a$ to $b$, and $b$ to itself, the transformation $m^\flat\colon \ThePowersetOf{X}\rightarrow \ThePowersetOf{X}$ maps $\emptyset$ to itself, $\set{a}$ to $\set{b}$, $\set{b}$ to itself, and $\set{a,b}$ to $\set{b}$. We do not yet know the properties of the $\flat$ operator that are required to ensure the existence of the lifted latent $F$-coalgebra, and we leave them for future work. 
+Our intuition tells us that, given a monad $T$ with unit $\eta$ and multiplication $\mu$ that models a computational side-effect (e.g., non-determinism), and a functor $F$, the procedure in~\cite{GeneralisingDetermination} lifts an $FT$-coalgebra $(X,c)$ where $c\colon X\rightarrow F(T(X))$ to a semantically equivalent $F$-coalgebra $(T(X),c^\sharp)$ with $c^\sharp\colon T(X)\rightarrow F(T(X))$. We believe that a latent $FT$-coalgebra $(X,c\circ m)$ with $m\colon X\rightarrow X$ lifts to a semantically equivalent latent $F$-coalgebra $(T(X),c^\sharp\circ T(m))$, since $T(m)\colon T(X)\rightarrow T(X)$. 
+%with $m^\flat\colon T(X)\rightarrow T(X)$, for some operator $\flat\colon X^X\rightarrow T(X)^{T(X)}$. The $\flat$ operator 
+The functor $T$ aggregates the effects of $m$ in $X$ to obtain $T(m)$; e.g., in the case of non-determinism, if $X=\set{a,b}$ and $m\colon X\rightarrow X$ maps $a$ to $b$, and $b$ to itself, the transformation $\ThePowersetOf{m}\colon \ThePowersetOf{X}\rightarrow \ThePowersetOf{X}$ maps $\emptyset$ to itself, $\set{a}$ to $\set{b}$, $\set{b}$ to itself, and $\set{a,b}$ to $\set{b}$. We leave a definitive proof semantic equivalence between the latent $FT$-coalgebra $(X,c\circ m)$ and the latent $F$-coalgebra $(T(X),c^\sharp\circ T(m))$ as future work. %We do not yet know the properties of the $\flat$ operator that are required to ensure the existence of the lifted latent $F$-coalgebra, and we leave them for future work. 
 
 
-\section{Predictability} 
+\subsection{Predictability} 
 By only using spatial transformations $m\colon X\rightarrow X$ and not dynamics transformations $b\colon F(X)\rightarrow F(X)$, we force every latent coalgebra $(X,c\circ m)$ to somehow factor through their original coalgebra $(X,c)$. While these latent coalgebras are clearly and undoubtedly related to their original coalgebra, the relations between the original behaviours and the revealed latent behaviours are, in general, hard to predict from the spatial transformations. We attribute this unpredictability to the lack of restrictions over the choice of spatial transformations. 
 
 In geometry, we can predict the effect of some transformations on objects before we apply them, e.g., symmetries. We believe that there should be a non-trivial family of spatial transformations whose impact on the behaviour of systems is predictable before they are used (the trivial families of spatial transformations are constants and identity transformations). Our intuition points towards spatial transformations that naturally lift to dynamics transformation; more precisely, the transformations where the latent coalgebra $(X, F(m)\circ c)$ and $(X,c\circ m)$ have the same behaviours are predictable. The systems that satisfy this property are known as \emph{bialgebras} \cite{JacobsBook}. We leave formal proof of the predictability of the effects of spatial transformation in these systems as future work.
 
-\section{A Proof Principle}
+\subsection{A Proof Principle}
 In this thesis, we studied the effects that a single spatial transformation $m\colon X\rightarrow X$ has on an $F$-coalgebra $(X,c)$; however, since $m$ is an element of the monoid of endofunctions in $X$, it can surely be non-uniquely decomposed into a finite sequence of transformations $m_1, m_2, \ldots m_n$ where $m=m_n\circ\ldots \circ m_2\circ m_1$ each with $m_i\colon X\rightarrow X$, where all $m_i$ preserve a behavioural property $Q$. If that is the case, then $(X,c\circ m)$ should satisfy the property $Q$. This proof principle follows the line of certified compilers (e.g., CompCert~\cite{CompCert}) that can transform one system into another while preserving their behavioural properties.
 
 This proof principle seems particularly useful for a system $(X,d)$ that can be described as a latent coalgebra of a system $(X,c)$ and a spatial transformation $m$ (i.e., $d=c\circ m$), where $(X,c)$ is a system where proving the property $Q$ is relatively simple, but proving it in $(X,d)$ is daunting. 
@@ -44,8 +56,12 @@ For example, consider the system in Figure~\ref{fig:FirstLatent}, which is a lat
 ; perhaps it is easier to prove a property of the system in Figure~\ref{fig:FirstLatent} by showing that it holds in the system in Figure~\ref{fig:IntroVectorSpace} and showing that the spatial transformation in Figure~\ref{fig:SpatialDeformation} preserves it, instead of proving such property directly. 
 
 
-\section{System Repurposing}
-How can we use transformations ourselves to repurpose a system that is already been defined?
+\subsection{Automated Repair}
+Informally, the system repair problem is the following: given a list of requirements $R$ and a system $(X,c)$, is there a way to make $(X,c)$ satisfy all the requirements in $R$? We can approach a simpler yet related problem with LBA as follows: is there an efficient procedure to determine whether there exists a spatial transformation $m\colon X\rightarrow X$ such that $(X,c\circ m)$ satisfies all the requirements in $R$? If we find such a transformation $m$ and we reveal the latent system $(X,c\circ m)$, we have found a solution for the repair problem. 
+
+Defining the search space for the spatial transformation is not a trivial problem, as we have discussed in Chapters~\ref{ch:Classification} and \ref{ch:CPSRobustness}; moreover, we have not studied important testing or verification considerations if the system $(X,c)$ has computational side-effects (e.g., non-determinism). We believe that this scenario offers yet another practical and interesting use case for LBA, which we would like to study in the future. %to put all these pieces together to obtain a methodology for automatic repair, similar to mutation testing. 
+
+% How can we use transformations ourselves to repurpose a system that is already been defined?
 % \todo[inline]{General directions to continue this line of work. There are mainly three directions at the moment}
 % \section{Applications to Security Analysis}
 % \todo[inline]{A wonderful assertion: no spatial transformation breaks the property behaviour of a system. This implies that an attacker needs to change the program itself, and that model is beyond state integrity.}
@@ -53,11 +69,11 @@ How can we use transformations ourselves to repurpose a system that is already b
 % \todo[inline]{We can ourselves morph the state. If we find that some transformations, like the ones we used for program repair, enforce a behavioural property but respect functionality, then we can apply them!}
 % \section{Applications to Program Synthesis}
 % \todo[inline]{A curious problem: if you have a set of ``gadgets'' defined by an $F$-coalgebra, can you combine them to satisfy a specification?}
-\section{Future work}
-\todo[inline]{This should go in the last chapter!}
-We would like to consider two problems related to latent behaviours: 
-\begin{itemize}
-\item How can we use transformations ourselves to repurpose a system that is already been defined?
-\item How can an attacker use transformations to force a behaviour they want?
-\end{itemize}
-\todo[inline]{Note that, ultimately, both questions need a method to solve an equation for a transformation. That is, given a target behaviour and an a source coalgebra, how do you solve the problem of finding a transformation that helps you display the behaviour you want? Is it even possible?}
+% \section{Future work}
+% \todo[inline]{This should go in the last chapter!}
+% We would like to consider two problems related to latent behaviours: 
+% \begin{itemize}
+% \item How can we use transformations ourselves to repurpose a system that is already been defined?
+% \item How can an attacker use transformations to force a behaviour they want?
+% \end{itemize}
+% \todo[inline]{Note that, ultimately, both questions need a method to solve an equation for a transformation. That is, given a target behaviour and an a source coalgebra, how do you solve the problem of finding a transformation that helps you display the behaviour you want? Is it even possible?}

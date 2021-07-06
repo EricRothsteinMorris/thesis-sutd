@@ -29,43 +29,43 @@ The range set 0 is equal to the empty set $\emptyset$.
 The range set 1, which is equal to the set $\set{0}$, serves as a constant for several set operations (modulo isomorphism).
 The range set 2, which is equal to $\set{0,1}$, to model booleans: 0 models $\false$ and $1$ models $\true$. 
 
-\subsection{Subsets $X\rightarrow 2$}
+\subsection{Subsets \texorpdfstring{$X\rightarrow 2$}{X -> 2}}
 Given a set $X$, we characterise the \emph{subsets of $X$} using functions of type $X\rightarrow 2$; we say that $x\in X$ is an element of the subset characterised by $f\colon X\rightarrow 2$ iff $f(x)=1$. We denote the set of subsets of $X$ by $2^X$ and by $\ThePowersetOf{X}$.
  
-\subsection{Exponential Set $Y^X$}
+\subsection{Exponential Set \texorpdfstring{$Y^X$}{Y\^X}}
 The \emph{exponential set} $Y^X$ is the set of all functions of type $X\rightarrow Y$. 
 The exponential set $1\rightarrow X$ is isomorphic to $X$, and we use it to select objects from $X$; more precisely, we choose an element $x\in X$ via a function $f\colon 1\rightarrow X$ such that $f(0)=x$. (This seems overcomplicated at first, but we use this equivalence when discussing the following concepts of $F$-algebra and $F$-coalgebra.)
 
-\subsection{Sum Set $X+Y$}
+\subsection{Sum Set \texorpdfstring{$X+Y$}{X+Y}}
 The \emph{sum set} $X + Y$ is the disjoint union of $X$ and $Y$, i.e. 
 \begin{align*}
     X + Y\triangleq\set{ \iota_1(x) |x\in X} \cup \set{\iota_2(y) | y\in Y},
 \end{align*}
 where $\iota_1$ and $\iota_2$ act as different tags.
-\subsection{Product Set $X\times Y$}
+\subsection{Product Set \texorpdfstring{$X\times Y$}{XxY}}
 The \emph{product set} $X\times Y$ is the cartesian product of $X$ and $Y$, i.e. 
 \begin{align*}
     X\times Y\triangleq\set{(x,y)|x\in X, y\in Y}.
 \end{align*}
 The \emph{finite product set} of sets $X_1, \ldots, X_n$ is their cartesian product; i.e., $X_1\times \ldots \times X_n$. We denote product sets by upper-case letters with an arrow above $\vec{X},\vec{Y}, \vec{Z}$, etc.
-\subsection{Vector/Tuple $\vec{x}$}
+\subsection{Vector/Tuple \texorpdfstring{$\vec{x}$}{x}}
 Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, we denote the elements of $\vec{X}$ by $\vec{x}$, $\vec{y}$, $\vec{z}$, etc. We call these elements \emph{vectors} or, alternatively, \emph{tuples}. 
 
-\subsection{Coordinates $\vec{x}[\pi]$}
+\subsection{Coordinates \texorpdfstring{$\vec{x}[\pi]$}{x[p]}}
 Given a finite product set $\vec{X}=X_1\times \ldots \times X_n$, its \emph{coordinates} are $\pi_1, \ldots, \pi_n$, where $\pi_i\colon \vec{X} \rightarrow X_i$ extract the $i$-th value of a vector; i.e., $\pi_i(x_1, \ldots, x_n)\triangleq x_i$, for $1\leq i \leq n$. We often write the expression $\vec{x}[\pi]$ instead of $\pi(\vec{x})$ when $\pi$ is a coordinate. %We sometimes use the alternative notation $\vec{x}_\pi$ to denote $\vec{x}[\pi]$, usually when $\pi$ is a natural number.
 
 We use natural numbers for coordinates when no explicit set of coordinates is provided. More precisely, given $\vec{x}\in X_1\times \ldots \times X_n$ where $\vec{x}=(v_1, \ldots, v_n)$, if no set of coordinates is provided, then we use the coordinates $1, 2, \ldots , n$, so $\vec{x}[i]=v_i$ for $i\in \set{1, \ldots, n}$. 
 
-\subsection{Constant Function $\Delta_x$}
+\subsection{Constant Function \texorpdfstring{$\Delta_x$}{Constx}}
 Given sets $X$ and $Y$, each element $x\in X$ lifts to a \emph{constant function} $\Delta_x\colon Y\rightarrow X$, defined by $\Delta_x(y)=x$, for $y\in Y$.
 
-\subsection{Pair Function $(f,g)$}
+\subsection{Pair Function \texorpdfstring{$(f,g)$}{(f,g)}}
 Given two functions $f\colon X\rightarrow Y$ and $g\colon X\rightarrow Z$, the \emph{pair function} $(f,g)\colon X\rightarrow Y\times Z$ is defined by $(f,g)(x)=(f(x),g(x))$.
 
-\subsection{Product Function $f\times g$}
+\subsection{Product Function \texorpdfstring{$f\times g$}{fxg}}
 Given two functions $f\colon X\rightarrow Y$ and $g\colon A\rightarrow B$, the \emph{product function} $f\times g\colon X\times A\rightarrow Y\times B$ is defined by $f\times g(x,a)=(f(x),g(a))$.
 
-\subsection{Function Mapping $f(X)$}
+\subsection{Function Mapping \texorpdfstring{$f(X)$}{f(X)}}
 Given a set $X$ and a function $f\colon X\rightarrow Y$, the \emph{mapping of $f$ over $X$}, denoted $f(X)$, is the set defined by $f(X)\triangleq\set{f(x)| x\in X}$.
 
 \section{Category Theory Preliminaries and Notation}
@@ -162,7 +162,7 @@ The denotational semantics of a DFA is the language with alphabet $A$ whose sequ
 % \todo[inline]{Complete here}
 %\todo[inline]{*Puts an Edna Mode face* NO MONADS (unless necessary)}
 %\subsection{$\Monad$-algebras, $\Functor$-coalgebras and $\lambda$-bialgebras}
-\subsection{$F$-coalgebras}
+\subsection{\texorpdfstring{$F$-coalgebras}{F-coalgebras}}
 Given an endofunctor $F$ in a category $\AsCategory{C}$, an \emph{$F$-coalgebra} is a pair $(X,X\xrightarrow{c}F(X))$ of an object $X$ and a morphism $c\colon X\rightarrow F(X)$. We use $F$-coalgebras to model dynamic systems with state. We call $X$ the \emph{carrier} and $c$ the \emph{dynamics}. We also refer to $c$ as the \emph{operational semantics} of the elements in $X$.
 
 % Dually, an \emph{$F$-algebra} is a pair $(X,F(X)\xrightarrow{a}X)$.
@@ -224,13 +224,13 @@ In general, given sets $I$ and $O$, we can model transition systems whose denota
 %\todo[inline]{THERE IS NO NEED FOR MONADS AT THE MOMENT. Monads seem to be what maps a type $X$ to an initial/final $F$-coalgebra of a functor where $X$ is constant}
 %\subsection{An Intuition of States and Time}
 %\subsection{Catamorphisms, Anamorphisms, Final and Initial $F$-Coalgebras}
-\subsection{The Category of $F$-coalgebras and $F$-homomorphisms}
+\subsection{\texorpdfstring{The Category of $F$-coalgebras and $F$-homomorphisms}{The Category of F-coalgebras and F-homomorphisms}}
 Given a functor $F$, the \emph{category of $F$-coalgebras}, denoted $\AsCategory{Coalg_F}$ is the category whose objects are $F$-coalgebras and whose arrows are \emph{$F$-homomorphisms}. An \emph{$F$-homomorphism} $\mathbb{X}\xrightarrow{f} \mathbb{Y}$ between an $F$-coalgebra $\mathbb{X}=(X,c)$ and an $F$-coalgebra $\mathbb{Y}=(Y,d)$ is a function $f\colon X\rightarrow Y$ such that
 \begin{align}
     F(f)\circ c = d\circ f.
 \end{align}
 
-\subsection{Semantic Map and Final $F$-Coalgebras}
+\subsection{Semantic Map and Final \texorpdfstring{$F$-coalgebras}{F-coalgebras}}
 Let $F$ be a functor such that $F(X)=O\times (X)^I$, and let $I$ and $O$ be sets; we define the set $\sigma F\triangleq O^{I^*}$, and we define the function pair $(?, (\cdot)')\colon \sigma F\rightarrow O\times (\sigma F)^I$, for $\phi \in \sigma F$, $i\in I$ and $w\in I^*$, by
 \begin{align}
     \phi? \triangleq \phi(\varepsilon),

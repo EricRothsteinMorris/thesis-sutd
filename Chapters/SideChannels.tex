@@ -1564,7 +1564,7 @@ ORIGAMI does not defend against Spectre type attacks. Our security guarantees on
 % However, during speculative execution, a misprediction of the branch executes \texttt{x:=B[A[size\_A]]}, caching \texttt{k}. 
 % An attacker can then check which sections of \texttt{B} result in cache hits, and it can infer the value of \texttt{k} using a Flush+Reload sequence \cite{Flush+Reload}. Our repair rules do not protect against these speculative execution attacks, because it is still possible to speculatively execute \texttt{x:=B[A[size\_A]]} even when all $s$, $A$ and \texttt{B} are considered public values in the program \verb+if s<size_A then x:=B[A[s]]+branch. %We guarantee that as long as the value being loaded is within the original boundaries of the data structure, the
 
-\section{Conclusion}
+\section{Discussion}
 \label{sec:Conclusion}
 Although ORIGAMI offers a sound approach to enforcing timing side-channel freedom (TSCF) with respect to the memory access pattern (MAP) leakage model, there is still a long way to go until true TSCF is achieved. Most notably, ORIGAMI does not repair programs that are vulnerable with respect to the operand sensitive leakage model (OS), but adds another layer of security by repairing programs that are safe with respect to the baseline leakage model, but unsafe with respect to MAP leakage. 
 

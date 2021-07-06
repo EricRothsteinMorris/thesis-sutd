@@ -291,7 +291,7 @@ If we allow attackers to control any number of coordinates, then there are $8$ d
 According to the classification, attacker $\set{g_2}$ is as powerful as the attacker $\set{v_1,g_1,g_2}$, since both attackers break the same requirements $r_1$, $r_2$ and $r_3$. This information may be useful to the designer of the system, because they may prioritise attackers that control less coordinates but are as powerful as attackers that control more when deploying defensive mechanisms.
 
 
-\section{AIGs as $F$-coalgebras}
+\section{AIGs as \texorpdfstring{$F$-coalgebras}{F-coalgebras}}
 \label{sec:Classification:LatentBehaviours}
 If we go by the strict definition of AIGs (see Section~\ref{sec:Preliminaries:AIGStates}), then only latches are part of the states of AIGs; inputs and gates are external. We, however, include gates into the state when we model AIGs as $F$-coalebras. Consider an AIG whose set of latches is $V$, its set of gates is $G$, its set of inputs is $W$ and its set of requirements is ${R}$. For each latch $v\in V$ there is an associated expression $v(t+1)$, for each gate $g\in G$, there is an associated expression $g(t)$, and each requirement $r\in {R}$ is of the form $r=\Always e$, where $e$ is an expression. 
 Let $\vec{G}=2^G$, $\vec{V}=2^{V}$, $\vec{W}=2^W$ and let $\vec{{R}}=2^{{R}}$; we plan to use the set $\vec{V}\times \vec{G}$ as the carrier so that a state $(\vec{v},\vec{g})$ models the values for $\vec{v}(t+1)$ and $\vec{g}(t)$% (the values of $\vec{g}(0)$ depend on the input $\vec{w}(0)$)
@@ -386,7 +386,7 @@ Let $S$ be a system, $R$ be a set of requirements, and $t$ be a natural number. 
 \end{definition}
 In the following, we show how to construct a SAT formula that describes the attacker model classification problem using BMC. 
 
-\subsection{A SAT Formula for BMC up to $t$ Steps}
+\subsection{A SAT Formula for BMC up to \texorpdfstring{$t$ Steps}{t Steps}}
 For a requirement $r=\Always e$ and a time step $t\geq 0$, we are interested in finding an attack strategy that causes the value of $e(k)$ to be false for some $k$ with $0\leq k \leq t$. To capture this notion, we define the proposition $\mathtt{goal}(r,t)$ by
 \begin{align}
 \mathtt{goal}(\Always e,t) \triangleq \bigvee_{k=0}^t{\lnot e(k)}.
