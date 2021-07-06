@@ -11,7 +11,7 @@
 % \end{quote} 
 
 \section{Introduction}
- 
+\label{sec:Latent:Introduction}
 A \emph{latent behaviour} is an unintended functionality of a system, which the system typically does not display. Still, given extraordinary circumstances, the system displays such functionality. To reveal a latent behaviour, we transform the state space of the system. Since the state space is usually not transformed, we model "extraordinary circumstances" using these transformations. This concept is probably well illustrated by \emph{return-oriented programming} (ROP) as described in~\cite{ROP}, where the attacker, to alter the behaviour of the running program, does not modify the code of the running program and instead transforms the state of the call stack.
 
 In ROP, the adversary manipulates the call stack to string code gadgets together and arbitrarily execute code. However, if the program is small and does not have enough gadgets, then the attacker's computational power is restricted since it becomes impossible to create certain behaviours. This restriction is similar to the limitations we face when working with non-Turing complete languages (e.g., we cannot use regular expressions to specify arbitrary Turing machines). However, given enough gadgets, we can reveal any behaviour we want if we appropriately compose the gadgets.
