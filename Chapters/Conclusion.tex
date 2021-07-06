@@ -1,12 +1,34 @@
 %!TEX root = ../main.tex
 \chapter{Discussion and Conclusion}
-Latent behaviour analysis 
+Latent behaviour analysis is a general technique for the study of extraordinary behaviours that a transition system may exhibit. 
+
+Recall the research questions that motivate this thesis. We summarise the contributions 
+How do we precisely and systematically describe and generate attacker models, attacks and attackers?
+%     We approach this question by modelling attacker models with sets of capabilities that create spatial transformations that model the attacks available for attackers fitting that model. We discuss this question in detail in Chapters~\ref{ch:LatentBehaviours},~\ref{ch:Classification}, and ~\ref{ch:CPSRobustness}.
+%     \begin{question}
+%     \label{que:Quantification}
+%     How do we efficiently quantify the effects of a set of attacker models attacker fitting a given attacker model on a system? 
+%     \end{question}
+%     The presence of an attacker does not necessarily imply a security risk, e.g., if the attacker can only slightly deviate the behaviour of the system without breaking any security requirements. To address this question, we propose a quantification method that uses bounded model checking in Chapter~\ref{ch:Classification} and that uses testing in Chapter~\ref{ch:CPSRobustness}. We implement the systematic quantification of the effect of attackers via LBA. 
+     
+%     \begin{question}
+%     \label{que:Classification}
+%     How do we compare attacker models and attackers concerning the impact that they potentially have on a given system?
+%     \end{question}
+%     Attackers that have more interaction points with a system are not necessarily the most dangerous. We take inspiration from Basin and Cremers ~\cite{KnowYourEnemy} to approach this question. To determine which attackers are more threatening, we use the quantification methods proposed in Chapter~\ref{ch:Classification} and Chapter~\ref{ch:CPSRobustness} to obtain a partial order of attackers relative to their harmful effects on systems. In particular, thanks to our modelling of attackers via sets of spatial transformations, the partial order of attackers that naturally arises from set inclusion has a monotonicity property for the harmful effects of attackers on a system. We explain this monotonicity property in Chapters~\ref{ch:Classification} and ~\ref{ch:CPSRobustness}.
+    
+%     \begin{question}
+%     \label{que:Repair}
+%     How do we repair a system that is vulnerable to a given attacker model?
+%     \end{question}
+% In this section, 
 
 We present a small conclusion in each of the chapters of the application module of the thesis, i.e., Chapters~\ref{ch:Classification}, ~\ref{ch:CPSRobustness} and ~\ref{ch:SideChannelRepair}. In this chapter, we discuss and provide a conclusion of LBA as a paradigm for the study of systems, and we discuss possible avenues for future work.
 
-\section{Generality}
-it seems like a pretty useful technique in general! 
-
+\section{Beyond Deterministic Transition Systems}
+LBA is a framework rooted in universal coalgebra. 
+Thus, LBA directly benefits from the major results in the theory of coalgebras. Most notably, LBA is extensible to systems tht incorporate monadic computation by means of the generalised determinisation procedure presented by Silva et al. in~\cite{GeneralisingDetermination}. 
+Our intuition tells us that, given a monad $T$ with unit $\eta$ and multiplication $\mu$ that models a computational side-effect (e.g., non-determinism), and a functor $F$, the procedure in~\cite{GeneralisingDetermination} lifts an $FT$-coalgebra $(X,c)$ where $c\colon X\rightarrow F(T(X))$ to a semantically equivalent $F$-coalgebra $(T(X),c^\sharp)$ with $c^\sharp\colon T(X)\rightarrow F(T(X))$. A latent $FT$-coalgebra $(X,c\circ m)$ with $m\colon X\rightarrow X$ lifts to a semantically equivalent latent $F$-coalgebra $(T(X),c^\sharp\circ m^\flat)$ with $m^\flat\colon T(X)\rightarrow T(X)$ if $m^\flat\circ \eta=m$. The $\flat$ operator should somehow aggregate the effects of $m$ in $X$ to obtain the transformation $m^\flat$; e.g., in the case of non-determinism, if $X=\set{a,b}$ and $m\colon X\rightarrow X$ maps $a$ to $b$, and $b$ to itself, the transformation $m^\flat\colon \ThePowersetOf{X}\rightarrow \ThePowersetOf{X}$ maps $\emptyset$ to itself, $\set{a}$ to $\set{b}$, $\set{b}$ to itself, and $\set{a,b}$ to $\set{b}$. We do not yet know the properties of the $\flat$ operator that are required to ensure the existence of the lifted latent $F$-coalgebra, and we leave them for future work. 
 
 
 \section{Predictability} 
