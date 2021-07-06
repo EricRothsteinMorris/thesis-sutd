@@ -742,7 +742,9 @@ For higher dimensions the ORIGAMI rules extend similarly, and they can be custom
 We can use the index $k$ directly because it is public, i.e., if it leaks via the cache, the attacker does not learn any new information about the secret $i$.
 
 \section{ORIGAMI Rules as Spatial Transformations}
-The MAP leakage model is rather strict, and it can be summarised as the following set of leakage assumptions:
+In Section~\ref{sec:ORIGAMI}, we provide formal evidence that the ORIGAMI rules enforce TSCF with respect to the MAP leakage model. Now, in this section, we provide formal evidence that the ORIGAMI rules preserve the functionality of the programs that they transform by modelling the ORIGAMI rules as spatial transformations in an $F$-coalgebra. While the preservation of functionality via ORIGAMI rules is not unexpected, our analysis shows how functionality may differ in corner cases, and, in particular, which assumptions we must make to preserve the functionality of programs with expressions $x:=A[s]$ and $A[s]:=x$ when $s$ is an index out of bounds. 
+
+We start by summarising the MAP leakage model with the following set of leakage assumptions:
 \begin{itemize}
     \item for any expression of the form $\branch{b}{e_1}{e_2}$, we assume that it leaks information if $b$ depends on a secret,
     \item for any expression of the form $\iterate{b}{e}$, we assume that it leaks information if $b$ depends on a secret,
@@ -751,7 +753,7 @@ The MAP leakage model is rather strict, and it can be summarised as the followin
 \end{itemize}
 The assumptions of the MAP model correspond to attacks that are practical. An expression of the form $e_1 +_b e_2$ leaks information about $b$ via the program counter $PC$; an attacker observing $PC$ can deduce whether $b$ is true or false based on the instruction that follows the evaluation of $b$. The reasoning for $e^b$ is similar: the program counter leaks $b$, and the attacker may even obtain more information based on how long it took for the loop to execute. The expressions $x:=A[s]$ and $A[s]:=x$ leak $s$ via the cache because an attacker can flush the cache before their execution, and then probe the cache after their execution; the regions that result in a hit correspond to the neighbourhood of $A[s]$, meaning that $s$ can be inferred with high probability from this analysis. The last assumption concerns the safety nature of confidentiality leaks: once a secret has been leaked, it cannot be recovered.
 
-Given the assumptions of the MAP leakage model, we approach the problem of repairing TSCF by treating it as a safety enforcement problem, which we solve by  we replacing all dangerous actions in programs without altering their functional semantics. In the following, we show how to enforce TSCF by using spatial transformations in a coalgebraic specification language of concrete GKAT expressions. 
+Given the assumptions of the MAP leakage model, we approach the problem of repairing TSCF by treating it as a safety enforcement problem, which we solve by replacing all dangerous actions in programs without altering their functional semantics. In the following, we show how to enforce TSCF by using spatial transformations in a coalgebraic specification language of concrete GKAT expressions. 
 
 % The branch predication and loop unrolling remove branches and iteration from GKAT expressions, which leaves us with a language of linear programs. Programs are then sequences of the form 
 
