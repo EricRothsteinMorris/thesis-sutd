@@ -478,8 +478,11 @@ This impossibility to soundly lift the effects of $m$ in $X$ to a function in $\
 % \todo[inline]{Explain the arrow}
 
 \section{Related Work}
-The theory of LBA stems from universal coalgebra~\cite{UniversalCoalgebra}. The use of the theory of coalgebras has rapidly grown in the past decade, and has found notorious applicability in the domain of program semantics~\cite{GKAT,GKATCoequations}. However, the theory of coalgebras mainly focuses on the correctness and functionality of systems, dismissing the security problem a dual of correctness~\cite{JacobsBook}; more precisely, if correctness is the description of desired behaviour, then security is the description of undesired behaviour. This view unfortunately forces us to model attackers of coalgebras as external actors that can only interact with the system via clearly defined interfaces. 
-\todo[inline]{Complete this to put LBA in the context of coalgebras}
+The theory of LBA stems from universal coalgebra~\cite{UniversalCoalgebra}. The use of the theory of coalgebras has rapidly grown in the past decade, and has found notorious applicability in the domain of program semantics~\cite{GKAT,GKATCoequations}. However, the theory of coalgebras mainly focuses on the correctness and functionality of systems, dismissing the security problem a dual of correctness~\cite{JacobsBook}; more precisely, if correctness is the description of desired behaviour, then security is the description of undesired behaviour. This view unfortunately restricts attackers of coalgebras to be external actors that can only interact with the system via clearly defined interfaces. In other words, the user of the system modelled by the coalgebra is the attacker, and only the user can be the attacker. Our proposal of modelling attackers as sets of spatial transformations gives us more flexibility when describing the effects of attackers, while still retaining compatibility with the theory of coalgebras. By modelling an attack as a spatial transformation $m\colon X\rightarrow X$ acting on an $F$-coalgebra $(X,c)$, we naturally incorporate the effects of the attack into the behaviour of the coalgebra. 
+
+
+
+% \todo[inline]{Complete this to put LBA in the context of coalgebras}
 % While this view is sufficient to capture the intuition of attackers and their effects 
 
 % Thanks to its generality, it is possible to provide w

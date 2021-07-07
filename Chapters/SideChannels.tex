@@ -1234,7 +1234,7 @@ Dcache accesses & 115665.2 & 411594  & 3.558  & 197395.7  & 0 & 115144.8 & 19255
        \vspace{-0.2cm}
    \end{table}
 
-\paragraph{Results Analysis}
+\paragraph{Results Analysis:}
 From the metrics of the original programs, both in \texttt{O0} and \texttt{O3}, the program displays high variance in all metrics except the number of cache misses. After applying ORIGAMI, the variance is zero in all metrics, which confirms that the repair tool is homogenising accesses to $A$, and it is ensuring that no information leaks due to MAPs. 
 
 We remark that the number of CPU cycles (column \texttt{NumCycles}) has a variance of zero because the repaired program does not use operations whose execution time depends on parameters. 
@@ -1268,10 +1268,10 @@ We now describe the other examples that we used for benchmarking, and briefly ex
 \subsubsection{Advanced Encryption Standard (AES)}
 AES is a specification for data encryption to establish secure communication. AES receives a plaintext message % $m$
  and as an array of size 16 bytes % $k$
-  as secret inputs. These settings are enough to produce variations in the number of CPU instructions and hits/misses in the cache \cite{Chalice}. We repair the AES implementation available at \cite{AESBasic}. %for the key expansion and encryption functions. 
+  as secret inputs. These settings are enough to produce variations in the number of CPU instructions and hits or misses in the cache \cite{Chalice}. We repair the AES implementation available in \cite{AESBasic}. %for the key expansion and encryption functions. 
   We present the results of the repair in Table~\ref{tab:AESResult}. 
 
-\paragraph*{Results analysis} since we are repairing a cryptographic encryption function, it is expected that it was developed using CTP guidelines; thus, the original version satisfies TSCF with respect to the MAP leakage model. However, the repair procedure slightly affects the program positively in terms of performance for the \texttt{O0} case, where compiler optimisations are disabled. The reason behind it is that our implementation of ORIGAMI requires the control flow graph (CFG) to match the structure of GKAT expressions, and during this transformation, the LLVM pass manager might optimise some parts of the code, and this optimisation compensates the overhead.
+\paragraph*{Results analysis:} since we are repairing a cryptographic encryption function, it is expected that it was developed using CTP guidelines; thus, the original version satisfies TSCF with respect to the MAP leakage model. However, the repair procedure slightly affects the program positively in terms of performance for the \texttt{O0} case, where compiler optimisations are disabled. The reason behind it is that our implementation of ORIGAMI requires the control flow graph (CFG) to match the structure of GKAT expressions, and during this transformation, the LLVM pass manager might optimise some parts of the code, and this optimisation compensates the overhead.
 
 In the \texttt{O3} case, when compiler optimisations are enabled, we see that ORIGAMI does impact the performance of optimised code, although only by a factor of $3.2\%$ if we consider the number of CPU committed instructions to quantify time (following the baseline leakage model). At the least, ORIGAMI does not add significant overhead to MAP TSCF compliant code.
 
@@ -1281,7 +1281,7 @@ DES is a symmetric-key algorithm for data encryption which receives as secret in
 . %Similarly to AES, we generate 5 random secret $k$ inputs, but leave the secret plaintext input $m$ fixed. 
 We repair the OpenSSL implementation of DES available at \cite{OpenSSL} and present the results of the repair in Table~\ref{tab:DESResult}. %We repair the functions \texttt{DES\_set_key_unchecked} and \texttt{DES\_set_key_unchecked}
 
-\paragraph*{Results analysis} unlike the AES \texttt{O0} case, the modifications introduced by ORIGAMI are not compensated by the slight optimisations used when transforming the CFG. We see a performance impact of $37\%$ in the \texttt{O0} case and an impact of $1.7\%$ in the \texttt{O3} case. This benchmark illustrates the benefits of having the compiler be the one in charge of enforcing TSCF, and how repair rules benefit from compiler optimisations. In particular, \texttt{O3} combines pointer computation operations (\texttt{GetElementPtr} instructions); e.g., to compute the pointer of $A[i][j]$, \texttt{O0} would first try to compute the pointer of $A[i]$ and then compute $A[i][j]$ relative to the pointer of $A[i][0]$, while \texttt{O3} would directly compute $A[i][j]$ relative to the pointer of $A[0][0]$. Due to implementation details, ORIGAMI in \texttt{O0} aggregates the partial pointer computations, heavily impacting performance. However, in the \texttt{O3} case, ORIGAMI need not aggregate partial computations, and the repair has a smaller performance impact.
+\paragraph*{Results analysis:} unlike the AES \texttt{O0} case, the modifications introduced by ORIGAMI are not compensated by the slight optimisations used when transforming the CFG. We see a performance impact of $37\%$ in the \texttt{O0} case and an impact of $1.7\%$ in the \texttt{O3} case. This benchmark illustrates the benefits of having the compiler be the one in charge of enforcing TSCF, and how repair rules benefit from compiler optimisations. In particular, \texttt{O3} combines pointer computation operations (\texttt{GetElementPtr} instructions); e.g., to compute the pointer of $A[i][j]$, \texttt{O0} would first try to compute the pointer of $A[i]$ and then compute $A[i][j]$ relative to the pointer of $A[i][0]$, while \texttt{O3} would directly compute $A[i][j]$ relative to the pointer of $A[0][0]$. Due to implementation details, ORIGAMI in \texttt{O0} aggregates the partial pointer computations, heavily impacting performance. However, in the \texttt{O3} case, ORIGAMI need not aggregate partial computations, and the repair has a smaller performance impact.
  
 \subsubsection{OpenSSL RC4}
 This benchmark is a stream cipher that can be used for data encryption. Although simple, several vulnerabilities have been reported, and the use of RC4 been prohibited in standard implementations of TLS \cite{rfc7465}. RC4 receives as secret inputs an array of 10 bytes % $k$
@@ -1289,7 +1289,7 @@ and a plaintext% $m$
  .% Again, we leave the plaintext $m$ fixed, and we generate 5 random secrets $k$.
   We repair the OpenSSL implementation of RC4 available at \cite{OpenSSL} and present the results of the repair in Table~\ref{tab:RC4Result}. 
  
-\paragraph*{Results analysis} the original program of RC4 satisfies the OS leakage model, so it needs no repair. This case illustrates how applying ORIGAMI to safe code preserves TSCF with respect to the original program, and it does not add significant performance penalties, since the only transformation the ORIGAMI tool is doing is some CFG restructuring so that it matches a GKAT. In this case, the penalty is $3.6\%$ for \texttt{O0} and $5.1\%$ for \texttt{O3}. Arguably, these type of programs do not benefit from ORIGAMI, and are better off being validated by a TSCF verifier like \cite{usenix_ctp_verification} and compiled using a certified compiler like CompCert \cite{CompCert}.
+\paragraph*{Results analysis:} the original program of RC4 satisfies the OS leakage model, so it needs no repair. This case illustrates how applying ORIGAMI to safe code preserves TSCF with respect to the original program, and it does not add significant performance penalties, since the only transformation the ORIGAMI tool is doing is some CFG restructuring so that it matches a GKAT. In this case, the penalty is $3.6\%$ for \texttt{O0} and $5.1\%$ for \texttt{O3}. Arguably, these type of programs do not benefit from ORIGAMI, and are better off being validated by a TSCF verifier like \cite{usenix_ctp_verification} and compiled using a certified compiler like CompCert \cite{CompCert}.
 
 \subsubsection{GDK Library - \texttt{gdk\_unicode\_to\_keyval}}
 We study the function \texttt{gdk\_unicode\_to\_keyval} of the Linux GDK library. This function converts a secret ISO10646 character to a key symbol~\cite{gdklib}. The secret input % $k$
@@ -1297,7 +1297,7 @@ is a single unsigned integer value. This benchmark uses a binary search that dep
  % We generate 5 random secret $k$ inputs for this experiment.
   The results of the repair of this benchmark appear in Table~\ref{tab:gdklibResult}.
 
-\paragraph*{Results analysis} the original program is not secure with respect to the baseline model, but even if we fix with respect to the baseline leakage model, we still have to deal with the MAP difference for each secret. ORIGAMI repairs both vulnerabilities. Interestingly, in the \texttt{O0} case, ORIGAMI shows that the number of CPU cycles is constant, while in the \texttt{O3} case, there are variations. However, this is just a coincidence, since ORIGAMI does not repair programs with respect to the OS leakage model. %We attribute this difference that in the \texttt{O0} case, only constant operations are being used, or variable operations are used but they are used in all cases. In the \texttt{O3} case, it may be that non-constant operations are called, and their parameters are different through the executions. Nevertheless, 
+\paragraph*{Results analysis:} the original program is not secure with respect to the baseline model, but even if we fix with respect to the baseline leakage model, we still have to deal with the MAP difference for each secret. ORIGAMI repairs both vulnerabilities. Interestingly, in the \texttt{O0} case, ORIGAMI shows that the number of CPU cycles is constant, while in the \texttt{O3} case, there are variations. However, this is just a coincidence, since ORIGAMI does not repair programs with respect to the OS leakage model. %We attribute this difference that in the \texttt{O0} case, only constant operations are being used, or variable operations are used but they are used in all cases. In the \texttt{O3} case, it may be that non-constant operations are called, and their parameters are different through the executions. Nevertheless, 
 
 \subsubsection{GDK Library - \texttt{gdk\_keyval\_name}}
 Lastly, we simulate the function \texttt{gdk\_keyval\_name} of the Linux GDK library. This function converts a key value into a symbolic name \cite{gdklib}. The secret input $k$ is a single unsigned integer value. 
@@ -1305,7 +1305,7 @@ Lastly, we simulate the function \texttt{gdk\_keyval\_name} of the Linux GDK lib
 Again, for this test case, we generate 5 random secret $k$ inputs. The results of repairing appear in Table~\ref{tab:gdklibNameResult}. 
 % \todo[inline]{Discuss about how you can still use secret pointers as long as you do not load them (they are equivalent to integers in this case)}
 
-\paragraph*{Results analysis} this benchmark behaves like \texttt{gdk\_unicode\_to\_keyval}. 
+\paragraph*{Results analysis:} this benchmark behaves like \texttt{gdk\_unicode\_to\_keyval}. 
 The original program uses a binary search which depends on a secret, causing it to have timing side-channel vulnerabilities. ORIGAMI unfolds the binary search, and ensures that accesses to the structure holding the value-to-symbolic name pairs is loaded adequately. 
 
 \subsection{Evaluation Conclusion} %of Results for AES, OpenSSL and GDK}
