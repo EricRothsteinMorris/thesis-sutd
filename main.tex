@@ -66,6 +66,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{proof}
 \usepackage{subcaption}
 \usepackage{wrapfig}
+\usepackage{xurl} 
 %\usepackage{mdsymbol}
 \usepackage{algorithmicx}
 %\usepackage{algorithmicx/algorithmicx}
@@ -1041,12 +1042,10 @@ I hereby confirm the following:
 
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-\emph{Latent behaviour analysis} (LBA) is the study of the changes to the observable behaviour of a transition system when an external force transforms its state space. These spatial transformations may occur as a result of, for example, an attack or a fault. LBA uses the framework of universal coalgebra to seamlessly combine the effects of spatial transformations with the operational semantics of transition systems given by a coalgebra; this combination results in a so-called latent coalgebra that defines a new transition system. The resulting transition system is compatible with the usual verification and testing methods, and its analysis returns properties of the original system in the presence of faults or adversaries. In summary, LBA proposes to model the transition system as an $F$-coalgebra $(X,c)$ and the external force as an endofunction $m\colon X\rightarrow X$; we then study the effects that $m$ has on $(X,c)$ by checking the latent $F$-coalgebra $(X,c\circ m)$. 
+\emph{Latent behaviour analysis} (LBA) is the study of the changes to observable behaviour in a transition system when an external force transforms the state space. These spatial transformations may occur because of, for example, an attack or a component fault. LBA uses the framework of universal coalgebra to seamlessly combine the effects of a spatial transformation with the operational semantics of a transition systems; this combination results in a so-called latent coalgebra that models a new transition system. This resulting transition system is compatible with the usual verification and testing methods, and its analysis returns properties of the original system in the presence of faults or adversaries. 
+%More precisely, LBA proposes to model the transition system as an $F$-coalgebra $(X,c)$ and the external force as an endofunction $m\colon X\rightarrow X$; we then study the effects that $m$ has on $(X,c)$ by checking the latent $F$-coalgebra $(X,c\circ m)$. 
 
-Although this idea is quite simple, it has a variety of practical applications. This thesis shows how to use LBA to study three cybersecurity problems. The first problem is the \emph{classification of attacker models}. We provide a method to systematically generate and compare attacker models for a system based on their potentially harmful effects. The second problem is the \emph{quantification of robustness in Cyber-physical Systems (CPS)}, where we propose a method for the systematic generation of attacks and counterattacks in CPS to quantify the robustness of a system. Finally, we study the problem of \emph{timing side-channel repair}, for which we propose using a spatial transformation that enforces constant memory access patterns and preserves the functionality of the original program. 
-
-
-
+Although checking latent coalgebras is a simple idea, it has a variety of practical applications. This thesis shows how to use LBA to study three cybersecurity problems. The first problem is the \emph{classification of attacker models}. We provide a method to systematically generate and compare attacker models for a system based on their potentially harmful effects. The second problem is the \emph{quantification of robustness in Cyber-physical Systems (CPS)}, where we propose a method for the systematic generation of attacks and counterattacks in CPS to quantify the robustness of a system. Finally, we study the problem of \emph{timing side-channel repair}, for which we propose using a spatial transformation that enforces constant memory access patterns and preserves the functionality of the program. 
 
 % The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 
@@ -1059,9 +1058,13 @@ Although this idea is quite simple, it has a variety of practical applications. 
 \begin{publications}
 \addchaptertocentry{\publicationsname} % Add the abstract to the table of contents
 
-Journal Papers, Conference Presentations, etc...
-\todo[inline]{Do we also put publications under submittion. I think I should}
+Rothstein-Morris E., Murguia C. G. , and Ochoa M. (2017). Design-time Quantification of Integrity in Cyber-physical Systems. In Proceedings of the 2017 Workshop on Programming Languages and Analysis for Security. PLAS '17. Association for Computing Machinery, New York, NY, USA, 63–74. \url{https://doi.org/10.1145/3139337.3139347}
 
+Rothstein-Morris E., Sun J. and Chattopadhyay S. (2020) Systematic Classification of Attackers via Bounded Model Checking. In: Beyer D., Zufferey D. (eds) Verification, Model Checking, and Abstract Interpretation. VMCAI 2020. Lecture Notes in Computer Science, vol 11990. Springer, Cham. \url{https://doi.org/10.1007/978-3-030-39322-9_11}
+
+Rothstein-Morris E., Sun J., Chattopadhyay S. (2021) ORIGAMI: Folding Data Structures to Reduce Timing Side-Channel Leakage. Submitted to the 35th IEEE Computer Security Foundations Symposium. CSF 2022. 
+
+Rothstein-Morris E., Castellanos J.H., Ochoa M. and Chattopadhyay S. (2021). Improving the Robustness of Cyber-Physical System Models via Latent Behaviour Analysis and Testing. Submitted to the ACM Transactions on Privacy and Security. 
 \end{publications}
 
 %----------------------------------------------------------------------------------------
