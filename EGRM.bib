@@ -421,14 +421,6 @@ series = {CCS '07}
 	Bdsk-Url-1 = {https://doi.org/10.1007/BFb0006306},
 	Bdsk-Url-2 = {http://dx.doi.org/10.1007/BFb0006306}}
 
-@article{ReachableSet,
-	Author = {Carlos Murguia and Nathan van de Wouw and Justin Ruths},
-	Date-Added = {2018-11-13 06:30:10 +0000},
-	Date-Modified = {2018-11-13 06:30:10 +0000},
-	Journal = {IFAC 2017 World Congress},
-	Title = {Reachable Sets of Hidden CPS Sensor Attacks: Analysis and Synthesis Tools},
-	Year = {2017}}
-
 @article{wald,
 	Author = {Wald, A.},
 	Date-Added = {2018-11-13 06:30:10 +0000},
@@ -549,14 +541,6 @@ series = {CCS '07}
 	Date-Modified = {2018-11-13 06:30:10 +0000},
 	Title = {CUSUM and Chi-Squared Attack Detection of Compromised Sensors},
 	Year = {2016}}
-
-@inproceedings{Carlos_Justin3,
-	Author = {Carlos Murguia and Nathan van de Wouw and Justin Ruths},
-	Booktitle = {proceedings of the IFAC World Congress},
-	Date-Added = {2018-11-13 06:30:10 +0000},
-	Date-Modified = {2018-11-13 06:30:10 +0000},
-	Title = {Reachable Sets of Hidden CPS Sensor Attacks: Analysis and Synthesis Tools},
-	Year = {accepred, 2016}}
 
 @inproceedings{Weerakkody,
 	Author = {S. Weerakkody and B. Sinopoli},
@@ -2087,27 +2071,6 @@ series = {CCS '07}
 	Title = {False data injection attacks in control systems},
 	Year = {2010}}
 
-@inproceedings{LimitingImpactStealthyAttacks,
-	Acmid = {2978388},
-	Address = {New York, NY, USA},
-	Author = {Urbina, David I. and Giraldo, Jairo A. and Cardenas, Alvaro A. and Tippenhauer, Nils Ole and Valente, Junia and Faisal, Mustafa and Ruths, Justin and Candell, Richard and Sandberg, Henrik},
-	Booktitle = {Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security},
-	Date-Added = {2018-11-13 06:30:10 +0000},
-	Date-Modified = {2018-11-13 06:30:10 +0000},
-	Doi = {10.1145/2976749.2978388},
-	Isbn = {978-1-4503-4139-4},
-	Keywords = {industrial control systems, intrusion detection, physics-based detection, security metrics, stealthy attacks},
-	Location = {Vienna, Austria},
-	Numpages = {14},
-	Pages = {1092--1105},
-	Publisher = {ACM},
-	Series = {CCS '16},
-	Title = {Limiting the Impact of Stealthy Attacks on Industrial Control Systems},
-	Url = {http://doi.acm.org/10.1145/2976749.2978388},
-	Year = {2016},
-	Bdsk-Url-1 = {http://doi.acm.org/10.1145/2976749.2978388},
-	Bdsk-Url-2 = {http://dx.doi.org/10.1145/2976749.2978388}}
-
 @article{CPSAttackDetection,
 	Author = {F. Pasqualetti and F. D{\"o}rfler and F. Bullo},
 	Date-Added = {2018-11-13 06:30:10 +0000},
@@ -3491,7 +3454,7 @@ url="https://doi.org/10.1007/978-3-642-29485-3_2"
 @inproceedings{castellanos2021AttkFinder,
   title={AttkFinder: Discovering Attack Vectors in PLC Programs using Information Flow Analysis},
   author={Castellanos, John H. and Ochoa, Mart{\'\i}n and Cardenas, Alvaro A. and Arden, Owen and Zhou, Jianying},
-  booktitle={International Symposium on Research in Attacks, Intrusions and Defenses ($\{$RAID$\}$)},
+  booktitle={International Symposium on Research in Attacks, Intrusions and Defenses (RAID)},
   year={2021}
 }
 
@@ -3548,6 +3511,59 @@ keywords = {non-interference, cyber-physical systems, information flow, control 
 location = {Dallas, Texas, USA},
 series = {PLAS '17}
 }
+
+@INPROCEEDINGS {LTL,
+author = {A. Pnueli},
+booktitle = {2013 IEEE 54th Annual Symposium on Foundations of Computer Science},
+title = {The temporal logic of programs},
+year = {1977},
+volume = {},
+issn = {0272-5428},
+pages = {46-57},
+keywords = {},
+doi = {10.1109/SFCS.1977.32},
+url = {https://doi.ieeecomputersociety.org/10.1109/SFCS.1977.32},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {oct}
+}
+
+@InProceedings{CTL,
+author="Clarke, Edmund M.
+and Emerson, E. Allen",
+editor="Kozen, Dexter",
+title="Design and synthesis of synchronization skeletons using branching time temporal logic",
+booktitle="Logics of Programs",
+year="1982",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="52--71",
+abstract="We have shown that it is possible to automatically synthesize the synchronization skeleton of a concurrent program from a Temporal Logic specification. We believe that this approach may in the long run turn out to be quite practical. Since synchronization skeletons are, in general, quite small, the potentially exponential behavior of our algorithm need not be an insurmountable obstacle. Much additional research will be needed, however, to make the approach feasible in practice.",
+isbn="978-3-540-39047-3"
+}
+
+@InProceedings{KleenesTheorem,
+author="Kleene, Stephen",
+title="Representation of events in nerve nets and finite automata",
+booktitle="Automata Studies",
+year="1956",
+pages="3--42"
+}
+
+@InProceedings{MuCalculus,
+author="Kozen, Dexter",
+editor="Nielsen, Mogens
+and Schmidt, Erik Meineche",
+title="Results on the propositional $\mu$-calculus",
+booktitle="Automata, Languages and Programming",
+year="1982",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="348--359",
+abstract="We define a propositional version of the $\Mu$-calculus, and give an exponential-time decision procedure, small model property, and complete deductive system. We also show that it is strictly more expressive than PDL. Finally, we give an algebraic semantics and prove a representation theorem.",
+isbn="978-3-540-39308-5"
+}
+
 
 %% This BibTeX bibliography file was created using BibDesk.
 %% http://bibdesk.sourceforge.net/

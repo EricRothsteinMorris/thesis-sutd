@@ -28,7 +28,7 @@
 % \end{itemize}
 
 % Modern systems must not only be correct, but also secure. Proving that a system is correct is a difficult problem, but I would say that proving that a system is secure is exponentially more difficult. Correctness proofs study properties of the system in isolation or under strong interaction guarantees, i.e., the environment never misbehaves. 
-\section{Motivation: Classifying Attackers}
+\section{Motivation: Classifying Attackers} 
 To protect our systems, we need to understand what attackers can do to them. Basin and Cremers~\cite{KnowYourEnemy} quantify the power attackers in security protocols by defining a security protocols hierarchy with respect to a set of attacker models where %introduced \emph{Scyther}~\cite{Scyther}, 
 the position of a protocol in the hierarchy depends on its level of assurance with respect to a confidentiality property that the attackers aim to break: protocols higher in the hierarchy can tolerate the presence of more powerful attackers (i.e., attackers with more capabilities). More precisely, the protocol hierarchy is directed acyclic graph whose nodes are pairs of a protocol and a set of attacker capabilities, where two nodes share an edge if the source protocol-set of capabilities satisfies the state property, but adding an additional capabilities would break the state property in the protocol, whilst the property is still satisfied in the destination node despite the addition of those capabilities.
 
@@ -96,7 +96,7 @@ Not all systems have their operational semantics described in terms of endofunct
 
 \section{Universal Coalgebra and Spatial Transformations}
 To soundly extend the applicability of the ``game" between spatial transformations and deterministic systems to other models of computation, we adopt the framework of \emph{universal coalgebra}~\cite{UniversalCoalgebra}.  
-Several authors have used universal coalgebra to generalise results previously exclusive to certain computational models; e.g., the \emph{powerset construction}~\cite{PowersetConstruction}, which is used to discretise a non-deterministic finite automaton, generalises to other computational effects beyond non-determinism~\cite{GeneralisingDetermination}, or e.g., Kleene's Theorem~\cite{KleenesTheorem}, which states that every deterministic finite automaton has an equivalent regular expression, generalises to Mealy machines~\cite{KleeneCoalgebra}.
+Several authors have used universal coalgebra to generalise results previously exclusive to certain computational models; e.g., the \emph{powerset construction}, a standard proccedure to discretise a non-deterministic finite automaton, generalises to other computational effects beyond non-determinism~\cite{GeneralisingDetermination}, or e.g., Kleene's Theorem~\cite{KleenesTheorem}, which states that every deterministic finite automaton has an equivalent regular expression, generalises to Mealy machines~\cite{KleeneCoalgebra}.  
 
 In universal coalgebra, a dynamical system is often represented as a pair $(X,c)$ where $X$ is a set, called the \emph{carrier}, and $c\colon X\rightarrow F(X)$ is a function where $F(X)$, informally, is the set of the features that the elements of $X$ may have (e.g., continuation, termination, or other computational side effects). Using framework of universal coalgebra, our definitions naturally port from one computational model to another, widening their applicability. 
 
@@ -139,9 +139,6 @@ How do we repair a system that is vulnerable to a given attacker model?
 Finally, we approach this broad question from two directions: first, we show how LBA can suggest counterattacks for identified attacks in Chapters~\ref{ch:CPSRobustness}, and second, we explain how to use spatial transformations to enforce a security property (i.e., timing side-channel freedom) in Chapter ~\ref{ch:SideChannelRepair}. 
 
 % We do not claim to expand beyond the state of the art in coaglebras, instead, our interest lies primarily on applications for which spatial transformations of transition systems provide an insight or a benefit for an application. 
-\section{Related Work}
-We now discuss related work regarding the motivation presented in this chapter and the theory presented in Chapter~\ref{ch:LatentBehaviours}. Each chapter on the applications module, i.e. Chapters contains its own related work section.
-\todo[inline]{Small introduction to the works mentioned before in coalgebra and some works that use coalgebra and security, like the one that Jorge told me...}
 
 
 % {\color{blue}

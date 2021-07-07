@@ -5,7 +5,7 @@
 \chapter{Preliminaries and Notation} % Main chapter title
 \label{ch:Preliminaries} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-\todo[inline]{This section has content which I did not develop, but that I use. The content I developed follows in the next chapters.}
+% \todo[inline]{This section has content which I did not develop, but that I use. The content I developed follows in the next chapters.}
 
 %----------------------------------------------------------------------------------------
 %	SECTION 1
@@ -101,10 +101,9 @@ A \emph{commutative diagram} is a directed graph which visually represents equat
     \caption{Commutative diagram describing the equality $(h\circ g)\circ f= h\circ g \circ f= h \circ (g\circ f)$}
     \label{fig:Preliminaries:CommutativeDiagram} 
 \end{figure}
-\subsection{Initial and Terminal Objects}
-A category $\AsCategory{C}$ has an \emph{initial object}, often denoted by 0, if there exists a unique arrow from $0$ to every object $o$ in the category. Dually, a category $\AsCategory{C}$ has a \emph{final object}, often denoted by 1, if there exists a unique arrow from every object $o$ in the category to 1. 
-
-A category may have several different initial and terminal objects, but they are always unique modulo isomorphism.
+\subsection{Terminal Objects}
+%A category $\AsCategory{C}$ has an \emph{initial object}, often denoted by 0, if there exists a unique arrow from $0$ to every object $o$ in the category. Dually, 
+A category $\AsCategory{C}$ has a \emph{final object}, often denoted by 1, if and only if there exists a unique arrow from every object in the category to 1. %A category may have several different terminal objects, but they are always unique modulo isomorphism.
 
 \subsection{Functor}
 Functors are to categories what arrows are to objects. A \emph{functor} $F$ maps a category $\AsCategory{C}$ to a category $\AsCategory{D}$, mapping $Obj(\AsCategory{C})$ to $Obj(\AsCategory{D})$, and $Arr(\AsCategory{C})$ to $Arr(\AsCategory{D})$ such that the following conditions are satisfied for all objects $X, Y, Z$ and arrows $f,g$.
@@ -116,7 +115,8 @@ Functors are to categories what arrows are to objects. A \emph{functor} $F$ maps
 These conditions ensure functors preserve the structure of the category they are mapping.
 
 \section{The Category of Sets and Functions}
-The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. The empty set $0$ is the initial object, and any set isomorphic to the range set 1 is a terminal object.
+The \emph{category of sets and functions} $\AsCategory{Set}$ is the category whose objects are sets and whose arrows are functions. %The empty set $0$ is the initial object, and any set isomorphic to 
+The range set 1, i.e. $\set{0}$, is the final object in $\AsCategory{Set}$.
 
 % \subsection{Currying}
 % \emph{Currying} is the use of the isomorphism between the sets $Z^{X\times Y}$ and $Z^{Y^X}$ which maps a function $f\colon (X\times Y)\rightarrow Z$ to a function $g\colon X\rightarrow Z^Y$ such that $g(x)(y)=f(x,y)$ for $x\in X$ and $y\in Y$. We use currying to adjust the types between equivalent constructions (e.g. between Automata and $F$-coalgebras).
@@ -229,6 +229,7 @@ Given a functor $F$, the \emph{category of $F$-coalgebras}, denoted $\AsCategory
 \begin{align}
     F(f)\circ c = d\circ f.
 \end{align}
+$F$-homomorphisms are embeddings that preserve behavioural properties. 
 
 \subsection{Semantic Map and Final \texorpdfstring{$F$-coalgebras}{F-coalgebras}}
 Let $F$ be a functor such that $F(X)=O\times (X)^I$, and let $I$ and $O$ be sets; we define the set $\sigma F\triangleq O^{I^*}$, and we define the function pair $(?, (\cdot)')\colon \sigma F\rightarrow O\times (\sigma F)^I$, for $\phi \in \sigma F$, $i\in I$ and $w\in I^*$, by
@@ -272,11 +273,11 @@ Given a coalgebraic specification language $L=(\mathcal{E},c)$ for a functor $F$
 we say that $L$ is \emph{complete} if and only if for every behaviour $\phi\in \sigma F$, there exists an expression $e\in \mathcal{E}$ such that $!_c(e)=\phi$; in other words, iff the semantic map $!_c\colon \mathcal{E}\rightarrow \sigma F$ is surjective.
 
 \subsection{Soundness}
-Given a coalgebraic specification language $L=(\mathcal{E},c)$ for a functor $F$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1\equiv e_2$, then $e_1\sim e_2$; i.e., if two expressions are equivalent, then they have the same behaviour.
+Given a coalgebraic specification language $L=(\mathcal{E},c)$ for a functor $F$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{sound} with respect to $\equiv$ if and only if, for $e_1, e_2\in \mathcal{E}$, if $e_1\equiv e_2$, then $e_1\sim e_2$. In other words, if two expressions are equivalent, then they have the same behaviour.
 
 %@Eric" This definition is for you
-% \subsection{Coherence}
-% Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{coherent} if and only if, for $e_1, e_2\in \mathcal{E}$, if $!_c(e_1) = !_c(e_2)$ then $e_1\equiv e_2$; i.e., if two expressions have the same behaviour, they must be somehow be equivalent.
+\subsection{Consistency}
+Given a coalgebraic specification language $L=(\mathcal{E},c)$ for the functor $F$ and a notion of equivalence in $\mathcal{E}$ modelled by a function $\equiv \colon \mathcal{E}\times \mathcal{E}\rightarrow 2$, we say that $L$ is \emph{consistent} with respect to $\equiv$ if and only if, for $e_1, e_2\in \mathcal{E}$, if $!_c(e_1) = !_c(e_2)$ then $e_1\equiv e_2$. More precisely, if two expressions have the same denotational semantics, they must be considered equivalent.
 % (Sound and Coherent PLs match equivalence with bisimilarity)
 
 \subsection{Behavioural Property}

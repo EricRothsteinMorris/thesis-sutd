@@ -16,96 +16,74 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}
-  \entry{HWMCC2011}{misc}{}
-    \verb{url}
-    \verb http://fmv.jku.at/hwmcc11/index.html
-    \endverb
-    \field{year}{2011}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{HWMCC2013}{misc}{}
-    \verb{url}
-    \verb http://fmv.jku.at/hwmcc13/index.html
-    \endverb
-    \field{year}{2013}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{Cadical}{misc}{}
-    \verb{url}
-    \verb http://fmv.jku.at/cadical/
-    \endverb
-    \field{year}{2019}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{WiredArticle}{misc}{}
+\datalist[entry]{anyt/global//global/global}
+  \entry{aig-ac-asset}{misc}{}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Aig}
     \field{sortinit}{A}
     \field{sortinithash}{A}
-  \field{howpublished}{\url{https://www.wired.com/2015/01/german-steel-mill-hack-destruction/}}
-    \field{title}{{A Cyberattack Has Caused Confirmed Physical Damage for the
-  Second Time Ever}}
-    \field{year}{2017}
-    \warn{\item Invalid format of field 'month'}
+    \field{title}{And-Inverter Graph Attacker Classification}
+    \verb{url}
+    \verb https://gitlab.com/asset-sutd/public/aig-ac
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
   \endentry
 
-  \entry{CPSInvariantsForDetection}{inbook}{}
-    \name{author}{2}{}{%
-      {{hash=AS}{%
-         family={Adepu},
+  \entry{usenix_ctp_verification}{inproceedings}{}
+    \name{author}{5}{}{%
+      {{hash=AJB}{%
+         family={Almeida},
          familyi={A\bibinitperiod},
-         given={Sridhar},
-         giveni={S\bibinitperiod},
+         given={Jose\bibnamedelima Bacelar},
+         giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod},
       }}%
-      {{hash=MA}{%
-         family={Mathur},
-         familyi={M\bibinitperiod},
-         given={Aditya},
-         giveni={A\bibinitperiod},
+      {{hash=BM}{%
+         family={Barbosa},
+         familyi={B\bibinitperiod},
+         given={Manuel},
+         giveni={M\bibinitperiod},
       }}%
-    }
-    \name{editor}{2}{}{%
-      {{hash=HJH}{%
-         family={Hoepman},
-         familyi={H\bibinitperiod},
-         given={Jaap-Henk},
-         giveni={J\bibinithyphendelim H\bibinitperiod},
+      {{hash=BG}{%
+         family={Barthe},
+         familyi={B\bibinitperiod},
+         given={Gilles},
+         giveni={G\bibinitperiod},
       }}%
-      {{hash=KS}{%
-         family={Katzenbeisser},
-         familyi={K\bibinitperiod},
-         given={Stefan},
-         giveni={S\bibinitperiod},
+      {{hash=DF}{%
+         family={Dupressoir},
+         familyi={D\bibinitperiod},
+         given={Fran{\c c}ois},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=EM}{%
+         family={Emmi},
+         familyi={E\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
       }}%
     }
     \list{publisher}{1}{%
-      {Springer International Publishing}%
+      {{USENIX} Association}%
     }
-    \strng{namehash}{ASMA1}
-    \strng{fullhash}{ASMA1}
+    \strng{namehash}{AJB+1}
+    \strng{fullhash}{AJBBMBGDFEM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Alm+16}
     \field{sortinit}{A}
     \field{sortinithash}{A}
-    \field{booktitle}{ICT Systems Security and Privacy Protection: 31st IFIP TC
-  11 International Conference, SEC 2016, Ghent, Belgium, May 30 - June 1, 2016,
-  Proceedings}
-    \verb{doi}
-    \verb 10.1007/978-3-319-33630-5\_7
-    \endverb
-    \field{isbn}{978-3-319-33630-5}
-    \field{pages}{91\bibrangedash 104}
-    \field{title}{Using Process Invariants to Detect Cyber Attacks on a Water
-  Treatment System}
+    \field{booktitle}{25th {USENIX} Security Symposium ({USENIX} Security 16)}
+    \field{isbn}{978-1-931971-32-4}
+    \field{pages}{53\bibrangedash 70}
+    \field{title}{Verifying Constant-Time Implementations}
     \verb{url}
-    \verb http://dx.doi.org/10.1007/978-3-319-33630-5\_7
+    \verb https://www.usenix.org/conference/usenixsecurity16/technical-sessions
+    \verb /presentation/almeida
     \endverb
     \list{location}{1}{%
-      {Cham}%
+      {Austin, TX}%
     }
+    \field{month}{08}
     \field{year}{2016}
   \endentry
 
@@ -181,6 +159,7 @@
     \strng{fullhash}{AJBBMBGBAGBLVOTPHSBSPY1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Alm+17}
     \field{sortinit}{A}
     \field{sortinithash}{A}
     \field{abstract}{%
@@ -215,63 +194,6 @@
     }
     \field{year}{2017}
     \warn{\item Can't use 'location' + 'address'}
-  \endentry
-
-  \entry{usenix_ctp_verification}{inproceedings}{}
-    \name{author}{5}{}{%
-      {{hash=AJB}{%
-         family={Almeida},
-         familyi={A\bibinitperiod},
-         given={Jose\bibnamedelima Bacelar},
-         giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod},
-      }}%
-      {{hash=BM}{%
-         family={Barbosa},
-         familyi={B\bibinitperiod},
-         given={Manuel},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=BG}{%
-         family={Barthe},
-         familyi={B\bibinitperiod},
-         given={Gilles},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=DF}{%
-         family={Dupressoir},
-         familyi={D\bibinitperiod},
-         given={Fran{\c c}ois},
-         giveni={F\bibinitperiod},
-      }}%
-      {{hash=EM}{%
-         family={Emmi},
-         familyi={E\bibinitperiod},
-         given={Michael},
-         giveni={M\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {{USENIX} Association}%
-    }
-    \strng{namehash}{AJB+1}
-    \strng{fullhash}{AJBBMBGDFEM1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{A}
-    \field{sortinithash}{A}
-    \field{booktitle}{25th {USENIX} Security Symposium ({USENIX} Security 16)}
-    \field{isbn}{978-1-931971-32-4}
-    \field{pages}{53\bibrangedash 70}
-    \field{title}{Verifying Constant-Time Implementations}
-    \verb{url}
-    \verb https://www.usenix.org/conference/usenixsecurity16/technical-sessions
-    \verb /presentation/almeida
-    \endverb
-    \list{location}{1}{%
-      {Austin, TX}%
-    }
-    \field{month}{08}
-    \field{year}{2016}
   \endentry
 
   \entry{ALUR19953}{article}{}
@@ -335,6 +257,7 @@
     \strng{fullhash}{ARCCHNHTHPHNXOASJYS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Alu+95}
     \field{sortinit}{A}
     \field{sortinithash}{A}
     \verb{doi}
@@ -353,38 +276,62 @@
     \field{year}{1995}
   \endentry
 
-  \entry{aig-ac-asset}{misc}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{A}
-    \field{sortinithash}{A}
-    \field{title}{And-Inverter Graph Attacker Classification}
-    \verb{url}
-    \verb https://gitlab.com/asset-sutd/public/aig-ac
-    \endverb
-    \warn{\item Invalid format of field 'urldate'}
-  \endentry
-
-  \entry{CryptoCoding}{online}{}
-    \name{author}{1}{}{%
-      {{hash=AJP}{%
-         family={Aumasson},
+  \entry{CPSInvariantsForDetection}{inbook}{}
+    \name{author}{2}{}{%
+      {{hash=AS}{%
+         family={Adepu},
          familyi={A\bibinitperiod},
-         given={Jean-Philippe},
-         giveni={J\bibinithyphendelim P\bibinitperiod},
+         given={Sridhar},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=MA}{%
+         family={Mathur},
+         familyi={M\bibinitperiod},
+         given={Aditya},
+         giveni={A\bibinitperiod},
       }}%
     }
-    \strng{namehash}{AJP1}
-    \strng{fullhash}{AJP1}
+    \name{editor}{2}{}{%
+      {{hash=HJH}{%
+         family={Hoepman},
+         familyi={H\bibinitperiod},
+         given={Jaap-Henk},
+         giveni={J\bibinithyphendelim H\bibinitperiod},
+      }}%
+      {{hash=KS}{%
+         family={Katzenbeisser},
+         familyi={K\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer International Publishing}%
+    }
+    \strng{namehash}{ASMA1}
+    \strng{fullhash}{ASMA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{AM16}
     \field{sortinit}{A}
     \field{sortinithash}{A}
-    \field{title}{Cryptocoding}
-    \verb{url}
-    \verb https://github.com/veorq/cryptocoding
+    \field{booktitle}{ICT Systems Security and Privacy Protection: 31st IFIP TC
+  11 International Conference, SEC 2016, Ghent, Belgium, May 30 - June 1, 2016,
+  Proceedings}
+    \verb{doi}
+    \verb 10.1007/978-3-319-33630-5\_7
     \endverb
-    \field{year}{2019}
-    \warn{\item Invalid format of field 'month'}
+    \field{isbn}{978-3-319-33630-5}
+    \field{pages}{91\bibrangedash 104}
+    \field{title}{Using Process Invariants to Detect Cyber Attacks on a Water
+  Treatment System}
+    \verb{url}
+    \verb http://dx.doi.org/10.1007/978-3-319-33630-5\_7
+    \endverb
+    \list{location}{1}{%
+      {Cham}%
+    }
+    \field{year}{2016}
   \endentry
 
   \entry{ProvingMorePropertiesWithBMC}{inproceedings}{}
@@ -423,6 +370,7 @@
     \strng{fullhash}{AMSF1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{AS04}
     \field{sortinit}{A}
     \field{sortinithash}{A}
     \field{abstract}{%
@@ -444,6 +392,30 @@
       {Berlin, Heidelberg}%
     }
     \field{year}{2004}
+  \endentry
+
+  \entry{CryptoCoding}{online}{}
+    \name{author}{1}{}{%
+      {{hash=AJP}{%
+         family={Aumasson},
+         familyi={A\bibinitperiod},
+         given={Jean-Philippe},
+         giveni={J\bibinithyphendelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AJP1}
+    \strng{fullhash}{AJP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Aum19}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Cryptocoding}
+    \verb{url}
+    \verb https://github.com/veorq/cryptocoding
+    \endverb
+    \field{year}{2019}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{ABPV13}{article}{}
@@ -482,6 +454,7 @@
     \strng{fullhash}{BAJBMPJSVB1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{BA+13}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{abstract}{%
@@ -518,40 +491,6 @@
     \field{journaltitle}{Sci. Comput. Program.}
     \field{month}{07}
     \field{year}{2013}
-  \endentry
-
-  \entry{Gupta2}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=BCZ}{%
-         family={Bai},
-         familyi={B\bibinitperiod},
-         given={C.\bibnamedelima Z.},
-         giveni={C\bibinitperiod\bibinitdelim Z\bibinitperiod},
-      }}%
-      {{hash=PF}{%
-         family={Pasqualetti},
-         familyi={P\bibinitperiod},
-         given={F.},
-         giveni={F\bibinitperiod},
-      }}%
-      {{hash=GV}{%
-         family={Gupta},
-         familyi={G\bibinitperiod},
-         given={V.},
-         giveni={V\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BCZPFGV1}
-    \strng{fullhash}{BCZPFGV1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{booktitle}{American Control Conference (ACC), 2015}
-    \field{pages}{195\bibrangedash 200}
-    \field{title}{Security in stochastic control systems: Fundamental
-  limitations and performance bounds}
-    \field{year}{2015}
   \endentry
 
   \entry{timing-channel-survey}{article}{}
@@ -603,6 +542,7 @@
     \strng{fullhash}{BMBGBKBBCCLKPB1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bar+19}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{pages}{1393}
@@ -610,90 +550,6 @@
     \field{volume}{2019}
     \field{journaltitle}{IACR Cryptol. ePrint Arch.}
     \field{year}{2019}
-  \endentry
-
-  \entry{SecureCompilation}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=BG}{%
-         family={Barthe},
-         familyi={B\bibinitperiod},
-         given={Gilles},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=GB}{%
-         family={Grégoire},
-         familyi={G\bibinitperiod},
-         given={Benjamin},
-         giveni={B\bibinitperiod},
-      }}%
-      {{hash=LV}{%
-         family={Laporte},
-         familyi={L\bibinitperiod},
-         given={Vincent},
-         giveni={V\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BGGBLV1}
-    \strng{fullhash}{BGGBLV1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{booktitle}{2018 IEEE 31st Computer Security Foundations Symposium
-  (CSF)}
-    \verb{doi}
-    \verb 10.1109/CSF.2018.00031
-    \endverb
-    \field{pages}{328\bibrangedash 343}
-    \field{title}{Secure Compilation of Side-Channel Countermeasures: The Case
-  of Cryptographic “Constant-Time”}
-    \field{year}{2018}
-  \endentry
-
-  \entry{KnowYourEnemy}{article}{}
-    \name{author}{2}{}{%
-      {{hash=BD}{%
-         family={Basin},
-         familyi={B\bibinitperiod},
-         given={David},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=CC}{%
-         family={Cremers},
-         familyi={C\bibinitperiod},
-         given={Cas},
-         giveni={C\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {ACM}%
-    }
-    \keyw{Security protocols, adversary models, automated analysis, threat
-  models}
-    \strng{namehash}{BDCC1}
-    \strng{fullhash}{BDCC1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \verb{doi}
-    \verb 10.1145/2658996
-    \endverb
-    \field{issn}{1094-9224}
-    \field{number}{2}
-    \field{pages}{7:1\bibrangedash 7:31}
-    \field{title}{Know Your Enemy: Compromising Adversaries in Protocol
-  Analysis}
-    \verb{url}
-    \verb http://doi.acm.org/10.1145/2658996
-    \endverb
-    \field{volume}{17}
-    \list{location}{1}{%
-      {New York, NY, USA}%
-    }
-    \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
-    \field{month}{11}
-    \field{year}{2014}
   \endentry
 
   \entry{stvr.1718}{article}{}
@@ -729,6 +585,7 @@
     \strng{fullhash}{BTAKWCCS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bas+20}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{abstract}{%
@@ -772,14 +629,51 @@
     \field{year}{2020}
   \endentry
 
-  \entry{Lagebericht2014}{misc}{}
+  \entry{KnowYourEnemy}{article}{}
+    \name{author}{2}{}{%
+      {{hash=BD}{%
+         family={Basin},
+         familyi={B\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CC}{%
+         family={Cremers},
+         familyi={C\bibinitperiod},
+         given={Cas},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{Security protocols, adversary models, automated analysis, threat
+  models}
+    \strng{namehash}{BDCC1}
+    \strng{fullhash}{BDCC1}
+    \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{BC14}
     \field{sortinit}{B}
     \field{sortinithash}{B}
-  \field{howpublished}{\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/\\Lageberichte/Lagebericht2014.pdf}}
-    \field{title}{{Bericht zur Lage der IT-Sicherheit in Deutschland 2014}}
-    \field{year}{2017}
-    \warn{\item Invalid format of field 'month'}
+    \verb{doi}
+    \verb 10.1145/2658996
+    \endverb
+    \field{issn}{1094-9224}
+    \field{number}{2}
+    \field{pages}{7:1\bibrangedash 7:31}
+    \field{title}{Know Your Enemy: Compromising Adversaries in Protocol
+  Analysis}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2658996
+    \endverb
+    \field{volume}{17}
+    \list{location}{1}{%
+      {New York, NY, USA}%
+    }
+    \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
+    \field{month}{11}
+    \field{year}{2014}
   \endentry
 
   \entry{timing-cache}{misc}{}
@@ -795,10 +689,90 @@
     \strng{fullhash}{BDJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Ber05}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{title}{Cache-timing attacks on {AES}}
     \field{year}{2005}
+  \endentry
+
+  \entry{SecureCompilation}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=BG}{%
+         family={Barthe},
+         familyi={B\bibinitperiod},
+         given={Gilles},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=GB}{%
+         family={Grégoire},
+         familyi={G\bibinitperiod},
+         given={Benjamin},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=LV}{%
+         family={Laporte},
+         familyi={L\bibinitperiod},
+         given={Vincent},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BGGBLV1}
+    \strng{fullhash}{BGGBLV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BGL18}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{booktitle}{2018 IEEE 31st Computer Security Foundations Symposium
+  (CSF)}
+    \verb{doi}
+    \verb 10.1109/CSF.2018.00031
+    \endverb
+    \field{pages}{328\bibrangedash 343}
+    \field{title}{Secure Compilation of Side-Channel Countermeasures: The Case
+  of Cryptographic “Constant-Time”}
+    \field{year}{2018}
+  \endentry
+
+  \entry{AIGER}{report}{}
+    \name{author}{3}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=WS}{%
+         family={Wieringa},
+         familyi={W\bibinitperiod},
+         given={Siert},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BAHKWS1}
+    \strng{fullhash}{BAHKWS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BHW11}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{series}{Technical Report 11/2}
+    \field{title}{{AIGER 1.9} And Beyond}
+    \list{location}{1}{%
+      {{FMV Reports Series, Institute for Formal Models and Verification,
+  Johannes Kepler University, Altenbergerstr. 69, 4040 Linz, Austria}}%
+    }
+    \field{type}{techreport}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 
   \entry{BibaIntegrity}{report}{}
@@ -814,6 +788,7 @@
     \strng{fullhash}{BKJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bib77}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{number}{MTR-3153}
@@ -823,6 +798,53 @@
     }
     \field{type}{techreport}
     \field{year}{1977}
+  \endentry
+
+  \entry{lmcs:2236}{article}{}
+    \name{author}{5}{}{%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=JT}{%
+         family={Junttila},
+         familyi={J\bibinitperiod},
+         given={Tommi},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=LT}{%
+         family={Latvala},
+         familyi={L\bibinitperiod},
+         given={Timo},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=SV}{%
+         family={Schuppan},
+         familyi={S\bibinitperiod},
+         given={Viktor},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BA+2}
+    \strng{fullhash}{BAHKJTLTSV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Bie+06}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{{Linear Encodings of Bounded LTL Model Checking}}
+    \field{volume}{{Volume 2, Issue 5}}
+    \field{journaltitle}{Logical Methods in Computer Science}
+    \field{year}{2006}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{HandbookOfSatisfiability}{book}{}
@@ -867,6 +889,7 @@
     \strng{fullhash}{BABAHMMHvWT1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bie+09}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{isbn}{1586039296, 9781586039295}
@@ -876,91 +899,6 @@
       {Amsterdam, The Netherlands, The Netherlands}%
     }
     \field{year}{2009}
-  \endentry
-
-  \entry{AIGER}{report}{}
-    \name{author}{3}{}{%
-      {{hash=BA}{%
-         family={Biere},
-         familyi={B\bibinitperiod},
-         given={Armin},
-         giveni={A\bibinitperiod},
-      }}%
-      {{hash=HK}{%
-         family={Heljanko},
-         familyi={H\bibinitperiod},
-         given={Keijo},
-         giveni={K\bibinitperiod},
-      }}%
-      {{hash=WS}{%
-         family={Wieringa},
-         familyi={W\bibinitperiod},
-         given={Siert},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BAHKWS1}
-    \strng{fullhash}{BAHKWS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{series}{Technical Report 11/2}
-    \field{title}{{AIGER 1.9} And Beyond}
-    \list{location}{1}{%
-      {{FMV Reports Series, Institute for Formal Models and Verification,
-  Johannes Kepler University, Altenbergerstr. 69, 4040 Linz, Austria}}%
-    }
-    \field{type}{techreport}
-    \field{year}{2011}
-    \warn{\item Invalid format of field 'date' \item Invalid format of field
-  'date'}
-  \endentry
-
-  \entry{lmcs:2236}{article}{}
-    \name{author}{5}{}{%
-      {{hash=BA}{%
-         family={Biere},
-         familyi={B\bibinitperiod},
-         given={Armin},
-         giveni={A\bibinitperiod},
-      }}%
-      {{hash=HK}{%
-         family={Heljanko},
-         familyi={H\bibinitperiod},
-         given={Keijo},
-         giveni={K\bibinitperiod},
-      }}%
-      {{hash=JT}{%
-         family={Junttila},
-         familyi={J\bibinitperiod},
-         given={Tommi},
-         giveni={T\bibinitperiod},
-      }}%
-      {{hash=LT}{%
-         family={Latvala},
-         familyi={L\bibinitperiod},
-         given={Timo},
-         giveni={T\bibinitperiod},
-      }}%
-      {{hash=SV}{%
-         family={Schuppan},
-         familyi={S\bibinitperiod},
-         given={Viktor},
-         giveni={V\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BA+2}
-    \strng{fullhash}{BAHKJTLTSV1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{title}{{Linear Encodings of Bounded LTL Model Checking}}
-    \field{volume}{{Volume 2, Issue 5}}
-    \field{journaltitle}{Logical Methods in Computer Science}
-    \field{year}{2006}
-    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{BMCWithoutBDDs}{inproceedings}{}
@@ -1005,6 +943,7 @@
     \strng{fullhash}{BACACEZY1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bie+99}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{abstract}{%
@@ -1138,6 +1077,7 @@
     \strng{fullhash}{BNBBBGRSKSABAHJHDRKTSSSRSKSMVNHMDWDA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bin+11}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{abstract}{%
@@ -1239,6 +1179,7 @@
     \strng{fullhash}{BBHCKMLKRMLJRPBRASSTL1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bon+17}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{booktitle}{26th {USENIX} Security Symposium ({USENIX} Security 17)}
@@ -1254,6 +1195,41 @@
     }
     \field{month}{08}
     \field{year}{2017}
+  \endentry
+
+  \entry{Gupta2}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=BCZ}{%
+         family={Bai},
+         familyi={B\bibinitperiod},
+         given={C.\bibnamedelima Z.},
+         giveni={C\bibinitperiod\bibinitdelim Z\bibinitperiod},
+      }}%
+      {{hash=PF}{%
+         family={Pasqualetti},
+         familyi={P\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=GV}{%
+         family={Gupta},
+         familyi={G\bibinitperiod},
+         given={V.},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BCZPFGV1}
+    \strng{fullhash}{BCZPFGV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BPG15}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{booktitle}{American Control Conference (ACC), 2015}
+    \field{pages}{195\bibrangedash 200}
+    \field{title}{Security in stochastic control systems: Fundamental
+  limitations and performance bounds}
+    \field{year}{2015}
   \endentry
 
   \entry{IC3}{inproceedings}{}
@@ -1286,6 +1262,7 @@
     \strng{fullhash}{BAR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bra11}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{abstract}{%
@@ -1328,6 +1305,7 @@
     \strng{fullhash}{BAR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Bra12}
     \field{sortinit}{B}
     \field{sortinithash}{B}
     \field{booktitle}{Proceedings of the 15th International Conference on
@@ -1347,249 +1325,6 @@
     }
     \field{year}{2012}
     \warn{\item Can't use 'location' + 'address'}
-  \endentry
-
-  \entry{OptimizedModelCheckingOfMultipleProperties}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=CG}{%
-         family={{Cabodi}},
-         familyi={C\bibinitperiod},
-         given={G.},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=NS}{%
-         family={{Nocco}},
-         familyi={N\bibinitperiod},
-         given={S.},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \keyw{formal verification;optimized model checking;multiple
-  properties;industrial verification;cone-of-influence
-  minimization;verification tasks;Integrated circuit modeling;Computational
-  modeling;Data structures;Benchmark testing;Boolean functions;Approximation
-  methods;Design automation}
-    \strng{namehash}{CGNS1}
-    \strng{fullhash}{CGNS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{booktitle}{2011 Design, Automation Test in Europe}
-    \verb{doi}
-    \verb 10.1109/DATE.2011.5763279
-    \endverb
-    \field{issn}{1558-1101}
-    \field{pages}{1\bibrangedash 4}
-    \field{title}{Optimized model checking of multiple properties}
-    \field{year}{2011}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{ToSplitOrToGroup}{article}{}
-    \name{author}{7}{}{%
-      {{hash=CG}{%
-         family={Cabodi},
-         familyi={C\bibinitperiod},
-         given={G.},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=CPE}{%
-         family={Camurati},
-         familyi={C\bibinitperiod},
-         given={P.\bibnamedelima E.},
-         giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
-      }}%
-      {{hash=LC}{%
-         family={Loiacono},
-         familyi={L\bibinitperiod},
-         given={C.},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=PM}{%
-         family={Palena},
-         familyi={P\bibinitperiod},
-         given={M.},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=PP}{%
-         family={Pasini},
-         familyi={P\bibinitperiod},
-         given={P.},
-         giveni={P\bibinitperiod},
-      }}%
-      {{hash=PD}{%
-         family={Patti},
-         familyi={P\bibinitperiod},
-         given={D.},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=QS}{%
-         family={Quer},
-         familyi={Q\bibinitperiod},
-         given={S.},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{CG+1}
-    \strng{fullhash}{CGCPELCPMPPPDQS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{abstract}{%
-    Hardware systems complexity has constantly increased in recent years.
-  Guaranteeing their correctness is a must. Formal verification techniques,
-  such as model checking, now play a major role in industrial environments.
-  Their efficiency in dealing with large sets of properties is crucial. This
-  paper deals with property grouping, decomposition, and coverage in model
-  checking. Property grouping is a valuable solution whenever several
-  properties must be proved for a single model. As such sets may include
-  ``easy-to-prove'' and/or ``similar'' properties, grouping can reduce overhead
-  avoiding sub-tasks repetition. Property decomposition, following the
-  divide-and-conquer paradigm, can be effective whenever a property turns out
-  to be ``hard-to-prove.'' Our contribution is a heuristic property manager,
-  running on top of a multi-engine model checking portfolio, aiming at
-  productivity optimization. We compare different clustering heuristics, and we
-  exploit decomposition strategies for property sub-setting. We also consider
-  the problem of evaluating a coverage measure for properties, used to monitor
-  the ``advancement'' of the verification task.%
-    }
-    \verb{doi}
-    \verb 10.1007/s10009-017-0451-8
-    \endverb
-    \field{issn}{1433-2787}
-    \field{number}{3}
-    \field{pages}{313\bibrangedash 325}
-    \field{title}{To split or to group: from divide-and-conquer to sub-task
-  sharing for verifying multiple properties in model checking}
-    \verb{url}
-    \verb https://doi.org/10.1007/s10009-017-0451-8
-    \endverb
-    \field{volume}{20}
-    \field{journaltitle}{International Journal on Software Tools for Technology
-  Transfer}
-    \field{year}{2018}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{GraphLabelingForEfficientCOIComputation}{article}{}
-    \name{author}{3}{}{%
-      {{hash=CG}{%
-         family={Cabodi},
-         familyi={C\bibinitperiod},
-         given={Gianpiero},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=CP}{%
-         family={Camurati},
-         familyi={C\bibinitperiod},
-         given={Paolo},
-         giveni={P\bibinitperiod},
-      }}%
-      {{hash=QS}{%
-         family={Quer},
-         familyi={Q\bibinitperiod},
-         given={Stefano},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \keyw{model checking, Boolean functions, cone of influence, graph labeling}
-    \strng{namehash}{CGCPQS1}
-    \strng{fullhash}{CGCPQS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \verb{doi}
-    \verb 10.1002/spe.2321
-    \endverb
-    \verb{eprint}
-    \verb https://onlinelibrary.wiley.com/doi/pdf/10.1002/spe.2321
-    \endverb
-    \field{number}{4}
-    \field{pages}{493\bibrangedash 511}
-    \field{title}{A graph-labeling approach for efficient cone-of-influence
-  computation in model-checking problems with multiple properties}
-    \verb{url}
-    \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.2321
-    \endverb
-    \field{volume}{46}
-    \field{journaltitle}{Software: Practice and Experience}
-    \field{year}{2016}
-  \endentry
-
-  \entry{HWMCC2014BM}{article}{}
-    \name{author}{9}{}{%
-      {{hash=CG}{%
-         family={Cabodi},
-         familyi={C\bibinitperiod},
-         given={Gianpiero},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=LC}{%
-         family={Loiacono},
-         familyi={L\bibinitperiod},
-         given={Carmelo},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=PM}{%
-         family={Palena},
-         familyi={P\bibinitperiod},
-         given={Marco},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=PP}{%
-         family={Pasini},
-         familyi={P\bibinitperiod},
-         given={Paolo},
-         giveni={P\bibinitperiod},
-      }}%
-      {{hash=PD}{%
-         family={Patti},
-         familyi={P\bibinitperiod},
-         given={Denis},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=QS}{%
-         family={Quer},
-         familyi={Q\bibinitperiod},
-         given={Stefano},
-         giveni={S\bibinitperiod},
-      }}%
-      {{hash=VD}{%
-         family={Vendraminetto},
-         familyi={V\bibinitperiod},
-         given={Danilo},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=BA}{%
-         family={Biere},
-         familyi={B\bibinitperiod},
-         given={Armin},
-         giveni={A\bibinitperiod},
-      }}%
-      {{hash=HK}{%
-         family={Heljanko},
-         familyi={H\bibinitperiod},
-         given={Keijo},
-         giveni={K\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{CG+2}
-    \strng{fullhash}{CGLCPMPPPDQSVDBAHK1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{pages}{135\bibrangedash 172}
-    \field{title}{Hardware Model Checking Competition 2014: An Analysis and
-  Comparison of Model Checkers and Benchmarks}
-    \field{volume}{9}
-    \field{journaltitle}{Journal on Satisfiability, Boolean Modeling and
-  Computation}
-    \field{year}{2015}
-    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{Cardenas2011}{inproceedings}{}
@@ -1640,6 +1375,8 @@
     \strng{fullhash}{CAAASLZSHYLHCYSS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{C\'+11}
+    \field{extraalpha}{1}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{booktitle}{Proceedings of the 6th ACM Symposium on Information,
@@ -1710,6 +1447,8 @@
     \strng{fullhash}{CAAASLZSHYLHCYSS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{C\'+11}
+    \field{extraalpha}{2}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{booktitle}{Proceedings of the 6th ACM Symposium on Information,
@@ -1730,6 +1469,179 @@
     }
     \field{year}{2011}
     \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{HWMCC2014BM}{article}{}
+    \name{author}{9}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
+         familyi={C\bibinitperiod},
+         given={Gianpiero},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Loiacono},
+         familyi={L\bibinitperiod},
+         given={Carmelo},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Palena},
+         familyi={P\bibinitperiod},
+         given={Marco},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=PP}{%
+         family={Pasini},
+         familyi={P\bibinitperiod},
+         given={Paolo},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=PD}{%
+         family={Patti},
+         familyi={P\bibinitperiod},
+         given={Denis},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={Stefano},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=VD}{%
+         family={Vendraminetto},
+         familyi={V\bibinitperiod},
+         given={Danilo},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Biere},
+         familyi={B\bibinitperiod},
+         given={Armin},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HK}{%
+         family={Heljanko},
+         familyi={H\bibinitperiod},
+         given={Keijo},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CG+2}
+    \strng{fullhash}{CGLCPMPPPDQSVDBAHK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Cab+15}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{pages}{135\bibrangedash 172}
+    \field{title}{Hardware Model Checking Competition 2014: An Analysis and
+  Comparison of Model Checkers and Benchmarks}
+    \field{volume}{9}
+    \field{journaltitle}{Journal on Satisfiability, Boolean Modeling and
+  Computation}
+    \field{year}{2015}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{ToSplitOrToGroup}{article}{}
+    \name{author}{7}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
+         familyi={C\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CPE}{%
+         family={Camurati},
+         familyi={C\bibinitperiod},
+         given={P.\bibnamedelima E.},
+         giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Loiacono},
+         familyi={L\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Palena},
+         familyi={P\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=PP}{%
+         family={Pasini},
+         familyi={P\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=PD}{%
+         family={Patti},
+         familyi={P\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CG+1}
+    \strng{fullhash}{CGCPELCPMPPPDQS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Cab+18}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    Hardware systems complexity has constantly increased in recent years.
+  Guaranteeing their correctness is a must. Formal verification techniques,
+  such as model checking, now play a major role in industrial environments.
+  Their efficiency in dealing with large sets of properties is crucial. This
+  paper deals with property grouping, decomposition, and coverage in model
+  checking. Property grouping is a valuable solution whenever several
+  properties must be proved for a single model. As such sets may include
+  ``easy-to-prove'' and/or ``similar'' properties, grouping can reduce overhead
+  avoiding sub-tasks repetition. Property decomposition, following the
+  divide-and-conquer paradigm, can be effective whenever a property turns out
+  to be ``hard-to-prove.'' Our contribution is a heuristic property manager,
+  running on top of a multi-engine model checking portfolio, aiming at
+  productivity optimization. We compare different clustering heuristics, and we
+  exploit decomposition strategies for property sub-setting. We also consider
+  the problem of evaluating a coverage measure for properties, used to monitor
+  the ``advancement'' of the verification task.%
+    }
+    \verb{doi}
+    \verb 10.1007/s10009-017-0451-8
+    \endverb
+    \field{issn}{1433-2787}
+    \field{number}{3}
+    \field{pages}{313\bibrangedash 325}
+    \field{title}{To split or to group: from divide-and-conquer to sub-task
+  sharing for verifying multiple properties in model checking}
+    \verb{url}
+    \verb https://doi.org/10.1007/s10009-017-0451-8
+    \endverb
+    \field{volume}{20}
+    \field{journaltitle}{International Journal on Software Tools for Technology
+  Transfer}
+    \field{year}{2018}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Cadical}{misc}{}
+    \field{labelalpha}{Cad}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{url}
+    \verb http://fmv.jku.at/cadical/
+    \endverb
+    \field{year}{2019}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{castellanos2021AttkFinder}{inproceedings}{}
@@ -1769,105 +1681,14 @@
     \strng{fullhash}{CJHOMCAAAOZJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Cas+21}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{booktitle}{International Symposium on Research in Attacks,
-  Intrusions and Defenses ($\{$RAID$\}$)}
+  Intrusions and Defenses (RAID)}
     \field{title}{AttkFinder: Discovering Attack Vectors in PLC Programs using
   Information Flow Analysis}
     \field{year}{2021}
-  \endentry
-
-  \entry{pitchfork}{inproceedings}{}
-    \name{author}{7}{}{%
-      {{hash=CS}{%
-         family={Cauligi},
-         familyi={C\bibinitperiod},
-         given={Sunjay},
-         giveni={S\bibinitperiod},
-      }}%
-      {{hash=DC}{%
-         family={Disselkoen},
-         familyi={D\bibinitperiod},
-         given={Craig},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=GKv}{%
-         family={Gleissenthall},
-         familyi={G\bibinitperiod},
-         given={Klaus\bibnamedelima v.},
-         giveni={K\bibinitperiod\bibinitdelim v\bibinitperiod},
-      }}%
-      {{hash=TD}{%
-         family={Tullsen},
-         familyi={T\bibinitperiod},
-         given={Dean},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=SD}{%
-         family={Stefan},
-         familyi={S\bibinitperiod},
-         given={Deian},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=RT}{%
-         family={Rezk},
-         familyi={R\bibinitperiod},
-         given={Tamara},
-         giveni={T\bibinitperiod},
-      }}%
-      {{hash=BG}{%
-         family={Barthe},
-         familyi={B\bibinitperiod},
-         given={Gilles},
-         giveni={G\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Association for Computing Machinery}%
-    }
-    \keyw{static analysis, speculative execution, pectre, semantics}
-    \strng{namehash}{CS+1}
-    \strng{fullhash}{CSDCGKvTDSDRTBG1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{abstract}{%
-    The constant-time discipline is a software-based countermeasure used for
-  protecting high assurance cryptographic implementations against timing
-  side-channel attacks. Constant-time is effective (it protects against many
-  known attacks), rigorous (it can be formalized using program semantics), and
-  amenable to automated verification. Yet, the advent of micro-architectural
-  attacks makes constant-time as it exists today far less useful. This paper
-  lays foundations for constant-time programming in the presence of speculative
-  and out-of-order execution. We present an operational semantics and a formal
-  definition of constant-time programs in this extended setting. Our semantics
-  eschews formalization of microarchitectural features (that are instead
-  assumed under adversary control), and yields a notion of constant-time that
-  retains the elegance and tractability of the usual notion. We demonstrate the
-  relevance of our semantics in two ways: First, by contrasting existing
-  Spectre-like attacks with our definition of constant-time. Second, by
-  implementing a static analysis tool, Pitchfork, which detects violations of
-  our extended constant-time property in real world cryptographic libraries.%
-    }
-    \field{booktitle}{Proceedings of the 41st ACM SIGPLAN Conference on
-  Programming Language Design and Implementation}
-    \verb{doi}
-    \verb 10.1145/3385412.3385970
-    \endverb
-    \field{isbn}{9781450376136}
-    \field{pages}{913\bibrangedash 926}
-    \field{series}{PLDI 2020}
-    \field{title}{Constant-Time Foundations for the New Spectre Era}
-    \verb{url}
-    \verb https://doi.org/10.1145/3385412.3385970
-    \endverb
-    \list{location}{1}{%
-      {London, UK}%
-    }
-    \field{year}{2020}
-    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{FaCT}{inproceedings}{}
@@ -1941,6 +1762,7 @@
     \strng{fullhash}{CSSGJBBFWRSRJGBBGJRSD1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Cau+19}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{abstract}{%
@@ -1980,6 +1802,199 @@
     \warn{\item Can't use 'location' + 'address'}
   \endentry
 
+  \entry{pitchfork}{inproceedings}{}
+    \name{author}{7}{}{%
+      {{hash=CS}{%
+         family={Cauligi},
+         familyi={C\bibinitperiod},
+         given={Sunjay},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=DC}{%
+         family={Disselkoen},
+         familyi={D\bibinitperiod},
+         given={Craig},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=GKv}{%
+         family={Gleissenthall},
+         familyi={G\bibinitperiod},
+         given={Klaus\bibnamedelima v.},
+         giveni={K\bibinitperiod\bibinitdelim v\bibinitperiod},
+      }}%
+      {{hash=TD}{%
+         family={Tullsen},
+         familyi={T\bibinitperiod},
+         given={Dean},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Stefan},
+         familyi={S\bibinitperiod},
+         given={Deian},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=RT}{%
+         family={Rezk},
+         familyi={R\bibinitperiod},
+         given={Tamara},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=BG}{%
+         family={Barthe},
+         familyi={B\bibinitperiod},
+         given={Gilles},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for Computing Machinery}%
+    }
+    \keyw{static analysis, speculative execution, pectre, semantics}
+    \strng{namehash}{CS+1}
+    \strng{fullhash}{CSDCGKvTDSDRTBG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Cau+20}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    The constant-time discipline is a software-based countermeasure used for
+  protecting high assurance cryptographic implementations against timing
+  side-channel attacks. Constant-time is effective (it protects against many
+  known attacks), rigorous (it can be formalized using program semantics), and
+  amenable to automated verification. Yet, the advent of micro-architectural
+  attacks makes constant-time as it exists today far less useful. This paper
+  lays foundations for constant-time programming in the presence of speculative
+  and out-of-order execution. We present an operational semantics and a formal
+  definition of constant-time programs in this extended setting. Our semantics
+  eschews formalization of microarchitectural features (that are instead
+  assumed under adversary control), and yields a notion of constant-time that
+  retains the elegance and tractability of the usual notion. We demonstrate the
+  relevance of our semantics in two ways: First, by contrasting existing
+  Spectre-like attacks with our definition of constant-time. Second, by
+  implementing a static analysis tool, Pitchfork, which detects violations of
+  our extended constant-time property in real world cryptographic libraries.%
+    }
+    \field{booktitle}{Proceedings of the 41st ACM SIGPLAN Conference on
+  Programming Language Design and Implementation}
+    \verb{doi}
+    \verb 10.1145/3385412.3385970
+    \endverb
+    \field{isbn}{9781450376136}
+    \field{pages}{913\bibrangedash 926}
+    \field{series}{PLDI 2020}
+    \field{title}{Constant-Time Foundations for the New Spectre Era}
+    \verb{url}
+    \verb https://doi.org/10.1145/3385412.3385970
+    \endverb
+    \list{location}{1}{%
+      {London, UK}%
+    }
+    \field{year}{2020}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{GraphLabelingForEfficientCOIComputation}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CG}{%
+         family={Cabodi},
+         familyi={C\bibinitperiod},
+         given={Gianpiero},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CP}{%
+         family={Camurati},
+         familyi={C\bibinitperiod},
+         given={Paolo},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=QS}{%
+         family={Quer},
+         familyi={Q\bibinitperiod},
+         given={Stefano},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{model checking, Boolean functions, cone of influence, graph labeling}
+    \strng{namehash}{CGCPQS1}
+    \strng{fullhash}{CGCPQS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CCQ16}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.1002/spe.2321
+    \endverb
+    \verb{eprint}
+    \verb https://onlinelibrary.wiley.com/doi/pdf/10.1002/spe.2321
+    \endverb
+    \field{number}{4}
+    \field{pages}{493\bibrangedash 511}
+    \field{title}{A graph-labeling approach for efficient cone-of-influence
+  computation in model-checking problems with multiple properties}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.2321
+    \endverb
+    \field{volume}{46}
+    \field{journaltitle}{Software: Practice and Experience}
+    \field{year}{2016}
+  \endentry
+
+  \entry{CTL}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CEM}{%
+         family={Clarke},
+         familyi={C\bibinitperiod},
+         given={Edmund\bibnamedelima M.},
+         giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=EEA}{%
+         family={Emerson},
+         familyi={E\bibinitperiod},
+         given={E.\bibnamedelima Allen},
+         giveni={E\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=KD}{%
+         family={Kozen},
+         familyi={K\bibinitperiod},
+         given={Dexter},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{CEMEEA1}
+    \strng{fullhash}{CEMEEA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CE82}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    We have shown that it is possible to automatically synthesize the
+  synchronization skeleton of a concurrent program from a Temporal Logic
+  specification. We believe that this approach may in the long run turn out to
+  be quite practical. Since synchronization skeletons are, in general, quite
+  small, the potentially exponential behavior of our algorithm need not be an
+  insurmountable obstacle. Much additional research will be needed, however, to
+  make the approach feasible in practice.%
+    }
+    \field{booktitle}{Logics of Programs}
+    \field{isbn}{978-3-540-39047-3}
+    \field{pages}{52\bibrangedash 71}
+    \field{title}{Design and synthesis of synchronization skeletons using
+  branching time temporal logic}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{1982}
+  \endentry
+
   \entry{Chalice}{article}{}
     \name{author}{4}{}{%
       {{hash=CS}{%
@@ -2015,6 +2030,7 @@
     \strng{fullhash}{CSBMRAZA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Cha+19}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{abstract}{%
@@ -2047,6 +2063,28 @@
     \field{journaltitle}{ACM Trans. Embed. Comput. Syst.}
     \field{month}{01}
     \field{year}{2019}
+  \endentry
+
+  \entry{cherepanov2017industroyer}{article}{}
+    \name{author}{1}{}{%
+      {{hash=CA}{%
+         family={Cherepanov},
+         familyi={C\bibinitperiod},
+         given={Anton},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CA1}
+    \strng{fullhash}{CA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Che17}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Win32/Industroyer, A new threat for industrial control
+  systems}
+    \field{journaltitle}{White Paper. {ESET}}
+    \field{year}{2017}
   \endentry
 
   \entry{chen2019learning}{inproceedings}{}
@@ -2086,68 +2124,13 @@
     \strng{fullhash}{CYPCMSJASZF1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Che+19}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{booktitle}{Automated Software Engineering (ASE)}
     \field{title}{Learning-guided network fuzzing for testing cyber-physical
   system defences}
     \field{year}{2019}
-  \endentry
-
-  \entry{cherepanov2017industroyer}{article}{}
-    \name{author}{1}{}{%
-      {{hash=CA}{%
-         family={Cherepanov},
-         familyi={C\bibinitperiod},
-         given={Anton},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{CA1}
-    \strng{fullhash}{CA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{title}{Win32/Industroyer, A new threat for industrial control
-  systems}
-    \field{journaltitle}{White Paper. {ESET}}
-    \field{year}{2017}
-  \endentry
-
-  \entry{ClarkWilson87}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=CDD}{%
-         family={Clark},
-         familyi={C\bibinitperiod},
-         given={D.\bibnamedelima D.},
-         giveni={D\bibinitperiod\bibinitdelim D\bibinitperiod},
-      }}%
-      {{hash=WDR}{%
-         family={Wilson},
-         familyi={W\bibinitperiod},
-         given={D.\bibnamedelima R.},
-         giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
-      }}%
-    }
-    \keyw{Computational modeling;Computer security;Computers;Data
-  processing;Information security;Military computing}
-    \strng{namehash}{CDDWDR1}
-    \strng{fullhash}{CDDWDR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{booktitle}{1987 IEEE Symposium on Security and Privacy}
-    \verb{doi}
-    \verb 10.1109/SP.1987.10001
-    \endverb
-    \field{issn}{1540-7993}
-    \field{pages}{184\bibrangedash 194}
-    \field{title}{A Comparison of Commercial and Military Computer Security
-  Policies}
-    \field{year}{1987}
-    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{HandbookOfModelChecking}{book}{}
@@ -2184,10 +2167,72 @@
     \strng{fullhash}{CEMHTAVHBR1}
     \field{labelnamesource}{editor}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Cla+18}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{title}{Handbook of Model Checking}
     \field{year}{2018}
+  \endentry
+
+  \entry{OptimizedModelCheckingOfMultipleProperties}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CG}{%
+         family={{Cabodi}},
+         familyi={C\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=NS}{%
+         family={{Nocco}},
+         familyi={N\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{formal verification;optimized model checking;multiple
+  properties;industrial verification;cone-of-influence
+  minimization;verification tasks;Integrated circuit modeling;Computational
+  modeling;Data structures;Benchmark testing;Boolean functions;Approximation
+  methods;Design automation}
+    \strng{namehash}{CGNS1}
+    \strng{fullhash}{CGNS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CN11}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{2011 Design, Automation Test in Europe}
+    \verb{doi}
+    \verb 10.1109/DATE.2011.5763279
+    \endverb
+    \field{issn}{1558-1101}
+    \field{pages}{1\bibrangedash 4}
+    \field{title}{Optimized model checking of multiple properties}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{AESBasic}{online}{}
+    \name{author}{1}{}{%
+      {{hash=CB}{%
+         family={Conte},
+         familyi={C\bibinitperiod},
+         given={Brad},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \keyw{Advanced Encryption Standard Implementation}
+    \strng{namehash}{CB1}
+    \strng{fullhash}{CB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Con}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Advanced Encryption Standard Implementation}
+    \verb{url}
+    \verb https://github.com/B-Con/crypto-algorithms
+    \endverb
   \endentry
 
   \entry{QuantitativeIntegrity}{inproceedings}{}
@@ -2215,6 +2260,7 @@
     \strng{fullhash}{CMRSFB1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{CS10}
     \field{sortinit}{C}
     \field{sortinithash}{C}
     \field{booktitle}{2010 23rd IEEE Computer Security Foundations Symposium}
@@ -2228,101 +2274,39 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
-  \entry{AESBasic}{online}{}
-    \name{author}{1}{}{%
-      {{hash=CB}{%
-         family={Conte},
+  \entry{ClarkWilson87}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CDD}{%
+         family={Clark},
          familyi={C\bibinitperiod},
-         given={Brad},
-         giveni={B\bibinitperiod},
+         given={D.\bibnamedelima D.},
+         giveni={D\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=WDR}{%
+         family={Wilson},
+         familyi={W\bibinitperiod},
+         given={D.\bibnamedelima R.},
+         giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
       }}%
     }
-    \keyw{Advanced Encryption Standard Implementation}
-    \strng{namehash}{CB1}
-    \strng{fullhash}{CB1}
+    \keyw{Computational modeling;Computer security;Computers;Data
+  processing;Information security;Military computing}
+    \strng{namehash}{CDDWDR1}
+    \strng{fullhash}{CDDWDR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{CW87}
     \field{sortinit}{C}
     \field{sortinithash}{C}
-    \field{title}{Advanced Encryption Standard Implementation}
-    \verb{url}
-    \verb https://github.com/B-Con/crypto-algorithms
-    \endverb
-  \endentry
-
-  \entry{CPSStealthAttacks}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=DG}{%
-         family={Dan},
-         familyi={D\bibinitperiod},
-         given={G.},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=SH}{%
-         family={Sandberg},
-         familyi={S\bibinitperiod},
-         given={H.},
-         giveni={H\bibinitperiod},
-      }}%
-    }
-    \keyw{power system protection;power system security;power system state
-  estimation;smart power grids;IEEE benchmark power networks;communication
-  channels;control centers;measurement devices;power flows;power system state
-  estimator;protection cost models;protection schemes;smart power grids;stealth
-  false-data attacks;system security;Cryptography;Indexes;Power
-  measurement;Power systems;Transmission line measurements;Upper bound}
-    \strng{namehash}{DGSH1}
-    \strng{fullhash}{DGSH1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{D}
-    \field{sortinithash}{D}
-    \field{booktitle}{2010 First IEEE International Conference on Smart Grid
-  Communications}
+    \field{booktitle}{1987 IEEE Symposium on Security and Privacy}
     \verb{doi}
-    \verb 10.1109/SMARTGRID.2010.5622046
+    \verb 10.1109/SP.1987.10001
     \endverb
-    \field{pages}{214\bibrangedash 219}
-    \field{title}{Stealth Attacks and Protection Schemes for State Estimators
-  in Power Systems}
-    \field{year}{2010}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{DolevYao}{article}{}
-    \name{author}{2}{}{%
-      {{hash=DD}{%
-         family={Dolev},
-         familyi={D\bibinitperiod},
-         given={D.},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=YA}{%
-         family={Yao},
-         familyi={Y\bibinitperiod},
-         given={A.},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \keyw{Cryptography;Protocols;Communication system security;Computer
-  science;Cryptography;Decoding;Helium;Information
-  security;Mathematics;National security;Protocols;Public key}
-    \strng{namehash}{DDYA1}
-    \strng{fullhash}{DDYA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{D}
-    \field{sortinithash}{D}
-    \verb{doi}
-    \verb 10.1109/TIT.1983.1056650
-    \endverb
-    \field{issn}{0018-9448}
-    \field{number}{2}
-    \field{pages}{198\bibrangedash 208}
-    \field{title}{On the security of public key protocols}
-    \field{volume}{29}
-    \field{journaltitle}{IEEE Transactions on Information Theory}
-    \field{year}{1983}
+    \field{issn}{1540-7993}
+    \field{pages}{184\bibrangedash 194}
+    \field{title}{A Comparison of Commercial and Military Computer Security
+  Policies}
+    \field{year}{1987}
     \warn{\item Invalid format of field 'month'}
   \endentry
 
@@ -2366,6 +2350,7 @@
     \strng{fullhash}{DGFDKBMLRJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Doy+13}
     \field{sortinit}{D}
     \field{sortinithash}{D}
     \field{booktitle}{22nd {USENIX} Security Symposium ({USENIX} Security 13)}
@@ -2384,46 +2369,81 @@
     \field{year}{2013}
   \endentry
 
-  \entry{Gamage2010}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=GTT}{%
-         family={Gamage},
-         familyi={G\bibinitperiod},
-         given={T.\bibnamedelima T.},
-         giveni={T\bibinitperiod\bibinitdelim T\bibinitperiod},
+  \entry{CPSStealthAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=DG}{%
+         family={Dan},
+         familyi={D\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
       }}%
-      {{hash=MBM}{%
-         family={McMillin},
-         familyi={M\bibinitperiod},
-         given={B.\bibnamedelima M.},
-         giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod},
-      }}%
-      {{hash=RTP}{%
-         family={Roth},
-         familyi={R\bibinitperiod},
-         given={T.\bibnamedelima P.},
-         giveni={T\bibinitperiod\bibinitdelim P\bibinitperiod},
+      {{hash=SH}{%
+         family={Sandberg},
+         familyi={S\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
       }}%
     }
-    \keyw{authorisation;access control;compensation;cyber-physical
-  system;enforcement mechanism;information flow security;cyber-physical
-  systems;execution monitoring enforcement;information flow security;runtime
-  security}
-    \strng{namehash}{GTTMBMRTP1}
-    \strng{fullhash}{GTTMBMRTP1}
+    \keyw{power system protection;power system security;power system state
+  estimation;smart power grids;IEEE benchmark power networks;communication
+  channels;control centers;measurement devices;power flows;power system state
+  estimator;protection cost models;protection schemes;smart power grids;stealth
+  false-data attacks;system security;Cryptography;Indexes;Power
+  measurement;Power systems;Transmission line measurements;Upper bound}
+    \strng{namehash}{DGSH1}
+    \strng{fullhash}{DGSH1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{sortinit}{G}
-    \field{sortinithash}{G}
-    \field{booktitle}{2010 IEEE 34th Annual Computer Software and Applications
-  Conference Workshops}
+    \field{labelalpha}{DS10}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{booktitle}{2010 First IEEE International Conference on Smart Grid
+  Communications}
     \verb{doi}
-    \verb 10.1109/COMPSACW.2010.36
+    \verb 10.1109/SMARTGRID.2010.5622046
     \endverb
-    \field{pages}{158\bibrangedash 163}
-    \field{title}{Enforcing Information Flow Security Properties in
-  Cyber-Physical Systems: A Generalized Framework Based on Compensation}
+    \field{pages}{214\bibrangedash 219}
+    \field{title}{Stealth Attacks and Protection Schemes for State Estimators
+  in Power Systems}
     \field{year}{2010}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{DolevYao}{article}{}
+    \name{author}{2}{}{%
+      {{hash=DD}{%
+         family={Dolev},
+         familyi={D\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=YA}{%
+         family={Yao},
+         familyi={Y\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \keyw{Cryptography;Protocols;Communication system security;Computer
+  science;Cryptography;Decoding;Helium;Information
+  security;Mathematics;National security;Protocols;Public key}
+    \strng{namehash}{DDYA1}
+    \strng{fullhash}{DDYA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{DY83}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \verb{doi}
+    \verb 10.1109/TIT.1983.1056650
+    \endverb
+    \field{issn}{0018-9448}
+    \field{number}{2}
+    \field{pages}{198\bibrangedash 208}
+    \field{title}{On the security of public key protocols}
+    \field{volume}{29}
+    \field{journaltitle}{IEEE Transactions on Information Theory}
+    \field{year}{1983}
     \warn{\item Invalid format of field 'month'}
   \endentry
 
@@ -2492,6 +2512,7 @@
     \strng{fullhash}{GJUDCAVJFMRJTNOSHCR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Gir+18}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \verb{doi}
@@ -2512,56 +2533,6 @@
     \field{journaltitle}{ACM Comput. Surv.}
     \field{month}{07}
     \field{year}{2018}
-  \endentry
-
-  \entry{JustAssume}{inproceedings}{}
-    \name{author}{4}{}{%
-      {{hash=GE}{%
-         family={Goldberg},
-         familyi={G\bibinitperiod},
-         given={E.},
-         giveni={E\bibinitperiod},
-      }}%
-      {{hash=GM}{%
-         family={G�demann},
-         familyi={G\bibinitperiod},
-         given={M.},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=KD}{%
-         family={Kroening},
-         familyi={K\bibinitperiod},
-         given={D.},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=MR}{%
-         family={Mukherjee},
-         familyi={M\bibinitperiod},
-         given={R.},
-         giveni={R\bibinitperiod},
-      }}%
-    }
-    \keyw{program debugging;program verification;JA-verification;debugging
-  set;just-assume;multiproperty design verification;safety
-  properties;Debugging;Aggregates;Machinery;Safety;Field effect
-  transistors;Contracts;Context modeling}
-    \strng{namehash}{GE+1}
-    \strng{fullhash}{GEGMKDMR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{G}
-    \field{sortinithash}{G}
-    \field{booktitle}{2018 Design, Automation Test in Europe Conference
-  Exhibition (DATE)}
-    \verb{doi}
-    \verb 10.23919/DATE.2018.8341977
-    \endverb
-    \field{issn}{1558-1101}
-    \field{pages}{43\bibrangedash 48}
-    \field{title}{Efficient verification of multi-property designs (The benefit
-  of wrong assumptions)}
-    \field{year}{2018}
-    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{CPSSec}{inbook}{}
@@ -2607,6 +2578,7 @@
     \strng{fullhash}{GDKM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{GK16}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \field{booktitle}{The New Codebreakers: Essays Dedicated to David Kahn on
@@ -2624,6 +2596,50 @@
       {Berlin, Heidelberg}%
     }
     \field{year}{2016}
+  \endentry
+
+  \entry{Gamage2010}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=GTT}{%
+         family={Gamage},
+         familyi={G\bibinitperiod},
+         given={T.\bibnamedelima T.},
+         giveni={T\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+      {{hash=MBM}{%
+         family={McMillin},
+         familyi={M\bibinitperiod},
+         given={B.\bibnamedelima M.},
+         giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=RTP}{%
+         family={Roth},
+         familyi={R\bibinitperiod},
+         given={T.\bibnamedelima P.},
+         giveni={T\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \keyw{authorisation;access control;compensation;cyber-physical
+  system;enforcement mechanism;information flow security;cyber-physical
+  systems;execution monitoring enforcement;information flow security;runtime
+  security}
+    \strng{namehash}{GTTMBMRTP1}
+    \strng{fullhash}{GTTMBMRTP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{GMR10}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{booktitle}{2010 IEEE 34th Annual Computer Software and Applications
+  Conference Workshops}
+    \verb{doi}
+    \verb 10.1109/COMPSACW.2010.36
+    \endverb
+    \field{pages}{158\bibrangedash 163}
+    \field{title}{Enforcing Information Flow Security Properties in
+  Cyber-Physical Systems: A Generalized Framework Based on Compensation}
+    \field{year}{2010}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{CPSSecVinyl}{inproceedings}{}
@@ -2672,6 +2688,7 @@
     \strng{fullhash}{GDGPIAKMLJWA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Gol+15}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \field{booktitle}{Proceedings of the 1st ACM Workshop on Cyber-Physical
@@ -2692,6 +2709,57 @@
     }
     \field{year}{2015}
     \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{JustAssume}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=GE}{%
+         family={Goldberg},
+         familyi={G\bibinitperiod},
+         given={E.},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={G�demann},
+         familyi={G\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KD}{%
+         family={Kroening},
+         familyi={K\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Mukherjee},
+         familyi={M\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \keyw{program debugging;program verification;JA-verification;debugging
+  set;just-assume;multiproperty design verification;safety
+  properties;Debugging;Aggregates;Machinery;Safety;Field effect
+  transistors;Contracts;Context modeling}
+    \strng{namehash}{GE+1}
+    \strng{fullhash}{GEGMKDMR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Gol+18}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{booktitle}{2018 Design, Automation Test in Europe Conference
+  Exhibition (DATE)}
+    \verb{doi}
+    \verb 10.23919/DATE.2018.8341977
+    \endverb
+    \field{issn}{1558-1101}
+    \field{pages}{43\bibrangedash 48}
+    \field{title}{Efficient verification of multi-property designs (The benefit
+  of wrong assumptions)}
+    \field{year}{2018}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{Gunther1990}{inproceedings}{}
@@ -2724,6 +2792,7 @@
     \strng{fullhash}{GCG1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{G{\"u}n90}
     \field{sortinit}{G}
     \field{sortinithash}{G}
     \field{abstract}{%
@@ -2774,6 +2843,7 @@
     \strng{fullhash}{HSEMCG1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{HEC20}
     \field{sortinit}{H}
     \field{sortinithash}{H}
     \field{booktitle}{2020 IEEE 13th International Conference on Software
@@ -2801,6 +2871,7 @@
     \strng{fullhash}{HL1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{{Hel}63}
     \field{sortinit}{H}
     \field{sortinithash}{H}
     \verb{doi}
@@ -2844,6 +2915,7 @@
     \strng{fullhash}{HGMB1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{HM14}
     \field{sortinit}{H}
     \field{sortinithash}{H}
     \field{booktitle}{2014 Eighth International Conference on Software Security
@@ -2855,6 +2927,30 @@
     \field{title}{A Modal Model of Stuxnet Attacks on Cyber-physical Systems: A
   Matter of Trust}
     \field{year}{2014}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{HWMCC2011}{misc}{}
+    \field{labelalpha}{Hwm}
+    \field{extraalpha}{1}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{url}
+    \verb http://fmv.jku.at/hwmcc11/index.html
+    \endverb
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{HWMCC2013}{misc}{}
+    \field{labelalpha}{Hwm}
+    \field{extraalpha}{2}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{url}
+    \verb http://fmv.jku.at/hwmcc13/index.html
+    \endverb
+    \field{year}{2013}
     \warn{\item Invalid format of field 'month'}
   \endentry
 
@@ -2872,6 +2968,7 @@
     \strng{namehash}{IIETF1}
     \strng{fullhash}{IIETF1}
     \field{labelnamesource}{author}
+    \field{labelalpha}{(IE20}
     \field{sortinit}{I}
     \field{sortinithash}{I}
     \verb{url}
@@ -2897,6 +2994,7 @@
     \strng{fullhash}{JB1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Jac16}
     \field{sortinit}{J}
     \field{sortinithash}{J}
     \verb{doi}
@@ -2951,12 +3049,135 @@
     \strng{fullhash}{JBCDKMSDBNGC1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Joh+17}
     \field{sortinit}{J}
     \field{sortinithash}{J}
     \field{title}{Attackers Deploy New {ICS Attack Framework" TRITON"} and
   Cause Operational Disruption to Critical Infrastructure}
     \field{journaltitle}{Threat Research Blog}
     \field{year}{2017}
+  \endentry
+
+  \entry{krotofil2015rocking}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=KM}{%
+         family={Krotofil},
+         familyi={K\bibinitperiod},
+         given={Marina},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Larsen},
+         familyi={L\bibinitperiod},
+         given={Jason},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KMLJ1}
+    \strng{fullhash}{KMLJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{KL15}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{DefCon Conference, DEFCON}
+    \field{title}{Rocking the pocket book: Hacking chemical plants}
+    \field{year}{2015}
+  \endentry
+
+  \entry{KleenesTheorem}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=KS}{%
+         family={Kleene},
+         familyi={K\bibinitperiod},
+         given={Stephen},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KS1}
+    \strng{fullhash}{KS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Kle56}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{Automata Studies}
+    \field{pages}{3\bibrangedash 42}
+    \field{title}{Representation of events in nerve nets and finite automata}
+    \field{year}{1956}
+  \endentry
+
+  \entry{KMO12}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=KB}{%
+         family={K{\"o}pf},
+         familyi={K\bibinitperiod},
+         given={Boris},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=ML}{%
+         family={Mauborgne},
+         familyi={M\bibinitperiod},
+         given={Laurent},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=OM}{%
+         family={Ochoa},
+         familyi={O\bibinitperiod},
+         given={Mart{\'i}n},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=MP}{%
+         family={Madhusudan},
+         familyi={M\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=SSA}{%
+         family={Seshia},
+         familyi={S\bibinitperiod},
+         given={Sanjit\bibnamedelima A.},
+         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{KBMLOM1}
+    \strng{fullhash}{KBMLOM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{KMO12}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    The latency gap between caches and main memory has been successfully
+  exploited for recovering sensitive input to programs, such as cryptographic
+  keys from implementation of AES and RSA. So far, there are no practical
+  general-purpose countermeasures against this threat. In this paper we propose
+  a novel method for automatically deriving upper bounds on the amount of
+  information about the input that an adversary can extract from a program by
+  observing the CPU's cache behavior. At the heart of our approach is a novel
+  technique for efficient counting of concretizations of abstract cache states
+  that enables us to connect state-of-the-art techniques for static cache
+  analysis and quantitative information-flow. We implement our counting
+  procedure on top of the AbsInt TimingExplorer, one of the most advanced
+  engines for static cache analysis. We use our tool to perform a case study
+  where we derive upper bounds on the cache leakage of a 128-bit AES executable
+  on an ARM processor. We also analyze this implementation with a commonly
+  suggested (but until now heuristic) countermeasure applied, obtaining a
+  formal account of the corresponding increase in security.%
+    }
+    \field{booktitle}{Computer Aided Verification}
+    \field{isbn}{978-3-642-31424-7}
+    \field{pages}{564\bibrangedash 580}
+    \field{title}{Automatic Quantification of Cache Side-Channels}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2012}
   \endentry
 
   \entry{Spectre}{inproceedings}{}
@@ -3040,6 +3261,7 @@
     \strng{fullhash}{KPHJFAGDGDHWHMLMMSPTSMYY1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Koc+19}
     \field{sortinit}{K}
     \field{sortinithash}{K}
     \field{booktitle}{40th IEEE Symposium on Security and Privacy (S\&P'19)}
@@ -3047,76 +3269,53 @@
     \field{year}{2019}
   \endentry
 
-  \entry{KMO12}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=KB}{%
-         family={K{\"o}pf},
+  \entry{MuCalculus}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=KD}{%
+         family={Kozen},
          familyi={K\bibinitperiod},
-         given={Boris},
-         giveni={B\bibinitperiod},
-      }}%
-      {{hash=ML}{%
-         family={Mauborgne},
-         familyi={M\bibinitperiod},
-         given={Laurent},
-         giveni={L\bibinitperiod},
-      }}%
-      {{hash=OM}{%
-         family={Ochoa},
-         familyi={O\bibinitperiod},
-         given={Mart{\'i}n},
-         giveni={M\bibinitperiod},
+         given={Dexter},
+         giveni={D\bibinitperiod},
       }}%
     }
     \name{editor}{2}{}{%
-      {{hash=MP}{%
-         family={Madhusudan},
-         familyi={M\bibinitperiod},
-         given={P.},
-         giveni={P\bibinitperiod},
+      {{hash=NM}{%
+         family={Nielsen},
+         familyi={N\bibinitperiod},
+         given={Mogens},
+         giveni={M\bibinitperiod},
       }}%
-      {{hash=SSA}{%
-         family={Seshia},
+      {{hash=SEM}{%
+         family={Schmidt},
          familyi={S\bibinitperiod},
-         given={Sanjit\bibnamedelima A.},
-         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+         given={Erik\bibnamedelima Meineche},
+         giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod},
       }}%
     }
     \list{publisher}{1}{%
       {Springer Berlin Heidelberg}%
     }
-    \strng{namehash}{KBMLOM1}
-    \strng{fullhash}{KBMLOM1}
+    \strng{namehash}{KD1}
+    \strng{fullhash}{KD1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Koz82}
     \field{sortinit}{K}
     \field{sortinithash}{K}
     \field{abstract}{%
-    The latency gap between caches and main memory has been successfully
-  exploited for recovering sensitive input to programs, such as cryptographic
-  keys from implementation of AES and RSA. So far, there are no practical
-  general-purpose countermeasures against this threat. In this paper we propose
-  a novel method for automatically deriving upper bounds on the amount of
-  information about the input that an adversary can extract from a program by
-  observing the CPU's cache behavior. At the heart of our approach is a novel
-  technique for efficient counting of concretizations of abstract cache states
-  that enables us to connect state-of-the-art techniques for static cache
-  analysis and quantitative information-flow. We implement our counting
-  procedure on top of the AbsInt TimingExplorer, one of the most advanced
-  engines for static cache analysis. We use our tool to perform a case study
-  where we derive upper bounds on the cache leakage of a 128-bit AES executable
-  on an ARM processor. We also analyze this implementation with a commonly
-  suggested (but until now heuristic) countermeasure applied, obtaining a
-  formal account of the corresponding increase in security.%
+    We define a propositional version of the $\Mu$-calculus, and give an
+  exponential-time decision procedure, small model property, and complete
+  deductive system. We also show that it is strictly more expressive than PDL.
+  Finally, we give an algebraic semantics and prove a representation theorem.%
     }
-    \field{booktitle}{Computer Aided Verification}
-    \field{isbn}{978-3-642-31424-7}
-    \field{pages}{564\bibrangedash 580}
-    \field{title}{Automatic Quantification of Cache Side-Channels}
+    \field{booktitle}{Automata, Languages and Programming}
+    \field{isbn}{978-3-540-39308-5}
+    \field{pages}{348\bibrangedash 359}
+    \field{title}{Results on the propositional $\mu$-calculus}
     \list{location}{1}{%
       {Berlin, Heidelberg}%
     }
-    \field{year}{2012}
+    \field{year}{1982}
   \endentry
 
   \entry{KATForCompilers}{inproceedings}{}
@@ -3141,6 +3340,7 @@
     \strng{fullhash}{KDPMC1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{KP00}
     \field{sortinit}{K}
     \field{sortinithash}{K}
     \field{abstract}{%
@@ -3213,6 +3413,7 @@
     \strng{fullhash}{KDSO1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{KS03}
     \field{sortinit}{K}
     \field{sortinithash}{K}
     \field{abstract}{%
@@ -3240,32 +3441,6 @@
       {Berlin, Heidelberg}%
     }
     \field{year}{2003}
-  \endentry
-
-  \entry{krotofil2015rocking}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=KM}{%
-         family={Krotofil},
-         familyi={K\bibinitperiod},
-         given={Marina},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=LJ}{%
-         family={Larsen},
-         familyi={L\bibinitperiod},
-         given={Jason},
-         giveni={J\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{KMLJ1}
-    \strng{fullhash}{KMLJ1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{K}
-    \field{sortinithash}{K}
-    \field{booktitle}{DefCon Conference, DEFCON}
-    \field{title}{Rocking the pocket book: Hacking chemical plants}
-    \field{year}{2015}
   \endentry
 
   \entry{AIGs2}{article}{}
@@ -3306,6 +3481,7 @@
     \strng{fullhash}{KAPVKFGMK1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{{Kue}+02}
     \field{sortinit}{K}
     \field{sortinithash}{K}
     \verb{doi}
@@ -3319,6 +3495,17 @@
     \field{journaltitle}{IEEE Transactions on Computer-Aided Design of
   Integrated Circuits and Systems}
     \field{year}{2002}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Lagebericht2014}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Lag}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+  \field{howpublished}{\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/\\Lageberichte/Lagebericht2014.pdf}}
+    \field{title}{{Bericht zur Lage der IT-Sicherheit in Deutschland 2014}}
+    \field{year}{2017}
     \warn{\item Invalid format of field 'month'}
   \endentry
 
@@ -3341,6 +3528,7 @@
     \strng{fullhash}{LR1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Lan11}
     \field{sortinit}{L}
     \field{sortinithash}{L}
     \verb{doi}
@@ -3374,6 +3562,7 @@
     \strng{fullhash}{LX1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Ler06}
     \field{sortinit}{L}
     \field{sortinithash}{L}
     \field{abstract}{%
@@ -3404,6 +3593,43 @@
     }
     \field{year}{2006}
     \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{MemoryTraceOblivious}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=LC}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Chang},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HM}{%
+         family={Hicks},
+         familyi={H\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SE}{%
+         family={Shi},
+         familyi={S\bibinitperiod},
+         given={Elaine},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LCHMSE1}
+    \strng{fullhash}{LCHMSE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{LHS13}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{booktitle}{2013 IEEE 26th Computer Security Foundations Symposium}
+    \verb{doi}
+    \verb 10.1109/CSF.2013.11
+    \endverb
+    \field{pages}{51\bibrangedash 65}
+    \field{title}{Memory Trace Oblivious Program Execution}
+    \field{year}{2013}
   \endentry
 
   \entry{Meltdown}{inproceedings}{}
@@ -3488,6 +3714,7 @@
     \strng{fullhash}{LMSMGDPTHWFAHJMSKPGDYYHM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Lip+18}
     \field{sortinit}{L}
     \field{sortinithash}{L}
     \field{booktitle}{27th {USENIX} Security Symposium ({USENIX} Security 18)}
@@ -3502,42 +3729,6 @@
     }
     \field{month}{08}
     \field{year}{2018}
-  \endentry
-
-  \entry{MemoryTraceOblivious}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=LC}{%
-         family={Liu},
-         familyi={L\bibinitperiod},
-         given={Chang},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=HM}{%
-         family={Hicks},
-         familyi={H\bibinitperiod},
-         given={Michael},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=SE}{%
-         family={Shi},
-         familyi={S\bibinitperiod},
-         given={Elaine},
-         giveni={E\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{LCHMSE1}
-    \strng{fullhash}{LCHMSE1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \field{booktitle}{2013 IEEE 26th Computer Security Foundations Symposium}
-    \verb{doi}
-    \verb 10.1109/CSF.2013.11
-    \endverb
-    \field{pages}{51\bibrangedash 65}
-    \field{title}{Memory Trace Oblivious Program Execution}
-    \field{year}{2013}
   \endentry
 
   \entry{prime-probe}{inproceedings}{}
@@ -3577,6 +3768,7 @@
     \strng{fullhash}{LFYYGQHGLRB1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{{Liu}+15}
     \field{sortinit}{L}
     \field{sortinithash}{L}
     \field{booktitle}{2015 IEEE Symposium on Security and Privacy}
@@ -3619,6 +3811,7 @@
     \strng{fullhash}{MSEZSAPDJMPD1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{McL+14}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{booktitle}{21st Annual Network and Distributed System Security
@@ -3661,6 +3854,7 @@
     \strng{fullhash}{MKL1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{McM03}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{abstract}{%
@@ -3678,46 +3872,6 @@
       {Berlin, Heidelberg}%
     }
     \field{year}{2003}
-  \endentry
-
-  \entry{Menezes1996}{book}{}
-    \name{author}{3}{}{%
-      {{hash=MAJ}{%
-         family={Menezes},
-         familyi={M\bibinitperiod},
-         given={Alfred\bibnamedelima J.},
-         giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
-      }}%
-      {{hash=VSA}{%
-         family={Vanstone},
-         familyi={V\bibinitperiod},
-         given={Scott\bibnamedelima A.},
-         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
-      }}%
-      {{hash=OPCV}{%
-         family={Oorschot},
-         familyi={O\bibinitperiod},
-         given={Paul C.\bibnamedelima Van},
-         giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim
-  V\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {CRC Press, Inc.}%
-    }
-    \strng{namehash}{MAJVSAOPCV1}
-    \strng{fullhash}{MAJVSAOPCV1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{edition}{1st}
-    \field{isbn}{0849385237}
-    \field{title}{Handbook of Applied Cryptography}
-    \list{location}{1}{%
-      {Boca Raton, FL, USA}%
-    }
-    \field{year}{1996}
   \endentry
 
   \entry{CPSDetectingIntegrityAttacksScada}{article}{}
@@ -3752,6 +3906,7 @@
     \strng{fullhash}{MYCRSB1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{MCS14}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \verb{doi}
@@ -3765,116 +3920,6 @@
     \field{journaltitle}{IEEE Transactions on Control Systems Technology}
     \field{year}{2014}
     \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{CPSDataInjectionAttacks}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=MY}{%
-         family={Mo},
-         familyi={M\bibinitperiod},
-         given={Y.},
-         giveni={Y\bibinitperiod},
-      }}%
-      {{hash=SB}{%
-         family={Sinopoli},
-         familyi={S\bibinitperiod},
-         given={B.},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{MYSB1}
-    \strng{fullhash}{MYSB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{booktitle}{Proc. 1st Workshop Secure Control Syst., Stocholm,
-  Sweeden}
-    \field{title}{False data injection attacks in control systems}
-    \field{year}{2010}
-  \endentry
-
-  \entry{CPSReplayAttacks}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=MY}{%
-         family={Mo},
-         familyi={M\bibinitperiod},
-         given={Y.},
-         giveni={Y\bibinitperiod},
-      }}%
-      {{hash=SB}{%
-         family={Sinopoli},
-         familyi={S\bibinitperiod},
-         given={B.},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \keyw{discrete time systems;linear quadratic Gaussian control;security of
-  data;control system;discrete time linear time invariant Gaussian
-  system;failure detector;linear quadratic Gaussian controller;replay
-  attacks;secure control;sensors;Aerodynamics;Communication system
-  control;Computer crime;Control systems;Detection
-  algorithms;Detectors;National security;Robust control;Steady-state;Video
-  recording}
-    \strng{namehash}{MYSB1}
-    \strng{fullhash}{MYSB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{booktitle}{2009 47th Annual Allerton Conference on Communication,
-  Control, and Computing (Allerton)}
-    \verb{doi}
-    \verb 10.1109/ALLERTON.2009.5394956
-    \endverb
-    \field{pages}{911\bibrangedash 918}
-    \field{title}{Secure control against replay attacks}
-    \field{year}{2009}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
-  \entry{CPSIntegrityAttacks}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=MY}{%
-         family={Mo},
-         familyi={M\bibinitperiod},
-         given={Yilin},
-         giveni={Y\bibinitperiod},
-      }}%
-      {{hash=SB}{%
-         family={Sinopoli},
-         familyi={S\bibinitperiod},
-         given={Bruno},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {ACM}%
-    }
-    \keyw{cyber-physical systems, reachability analysis, security}
-    \strng{namehash}{MYSB2}
-    \strng{fullhash}{MYSB2}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{booktitle}{Proceedings of the 1st International Conference on High
-  Confidence Networked Systems}
-    \verb{doi}
-    \verb 10.1145/2185505.2185514
-    \endverb
-    \field{isbn}{978-1-4503-1263-9}
-    \field{pages}{47\bibrangedash 54}
-    \field{series}{HiCoNS '12}
-    \field{title}{Integrity Attacks on Cyber-physical Systems}
-    \verb{url}
-    \verb http://doi.acm.org/10.1145/2185505.2185514
-    \endverb
-    \list{location}{1}{%
-      {Beijing, China}%
-    }
-    \field{year}{2012}
-    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{Molnar}{inproceedings}{}
@@ -3911,6 +3956,7 @@
     \strng{fullhash}{MDPMSDWD1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Mol+05}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{title}{The Program Counter Security Model: Automatic Detection and
@@ -3941,6 +3987,8 @@
     \strng{fullhash}{MCRJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{MR16}
+    \field{extraalpha}{1}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{booktitle}{proceedings of the 55th IEEE Conference on Decision and
@@ -3969,6 +4017,8 @@
     \strng{fullhash}{MCRJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{MR16}
+    \field{extraalpha}{2}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{booktitle}{proceedings of the IEEE Multi-Conference on Systems and
@@ -3976,6 +4026,160 @@
     \field{title}{CUSUM and Chi-Squared Attack Detection of Compromised
   Sensors}
     \field{year}{2016}
+  \endentry
+
+  \entry{CPSReplayAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MY}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \keyw{discrete time systems;linear quadratic Gaussian control;security of
+  data;control system;discrete time linear time invariant Gaussian
+  system;failure detector;linear quadratic Gaussian controller;replay
+  attacks;secure control;sensors;Aerodynamics;Communication system
+  control;Computer crime;Control systems;Detection
+  algorithms;Detectors;National security;Robust control;Steady-state;Video
+  recording}
+    \strng{namehash}{MYSB1}
+    \strng{fullhash}{MYSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MS09}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{2009 47th Annual Allerton Conference on Communication,
+  Control, and Computing (Allerton)}
+    \verb{doi}
+    \verb 10.1109/ALLERTON.2009.5394956
+    \endverb
+    \field{pages}{911\bibrangedash 918}
+    \field{title}{Secure control against replay attacks}
+    \field{year}{2009}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{CPSDataInjectionAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MY}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MYSB1}
+    \strng{fullhash}{MYSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MS10}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{Proc. 1st Workshop Secure Control Syst., Stocholm,
+  Sweeden}
+    \field{title}{False data injection attacks in control systems}
+    \field{year}{2010}
+  \endentry
+
+  \entry{CPSIntegrityAttacks}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MY}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Yilin},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={Bruno},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{cyber-physical systems, reachability analysis, security}
+    \strng{namehash}{MYSB2}
+    \strng{fullhash}{MYSB2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MS12}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{Proceedings of the 1st International Conference on High
+  Confidence Networked Systems}
+    \verb{doi}
+    \verb 10.1145/2185505.2185514
+    \endverb
+    \field{isbn}{978-1-4503-1263-9}
+    \field{pages}{47\bibrangedash 54}
+    \field{series}{HiCoNS '12}
+    \field{title}{Integrity Attacks on Cyber-physical Systems}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2185505.2185514
+    \endverb
+    \list{location}{1}{%
+      {Beijing, China}%
+    }
+    \field{year}{2012}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{Menezes1996}{book}{}
+    \name{author}{3}{}{%
+      {{hash=MAJ}{%
+         family={Menezes},
+         familyi={M\bibinitperiod},
+         given={Alfred\bibnamedelima J.},
+         giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=VSA}{%
+         family={Vanstone},
+         familyi={V\bibinitperiod},
+         given={Scott\bibnamedelima A.},
+         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=OPCV}{%
+         family={Oorschot},
+         familyi={O\bibinitperiod},
+         given={Paul C.\bibnamedelima Van},
+         giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim
+  V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {CRC Press, Inc.}%
+    }
+    \strng{namehash}{MAJVSAOPCV1}
+    \strng{fullhash}{MAJVSAOPCV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MVO96}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{edition}{1st}
+    \field{isbn}{0849385237}
+    \field{title}{Handbook of Applied Cryptography}
+    \list{location}{1}{%
+      {Boca Raton, FL, USA}%
+    }
+    \field{year}{1996}
   \endentry
 
   \entry{ReachableSets}{inproceedings}{}
@@ -4005,47 +4209,13 @@
     \strng{fullhash}{MCWNvdRJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{MWR17}
     \field{sortinit}{M}
     \field{sortinithash}{M}
     \field{booktitle}{IFAC 2017 World Congress}
     \field{title}{Reachable Sets of Hidden CPS Sensor Attacks: Analysis and
   Synthesis Tools}
     \field{year}{2017}
-  \endentry
-
-  \entry{Carlos_Justin3}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=MC}{%
-         family={Murguia},
-         familyi={M\bibinitperiod},
-         given={Carlos},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=vdWN}{%
-         prefix={van\bibnamedelima de},
-         prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod},
-         family={Wouw},
-         familyi={W\bibinitperiod},
-         given={Nathan},
-         giveni={N\bibinitperiod},
-      }}%
-      {{hash=RJ}{%
-         family={Ruths},
-         familyi={R\bibinitperiod},
-         given={Justin},
-         giveni={J\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{MCWNvdRJ1}
-    \strng{fullhash}{MCWNvdRJ1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{booktitle}{proceedings of the IFAC World Congress}
-    \field{title}{Reachable Sets of Hidden CPS Sensor Attacks: Analysis and
-  Synthesis Tools}
-    \field{year}{accepred, 2016}
   \endentry
 
   \entry{7958606}{inproceedings}{}
@@ -4079,6 +4249,7 @@
     \strng{fullhash}{NVCDMFMHJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{{Ngo}+17}
     \field{sortinit}{N}
     \field{sortinithash}{N}
     \field{booktitle}{2017 IEEE Symposium on Security and Privacy (SP)}
@@ -4102,6 +4273,7 @@
     \strng{fullhash}{O1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Ope}
     \field{sortinit}{O}
     \field{sortinithash}{O}
     \field{title}{Welcome to the OpenSSL Project}
@@ -4148,6 +4320,7 @@
     \strng{fullhash}{PFDFBF1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{PDB13}
     \field{sortinit}{P}
     \field{sortinithash}{P}
     \verb{doi}
@@ -4161,6 +4334,43 @@
     \field{volume}{58}
     \field{journaltitle}{IEEE Transactions on Automatic Control}
     \field{year}{2013}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{LTL}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=PA}{%
+         family={Pnueli},
+         familyi={P\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE Computer Society}%
+    }
+    \strng{namehash}{PA1}
+    \strng{fullhash}{PA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Pnu77}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{booktitle}{2013 IEEE 54th Annual Symposium on Foundations of
+  Computer Science}
+    \verb{doi}
+    \verb 10.1109/SFCS.1977.32
+    \endverb
+    \field{issn}{0272-5428}
+    \field{pages}{46\bibrangedash 57}
+    \field{title}{The temporal logic of programs}
+    \verb{url}
+    \verb https://doi.ieeecomputersociety.org/10.1109/SFCS.1977.32
+    \endverb
+    \list{location}{1}{%
+      {Los Alamitos, CA, USA}%
+    }
+    \field{year}{1977}
     \warn{\item Invalid format of field 'month'}
   \endentry
 
@@ -4244,6 +4454,7 @@
     \strng{fullhash}{PJZJKRARTWPZBSDLAHCBKFCSN1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Pro+17}
     \field{sortinit}{P}
     \field{sortinithash}{P}
     \field{abstract}{%
@@ -4285,44 +4496,6 @@
     \field{year}{2017}
   \endentry
 
-  \entry{doi:10.1137/0325013}{article}{}
-    \name{author}{2}{}{%
-      {{hash=RPJ}{%
-         family={Ramadge},
-         familyi={R\bibinitperiod},
-         given={P.\bibnamedelima J.},
-         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
-      }}%
-      {{hash=WWM}{%
-         family={Wonham},
-         familyi={W\bibinitperiod},
-         given={W.\bibnamedelima M.},
-         giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{RPJWWM1}
-    \strng{fullhash}{RPJWWM1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \verb{doi}
-    \verb 10.1137/0325013
-    \endverb
-    \verb{eprint}
-    \verb https://doi.org/10.1137/0325013
-    \endverb
-    \field{number}{1}
-    \field{pages}{206\bibrangedash 230}
-    \field{title}{Supervisory Control of a Class of Discrete Event Processes}
-    \verb{url}
-    \verb https://doi.org/10.1137/0325013
-    \endverb
-    \field{volume}{25}
-    \field{journaltitle}{SIAM Journal on Control and Optimization}
-    \field{year}{1987}
-  \endentry
-
   \entry{Racoon}{inproceedings}{}
     \name{author}{3}{}{%
       {{hash=RA}{%
@@ -4351,6 +4524,7 @@
     \strng{fullhash}{RALCTM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{RLT15}
     \field{sortinit}{R}
     \field{sortinithash}{R}
     \field{booktitle}{24th {USENIX} Security Symposium ({USENIX} Security 15)}
@@ -4367,6 +4541,84 @@
     }
     \field{month}{08}
     \field{year}{2015}
+  \endentry
+
+  \entry{FlowTracker}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=RB}{%
+         family={Rodrigues},
+         familyi={R\bibinitperiod},
+         given={Bruno},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=QaPFM}{%
+         prefix={Quint\~{a}o},
+         prefixi={Q\bibinitperiod\bibinitdelim a\bibinitperiod},
+         family={Pereira},
+         familyi={P\bibinitperiod},
+         given={Fernando\bibnamedelima Magno},
+         giveni={F\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=ADF}{%
+         family={Aranha},
+         familyi={A\bibinitperiod},
+         given={Diego\bibnamedelima F.},
+         giveni={D\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for Computing Machinery}%
+    }
+    \keyw{implicit flows, SSA, sparse analyses, Information flow}
+    \strng{namehash}{RBPFMQaADF1}
+    \strng{fullhash}{RBPFMQaADF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{RPA16}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    Information flow analyses traditionally use the Program Dependence Graph
+  (PDG) as a supporting data-structure. This graph relies on Ferrante et al.'s
+  notion of control dependences to represent implicit flows of information. A
+  limitation of this approach is that it may create O(|I| x |E|) implicit flow
+  edges in the PDG, where I are the instructions in a program, and E are the
+  edges in its control flow graph. This paper shows that it is possible to
+  compute information flow analyses using a different notion of implicit
+  dependence, which yields a number of edges linear on the number of
+  definitions plus uses of variables. Our algorithm computes these dependences
+  in a single traversal of the program's dominance tree. This efficiency is
+  possible due to a key property of programs in Static Single Assignment form:
+  the definition of a variable dominates all its uses. Our algorithm correctly
+  implements Hunt and Sands system of security types. Contrary to their
+  original formulation, which required O(IxI) space and time for structured
+  programs, we require only O(I). We have used our ideas to build FlowTracker,
+  a tool that uncovers side-channel vulnerabilities in cryptographic
+  algorithms. FlowTracker handles programs with over one-million assembly
+  instructions in less than 200 seconds, and creates 24% less implicit flow
+  edges than Ferrante et al.'s technique. FlowTracker has detected an issue in
+  a constant-time implementation of Elliptic Curve Cryptography; it has found
+  several time-variant constructions in OpenSSL, one issue in TrueCrypt and it
+  has validated the isochronous behavior of the NaCl library.%
+    }
+    \field{booktitle}{Proceedings of the 25th International Conference on
+  Compiler Construction}
+    \verb{doi}
+    \verb 10.1145/2892208.2892230
+    \endverb
+    \field{isbn}{9781450342414}
+    \field{pages}{110\bibrangedash 120}
+    \field{series}{CC 2016}
+    \field{title}{Sparse Representation of Implicit Flows with Applications to
+  Side-Channel Detection}
+    \verb{url}
+    \verb https://doi.org/10.1145/2892208.2892230
+    \endverb
+    \list{location}{1}{%
+      {Barcelona, Spain}%
+    }
+    \field{year}{2016}
+    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{CPSDolevYao}{inbook}{}
@@ -4411,6 +4663,8 @@
     \strng{fullhash}{RMTNO1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{RT16}
+    \field{extraalpha}{1}
     \field{sortinit}{R}
     \field{sortinithash}{R}
     \field{booktitle}{Formal Methods and Software Engineering: 18th
@@ -4480,6 +4734,8 @@
     \strng{fullhash}{RMTNO1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{RT16}
+    \field{extraalpha}{2}
     \field{sortinit}{R}
     \field{sortinithash}{R}
     \field{abstract}{%
@@ -4511,150 +4767,6 @@
     \field{year}{2016}
   \endentry
 
-  \entry{FlowTracker}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=RB}{%
-         family={Rodrigues},
-         familyi={R\bibinitperiod},
-         given={Bruno},
-         giveni={B\bibinitperiod},
-      }}%
-      {{hash=QaPFM}{%
-         prefix={Quint\~{a}o},
-         prefixi={Q\bibinitperiod\bibinitdelim a\bibinitperiod},
-         family={Pereira},
-         familyi={P\bibinitperiod},
-         given={Fernando\bibnamedelima Magno},
-         giveni={F\bibinitperiod\bibinitdelim M\bibinitperiod},
-      }}%
-      {{hash=ADF}{%
-         family={Aranha},
-         familyi={A\bibinitperiod},
-         given={Diego\bibnamedelima F.},
-         giveni={D\bibinitperiod\bibinitdelim F\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Association for Computing Machinery}%
-    }
-    \keyw{implicit flows, SSA, sparse analyses, Information flow}
-    \strng{namehash}{RBPFMQaADF1}
-    \strng{fullhash}{RBPFMQaADF1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \field{abstract}{%
-    Information flow analyses traditionally use the Program Dependence Graph
-  (PDG) as a supporting data-structure. This graph relies on Ferrante et al.'s
-  notion of control dependences to represent implicit flows of information. A
-  limitation of this approach is that it may create O(|I| x |E|) implicit flow
-  edges in the PDG, where I are the instructions in a program, and E are the
-  edges in its control flow graph. This paper shows that it is possible to
-  compute information flow analyses using a different notion of implicit
-  dependence, which yields a number of edges linear on the number of
-  definitions plus uses of variables. Our algorithm computes these dependences
-  in a single traversal of the program's dominance tree. This efficiency is
-  possible due to a key property of programs in Static Single Assignment form:
-  the definition of a variable dominates all its uses. Our algorithm correctly
-  implements Hunt and Sands system of security types. Contrary to their
-  original formulation, which required O(IxI) space and time for structured
-  programs, we require only O(I). We have used our ideas to build FlowTracker,
-  a tool that uncovers side-channel vulnerabilities in cryptographic
-  algorithms. FlowTracker handles programs with over one-million assembly
-  instructions in less than 200 seconds, and creates 24% less implicit flow
-  edges than Ferrante et al.'s technique. FlowTracker has detected an issue in
-  a constant-time implementation of Elliptic Curve Cryptography; it has found
-  several time-variant constructions in OpenSSL, one issue in TrueCrypt and it
-  has validated the isochronous behavior of the NaCl library.%
-    }
-    \field{booktitle}{Proceedings of the 25th International Conference on
-  Compiler Construction}
-    \verb{doi}
-    \verb 10.1145/2892208.2892230
-    \endverb
-    \field{isbn}{9781450342414}
-    \field{pages}{110\bibrangedash 120}
-    \field{series}{CC 2016}
-    \field{title}{Sparse Representation of Implicit Flows with Applications to
-  Side-Channel Detection}
-    \verb{url}
-    \verb https://doi.org/10.1145/2892208.2892230
-    \endverb
-    \list{location}{1}{%
-      {Barcelona, Spain}%
-    }
-    \field{year}{2016}
-    \warn{\item Can't use 'location' + 'address'}
-  \endentry
-
-  \entry{SystematicClassification}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=RME}{%
-         family={Rothstein-Morris},
-         familyi={R\bibinithyphendelim M\bibinitperiod},
-         given={Eric},
-         giveni={E\bibinitperiod},
-      }}%
-      {{hash=SJ}{%
-         family={Sun},
-         familyi={S\bibinitperiod},
-         given={Jun},
-         giveni={J\bibinitperiod},
-      }}%
-      {{hash=CS}{%
-         family={Chattopadhyay},
-         familyi={C\bibinitperiod},
-         given={Sudipta},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \name{editor}{2}{}{%
-      {{hash=BD}{%
-         family={Beyer},
-         familyi={B\bibinitperiod},
-         given={Dirk},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=ZD}{%
-         family={Zufferey},
-         familyi={Z\bibinitperiod},
-         given={Damien},
-         giveni={D\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Springer International Publishing}%
-    }
-    \strng{namehash}{RMESJCS1}
-    \strng{fullhash}{RMESJCS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \field{abstract}{%
-    In this work, we study the problem of verification of systems in the
-  presence of attackers using bounded model checking. Given a system and a set
-  of security requirements, we present a methodology to generate and classify
-  attackers, mapping them to the set of requirements that they can break. A
-  naive approach suffers from the same shortcomings of any large model checking
-  problem, i.e., memory shortage and exponential time. To cope with these
-  shortcomings, we describe two sound heuristics based on cone-of-influence
-  reduction and on learning, which we demonstrate empirically by applying our
-  methodology to a set of hardware benchmark systems.%
-    }
-    \field{booktitle}{Verification, Model Checking, and Abstract
-  Interpretation}
-    \field{isbn}{978-3-030-39322-9}
-    \field{pages}{226\bibrangedash 247}
-    \field{title}{Systematic Classification of Attackers via Bounded Model
-  Checking}
-    \list{location}{1}{%
-      {Cham}%
-    }
-    \field{year}{2020}
-  \endentry
-
   \entry{UniversalCoalgebra}{article}{}
     \name{author}{1}{}{%
       {{hash=RJ}{%
@@ -4673,6 +4785,7 @@
     \strng{fullhash}{RJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Rut00}
     \field{sortinit}{R}
     \field{sortinithash}{R}
     \verb{doi}
@@ -4688,6 +4801,84 @@
     }
     \field{journaltitle}{Theorethical Computer Science}
     \field{year}{2000}
+  \endentry
+
+  \entry{doi:10.1137/0325013}{article}{}
+    \name{author}{2}{}{%
+      {{hash=RPJ}{%
+         family={Ramadge},
+         familyi={R\bibinitperiod},
+         given={P.\bibnamedelima J.},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=WWM}{%
+         family={Wonham},
+         familyi={W\bibinitperiod},
+         given={W.\bibnamedelima M.},
+         giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RPJWWM1}
+    \strng{fullhash}{RPJWWM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{RW87}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \verb{doi}
+    \verb 10.1137/0325013
+    \endverb
+    \verb{eprint}
+    \verb https://doi.org/10.1137/0325013
+    \endverb
+    \field{number}{1}
+    \field{pages}{206\bibrangedash 230}
+    \field{title}{Supervisory Control of a Class of Discrete Event Processes}
+    \verb{url}
+    \verb https://doi.org/10.1137/0325013
+    \endverb
+    \field{volume}{25}
+    \field{journaltitle}{SIAM Journal on Control and Optimization}
+    \field{year}{1987}
+  \endentry
+
+  \entry{WhatYouCisWhatYouGet}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=SL}{%
+         family={Simon},
+         familyi={S\bibinitperiod},
+         given={Laurent},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=CD}{%
+         family={Chisnall},
+         familyi={C\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=AR}{%
+         family={Anderson},
+         familyi={A\bibinitperiod},
+         given={Ross},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SLCDAR1}
+    \strng{fullhash}{SLCDAR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{SCA18}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{2018 IEEE European Symposium on Security and Privacy
+  (EuroS P)}
+    \verb{doi}
+    \verb 10.1109/EuroSP.2018.00009
+    \endverb
+    \field{pages}{1\bibrangedash 15}
+    \field{title}{What You Get is What You C: Controlling Side Effects in
+  Mainstream C Compilers}
+    \field{year}{2018}
   \endentry
 
   \entry{GKATCoequations}{article}{}
@@ -4721,6 +4912,7 @@
     \strng{fullhash}{STKTKDSA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Sch+21}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \verb{eprint}
@@ -4754,6 +4946,7 @@
     \strng{fullhash}{SH1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Sha07}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \field{abstract}{%
@@ -4797,6 +4990,7 @@
     \strng{fullhash}{SA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Sil10}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \field{title}{{Kleene Coalgebras}}
@@ -4839,6 +5033,7 @@
     \strng{fullhash}{SABFBMRJ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Sil+13}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \verb{doi}
@@ -4854,44 +5049,6 @@
     \field{year}{2013}
   \endentry
 
-  \entry{WhatYouCisWhatYouGet}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=SL}{%
-         family={Simon},
-         familyi={S\bibinitperiod},
-         given={Laurent},
-         giveni={L\bibinitperiod},
-      }}%
-      {{hash=CD}{%
-         family={Chisnall},
-         familyi={C\bibinitperiod},
-         given={David},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=AR}{%
-         family={Anderson},
-         familyi={A\bibinitperiod},
-         given={Ross},
-         giveni={R\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{SLCDAR1}
-    \strng{fullhash}{SLCDAR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{S}
-    \field{sortinithash}{S}
-    \field{booktitle}{2018 IEEE European Symposium on Security and Privacy
-  (EuroS P)}
-    \verb{doi}
-    \verb 10.1109/EuroSP.2018.00009
-    \endverb
-    \field{pages}{1\bibrangedash 15}
-    \field{title}{What You Get is What You C: Controlling Side Effects in
-  Mainstream C Compilers}
-    \field{year}{2018}
-  \endentry
-
   \entry{CPSCovertAttacks}{article}{}
     \name{author}{1}{}{%
       {{hash=SRS}{%
@@ -4905,6 +5062,7 @@
     \strng{fullhash}{SRS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Smi11}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \verb{doi}
@@ -4972,6 +5130,7 @@
     \strng{fullhash}{SSFNHJKTKDSA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Smo+19}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \verb{doi}
@@ -5012,6 +5171,7 @@
     \strng{fullhash}{SLPFMQ1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{SP21}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \field{booktitle}{2021 IEEE/ACM International Symposium on Code Generation
@@ -5022,6 +5182,18 @@
     \field{pages}{200\bibrangedash 210}
     \field{title}{Memory-Safe Elimination of Side Channels}
     \field{year}{2021}
+  \endentry
+
+  \entry{StuxnetWeb}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Stu}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+  \field{howpublished}{\url{https://eugene.kaspersky.com/2011/11/02/the-man-who-found-stuxnet-sergey-ulasen-in-the-spotlight/}}
+    \field{note}{{Accessed: 2017-01-09}}
+    \field{title}{{The Man Who Found Stuxnet -- Sergey Ulasen in the
+  Spotlight}}
+    \field{year}{2011}
   \endentry
 
   \entry{Nondeducibility}{inproceedings}{}
@@ -5037,6 +5209,7 @@
     \strng{fullhash}{SD1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Sut86}
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \field{booktitle}{Proccedings of the National Computer Security Conference}
@@ -5057,6 +5230,7 @@
     \strng{fullhash}{T1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{{The}}
     \field{sortinit}{T}
     \field{sortinithash}{T}
     \field{title}{gdk3 Keyboard Handling}
@@ -5064,17 +5238,6 @@
     \verb https://developer.gnome.org/gdk3/stable/gdk3-Keyboard-Handling.html#g
     \verb dk-unicode-to-keyval
     \endverb
-  \endentry
-
-  \entry{StuxnetWeb}{misc}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{T}
-    \field{sortinithash}{T}
-  \field{howpublished}{\url{https://eugene.kaspersky.com/2011/11/02/the-man-who-found-stuxnet-sergey-ulasen-in-the-spotlight/}}
-    \field{note}{{Accessed: 2017-01-09}}
-    \field{title}{{The Man Who Found Stuxnet -- Sergey Ulasen in the
-  Spotlight}}
-    \field{year}{2011}
   \endentry
 
   \entry{Schmit}{inproceedings}{}
@@ -5119,6 +5282,7 @@
     \strng{fullhash}{TNSCPTA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{TN{\v{C}}T19}
     \field{sortinit}{T}
     \field{sortinithash}{T}
     \field{abstract}{%
@@ -5184,6 +5348,7 @@
     \strng{fullhash}{TGS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Tse83}
     \field{sortinit}{T}
     \field{sortinithash}{T}
     \field{abstract}{%
@@ -5278,94 +5443,7 @@
     \strng{fullhash}{UDIGJACAATNOVJFMRJCRSH1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{sortinit}{U}
-    \field{sortinithash}{U}
-    \field{booktitle}{Proceedings of the 2016 ACM SIGSAC Conference on Computer
-  and Communications Security}
-    \verb{doi}
-    \verb 10.1145/2976749.2978388
-    \endverb
-    \field{isbn}{978-1-4503-4139-4}
-    \field{pages}{1092\bibrangedash 1105}
-    \field{series}{CCS '16}
-    \field{title}{Limiting the Impact of Stealthy Attacks on Industrial Control
-  Systems}
-    \verb{url}
-    \verb http://doi.acm.org/10.1145/2976749.2978388
-    \endverb
-    \list{location}{1}{%
-      {Vienna, Austria}%
-    }
-    \field{year}{2016}
-    \warn{\item Can't use 'location' + 'address'}
-  \endentry
-
-  \entry{LimitingImpactStealthyAttacks}{inproceedings}{}
-    \name{author}{9}{}{%
-      {{hash=UDI}{%
-         family={Urbina},
-         familyi={U\bibinitperiod},
-         given={David\bibnamedelima I.},
-         giveni={D\bibinitperiod\bibinitdelim I\bibinitperiod},
-      }}%
-      {{hash=GJA}{%
-         family={Giraldo},
-         familyi={G\bibinitperiod},
-         given={Jairo\bibnamedelima A.},
-         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
-      }}%
-      {{hash=CAA}{%
-         family={Cardenas},
-         familyi={C\bibinitperiod},
-         given={Alvaro\bibnamedelima A.},
-         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
-      }}%
-      {{hash=TNO}{%
-         family={Tippenhauer},
-         familyi={T\bibinitperiod},
-         given={Nils\bibnamedelima Ole},
-         giveni={N\bibinitperiod\bibinitdelim O\bibinitperiod},
-      }}%
-      {{hash=VJ}{%
-         family={Valente},
-         familyi={V\bibinitperiod},
-         given={Junia},
-         giveni={J\bibinitperiod},
-      }}%
-      {{hash=FM}{%
-         family={Faisal},
-         familyi={F\bibinitperiod},
-         given={Mustafa},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=RJ}{%
-         family={Ruths},
-         familyi={R\bibinitperiod},
-         given={Justin},
-         giveni={J\bibinitperiod},
-      }}%
-      {{hash=CR}{%
-         family={Candell},
-         familyi={C\bibinitperiod},
-         given={Richard},
-         giveni={R\bibinitperiod},
-      }}%
-      {{hash=SH}{%
-         family={Sandberg},
-         familyi={S\bibinitperiod},
-         given={Henrik},
-         giveni={H\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {ACM}%
-    }
-    \keyw{industrial control systems, intrusion detection, physics-based
-  detection, security metrics, stealthy attacks}
-    \strng{namehash}{UDI+1}
-    \strng{fullhash}{UDIGJACAATNOVJFMRJCRSH1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
+    \field{labelalpha}{Urb+16}
     \field{sortinit}{U}
     \field{sortinithash}{U}
     \field{booktitle}{Proceedings of the 2016 ACM SIGSAC Conference on Computer
@@ -5447,6 +5525,7 @@
     \strng{fullhash}{VMDCGKvCSKRGJRTDSD1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Vas+21}
     \field{sortinit}{V}
     \field{sortinithash}{V}
     \field{abstract}{%
@@ -5524,6 +5603,7 @@
     \strng{fullhash}{WGCSGIMTRA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wan}+19}
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \verb{doi}
@@ -5534,34 +5614,6 @@
   Analysis}
     \field{journaltitle}{IEEE Transactions on Software Engineering}
     \field{year}{2019}
-  \endentry
-
-  \entry{Weerakkody}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=WS}{%
-         family={Weerakkody},
-         familyi={W\bibinitperiod},
-         given={S.},
-         giveni={S\bibinitperiod},
-      }}%
-      {{hash=SB}{%
-         family={Sinopoli},
-         familyi={S\bibinitperiod},
-         given={B.},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{WSSB1}
-    \strng{fullhash}{WSSB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{W}
-    \field{sortinithash}{W}
-    \field{booktitle}{2015 54th IEEE Conference on Decision and Control (CDC)}
-    \field{pages}{5820\bibrangedash 5826}
-    \field{title}{Detecting integrity attacks on control systems using a moving
-  target approach}
-    \field{year}{2015}
   \endentry
 
   \entry{IFCPSSec}{inproceedings}{}
@@ -5601,6 +5653,7 @@
     \strng{fullhash}{WSSBKSDA1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Wee+16}
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \field{booktitle}{2016 IEEE 55th Conference on Decision and Control (CDC)}
@@ -5611,6 +5664,47 @@
     \field{title}{Information flow for security in control systems}
     \field{year}{2016}
     \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{WiredArticle}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Wir}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\url{https://www.wired.com/2015/01/german-steel-mill-hack-destruction/}}
+    \field{title}{{A Cyberattack Has Caused Confirmed Physical Damage for the
+  Second Time Ever}}
+    \field{year}{2017}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Weerakkody}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=WS}{%
+         family={Weerakkody},
+         familyi={W\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sinopoli},
+         familyi={S\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WSSB1}
+    \strng{fullhash}{WSSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{WS15}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{booktitle}{2015 54th IEEE Conference on Decision and Control (CDC)}
+    \field{pages}{5820\bibrangedash 5826}
+    \field{title}{Detecting integrity attacks on control systems using a moving
+  target approach}
+    \field{year}{2015}
   \endentry
 
   \entry{SCEliminator}{inproceedings}{}
@@ -5649,6 +5743,7 @@
     \strng{fullhash}{WMGSSPWC1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{Wu+18}
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \field{abstract}{%
@@ -5709,6 +5804,7 @@
     \strng{fullhash}{YYFK1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
+    \field{labelalpha}{YF14}
     \field{sortinit}{Y}
     \field{sortinithash}{Y}
     \field{booktitle}{23rd {USENIX} Security Symposium ({USENIX} Security 14)}
