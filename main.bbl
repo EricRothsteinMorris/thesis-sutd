@@ -2274,42 +2274,6 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
-  \entry{ClarkWilson87}{inproceedings}{}
-    \name{author}{2}{}{%
-      {{hash=CDD}{%
-         family={Clark},
-         familyi={C\bibinitperiod},
-         given={D.\bibnamedelima D.},
-         giveni={D\bibinitperiod\bibinitdelim D\bibinitperiod},
-      }}%
-      {{hash=WDR}{%
-         family={Wilson},
-         familyi={W\bibinitperiod},
-         given={D.\bibnamedelima R.},
-         giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
-      }}%
-    }
-    \keyw{Computational modeling;Computer security;Computers;Data
-  processing;Information security;Military computing}
-    \strng{namehash}{CDDWDR1}
-    \strng{fullhash}{CDDWDR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{CW87}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{booktitle}{1987 IEEE Symposium on Security and Privacy}
-    \verb{doi}
-    \verb 10.1109/SP.1987.10001
-    \endverb
-    \field{issn}{1540-7993}
-    \field{pages}{184\bibrangedash 194}
-    \field{title}{A Comparison of Commercial and Military Computer Security
-  Policies}
-    \field{year}{1987}
-    \warn{\item Invalid format of field 'month'}
-  \endentry
-
   \entry{CacheAudit}{inproceedings}{}
     \name{author}{5}{}{%
       {{hash=DG}{%
@@ -3919,6 +3883,30 @@
     \field{volume}{22}
     \field{journaltitle}{IEEE Transactions on Control Systems Technology}
     \field{year}{2014}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Fuzzing}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=MBP}{%
+         family={Miller},
+         familyi={M\bibinitperiod},
+         given={Barton\bibnamedelima P.},
+         giveni={B\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MBP1}
+    \strng{fullhash}{MBP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Mil21}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{Fuzz Testing of Application Reliability}
+    \verb{url}
+    \verb http://pages.cs.wisc.edu/~bart/fuzz/
+    \endverb
+    \field{year}{2021}
     \warn{\item Invalid format of field 'month'}
   \endentry
 

@@ -113,7 +113,7 @@ if the current state is $\vec{x}=(a,b)$, when we intend to check whether $\vec{x
 \end{figure}
 
 Figure~\ref{fig:Transformed} shows an implementation of the transformed automaton. This automaton recognises the language of sequences that are either empty or end in 10; i.e., $\varepsilon|(0|1)^*10$. 
-Before we explain why the automaton in Figure~\ref{fig:Transformed} is in fact the resulting system when we apply the transformation $m$, we can first test if the transformed system recognises sequences $\varepsilon|(0|1)^*10$ due to the transformation $m$. %$(0|1)(0|1)^*$. 
+Before we explain why the automaton in Figure~\ref{fig:Transformed} is the system that is revealed by the transformation $m$, we can first test if the transformed system recognises sequences $\varepsilon|(0|1)^*10$ due to the transformation $m$. %$(0|1)(0|1)^*$. 
 To do so, let us consider pairs of states $[\vec{x},\vec{y}]$ where $\vec{x}=(x_1,x_2)$ and $\vec{y}=(y_1,y_2)$ such that the pair $\vec{x}$ follows the original behaviour while $\vec{y}$ follows the new behaviour. 
 Let $[(0,0),(0,0)]$ be the initial state, and let $\delta_i\colon \vec{X}\rightarrow \vec{X}$ be the functions defined by $\delta_i(\vec{x})=\delta(\vec{x})(i)$ for $i \in 2$ (i.e., $\delta_0$ is a partial application of $\delta$ given $0$ and $\delta_1$ is a partial application of $\delta$ given 1); %, since $(1,1)$ replaces $(0,0)$ due to the fault. 
 the trace of the sequence $00$ is 
