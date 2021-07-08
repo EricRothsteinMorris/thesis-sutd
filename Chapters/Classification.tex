@@ -838,7 +838,7 @@ Finally, if we consider alternative verification techniques to BMC, then IC3 \ci
 
 \paragraph{On Verifying Non-Safety Properties.} In this work, we focused our analysis exclusively on safety properties of the form $\Always e$. However, it is possible to extend this methodology to other types of properties, as it is possible to efficiently encode Linear Temporal Logic formulae for bounded model checking \cite{BMCWithoutBDDs,lmcs:2236}. The formulations of the SAT problem change for the different formulae, but both isolation and monotonicity should remain valid heuristics; ultimately, monotonicity and isolation are about the sound extrapolation of the validity of attack strategies among attacker models that have related capabilities.
 
-\section{Summary and Conclusion}
+\section{Discussion}
 \label{sec:Classification:Summary}
 In this chapter, we model AIGs as $F$-coalgebras, and we model their attackers using sets of spatial transformations. We use bounded model checking to classify and compare attackers, which provides an answer for Research Question~\ref{que:Classification} in the case of AIGs. Due to the exponential size of the problem, we propose a set of heuristics to perform bounded model-checking efficiently, for which we provide experimental evidence. 
 

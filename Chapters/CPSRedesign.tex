@@ -31,12 +31,13 @@ In sum, most control-theoretical approaches to CPS security assume the existence
 }
 %\todo[inline]{@ALL: let me try to sell the latent behaviour analysis method to you. If you think this following argument is weak, please let me know. }
 \paragraph{Robustness}
-\todo[inline]{@John: can you please explain and cite a definition of Robustness for CPSs? }
-\todo[inline]{@All: we are still missing this bit in blue about an accepted definition of robustness... we'll update it ASAP.}
-{\color{blue}
-To estimate the robustness of a system, we need a notion of success for attacks and attackers. For such purpose, assume the existence of a set of security requirements $\TheSetOfRequirements$. 
-We consider a system to be robust with respect to a set of attacks $\mathcal{M}$ if no attack in $\mathcal{M}$ can break any security requirement in $\TheSetOfRequirements$. 
-However, while it is expected that the system under normal circumstances satisfies all security requirements in $\TheSetOfRequirements$, it is not unexpected that the system fails to satisfy some security requirement while it is under attack. 
+A \emph{robust} system is a system that can tolerate the presence of external perturbations (e.g. attacks). In that sense, 
+% The notion of robustness may slightly vary from the degree of a system to tolerate deviations from its normal behaviour~\cite{}
+% \todo[inline]{@John: can you please explain and cite a definition of Robustness for CPSs? }
+% \todo[inline]{@All: we are still missing this bit in blue about an accepted definition of robustness... we'll update it ASAP.}
+{%\color{blue}
+to estimate the robustness of a system, we require a decision procedure to determine when an attack is successful. For such purpose, assume the existence of a set of security requirements $\TheSetOfRequirements$. We consider a system to be robust with respect to a set of attacks $\mathcal{M}$ if no attack in $\mathcal{M}$ can break any security requirement in $\TheSetOfRequirements$. 
+However, while it is expected that the system under normal circumstances satisfies all the security requirements in $\TheSetOfRequirements$, it is not unexpected that the system fails to satisfy one or more security requirement while it is under attack (unless some methods to improve robustness have been adopted). 
 }
 
 One way to test the robustness of systems is by systematic \emph{fault injection}. 

@@ -1043,7 +1043,8 @@ I hereby confirm the following:
 
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-\emph{Latent behaviour analysis} (LBA) is the study of the changes to observable behaviour in a transition system when an external force transforms the state space. These spatial transformations may occur because of, for example, an attack or a component fault. LBA uses the framework of universal coalgebra to seamlessly combine the effects of a spatial transformation with the operational semantics of a transition systems; this combination results in a so-called latent coalgebra that models a new transition system. This resulting transition system is compatible with the usual verification and testing methods, and its analysis returns properties of the original system in the presence of faults or adversaries. 
+\emph{Latent behaviour analysis} (LBA) is a method to study the changes to observable behaviour in a transition system in the presence of an external force (e.g., an attack or a fault) that affects it. In LBA, we model these external forces as transformations of the state space. We use the framework of universal coalgebra to seamlessly combine the effects of a spatial transformation with the dynamics of a transition systems described as a coalgebra of a functor $F$: the $F$-coalgebra $(X,c\colon X\rightarrow F(X))$ and the spatial transformation $m\colon X\rightarrow X$ combine into a latent coalgebra $(X,c\circ m)$, 
+which represents the system $(X,c)$ in the presence of the force modelled by $m$. By varying the spatial transformation $m$, we obtain a family of latent coalgebras that are compatible with the usual verification and testing methods for coalgebras and transition systems, and their analysis returns properties of the original system in the presence of the faults or adversaries modelled by these spatial transformations. 
 %More precisely, LBA proposes to model the transition system as an $F$-coalgebra $(X,c)$ and the external force as an endofunction $m\colon X\rightarrow X$; we then study the effects that $m$ has on $(X,c)$ by checking the latent $F$-coalgebra $(X,c\circ m)$. 
 
 Although checking latent coalgebras is a simple idea, it has a variety of practical applications. This thesis shows how to use LBA to study three cybersecurity problems. The first problem is the \emph{classification of attacker models}. We provide a method to systematically generate and compare attacker models for a system based on their potentially harmful effects. The second problem is the \emph{quantification of robustness in Cyber-physical Systems (CPS)}, where we propose a method for the systematic generation of attacks and counterattacks in CPS to quantify the robustness of a system. Finally, we study the problem of \emph{timing side-channel repair}, for which we propose using a spatial transformation that enforces constant memory access patterns and preserves the functionality of the program. 
@@ -1075,6 +1076,36 @@ Rothstein-Morris E., Castellanos J.H., Ochoa M. and Chattopadhyay S. (2021). Imp
 \begin{acknowledgements}
 \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
 \todo[inline]{I have so many people to thank...I should start writing this.}
+It seems strange to think that almost five years have already passed since I arrived in Singapore. 
+
+I would first like to thank my family. My mother, my father and my brother...
+
+Next, I would like to thank my supervisors Mart\'in Ochoa, Sun Jun, and Sudipta Chattopadhyay. I've had the pleasure to work with each of you, learn from you, and experience through you the world of academia. I thank you for the time and lessons you've given me to make this journey a success. 
+
+I want to especially thank Jorge Cuellar. Jorge, your passion for teaching and research was what ultimately inspired me to pursue a PhD. I am very grateful for those hours we spent together going over parts of this thesis to make it sensible and sober. I still have so much to learn! 
+
+The Passau team taught me valuable lessons in life.
+
+
+
+
+ 
+
+
+\todo[inline]{I will list all of them, indeed. They are important to me. }
+
+% My family provide constant support.
+% My friends keep my grip on reality.
+% My advisor guides me.
+% Is that how I see people? by their relationships with me and not by who they are individually? Man, I need to talk to someone... 
+
+% Maybe writing this helps. 
+
+%The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
+
+
+Thank you Maria Fernanda García, dear Mafe, for always checking on me! Your messages always bring joy and a smile to my face, and they keep me motivated. I'm very grateful to be your friend :) 
+
 \end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
