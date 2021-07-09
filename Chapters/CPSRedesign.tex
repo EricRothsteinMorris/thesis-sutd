@@ -246,49 +246,50 @@ We now rely on the fundamental observation that an attack $m$ on the original ve
 
 A \emph{counterattacker model} is dual to an attacker model. It also requires a ``what" and a ``when" to act. In this scenario, we assume that the counterattacker acts in the PLC, and they can set the coordinate $\vec{q}[P]$ to \texttt{on} or \texttt{off} and the coordinate $\vec{q}[MV]$ to \texttt{open} or \texttt{close}. We also assume that the counterattacker can observe the value $\vec{y}[L]$ (which is controlled by the attacker in this scenario). This counterattacker does not replace the PLC, but instead acts as a preprocessor, i.e., it changes $\vec{q}[P]$ and $\vec{q}[MV]$ before the PLC makes control decisions using its normal strategy. From this counterattacker model, we generate a universe of 729 counterattacks (we explain how we obtain the size of the counterattack universe in Section~\ref{sec:CounterAttacks}). 
 
-All 40 successful attacks can be countered, i.e., for each attack $m$ there exists a counterattack $w$ such that the system $T^w_m$ satisfies all the security requirements. Consequently, we say that the system has a \emph{latent robustness} of 64/64; i.e., it is theoretically possible for a counterattacker fitting the counterattacker model to counter every attack of an attacker fitting the attacker model, given that it is possible for the counterattacker to accurately identify that: 1) the system is under attack, and 2) which exact attack is occurring, since apparently similar attacks could have different counterattacks. Assuming the existence of such monitor is impractical; which is why we instead consider a modification of the program of the PLC based on the information that we obtain from the LBA to improve the robustness of the system. In Section ~\ref{sec:CaseStudy}, we perform LBA on a system that is more complex than the water tank, and we show how to use the relations between attacks and counterattacks obtained via LBA to propose repairs that improve the robustness of the model. 
- 
-\section{Cyber-Physical Systems: Physical Requirements and Attacker Models}
+All 40 successful attacks can be countered, i.e., for each attack $m$ there exists a counterattack $w$ such that the system $T^w_m$ satisfies all the security requirements. Consequently, we say that the system has a \emph{latent robustness} of 64/64; i.e., it is theoretically possible for a counterattacker fitting the counterattacker model to counter every attack of an attacker fitting the attacker model, given that it is possible for the counterattacker to accurately identify that: 1) the system is under attack, and 2) which exact attack is occurring, since apparently similar attacks could have different counterattacks. Assuming the existence of such monitor is impractical; which is why we instead consider a modification of the program of the PLC based on the information that we obtain from the LBA to improve the robustness of the system. In Section ~\ref{sec:CaseStudy}, we perform LBA on a system that is more complex than the water tank, and we show how to use the relations between attacks and counterattacks obtained via LBA to propose repairs that improve the robustness of the model.  
+
+\section{Cyber-Physical Systems, Physical Requirements and \\Attacker Models}
+% Our main objective is to define a flexible testing method to determine how well the integrity of the process of a CPS is preserved in the presence of attackers. For this purpose, we now define formal notions of \emph{CPS state}, \emph{single-cycle semantics}, and \emph{physical integrity requirements}.
 %\todo[inline]{Small intro that explains what this section is}
 %Traditional IT security mechanisms such as authentication and message integrity are insufficient for CPS security. %However, as stated in \cite{CPSAttacksAgainstPCS}, 
-The major difference between CPS and IT systems is the interaction with the physical world. We share the view of the authors of \cite{CPSSecVinyl}, who state that CPSs security is {specifically} concerned with attacks that cause some physical impact; i.e., attack that affect the integrity of the physical process. The robustness of a system is a measure of tolerability to those attacks that target integrity.
-
+The major difference between CPSs and IT systems is the interaction with the physical world. We share the view of Gollmann et al. \cite{CPSSecVinyl}, who state that CPSs security is {specifically} concerned with attacks that cause some physical impact; i.e., attack that affect the integrity of the physical process beyond repair. The robustness of a system is a measure of tolerability to those attacks that target integrity. 
 %Traditional IT security mechanisms (e.g., firewalls, encryption, signatures, etc.) normally do not account for physical parts of the system, making them ineffective when faced against attacks that either target or interact with the physical components of CPSs. In this section, we present an Information Flow (IF) inspired integrity analysis for CPSs which accounts for the physical process.
+
 In this section, we present a framework to quantify the robustness of CPSs. This framework consists of several parts:
 \begin{enumerate}
   \item a discrete model for CPSs and their semantics; 
   \item a description of physical security requirements;
   \item a formalisation of attacker models and attacks for our CPS models;
-  \item a dual formulation of counterattacker models;
+  \item a formulation of counterattacker models and counterattacks, dual to those of attackers and attacks;
   \item a quantitative notion of robustness and latent robustness based on physical security requirements, attacker models and counterattacker models.
 \end{enumerate}
 
+
 \subsection{A Discrete Model for CPSs}
-Figure \ref{fig:IFCPS} presents an extended version of the \emph{supervisor model} \cite{doi:10.1137/0325013}, which serves as the starting point to define our framework for CPSs. 
+Figure \ref{fig:IFCPS} presents an extended version of the \emph{supervisor model} \cite{doi:10.1137/0325013}, which serves as the starting point for our modelling framework. 
 \begin{figure}
 \centering
 \includegraphics[width=0.45\textwidth]{Figures/IFCPS}
 \caption{Extended supervisor model accounting for external inputs and outputs in both cyber and physical components.}
 \label{fig:IFCPS}
 \end{figure}
-Our system model consists of four subsystems: the \emph{controller}, an open, discrete cyber system; the \emph{process}, a linear-time invariant physical system; and two sets of cyber-and-physical interface systems: the \emph{sensors} and the \emph{actuators}. The process, whose state is $\vec{x}$, is observed by the sensor, yielding the physical observation $\vec{y}$; the sensor transforms $\vec{y}$ into the cyber input observation $\vec{i}$. The controller, whose state is $\vec{q}$, receives $\vec{i}$ and an external cyber network input $\vec{a}$, and produces a cyber network output $\vec{b}$ and a cyber control command $\vec{o}$. The cyber command $\vec{o}$ is then transformed into a physical control command $\vec{u}$ by the actuator. The process, whose state is $\vec{x}$, reacts to $\vec{u}$ and to some physical network input $\vec{v}$ and yields both a physical network output $\vec{w}$. The then cycle repeats by having the sensor observe the physical state $\vec{x}$ to produce $\vec{y}$. 
+Our CPS model consists of four subsystems: the \emph{controller}, an open, discrete cyber system; the \emph{process}, a linear-time invariant physical system; and two sets of cyber-and-physical interface systems: the \emph{sensors} and the \emph{actuators}. The vector $\vec{q}$ models the current state of the controller, and $\vec{x}$ models the current state of the process. The vector $\vec{i}$ models cyber input measurements and the vector $\vec{o}$ models cyber control outputs; they respectively model the internal communication channels between controller and sensors, and between controller and actuators. Similarly, the vector $\vec{u}$ models the physical control inputs and the vector $\vec{y}$ models physical measurements; these vectors respectively model the internal communication channels between the process and actuators, and between the process and sensors. 
 
-Our main objective is to test how well the integrity of the physical state of the process $\vec{x}$ is preserved in the presence of attackers. For this purpose, we define formal notions of \emph{CPS state}, \emph{single-cycle semantics}, and \emph{physical integrity requirements}.
+The cyber network input $\vec{a}$ and the cyber network output $\vec{b}$ enable communication between controllers, and enable CPS composition on the cyber side. Similarly, the physical network input $\vec{v}$, and the physical network output $\vec{w}$ model physical channels that connect modules of a larger physical system, enabling the composition of CPS on the physical side. For example, when two water tanks $T_1$ and $T_2$ are connected by a pipe, the outgoing flow from $T_1$ to $T_2$ (a component of $\vec{w}$ for $T_1$) should translate into the incoming flow from $T_1$ to $T_2$ (a component of $\vec{v}$ for $T_2$). 
+
 \begin{definition}[States of a CPS]
 \label{def:States}
-Let us first discuss the role of the non-standard components in our CPS model. The vector of cyber network inputs $\vec{a}$, and the vector of cyber network outputs $\vec{b}$ enable communication between controllers, and play an essential role in CPS composition. The vector of physical network inputs $\vec{v}$, and the vector of physical network outputs $\vec{w}$ model physical channels that connect modules of a larger physical system; e.g. when two water tanks $T_1$ and $T_2$ are connected by a pipe, the outgoing flow from $T_1$ to $T_2$ (a component of $\vec{w}$ for $T_1$) translates to an incoming flow from $T_1$ to $T_2$ (a component of $\vec{v}$ for $T_2$). We use the vector $\vec{i}$ of cyber inputs measurements and the vector $\vec{o}$ of vector of digital control outputs to respectively model communication channels between controller and sensors, and between controller and actuators. Similarly, the vector of physical control inputs $\vec{u}$ and the vector of $\vec{y}$ physical observations model communication channels between the process and actuators, and between the process and sensors. Finally, $\vec{q}$ models the current state of the controller, and $\vec{x}$ models the current state of the process. A \emph{state of the CPS} $\pi$ is the coupling of these vectors; formally, 
+A \emph{state of a CPS} $\pi$ is the coupling of the components of such CPS; formally, 
 \begin{align}
 \pi=(\vec{a},\vec{b},\vec{i},\vec{o},\vec{u},\vec{y},\vec{v},\vec{w},\vec{q},\vec{x}).
 \end{align}
 %$(\vec{a},\vec{b})$ is the state of the network, $(\vec{i},\vec{o},\vec{u},\vec{y})$ is the state of the channels, $(q,x)$ is the \emph{hidden} state of the controller and the process. 
-Given a state $\pi$, we denote the value of component $\sigma$ at state $\pi$ by $\pi[\sigma]$. 
 %\todo[inline]{@All: for this paper this notation is fine because we do not write things like $\pi[\vec{x}[smt[smt2[smt3]]]]$ or $\pi[\vec{x}][smt][smt2]...$ which is horrible, we write $\pi[\vec{x}[L]]$,though.}
-
-Let $\vec{A}$ be the \emph{range} of $\vec{a}$; i.e., the set of values that $\vec{a}$ can take. Similarly, we define $\vec{B}$, $\vec{I}$, $\vec{O}$, $\vec{U}$, $\vec{Y}$,  $\vec{V}$, $\vec{W}$ $\vec{Q}$, and $\vec{X}$ as the ranges of $\vec{b}$, $\vec{i}$, $\vec{o}$, $\vec{u}$, $\vec{y}$, $\vec{v}$, $\vec{w}$, and $\vec{q}$, respectively. With them we define $\Pi$, the set of all CPS states, by 
+Let $\vec{A}$ be the \emph{range} of $\vec{a}$; i.e., the set of values that $\vec{a}$ can take. Similarly, we define $\vec{B}$, $\vec{I}$, $\vec{O}$, $\vec{U}$, $\vec{Y}$,  $\vec{V}$, $\vec{W}$ $\vec{Q}$, and $\vec{X}$ as the ranges of $\vec{b}$, $\vec{i}$, $\vec{o}$, $\vec{u}$, $\vec{y}$, $\vec{v}$, $\vec{w}$, and $\vec{q}$, respectively. We defined the set $\Pi$ of the CPS states by 
 \begin{align}
   \Pi\triangleq \vec{A}\times\vec{B}\times\vec{I}\times\vec{O}\times\vec{U}\times\vec{Y}\times\vec{V}\times\vec{W}\times\vec{Q}\times\vec{X}.  
 \end{align}
-Finally, we informally define the set of \emph{atomic components} $\mathbb{C}$ to be the set of components of states that have no subcomponents. For example, the vector $\vec{u}$ from Section~\ref{sec:example} has two subcomponents, $\vec{u}[MV]$ and $\vec{u}[P]$, so $\vec{u}$ is not an atomic component, but both $\vec{u}[MV]$ and $\vec{u}[P]$ individually are. We refer to the elements of $\mathbb{C}$ as the \emph{coordinates} of the CPS.
+Finally, we informally define the set of \emph{coordinates} $\mathbb{C}$ to be the set of elements in the CPS model that have no subcomponents. For example, the vector $\vec{u}$ from Section~\ref{sec:example} has two subcomponents, $\vec{u}[MV]$ and $\vec{u}[P]$, so $\vec{u}$ is not a coordinate, but both $\vec{u}[MV]$ and $\vec{u}[P]$ individually are. We refer to the elements of $\mathbb{C}$ as the \emph{coordinates} of the CPS.
 \end{definition}
 
 % \begin{minted}{haskell}
@@ -304,26 +305,27 @@ Finally, we informally define the set of \emph{atomic components} $\mathbb{C}$ t
 %     t1::Int -- time step
 %     } 
 % \end{minted}
-We now formally define how a state of the CPS evolves over time.
+
+Informally, the semantics of a CPS is the following: the process, whose state is $\vec{x}$, is observed by the sensor, yielding the physical observation $\vec{y}$; the sensor transforms $\vec{y}$ into the cyber input observation $\vec{i}$. The controller, whose state is $\vec{q}$, receives $\vec{i}$ and a cyber network input $\vec{a}$, and produces a cyber network output $\vec{b}$ and a cyber control command $\vec{o}$. The cyber command $\vec{o}$ is then transformed into a physical control command $\vec{u}$ by the actuator. The process, whose state is $\vec{x}$, reacts to $\vec{u}$ and to some physical network input $\vec{v}$, returning a physical network output $\vec{w}$ while updating its state. The cycle repeats by having the sensor observe the physical state $\vec{x}$ to produce $\vec{y}$ once more. We now formally define how a state of the CPS evolves over time. 
 {
 \begin{definition}[Single-Cycle Semantics]
 \label{def:SingleCycleSemantics}
-With $\Pi\triangleq \vec{A}\times\vec{B}\times\vec{I}\times\vec{O}\times\vec{U}\times\vec{Y}\times\vec{V}\times\vec{W}\times\vec{Q}\times\vec{X}$ being the set of states of the CPS, we assume the existence of the following functions,
+Let $\Pi\triangleq \vec{A}\times\vec{B}\times\vec{I}\times\vec{O}\times\vec{U}\times\vec{Y}\times\vec{V}\times\vec{W}\times\vec{Q}\times\vec{X}$ be the set of states of the CPS; we assume the existence of the following functions,
 \begin{itemize}
 \item $\delta_{\vec{Q}}\colon \vec{Q}\times \vec{A}\times \vec{I} \rightarrow \vec{Q}$, the transition function of the controller,
 %\item $\beta_{\vec{Q}}\colon \vec{Q}\times \vec{A}\times \vec{I} \rightarrow \vec{B}$, the network output function of the controller,
 %\item $\theta_{\vec{Q}}\colon \vec{Q}\times \vec{A}\times \vec{I} \rightarrow \vec{O}$, the digital control output function of the controller,
 \item $\beta_{\vec{Q}}\colon \vec{Q}\rightarrow \vec{B}$, the network output function of the controller,
-\item $\theta_{\vec{Q}}\colon \vec{Q}\rightarrow \vec{O}$, the digital control output function of the controller,
+\item $\theta_{\vec{Q}}\colon \vec{Q}\rightarrow \vec{O}$, the cyber control output function of the controller,
 \item $\theta_{\vec{Y}}\colon \vec{Y} \rightarrow \vec{I}$, the translation function of the sensor,
 \item $\theta_{\vec{O}}\colon \vec{O} \rightarrow \vec{U}$, the translation function of the actuator,
-\item $\delta_{\vec{X}}\colon \vec{X} \times \vec{U}\times \vec{V} \rightarrow \vec{X}$, the transition function of the physical component.
+\item $\delta_{\vec{X}}\colon \vec{X} \times \vec{U}\times \vec{V} \rightarrow \vec{X}$, the transition function of the process,
 % \item $\beta_{\vec{X}}\colon \vec{X} \times \vec{U}\times \vec{V} \rightarrow \vec{W}$, the physical effect function of the physical component.
 %\item $\theta_{\vec{X}}\colon \vec{X}\times \vec{U}\times \vec{V} \rightarrow \vec{Y}$, the physical output function of the process.
-\item $\beta_{\vec{X}}\colon \vec{X}\rightarrow \vec{W}$, the physical effect function of the physical component.
+\item $\beta_{\vec{X}}\colon \vec{X}\rightarrow \vec{W}$, the physical effect function of the process,
 \item $\theta_{\vec{X}}\colon \vec{X}\rightarrow \vec{Y}$, the physical output function of the process.
 \end{itemize} 
-These functions help us control the flow of information; e.g., values of physical variables must go through some sensor to be received by a controller, so a flow from $\vec{x}$ to $\vec{q}$ cannot occur directly. 
+% These functions help us control the flow of information; e.g., values of physical variables must go through some sensor to be received by a controller, so a flow from $\vec{x}$ to $\vec{q}$ cannot occur directly. 
 
 We define the single-cycle semantics function $\TheSystem\colon \Pi \rightarrow \Pi$ that describes the evolution of the state $\pi=(\vec{a},\vec{b},\vec{i},\vec{o},\vec{u},\vec{y},\vec{v},\vec{w},\vec{q},\vec{x})$ of the CPS by
 \begin{align}
@@ -344,57 +346,67 @@ where $\vec{a'}$ and $\vec{v'}$ are external inputs, and
 \vec{u'}= \theta_{\vec{O}}(o),\quad\vec{i'}=\theta_{\vec{Y}}(\vec{y}).
 \end{gather*}
 %i.e. for all $k$, $\vec{i}(k)=\vec{y}(k)$ and $\vec{u}(k)=\vec{o}(k)$. 
-The evolution over $k+1$ cycles is defined by iterating $\TheSystem$, {i.e.}, 
+The evolution over $k+1$ cycles is defined by the iteration of $\TheSystem$, {i.e.}, 
 %\begin{align}\label{eq:kCycles}
 $\TheSystem_{k+1}= \TheSystem \circ \TheSystem_{k}.$
 %\end{align}
 Finally, we define $\TheBehaviourOf{\pi}_{0}=\pi$ for all states $\pi \in \Pi$. Under this definition, the \emph{normal behaviour} of the CPS is characterised by the infinite sequences $(\pi_0, \pi_1, \ldots)$ where $\pi_{k+1}\triangleq\TheBehaviourOf{\pi_k}$ and $\pi_0$ is an initial state.%; equivalently $\pi_{k}\triangleq \TheBehaviourOf{\pi_0}_k$.
 \end{definition}
 }
-Because a CPS itself does not create values for $\vec{a}$ and $\vec{v}$, we need a stream of network inputs $(\vec{a_0}, \vec{a_1}, \ldots)$ and a stream of physical effects $(\vec{v_0}, \vec{v_1}, \ldots)$ to advance the system. Usually, $\vec{a}$ is given by another CPS as a function of the network output $\vec{b}$ of the latter CPS; similarly, $\vec{v}$ is given as a function of the physical output $\vec{w}$ from another system. If the functions $\delta_{\vec{Q}}$ and $\delta{\vec{X}}$ respectively ignore $\vec{a}$ and $\vec{v}$ for their computation, then we say that the CPS is \emph{closed}.
-Henceforth, we assume that the CPS (or composition of CPSs) we are working with is closed. We show an example of a CPS composition in Section~\ref{sec:CaseStudy}.
+Because a CPS itself does not create values for $\vec{a}$ and $\vec{v}$, we need a stream of network inputs $(\vec{a_0}, \vec{a_1}, \ldots)$ and a stream of physical effects $(\vec{v_0}, \vec{v_1}, \ldots)$ to advance the system. Usually, $\vec{a}$ is the translation of a network output $\vec{b}$ given by another CPS; similarly, $\vec{v}$ is the translation of a physical output $\vec{w}$ from another system. If the functions $\delta_{\vec{Q}}$ and $\delta{\vec{X}}$ respectively ignore $\vec{a}$ and $\vec{v}$ for their computation, then we say that the CPS is \emph{closed}.
+Henceforth, we assume that the CPS (or composition of CPSs) we are working with is closed. We study a closed CPSs composition in Section~\ref{sec:CaseStudy}.
 
-In the following, we define a notion of integrity based on security requirements over physical components, the attacker models we consider in this work, a method to systematically generate attacks, and a method to model the attackers that can execute them. 
+In the following, we define a notion of integrity based on security requirements over physical components. We also discuss the attacker models we consider in this work, and a method to systematically generate attacks.
 
 \subsection{Physical Integrity Requirements}{
-{
+  % Before we formally define attackers and their attacks, we introduce the notion of \emph{physical integrity requirement}. 
+We use \emph{physical integrity requirements} to determine when the behaviour of the process $\vec{x}$ has deviated critically, and becomes unsafe, independently of whether the system is under attack or not. Formally, physical integrity requirements model \emph{safety properties} over the physical state of the CPS.
+\begin{definition}[Physical Integrity Requirement]
+  Let $\Pi$ be the set of states of the CPS. A \emph{physical integrity requirement} is a finite state automaton $\TheRequirement=(S,\delta,F,s_0)$, where $S$ is a set, $\delta\colon S\times \vec{X}\rightarrow S$ is the transition function, $F\subseteq S$ marks critical states, and $s_0\in S$ is the initial state. Given a possibly infinite sequence of states of the CPS $\omega=(\pi_0,\pi_1 \ldots)$, we say that \emph{$\omega$ breaks the physical integrity requirement modelled by $\mathbb{R}$} if and only if there exists a finite prefix of $\omega$, say $(\pi_0,\ldots\pi_n)$, such that the sequence $(\pi_0[\vec{x}],\ldots, \pi_n[\vec{x}])$ is rejected by $\TheRequirement$. %Under this definition, physical requirements correspond to safety properties.
+\end{definition}
+  %\todo[inline]{Awesome! now we can model a requirement that states that the water level of the tank must not remain low for large periods of time, or the pump would burn.}]
+  Henceforth, we refer to physical integrity requirements simply as \emph{physical requirements}. We expect the original CPS to satisfy all physical requirements. More precisely, since the normal behaviour of the CPS are the sequences $(\pi_0, \pi_1, \ldots)$ where $\pi_{k+1}=\TheBehaviourOf{\pi_k}$ and $\pi_0$ is an initial state, we expect, for all $k$, that the sequences $(\pi_0[\vec{x}],\ldots,\pi_k[\vec{x}])$ is accepted by every physical requirement.
+
 % \color{blue}
 % \todo[inline]{@All: this section in blue remains from the workshop version. We could keep it, unless you feel it does not fit the tone of the paper.}
-Clarkson and Schneider state in \cite{QuantitativeIntegrity} that they know of no widely accepted definition of integrity, but they remark that an ``informal definition seems to be the `prevention unauthorized modification of information'." Clarkson and Schneider use two formal notions to characterise and quantify the {damage to integrity}, which they refer to as \emph{corruption} of information. One notion is \emph{contamination}, a generalisation of taint analysis that tracks information flows from untrusted inputs to outputs that are supposed to be trusted. The other notion is \emph{suppression}, which occurs when implementation outputs omit information about correct outputs (with respect to the specification). Contamination is dual to information leakage under the Biba duality; however, there is no apparent Biba dual to suppression \cite{BibaIntegrity}. 
-}
+\subsection{Attacker Models} 
+Clarkson and Schneider state in \cite{QuantitativeIntegrity} that they know of no widely accepted definition of integrity, but they remark that an ``informal definition seems to be the `prevention unauthorized modification of information'." Clarkson and Schneider use two formal notions to characterise and quantify \emph{corruption}, i.e., the damage to integrity. One notion is \emph{contamination}, a generalisation of taint analysis that tracks information flows from untrusted inputs to outputs that are supposed to be trusted. The other notion is \emph{suppression}, which occurs when implementation outputs omit information about correct outputs with respect to the specification. Contamination is dual to information leakage under the Biba duality; however, there is no apparent Biba dual to suppression \cite{BibaIntegrity}. 
 %Both contamination and suppression are present in CPSs. For example physical attackers can contaminate the state of physical components by directly interacting with them (e.g. an attacker jamming a pump), and cyber attackers can suppress the communication between controllers (e.g. by launching a mitm attack).
-In this work, we want to test whether any corruption generated by suppression of information affects the integrity of the behaviour of the system. To that end, we %want to minimise the restrictions we impose over attackers; more precisely, we believe 
-give attackers the ability to suppress information by means of arbitrary substitution of the value of the coordinates they control, while only abiding to a minimal type-checking restriction: the input provided by the attacker must have the same type as the corrupted input, or the behaviour of the system becomes ill-defined. Moreover, we allow attackers to have some view over the current state of the system, so they can decide when and how to corrupt the system. Attackers that contaminate information (e.g., by using linear transformations of data), although compatible with LBA, are beyond the scope of this work. 
+In this work, we want to test whether any corruption generated by contamination of information affects the integrity of the behaviour of the system. To that end, we %want to minimise the restrictions we impose over attackers; more precisely, we believe 
+give attackers the ability to either: 1) alter the value of the coordinates they control by means of arbitrary substitution, or 2) leave the current value be. We only impose a minimal type-checking restriction: the input provided by the attacker must be in the range of the corrupted coordinate, or the behaviour of the system becomes ill-defined. We allow attackers to have some view over the current state of the system, so they can decide when and to corrupt the components they control. Attackers that contaminate information using other methods besides arbitrary substitutions are beyond the scope of this work, e.g., attackers that contaminate data by adding noise (although they are compatible with LBA, since these attacks can be described as spatial transformations).  
 
 %\todo[inline]{Ultimately, it does not matter whether the attacker wants to reuse the current value in some way(contaminate), or set a fixed value (suppress), because only some values matter, and they only matter under certain conditions.}
 %\todo[inline]{This discussion on information flow should be very vague, considering that we do not really use entropy or anything else related to information flow. It makes for an interesting introduction though; we should just be careful that the readers don't get the wrong idea.} 
 
-Before we formally define attackers and their attacks, we introduce the notion of \emph{physical integrity requirement}. We use physical integrity requirements to determine when the behaviour of the process $\vec{x}$ has deviated critically, and becomes unsafe. Formally, physical integrity requirements model safety properties over the physical state.
-\begin{definition}[Physical Integrity Requirement]
-  Let $\Pi$ be the set of states of the CPS. A \emph{physical integrity requirement} is a finite state automaton $\TheRequirement=(S,\delta,F,s_0)$, where $S$ is a set, $\delta\colon S\times \vec{X}\rightarrow S$ is the transition function, $F\subseteq S$ marks critical states, and $s_0\in S$ is the initial state. Given a possibly infinite sequence of states of the CPS $\omega=(\pi_0,\pi_1 \ldots)$, we say that \emph{$\omega$ breaks the physical integrity requirement modelled by $\mathbb{R}$} if and only if there exists a finite prefix of $\omega$, say $(\pi_0,\ldots\pi_n)$, such that the sequence $(\pi_0[\vec{x}],\ldots, \pi_n[\vec{x}])$ is rejected by $\TheRequirement$. %Under this definition, physical requirements correspond to safety properties.
-\end{definition}
-%\todo[inline]{Awesome! now we can model a requirement that states that the water level of the tank must not remain low for large periods of time, or the pump would burn.}]
-Henceforth, we refer to physical integrity requirements simply as \emph{physical requirements}. We expect the original CPS to satisfy all physical requirements. More precisely, since the normal behaviour of the CPS are the sequences $(\pi_0, \pi_1, \ldots)$ where $\pi_{k+1}=\TheBehaviourOf{\pi_k}$ and $\pi_0$ is an initial state, we expect, for all $k$, that the sequences $(\pi_0[\vec{x}],\ldots,\pi_k[\vec{x}])$ is accepted by every physical requirement.
 
-\subsection{Attacks as Vectors} 
-Now that we have a behaviour function that maps states to states, i.e., the single cycle semantics function $\TheSystem\colon\Pi\rightarrow\Pi$ from Definition~\ref{def:SingleCycleSemantics}, we can compose it with an arbitrary state transformation $m\colon \Pi\rightarrow\Pi$ to reveal a new behaviour function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$, which may or may not satisfy the physical requirements. 
 % In Section~\ref{sec:example} we hinted the possibility of describing attacks as vectors. In this section, we discuss in more detail the meaning of the bases and the coefficients of attacks.
-To describe an attack $m\colon \Pi\rightarrow \Pi$ as a vector, we need a basis and a set of coefficients. The basis reflects the visibility of the attacker over the current state of the system, so it also characterises the ability of the attacker to estimate when the current state of the system satisfies a relevant condition. The most granular base is given by the elements of $\Pi$ (when $\Pi$ is finite), and it models an attacker with absolute visibility; i.e. the attacker always knows the value of every component of the current state. The least granular base is given by $\Pi$ itself, and it models an attacker with no visibility over the current state.
+Following the methodology of LBA, we aim to compose the single cycle semantics function $\TheSystem\colon\Pi\rightarrow\Pi$ from Definition~\ref{def:SingleCycleSemantics} with a spatial transformation $m\colon \Pi\rightarrow\Pi$ (which models some attack) to reveal the transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$ of a latent system which models the CPS under the attack $m$. In the following, we show how to describe attacks as both vectors and spatial transformations, and we show how to systematically generate them from an attacker model.
+
+\subsubsection{Attacker Models}
+We now show how an attacker model --which describes how an attacker may interact with the system and when-- generates a set of attacks. Each attacker model is composed by a \emph{basis} and a set of \emph{coefficients}. The \emph{basis} reflects the visibility of the attacker over the current state of the system, helping them decide ``when'' to attack. The \emph{coefficients} determine the actions that the attacker uses when interacting with the system, and they define the ``how'' an attacker attacks.
+
 \begin{definition}[Attack Basis]
   \label{def:AttackBasis}
-Let $\Pi$ be the set of states of the CPS. An \emph{attack basis} is any \emph{finite} partition $\sum_{i=1}^n \Pi_i$ of $\Pi$ such that, for $1\leq i,j \leq n$ the following conditions hold: $\Pi_i$ is non-empty, every $\Pi_i$ is disjoint from every other $\Pi_j$ in the partition, and the union of all $\Pi_i$ is $\Pi$. We often refer to an element of the partition $\Pi_i$ by its characteristic predicate.
+Let $\Pi$ be the set of states of the CPS. An \emph{attack basis} is a \emph{finite} partition $\sum_{i=1}^n \Pi_i$ of $\Pi$; i.e., for $1\leq i,j \leq n$, $\Pi_i$ is non-empty, $\Pi_i$ and $\Pi_j$ are pairwise disjoint, and the union of all $\Pi_i$ is $\Pi$. We often refer to an element of the partition $\Pi_i$ by its characteristic predicate; i.e., we write $\Pi_i(\pi)$ instead of $\pi\in \Pi_i$.
+
+The most granular base is given by the individual elements of $\Pi$, and it models an attacker with absolute visibility: this attacker always knows the value of every component of the current state, and can act differently at every state if they so wish. The least granular base is given by $\Pi$ itself, and it models an attacker with no visibility over the current state; this attacker repeats the same action over and over, independently of the current state.
 \end{definition}
 \begin{example}
   \label{ex:AttackBasis}
-  For the water tank from Section~\ref{sec:example}, we define the base $[LL, OK, HH]^T$, where ${LL}=\set{\pi| \pi[\vec{x}[L]]<L_{min}}$, ${HH}=\set{\pi| \pi[\vec{x}[L]]>L_{max}}$ and ${OK}=\set{\pi|L_{min} \leq \pi[\vec{x}[L]]\leq L_{max}}$. The base $[LL, OK, HH]^T$ models the visibility of an attacker that can always determine whether the current state of the system is in $LL$, in $OK$ or in $HH$.  %We refer to $\set{\pi\in \Pi| \pi[\vec{x}[L]]>L_{max}}$ by $(\vec{x}[L]>L_{max})$ and we refer to $\Pi$ by $\True$.
+  For the water tank from Section~\ref{sec:example}, we define the base $[LL, OK, HH]^T$, where 
+  \begin{align*}
+    {LL}&\triangleq\set{\pi| \pi[\vec{x}[L]]<L_{min}},\\
+    {HH}&\triangleq\set{\pi| \pi[\vec{x}[L]]>L_{max}}, and\\
+    {OK}&\triangleq\set{\pi|L_{min} \leq \pi[\vec{x}[L]]\leq L_{max}}.
+  \end{align*} 
+  The base $[LL, OK, HH]^T$ models the visibility of an attacker that can always determine whether the current state of the system satisfies $LL$, in $OK$ or in $HH$. These bases can bypass normal observation assumptions: in this example, the attacker does not observe the value measured by the sensor $\pi[\vec{y}[L]]$; instead, we assume that they observe the real level of the water tank $\pi[\vec{x}[L]]$ by some alternative means. %We refer to $\set{\pi\in \Pi| \pi[\vec{x}[L]]>L_{max}}$ by $(\vec{x}[L]>L_{max})$ and we refer to $\Pi$ by $\True$.
 \end{example}
 
-The coefficients of an attack vector model the capabilities of the attacker to interact with the system. The natural choice for this set of coefficients is the monoid $(\Pi\rightarrow \Pi, \circ, \id)$, because it enables attack composition. However, since we are interested in creating a test suite to systematically test compromised systems, we want a finite set of \emph{representative coefficients} that spans a finite number of attacks. Thus, we generate an {idempotent monoid} using constant transformations of coordinates.%, henceforth named $\IMCT$.
+Informally, the coefficients provided by an attacker model are actions that may affect multiple coordinates simultaneously, and they define how the attacker interacts with the system. We want attackers to be capable of setting any values on the components they control. Unfortunately, we face a typical coverage problem of system testing: many different values exercise the same execution paths, and some paths may be exercised only by very specific inputs. For our examples, we manually choose these representative values to maximise the coverage of testing, but a selection process for the values that maximise coverage is beyond the scope of this work.
 
-% \begin{definition}[\textbf{I}dempotent \textbf{M}onoid Generated by \textbf{C}onstant \textbf{T}ransformations in one atomic component (\textbf{$\IMCT$})]
-\begin{definition}[Idempotent Monoid Generated by Constant Transformations of Coordinates {$\IM{\Gamma_{\mathcal{K}}}$}]
-  \label{def:IdempotentMonoid}
-We define the \emph{constant transformation of the atomic component $c$ to value $v$}, denoted $\const^{c}_{v}\colon \Pi\rightarrow \Pi$, for all $\pi \in \Pi$ and $c'\in \mathbb{C}$ by
+Before we formally define attack coefficients, we introduce a two auxiliary concepts: {constant transformations of coordinates} and the {idempotent monoid generated by combining those constant transformations.
+\begin{definition}[Constant Transformations of a Coordinate]
+  Let $c\in \mathbb{C}$ be a coordinate of the CPS whose range is $C$ and let $v$ be a representative value in $C$; we define the \emph{constant transformation of $c$ to $v$}, denoted $\const^{c}_{v}\colon \Pi\rightarrow \Pi$, for all $\pi \in \Pi$ and $c'\in \mathbb{C}$ by
   \begin{align}
     \const^{c}_{v}(\pi)[c']& \triangleq 
     \begin{cases}
@@ -402,26 +414,33 @@ We define the \emph{constant transformation of the atomic component $c$ to value
      \pi[c']&\quad \text{otherwise.}
     \end{cases} 
   \end{align} 
-Let $\Gamma_\mathcal{K}$ be a \emph{finite} set of constant transformations of coordinates from a set $\mathcal{K}\subseteq\mathbb{C}$. Each $\const^{c}_{v}\in \Gamma_\mathcal{K}$ characterises a \emph{representative value} $v$ of $c$.
+\end{definition}
+% The natural choice for this set of coefficients is the monoid $(\Pi\rightarrow \Pi, \circ, \id)$, because it enables attack composition. However, 
+% An attacker model contains a finite set of \emph{representative values}
+% By combining a finite set of coefficients and a finite basis given by an attacker model, we generate a finite number of attacks. Formally, we generate an {idempotent monoid} using constant transformations of coordinates.%, henceforth named $\IMCT$.
+
+% \begin{definition}[\textbf{I}dempotent \textbf{M}onoid Generated by \textbf{C}onstant \textbf{T}ransformations in one coordinate (\textbf{$\IMCT$})]
+\begin{definition}[Idempotent Monoid Generated by Constant Transformations of Coordinates {$\IM{\Gamma_{\mathcal{K}}}$}]
+  \label{def:IdempotentMonoid}
 % generated from a finite set of \emph{representative values}. More precisely, let $\vec{C}$ be the range of $c$; given some representative value $v\in \vec{C}$, there exists a transformation $\const^{c}_{v}\in \Gamma_c$.
 
-% Now, each atomic component $c$ defines a set of generators $\const(\Gamma_c)$, formally defined by
+% Now, each coordinate $c$ defines a set of generators $\const(\Gamma_c)$, formally defined by
 % \begin{align}
 %   \const(\Gamma_c)\triangleq \set{\const^{c}_{v} | v\in\Gamma_c}.
 % \end{align}
-We generate the monoid $(\IM{\Gamma_{\mathcal{K}}},\circ,\id)$ %by choosing $\mathcal{K}=\mathbb{C}$, and 
+Let $\mathcal{K}\subseteq\mathbb{C}$ be a set of coordinates, and let $\Gamma_\mathcal{K}$ be a \emph{finite} set of constant transformations of the coordinates in $\mathcal{K}$. We generate the monoid $(\IM{\Gamma_{\mathcal{K}}},\circ,\id)$ %by choosing $\mathcal{K}=\mathbb{C}$, and 
 by closing %the union of all $\Gamma_c$ in the family $\Gamma_{\mathbb{C}}$ 
-$\Gamma_{\mathcal{K}}$ under function composition; the unit of the monoid is the identity function $\id$, and the operation is function composition $\circ$. 
+$\Gamma_{\mathcal{K}}$ under function composition; the unit of the monoid is the identity function $\id$, and the operation is function composition $\circ$. The elements of this monoid are our \emph{attack coefficients}.
 
 %$\AsSequence{\ucup_{c\in \mathbb{C}}\const(\Gamma_c)}$
 % \begin{definition}[Single Component Transformations]
-% Let $c\colon \Pi\rightarrow \Pi$. We say that $c$ is a \emph{single-component transformation (on $\sigma$)} of the elements of $\Pi$ if and only if $c=\id$, or there exists one and only one component $\sigma$ such that 
+% Let $c\colon \Pi\rightarrow \Pi$. We say that $c$ is a \emph{single-component transformation (on $\sigma$)} of the elements of $\Pi$ if and only if $c=\id$, or there exists one and only one component $\sigma$ such that c
 % \begin{align}
 %   c(\pi)[\sigma]=\pi[\sigma],
 % \end{align} 
 % and $\sigma$ has no subcomponents. 
 %Due to properties of the monoid and because 
-Since each transformation $t\in \IMCT$ is finitely generated, $t$ unambiguously pairs each atomic component $c\in \mathbb{C}$ with either $\id$ or with some constant transformation $\const^{c}_{v}$ in $\Gamma_{\mathcal{K}}$.  We denote this association by $t[c]$. If $t[c]=\id$, then $t$ does not act on the atomic component $c$, and if $t[c]=\const^{c}_{v}$, then $t(\pi)[c]=v$ for all $\pi \in \Pi$.
+Each transformation $t\in \IMCT$ is finitely generated, so $t$ unambiguously pairs each coordinate $c\in \mathbb{C}$ with either $\id$ or with some constant transformation $\const^{c}_{v}$ in $\Gamma_{\mathcal{K}}$.  We denote this association by $t[c]$. If $t[c]=\id$, then $t$ does not act on the coordinate $c$, and if $t[c]=\const^{c}_{v}$, then $t(\pi)[c]=v$ for all $\pi \in \Pi$.
 \end{definition}
 \begin{example}
   In the context of the water tank from Section~\ref{sec:example}, an attacker can infer from Equation~\ref{eq:ControllerStage3} that, if $\vec{y}[L](k)\geq L_{max}$% and $\vec{q}[MV](k)=\texttt{open}$
@@ -553,7 +572,7 @@ The $\IMCT$ captures the capabilities of attackers in two ways. First, the $\IMC
 
 \subsection{Attacker Capabilities}
 \label{sec:AttackerCapabilities}
-In general, we relate the \emph{capabilities} required to execute an attack $m$ to the set of changes in atomic components that the attacker needs to perform to apply the attack $m$ in every state of the CPS.  %Informally, the Hamming distance between two states $\pi_1$ and $\pi_2$ denotes the minimum set of coordinates that must be changed to turn $\pi_1$ into $\pi_2$ or vice versa. 
+In general, we relate the \emph{capabilities} required to execute an attack $m$ to the set of changes in coordinates that the attacker needs to perform to apply the attack $m$ in every state of the CPS.  %Informally, the Hamming distance between two states $\pi_1$ and $\pi_2$ denotes the minimum set of coordinates that must be changed to turn $\pi_1$ into $\pi_2$ or vice versa. 
 \begin{definition}[Required Capabilities]
 Let ${m}\colon \Pi\rightarrow \Pi$; we define the \emph{capabilities required to execute $m$}, denoted $|m|$, to be the set  
 \begin{align}
@@ -566,7 +585,7 @@ In general, computing the required capabilities of an arbitrary given transforma
 \begin{corollary}
 \label{cor:Capabilities}
 Since every $t\in \IMCT$ pairs each component $c$ in $\mathbb{C}$ to some $\const^{c}_{v}$ or to $\id$, 
-%is finitely generated by a composition of constant transformations of $n$ different atomic components, i.e., $t= \const^{c_n}_{v_n}\circ \ldots \circ \const^{c_1}_{v_1}$, 
+%is finitely generated by a composition of constant transformations of $n$ different coordinates, i.e., $t= \const^{c_n}_{v_n}\circ \ldots \circ \const^{c_1}_{v_1}$, 
 the set of required capabilities to execute $t$ is 
 \begin{align}
   |t|=\set{t[c]| t[c]\neq \id \text{ and } t[c]=\const^{c}_{v}, \text{for $c\in \mathbb{C}$}}.
@@ -591,7 +610,7 @@ Informally, an attacker model defines a set of capabilities given to attackers t
   to the states of the CPS, \emph{but only those transformations}. %Any transformations that are not in the submonoid $\IM{\Gamma_\mathcal{K}}$ are beyond the capabilities of attacker that fit this model.%, \emph{but only those}.
   
   The attacks characterised by the attacker model $(\Gamma_{\mathcal{K}}, \sum_{i=1}^n\Pi_i)$ are the vectors whose coefficients are elements of $\IM{\Gamma_\mathcal{K}}$ and whose basis is $\sum_{i=1}^n\Pi_i$. Dually, we associate each attack $\vec{m}$ using some base $\sum_{i=1}^n\Pi_i$ with the attacker model whose capabilities are barely enough to execute $\vec{m}$; i.e., the \emph{free attacker model of $\vec{m}$}, which is $(|\vec{m}|, \sum_{i=1}^n\Pi_i)$.
-  % The attacks associated to the attacker model  be the idempotent submonoid of constant transformations on atomic components constructed following Definition~\ref{def:IMCT} using $\mathcal{C}$ and $\Gamma_{C}$,is generated using the components defines an \emph{attacker model} . 
+  % The attacks associated to the attacker model  be the idempotent submonoid of constant transformations on coordinates constructed following Definition~\ref{def:IMCT} using $\mathcal{C}$ and $\Gamma_{C}$,is generated using the components defines an \emph{attacker model} . 
 \end{definition}
 %\todo[inline]{@Eric: maybe parametrise the $\IMCT$ in its definition??}
 \begin{example}
@@ -795,7 +814,7 @@ We highlight some relevant corollaries.
 \begin{proof}
   Every attack in $\mathcal{A}_1$ is an attack in $\mathcal{A}_2$, so every requirement that $\mathcal{A}_1$ can break, $\mathcal{A}_2$ can break using the same attacks as $\mathcal{A}_1$.
 \end{proof}
-Corollary~\ref{cor:monoup} is practical because it motivates us to start our latent behaviour analysis with small attacker models. If we prove that the system is not robust with respect to an attacker model that only modifies one atomic component, then the system is not robust with respect to any attacker model that extends the such single-component model.
+Corollary~\ref{cor:monoup} is practical because it motivates us to start our latent behaviour analysis with small attacker models. If we prove that the system is not robust with respect to an attacker model that only modifies one coordinate, then the system is not robust with respect to any attacker model that extends the such single-component model.
 
 \begin{corollary}[Monotonicity$\downarrow$]
   \label{cor:monodown}
@@ -1099,6 +1118,7 @@ Figure~\ref{fig:Stage2Normal} shows the normal steady state behaviour of the wat
 % \end{align*}
 
 \begin{figure}[t]
+  \centering
   \includegraphics[width=0.75\textwidth]{Figures/Stage2Normal.png}
   \caption{Normal behaviour of the water level of Stage 2 if Stage 3 is also operating normally.}
   \label{fig:Stage2Normal}
