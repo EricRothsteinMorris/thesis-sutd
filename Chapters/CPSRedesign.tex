@@ -2,7 +2,7 @@
  \chapter{Improving the Robustness of Cyber-Physical System Models}
  \label{ch:CPSRobustness}  
  
- We now consider a practical scenario where we use spatial transformations to model both attacks and counterattacks. From the perspective of LBA, attacks and counterattacks are distinguishable only by intent: an attack aims to damage a system, while a counterattack tries to fix it. Recall the automaton from Section~\ref{sec:Latent:Motivation}; the spatial transformation that affected the system was a symmetry $m$ that is its own inverse (i.e., $m\circ m=\id$), so we can counter $m$ by applying it a second time. 
+ We now consider a practical scenario where we use spatial transformations to model both attacks and counterattacks. From the perspective of LBA, attacks and counterattacks are distinguishable only by intent: an attack is a spatial transformation that aims to damage a system, while a counterattack is a spatial transformation that tries to fix it. Recall the automaton from Section~\ref{sec:Latent:Motivation}; the spatial transformation that affected the system was a symmetry $m$ that is its own inverse (i.e., $m\circ m=\id$), so we can counter $m$ by applying it a second time. 
  
  The inclusion of counterattacks alters the interaction between attacker and system. Up until now, the LBA of a system $(X,c)$ with respect to a spatial transformation $m\colon X\rightarrow X$ that reveals the latent system $(X,c\circ m)$, which models the the system $(X,c)$ under the effect of the attack $m$. In this chapter, we consider a second spatial transformation $w\colon X\rightarrow X$ that reveals the system $(X, c\circ (w\circ m))$, which models the system $(X,c)$ under the effect of the attack $m$, but also under the effect of the counterattack $w$.
 
@@ -31,7 +31,7 @@ Other infrastructures affected by cyberattacks are a power grid in Ukraine~\cite
 {%\paragraph{Integrity in CPSs.} 
 Protecting the integrity of CPSs is paramount. This is especially true for ICSs; their security priority is not the protection of confidential data, but the protection of their physical assets. Gollmann and Krotofil reinforce this view in \cite{CPSSec}, stating that the traditional CIA (Confidentiality-Integrity-Availability) triad should be reversed when studying the security of CPSs. They argue that the enforcement of integrity in CPSs should not only consider the ``traditional approach for IT systems'', {i.e.}, protecting {component logic} and {communication}, but that we must also protect the integrity of {observations}; more precisely, we have to protect the {veracity} of sensor data and check its {plausibility}.} 
 
-A \emph{robust} CPS can tolerate the presence of external perturbations (i.e., attacks or faults). In other words, the integrity of the system is preserved in the presence of adversaries. Traditionally, the enforcement of CPS integrity has  used {control-theoretic methodologies}, specifically {fault-detection techniques}. Control theory researchers model attacks on CPSs as time-series with specific structures affecting sensor measurements and/or control signals. Depending on their capabilities, attackers have the power to control when, where, and how attacks enter the system. Research on attack detection and mitigation has mainly focused on the so-called \emph{integrity attacks}, i.e., attacks that put at risk the proper operation and physical integrity of CPSs. Integrity attacks include stealthy attacks \cite{CPSStealthAttacks}, message replay \cite{CPSReplayAttacks}, covert attacks \cite{CPSCovertAttacks}, and false-data injection \cite{CPSDataInjectionAttacks}, among others. Due to their focus on fault-detection techniques, many results based on control theory aim to protect CPSs from integrity attacks in two ways: one, by first verifying that their system satisfies a series of security guarantees during {normal operation} (i.e., attack-free operation), and second, by relying on {monitoring} the physics of the system to detect anomalies (see, e.g., \cite{CPSInvariantsForDetection,Urbina2016,CPSAttackDetection,CPSAttacksAgainstPCS,CPSIntegrityAttacks,CPSDetectingIntegrityAttacksScada}). 
+A \emph{robust} CPS can tolerate the presence of external perturbations (i.e., attacks or faults). In other words, the integrity of the system is preserved in the presence of adversaries. Traditionally, the enforcement of CPS integrity has  used {control-theoretic methodologies}, specifically {fault-detection techniques}. Control theory researchers model attacks on CPSs as time-series with specific structures affecting sensor measurements and/or control commands. Depending on their capabilities, attackers have the power to control when, where, and how attacks enter the system. Research on attack detection and mitigation has mainly focused on the so-called \emph{integrity attacks}, i.e., attacks that put at risk the proper operation and physical integrity of CPSs. Integrity attacks include stealthy attacks \cite{CPSStealthAttacks}, message replay \cite{CPSReplayAttacks}, covert attacks \cite{CPSCovertAttacks}, and false-data injection \cite{CPSDataInjectionAttacks}, among others. Due to their focus on fault-detection techniques, many results based on control theory aim to protect CPSs from integrity attacks in two ways: one, by first verifying that their system satisfies a series of security guarantees during {normal operation} (i.e., attack-free operation), and second, by relying on {monitoring} the physics of the system to detect anomalies (see, e.g., \cite{CPSInvariantsForDetection,Urbina2016,CPSAttackDetection,CPSAttacksAgainstPCS,CPSIntegrityAttacks,CPSDetectingIntegrityAttacksScada}). 
 
 From the computer science perspective, we can estimate the robustness of software systems by systematic \emph{fault injection} through techniques like fuzzing (see~\cite{Fuzzing}).  
 %\todo[inline]{@All: do you know of relevant fault injection papers that we can cite here? I'm familiar with only a couple, and mostly related to fuzzing and mutation testing}
@@ -108,12 +108,12 @@ Following the work in \cite{CPSAttacksAgainstPCS,Urbina2016,CPSDetectingIntegrit
 \end{array}
 \right.
 \end{equation}
-with $k\in \Nat$, physical state of the system $x \in \Real^n$ (i.e., an $n$-dimensional vector of physical variables associated with the dynamics of the CPS), sensor measurements $y := (y_1,\ldots,y_m)^T \in \Real^m$ , control signals $u := (u_1,\ldots,u_m)^T \in \Real^l$, real-valued matrices $A$, $B$, and $C$ of appropriate dimensions, and i.i.d. multivariate zero-mean Gaussian noises $\vartheta \in \Real^n$ and $\eta \in \Real^m$ with covariance matrices $R_{1} \in \Real^{n \times n}$ and $R_2 \in \Real^{m \times m}$, respectively. The matrix $A$ describes the \emph{dynamic evolution of the physical process}, $B$ is used to model the effect of \emph{actuators} on the system dynamics, and the matrix $C$ models the part of the state $x_k$ available from \emph{sensor measurements}.
+with $k\in \Nat$, physical state of the system $x \in \Real^n$ (i.e., an $n$-dimensional vector of physical variables associated with the dynamics of the CPS), sensor measurements $y := (y_1,\ldots,y_m)^T \in \Real^m$ , control commands $u := (u_1,\ldots,u_m)^T \in \Real^l$, real-valued matrices $A$, $B$, and $C$ of appropriate dimensions, and i.i.d. multivariate zero-mean Gaussian noises $\vartheta \in \Real^n$ and $\eta \in \Real^m$ with covariance matrices $R_{1} \in \Real^{n \times n}$ and $R_2 \in \Real^{m \times m}$, respectively. The matrix $A$ describes the \emph{dynamic evolution of the physical process}, $B$ is used to model the effect of \emph{actuators} on the system dynamics, and the matrix $C$ models the part of the state $x_k$ available from \emph{sensor measurements}.
 
 \subsection{Attacks on Models of CPSs}
 \label{sec:AttacksOnModels} 
 At the time-instants $k \in \Nat$, the output of the process $y(k)$ is sampled and transmitted over a communication network. The received output is used to compute control actions $u(k)$ which are sent back to the physical process. The complete control-loop is assumed to be performed instantaneously, i.e., the sampling, transmission, and arrival time-instants are supposed to be equal.
-In between transmission and reception of sensor data and control commands, an attacker may replace the signals coming from the sensors to the controller and from the controller to the actuators, acting as a {man-in-the-middle}. Thus, after each transmission and reception, the attacked output $\bar{y}$ and attacked input $\bar{u}$ take the form
+In between transmission and reception of sensor data and control commands, an attacker may replace the values coming from the sensors to the controller and from the controller to the actuators, acting as a {man-in-the-middle}. Thus, after each transmission and reception, the attacked output $\bar{y}$ and attacked input $\bar{u}$ take the form
 \begin{equation}
 \left\{
 \begin{array}{ll}
@@ -141,7 +141,7 @@ A system under attack is modelled by
 \right.
 \end{equation}
 }
-\section{Motivational Example}
+\section{Motivational Example: A Water Tank}
 \label{sec:example}
 We now provide a simple example to motivate the problem of quantifying robustness via testing in CPS models. We also illustrate the concepts behind the modelling formalisms presented in the following sections, especially LBA.
 %==================BEGIN JOHN WORKSPACE====================
@@ -152,22 +152,20 @@ We now provide a simple example to motivate the problem of quantifying robustnes
 %\begin{wrapfigure}{tr}{0.5\textwidth}
 \begin{figure}
   \centering
-  \includegraphics[width=0.36\textwidth]{Figures/FillingTank.pdf}
+  \includegraphics[width=0.50\textwidth]{Figures/FillingTank.pdf}
   \caption{A water tank. The PLC sends control commands to the motor valve (MV) and the pump (P) so that the level of the tank (L) stays within the range $L_{min}$ -- $L_{max}$. }
   \label{fig:Motivational}
 %\end{wrapfigure}
 \end{figure}
-\subsection*{A Water Tank}
 %To quantify the robustness of a CPS, we first need to define its model. 
-We now present a simple model of a CPS containing a water tank with a water level (L), a water pump (P), a motor valve (MV), and a programming logic controller (PLC), as shown in Figure~\ref{fig:Motivational}.
+Consider the following model of a CPS containing a water tank with a water level (L), a water pump (P), a motor valve (MV), and a programming logic controller (PLC), as shown in Figure~\ref{fig:Motivational}. This system has a physical process state vector $\vec{x}$, a cyber controller state vector $\vec{q}$, a sensor state vector $\vec{y}$, and an actuator state vector $\vec{u}$.
 
-Let $\vec{x}$ be the physical state vector, whose coordinates are $MV$, $L$ and $P$, such that $\vec{x}[MV]$ corresponds to the physical state of the motor valve, $\vec{x}[P]$ corresponds to the physical state of the pump, and $\vec{x}[L]$  corresponds to the physical state of the water level of the tank. The variable $\vec{x}[MV]$ can take four values: $\texttt{closed}$, $\texttt{opening}$,$\texttt{open},$ or $\texttt{closing}$; the variable $\vec{x}[P]$ can take two values: $\texttt{on}$ and $\texttt{off}$; and the variable $\vec{x}[L]$ can take any value between $0 ~\mathrm{L}$ and $1200 ~\mathrm{L}$ (the maximum capacity of the tank). 
-%\begin{figure}[t]
+The physical state vector $\vec{x}$ has coordinates $MV$, $L$ and $P$, where $\vec{x}[MV]$ corresponds to the physical state of the motor valve, $\vec{x}[P]$ corresponds to the physical state of the pump, and $\vec{x}[L]$  corresponds to the physical state of the water level of the tank. The variable $\vec{x}[MV]$ can take four values: $\texttt{closed}$, $\texttt{opening}$, $\texttt{open},$ or $\texttt{closing}$. The variable $\vec{x}[P]$ can take two values: $\texttt{on}$ and $\texttt{off}$. Finally, the variable $\vec{x}[L]$ can take any value between $0 ~\mathrm{L}$ and $1200 ~\mathrm{L}$ (the maximum capacity of the tank). %\begin{figure}[t]
 %\begin{wrapfigure}[lineheight]{position}{width}
 %\end{figure}
-Depending on the state of $\vec{x}[MV]$, different amounts of water flow into the tank, so $\vec{x}[L]$ depends on $\vec{x}[MV]$. The state of the valve $\vec{x}[MV]$ changes when it receives a control input $\vec{u}[MV]$. The control input $\vec{u}[MV]$ can take the values $\texttt{closed}, \texttt{opening},\texttt{open},$ or $\texttt{closing}$. Finally, the state of the sensor $\vec{y}[L]$ is a measure of $\vec{x}[L]$; $\vec{y}[L]$ can take any positive value (even above 1200), although in normal circumstances it remains in the range $[0..1200]$. 
+Depending on the state of the motor valve $\vec{x}[MV]$, different amounts of water flow into the tank. In turn, the state of the valve $\vec{x}[MV]$ changes when it receives the control input $\vec{u}[MV]$, which can take the values $\texttt{closed}, \texttt{opening},\texttt{open},$ or $\texttt{closing}$.  
 
-The behaviour of this process is captured by the following linear time invariant system.
+The behaviour of the physical process is captured by the following linear time invariant system:
 \begin{align}
   \vec{x}[L](k+1)&= \vec{x}[L](k)+Inflow(k)-Outflow(k),\quad \text{where}\\
   Inflow(k)&=\begin{cases}
@@ -188,18 +186,18 @@ The behaviour of this process is captured by the following linear time invariant
   \vec{x}[P](k+1)&=\vec{u}[P](k)\\
   \vec{y}[L](k)&=\vec{x}[L](k)
 \end{align}
-We leave the initial conditions of the process abstract for now.
-% \todo[inline]{@John: are there particularities of the behaviour of this system that we should highlight? Anything interesting for the example? }
+The value of $\vec{y}[L]$ is a measurement of $\vec{x}[L]$, but since it is a cyber component, it can take values above 1200 (although in normal circumstances it remains in the range $[0..1200]$). We leave the initial conditions of the process abstract for now.
 
-The values of $\vec{u}[MV](k+1)$ are defined by a control strategy, which uses $\vec{y}[L](k)$ to make decisions. The control strategy is implemented by a controller whose state is $\vec{q}$, and $\vec{q}$ has four coordinates: the last known state of the valve $MV$, denoted by $\vec{q}[MV]$, the last known state of the pump $P$, denoted by $\vec{q}[P]$, the last known water level of the tank $L$, denoted by $\vec{q}[L]$,  and a timer $\tau$ which the controller uses to approximate the time it takes for the motor valve $MV$ to open or close, denoted $\vec{q}[\tau]$. 
-The controller updates its state using $\vec{y}[L](k)$, and produces the next control values $\vec{u}[MV](k+1)$ and $\vec{u}[P](k+1)$ using $\vec{q}(k)$, with 
+The values of the control command for the motor valve $\vec{u}[MV]$ are defined by the controller, which uses $\vec{y}[L]$ to make decisions. The controller itself has a state $\vec{q}$ that has four coordinates: the presumed state the valve $MV$, denoted by $\vec{q}[MV]$, the presumed state of the pump $P$, denoted by $\vec{q}[P]$, the presumed water level of the tank $L$, denoted by $\vec{q}[L]$,  and a timer $\tau$ that the controller uses to approximate the time it takes for the motor valve $MV$ to open or close, denoted $\vec{q}[\tau]$. %These state of the valve, pump and water tank are presumed, because the controller cannot directly observe them
+
+The controller updates its state using $\vec{y}[L]$, and produces the control values $\vec{u}[MV]$ and $\vec{u}[P]$ using $\vec{q}(k)$, with 
 \begin{align}
   \label{eq:ControllerStage3}
   \vec{q}[MV](k+1)&=
   \begin{cases}
-    \texttt{opening},&\quad \text{if $\vec{q}[MV](k)=\texttt{closed}$ and $\vec{y}[L](k)\leq Lmin$,}\\
+    \texttt{opening},&\quad \text{if $\vec{q}[MV](k)=\texttt{closed}$ and $\vec{y}[L](k)\leq L_{min}$,}\\
     \texttt{open},&\quad \text{if $\vec{q}[MV](k)=\texttt{opening}$ and $\vec{q}[\tau](k)>T$,}\\
-    \texttt{closing},&\quad \text{if $\vec{q}[MV](k)=\texttt{open}$ and $\vec{y}[L](k)\geq Lmax$,}\\
+    \texttt{closing},&\quad \text{if $\vec{q}[MV](k)=\texttt{open}$ and $\vec{y}[L](k)\geq L_{max}$,}\\
     \texttt{closed},&\quad \text{if $\vec{q}[MV](k)=\texttt{closing}$ and $\vec{q}[\tau_3](k) >T_3$,}\\
     MV&\quad \text{otherwise;}    
   \end{cases}\\
@@ -213,42 +211,42 @@ The controller updates its state using $\vec{y}[L](k)$, and produces the next co
 \vec{u}[MV](k+1)&=\vec{q}[MV](k+1)\\
 \vec{u}[P](k+1)&=\vec{q}[P](k+1)
 \end{align}
-where $Lmin=800$, $Lmax=1000$ and $T=7$. We leave the initial conditions of $\vec{q}$ and $\vec{u}$ abstract for now.
+where $L_{min}=800$, $L_{max}=1000$ and $T=7$. We leave the initial conditions of $\vec{q}$ and $\vec{u}$ abstract for now.
 
 Now that we have a description of the model of the CPS, we define a set of security requirements that determine whether the behaviour of the system is safe or not.
 
 %\subsection{Security Requirements and Additive Attacks}
 \subsection*{Security Requirements}
-\begin{wrapfigure}{r}{0.4\textwidth} 
-  \vspace{-1cm}
+%\begin{wrapfigure}{r}{0.4\textwidth} 
+ % \vspace{-1cm}
+ \begin{figure}
   \centering
-  \includegraphics[width=0.4\textwidth]{Figures/Stage3Normal.png}
-  \vspace{-0.25cm}
+  \includegraphics[width=0.5\textwidth]{Figures/Stage3Normal.png}
+  %\vspace{-0.25cm}
   \caption{Normal steady state behaviour of the water level of the water tank.}
   \label{fig:Stage3Normal}
-  \vspace{-1cm}
-\end{wrapfigure} 
+%   \vspace{-1cm}
+% \end{wrapfigure} 
+ \end{figure}
 We establish two simple security requirements for the water tank: the tank is never empty and the tank never overflows. These requirements protect the integrity of the system: if the tank empties, the pump suffers physical damage due to cavitation, and if the tank overflows, then water spills out, causing a work hazard. Formally, these requirements correspond to the invariants $\Always{\vec{x}[L]< 1200}$ and $\Always{\vec{x}[L]> 0}$, defined by
-\begin{minipage}{0.5\textwidth}
   \begin{align*}
-    \Always{\vec{x}[L]< 1200}&\triangleq \forall k.\vec{x}[L](k)< 1200\\
-    \Always{\vec{x}[L]> 0}&\triangleq \forall k.\vec{x}[L](k)> 0.
+    \Always{\vec{x}[L]< 1200}&\triangleq \forall k\geq0.\vec{x}[L](k)< 1200,\\
+    \Always{\vec{x}[L]> 0}&\triangleq \forall k\geq0.\vec{x}[L](k)> 0.
   \end{align*}
-\end{minipage}
-
-Under normal circumstances, the water level of the tank exhibits the behaviour shown in Figure~\ref{fig:Stage3Normal}, so it satisfies the requirements $\Always{\vec{x}[L]< 1200}$ and $\Always{\vec{x}[L]> 0}$.
+Under normal circumstances, the water level of the tank exhibits the behaviour displayed in Figure~\ref{fig:Stage3Normal}. The system in its attack-free state satisfies the security requirements $\Always{\vec{x}[L]< 1200}$ and $\Always{\vec{x}[L]> 0}$.
 %\begin{figure}[t]
 \subsection*{Testing and Quantifying Robustness}
-Now, consider an attacker model where the attacker can replace at any time the value $\vec{y}[L]$ by any arbitrary value depending on the current real level of water in the tank. 
-Under this attacker model, this amounts to a universe of 64 different \emph{representative classes of attacks}, which define when and by what to replace the value of $\vec{y}[L]$. These 64 attacks classes correspond to the paths that the attacker can trigger in the controller by choosing arbitrary values for $\vec{y}[L]$ under specific circumstances; e.g., reporting a high/ok/low/observed water value when the water level is high/ok/low is a combination of four values over three dimensions, defining $4^3=64$ combinations. We explain in detail how we obtain the size of the attack universe in Section~\ref{sec:AttackerCapabilities}. 
+Now, consider an attacker model where the attacker can replace at any time the value $\vec{y}[L]$ by a value of their choice, or use the real value. This attacker model generates a universe of 64 different \emph{representative classes of attacks}, which define when and what values to use to replace $\vec{y}[L]$. These 64 attacks classes correspond to the paths that the attacker can trigger in the controller by varying the values of $\vec{y}[L]$.  More precisely, the attacker has four options: they can introduce a fake low level value (e.g., 500 L), a fake ok level value (e.g. 800 L), a fake high level value (e.g., 1100 L) or preserve the real water level value. The attacker can choose to use different actions in three main scenarios: when the water level is high, normal, or low. This combination of four ``what" values over three ``when" dimensions defines $4^3=64$ combinations. We explain in detail the generation of attack universes in Section~\ref{sec:AttackerCapabilities}. 
 
-We measure the robustness of the system with respect to this attacker model by computing the number of attacks that do not break any of the requirements. To test an attack in the system, we simulate several operation hours of the system while also simulating the effect of the attack until either the simulation timeouts or the system fails a requirement. After testing, we see that 40 out of 64 attacks break at least one requirement, so the robustness of this system is 24/64 with respect to an attacker that has control of $\vec{y}[L]$. We explain the process of computing robustness in detail in Section~\ref{sec:LatentBehaviours}.
+We measure the robustness of the system with respect to this attacker model by computing the number of attacks that do not break any of the security requirements. To test an attack in the system, we simulate several operation hours of the system while concurrently simulating the effect of the attack until either the simulation timeouts or the system fails a requirement. After testing, we see that 40 out of 64 attacks break at least one requirement, so the robustness of this system is 24/64 with respect to an attacker that has control of $\vec{y}[L]$. We explain the process of computing robustness in detail in Section~\ref{sec:LatentBehaviours}.
 
 \subsection*{Counterattackers}
 %So far, we have used a method similar to simulation-based fault-injection to quantify the robustness of the water tank with respect to an attacker that controls the sensor $\vec{y}[L]$; now, 
-We now rely on the fundamental observation that an attack $m$ on the original version of the tank reveals a new system, which we denote $T_m$, and that a transformation $w$ on the revealed system $T_m$ may reveal another system $T^w_m$, which satisfies all security requirements that the original water tank satisfies. In such a case, we say that \emph{$w$ is a counterattack of $m$}. 
+We now rely on the fundamental observation that an attack $m$ on the original version of the tank reveals a latent system, which we denote $T_m$, and that a transformation $w$ on the latent system $T_m$ reveals another latent system $T^w_m$, which hopefully satisfies all security requirements. In such a case, we say that \emph{$w$ is a counterattack of $m$}. 
 
-Dual to an attacker model, for a counterattacker model, we assume control over the coordinates $\vec{q}[P]$ and $\vec{q}[MV]$ in the PLC; we also assume that we can observe the value $\vec{y}[L]$ (which is controlled by the attacker in this scenario). From this counterattacker model, we obtain a universe of 729 counterattacks. We explain how we obtain the size of the counterattack universe in Section~\ref{sec:CounterAttacks}. We observe that all 40 successful attacks can be countered, i.e., for each attack $m$ there exists a counterattack $w$ such that the system $T^w_m$ satisfies all the security requirements. Consequently, we say that the system has a \emph{latent robustness} of 64/64; i.e., it is theoretically possible for a counterattacker fitting the counterattacker model to counter every attack of an attacker fitting the attacker model, given that it is possible for the counterattacker to accurately identify the current attack, e.g., via a perfect system monitor. Since this attack identification condition may not be practical for attacker models with multiple diverse attacks, we instead consider a modification of the program of the PLC based on the information that we obtain from the LBA. In Section ~\ref{sec:CaseStudy}, we perform LBA on a system that is more complex than the water tank, and we show how to use the information of the counterattacks obtained via LBA to improve the robustness of the model. 
+A \emph{counterattacker model} is dual to an attacker model. It also requires a ``what" and a ``when" to act. In this scenario, we assume that the counterattacker acts in the PLC, and they can set the coordinate $\vec{q}[P]$ to \texttt{on} or \texttt{off} and the coordinate $\vec{q}[MV]$ to \texttt{open} or \texttt{close}. We also assume that the counterattacker can observe the value $\vec{y}[L]$ (which is controlled by the attacker in this scenario). This counterattacker does not replace the PLC, but instead acts as a preprocessor, i.e., it changes $\vec{q}[P]$ and $\vec{q}[MV]$ before the PLC makes control decisions using its normal strategy. From this counterattacker model, we generate a universe of 729 counterattacks (we explain how we obtain the size of the counterattack universe in Section~\ref{sec:CounterAttacks}). 
+
+All 40 successful attacks can be countered, i.e., for each attack $m$ there exists a counterattack $w$ such that the system $T^w_m$ satisfies all the security requirements. Consequently, we say that the system has a \emph{latent robustness} of 64/64; i.e., it is theoretically possible for a counterattacker fitting the counterattacker model to counter every attack of an attacker fitting the attacker model, given that it is possible for the counterattacker to accurately identify that: 1) the system is under attack, and 2) which exact attack is occurring, since apparently similar attacks could have different counterattacks. Assuming the existence of such monitor is impractical; which is why we instead consider a modification of the program of the PLC based on the information that we obtain from the LBA to improve the robustness of the system. In Section ~\ref{sec:CaseStudy}, we perform LBA on a system that is more complex than the water tank, and we show how to use the relations between attacks and counterattacks obtained via LBA to propose repairs that improve the robustness of the model. 
  
 \section{Cyber-Physical Systems: Physical Requirements and Attacker Models}
 %\todo[inline]{Small intro that explains what this section is}
@@ -273,7 +271,7 @@ Figure \ref{fig:IFCPS} presents an extended version of the \emph{supervisor mode
 \caption{Extended supervisor model accounting for external inputs and outputs in both cyber and physical components.}
 \label{fig:IFCPS}
 \end{figure}
-Our system model consists of four subsystems: the \emph{controller}, an open, discrete cyber system; the \emph{process}, a linear-time invariant physical system; and two sets of cyber-and-physical interface systems: the \emph{sensors} and the \emph{actuators}. The process, whose state is $\vec{x}$, is observed by the sensor, yielding the physical observation $\vec{y}$; the sensor transforms $\vec{y}$ into the cyber input observation $\vec{i}$. The controller, whose state is $\vec{q}$, receives $\vec{i}$ and an external cyber network input $\vec{a}$, and produces a cyber output network signal $\vec{b}$ and a cyber control signal $\vec{o}$. The cyber signal $\vec{o}$ is then transformed into a physical control signal $\vec{u}$ by the actuator. The process, whose state is $\vec{x}$, reacts to $\vec{u}$ and to some physical network input $\vec{v}$ and yields both a physical network output $\vec{w}$. The then cycle repeats by having the sensor observe the physical state $\vec{x}$ to produce $\vec{y}$. 
+Our system model consists of four subsystems: the \emph{controller}, an open, discrete cyber system; the \emph{process}, a linear-time invariant physical system; and two sets of cyber-and-physical interface systems: the \emph{sensors} and the \emph{actuators}. The process, whose state is $\vec{x}$, is observed by the sensor, yielding the physical observation $\vec{y}$; the sensor transforms $\vec{y}$ into the cyber input observation $\vec{i}$. The controller, whose state is $\vec{q}$, receives $\vec{i}$ and an external cyber network input $\vec{a}$, and produces a cyber network output $\vec{b}$ and a cyber control command $\vec{o}$. The cyber command $\vec{o}$ is then transformed into a physical control command $\vec{u}$ by the actuator. The process, whose state is $\vec{x}$, reacts to $\vec{u}$ and to some physical network input $\vec{v}$ and yields both a physical network output $\vec{w}$. The then cycle repeats by having the sensor observe the physical state $\vec{x}$ to produce $\vec{y}$. 
 
 Our main objective is to test how well the integrity of the physical state of the process $\vec{x}$ is preserved in the presence of attackers. For this purpose, we define formal notions of \emph{CPS state}, \emph{single-cycle semantics}, and \emph{physical integrity requirements}.
 \begin{definition}[States of a CPS]
@@ -378,7 +376,7 @@ Before we formally define attackers and their attacks, we introduce the notion o
 %\todo[inline]{Awesome! now we can model a requirement that states that the water level of the tank must not remain low for large periods of time, or the pump would burn.}]
 Henceforth, we refer to physical integrity requirements simply as \emph{physical requirements}. We expect the original CPS to satisfy all physical requirements. More precisely, since the normal behaviour of the CPS are the sequences $(\pi_0, \pi_1, \ldots)$ where $\pi_{k+1}=\TheBehaviourOf{\pi_k}$ and $\pi_0$ is an initial state, we expect, for all $k$, that the sequences $(\pi_0[\vec{x}],\ldots,\pi_k[\vec{x}])$ is accepted by every physical requirement.
 
-\subsection{Attacks as Vector Fields on the Phase Space}
+\subsection{Attacks as Vectors} 
 Now that we have a behaviour function that maps states to states, i.e., the single cycle semantics function $\TheSystem\colon\Pi\rightarrow\Pi$ from Definition~\ref{def:SingleCycleSemantics}, we can compose it with an arbitrary state transformation $m\colon \Pi\rightarrow\Pi$ to reveal a new behaviour function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$, which may or may not satisfy the physical requirements. 
 % In Section~\ref{sec:example} we hinted the possibility of describing attacks as vectors. In this section, we discuss in more detail the meaning of the bases and the coefficients of attacks.
 To describe an attack $m\colon \Pi\rightarrow \Pi$ as a vector, we need a basis and a set of coefficients. The basis reflects the visibility of the attacker over the current state of the system, so it also characterises the ability of the attacker to estimate when the current state of the system satisfies a relevant condition. The most granular base is given by the elements of $\Pi$ (when $\Pi$ is finite), and it models an attacker with absolute visibility; i.e. the attacker always knows the value of every component of the current state. The least granular base is given by $\Pi$ itself, and it models an attacker with no visibility over the current state.
@@ -388,7 +386,7 @@ Let $\Pi$ be the set of states of the CPS. An \emph{attack basis} is any \emph{f
 \end{definition}
 \begin{example}
   \label{ex:AttackBasis}
-  For the water tank from Section~\ref{sec:example}, we define the base $[LL, OK, HH]^T$, where ${LL}=\set{\pi| \pi[\vec{x}[L]]<Lmin}$, ${HH}=\set{\pi| \pi[\vec{x}[L]]>Lmax}$ and ${OK}=\set{\pi|Lmin \leq \pi[\vec{x}[L]]\leq Lmax}$. The base $[LL, OK, HH]^T$ models the visibility of an attacker that can always determine whether the current state of the system is in $LL$, in $OK$ or in $HH$.  %We refer to $\set{\pi\in \Pi| \pi[\vec{x}[L]]>Lmax}$ by $(\vec{x}[L]>Lmax)$ and we refer to $\Pi$ by $\True$.
+  For the water tank from Section~\ref{sec:example}, we define the base $[LL, OK, HH]^T$, where ${LL}=\set{\pi| \pi[\vec{x}[L]]<L_{min}}$, ${HH}=\set{\pi| \pi[\vec{x}[L]]>L_{max}}$ and ${OK}=\set{\pi|L_{min} \leq \pi[\vec{x}[L]]\leq L_{max}}$. The base $[LL, OK, HH]^T$ models the visibility of an attacker that can always determine whether the current state of the system is in $LL$, in $OK$ or in $HH$.  %We refer to $\set{\pi\in \Pi| \pi[\vec{x}[L]]>L_{max}}$ by $(\vec{x}[L]>L_{max})$ and we refer to $\Pi$ by $\True$.
 \end{example}
 
 The coefficients of an attack vector model the capabilities of the attacker to interact with the system. The natural choice for this set of coefficients is the monoid $(\Pi\rightarrow \Pi, \circ, \id)$, because it enables attack composition. However, since we are interested in creating a test suite to systematically test compromised systems, we want a finite set of \emph{representative coefficients} that spans a finite number of attacks. Thus, we generate an {idempotent monoid} using constant transformations of coordinates.%, henceforth named $\IMCT$.
@@ -426,8 +424,8 @@ $\Gamma_{\mathcal{K}}$ under function composition; the unit of the monoid is the
 Since each transformation $t\in \IMCT$ is finitely generated, $t$ unambiguously pairs each atomic component $c\in \mathbb{C}$ with either $\id$ or with some constant transformation $\const^{c}_{v}$ in $\Gamma_{\mathcal{K}}$.  We denote this association by $t[c]$. If $t[c]=\id$, then $t$ does not act on the atomic component $c$, and if $t[c]=\const^{c}_{v}$, then $t(\pi)[c]=v$ for all $\pi \in \Pi$.
 \end{definition}
 \begin{example}
-  In the context of the water tank from Section~\ref{sec:example}, an attacker can infer from Equation~\ref{eq:ControllerStage3} that, if $\vec{y}[L](k)\geq Lmax$% and $\vec{q}[MV](k)=\texttt{open}$
-  , then $\vec{u}[MV](k+1)$ is $\texttt{closing}$. From this knowledge, if the attacker aims to keep the valve $MV$ closed by attacking $\vec{y}$, then they should transform $\vec{y}$ into a value $\bar{y}$ that satisfies $\bar{y}[L](k)\leq Lmax$; similarly, if they aim to keep $MV$ open, then $\bar{y}$ should satisfy $\bar{y}[L](k)\leq Lmin$. The concrete values of $\bar{y}[L](k)$ are unimportant as long as they satisfy the desired condition. In that sense,the attacker chooses the \emph{representative values} $500~\mathrm{L}$, $800~\mathrm{L}$ and $1100~\mathrm{L}$ for $\bar{y}[L](k)$. The value $500~\mathrm{L}$ represents all values that trick the controller into believing that the level of water of the tank is low; The value $800~\mathrm{L}$ is representative of all values that trick the controller into thinking that the level of water of the tank is safe, and finally the value  $1100~\mathrm{L}$ represents those values that would trick the controller into assuming that the water level of the tank is high.  
+  In the context of the water tank from Section~\ref{sec:example}, an attacker can infer from Equation~\ref{eq:ControllerStage3} that, if $\vec{y}[L](k)\geq L_{max}$% and $\vec{q}[MV](k)=\texttt{open}$
+  , then $\vec{u}[MV](k+1)$ is $\texttt{closing}$. From this knowledge, if the attacker aims to keep the valve $MV$ closed by attacking $\vec{y}$, then they should transform $\vec{y}$ into a value $\bar{y}$ that satisfies $\bar{y}[L](k)\leq L_{max}$; similarly, if they aim to keep $MV$ open, then $\bar{y}$ should satisfy $\bar{y}[L](k)\leq L_{min}$. The concrete values of $\bar{y}[L](k)$ are unimportant as long as they satisfy the desired condition. In that sense,the attacker chooses the \emph{representative values} $500~\mathrm{L}$, $800~\mathrm{L}$ and $1100~\mathrm{L}$ for $\bar{y}[L](k)$. The value $500~\mathrm{L}$ represents all values that trick the controller into believing that the level of water of the tank is low; The value $800~\mathrm{L}$ is representative of all values that trick the controller into thinking that the level of water of the tank is safe, and finally the value  $1100~\mathrm{L}$ represents those values that would trick the controller into assuming that the water level of the tank is high.  
   These representative values characterise the set of constant transformations $\Gamma_{\vec{y}[L]}$, given by
 \begin{align}
   \Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}.
@@ -692,7 +690,7 @@ Latent behaviour analysis shows us that attacks transform the single-cycle seman
     &=\set{\const^{\vec{q}[MV]}_{\texttt{open}},\const^{\vec{q}[MV]}_{\texttt{closed}}}\\
     &\cup \set{\const^{\vec{q}[P]}_{\texttt{on}},\const^{\vec{q}[P]}_{\texttt{off}}}
   \end{align*}
-  The basis $\set{\widehat{LL},\widehat{OK},\widehat{HH}}$ is defined by  $\widehat{LL}(\pi)=(\pi[\vec{y}[L]]<Lmin)$, $\widehat{HH}(\pi)=(\pi[\vec{y}[L]]>Lmax)$ and $\widehat{OK}(\pi)=(Lmin\leq \pi[\vec{y}[L]]\leq Lmax)$. Note that we arbitrarily choose the visibility of the counterattacker to be affected by the attacker. More precisely, we use $\widehat{LL},\widehat{OK}$ and $\widehat{HH}$, which depend on the level provided by the attacker $\vec{y}[L]$, and not on the physical (real) water level $\vec{x}[L]$. 
+  The basis $\set{\widehat{LL},\widehat{OK},\widehat{HH}}$ is defined by  $\widehat{LL}(\pi)=(\pi[\vec{y}[L]]<L_{min})$, $\widehat{HH}(\pi)=(\pi[\vec{y}[L]]>L_{max})$ and $\widehat{OK}(\pi)=(L_{min}\leq \pi[\vec{y}[L]]\leq L_{max})$. Note that we arbitrarily choose the visibility of the counterattacker to be affected by the attacker. More precisely, we use $\widehat{LL},\widehat{OK}$ and $\widehat{HH}$, which depend on the level provided by the attacker $\vec{y}[L]$, and not on the physical (real) water level $\vec{x}[L]$. 
   % (Y[L3]<L3min)=>[(Q[MV3]->closed), (Q[P3]->off)] + (L3min<=Y[L3]<=L3max)=>[id(Q[MV3]), id(Q[P3])] + (Y[L3]>L3max)=>[id(Q[MV3]), id(Q[P3])]
   This counterattacker model generates 729 different counterattacks, 
 since
@@ -750,13 +748,13 @@ To repair a CPS, we study the distribution of attacks and counterattacks that we
   \label{eq:ControllerStage3Repair}
   \vec{q}_{\vec{m}}[MV](k+1)&=
   \begin{cases}
-    \texttt{closed},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq Lmin$,}\\
+    \texttt{closed},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq L_{min}$,}\\
     \vec{q}_{\vec{m}}[MV](k)&\quad \text{otherwise;}    
   \end{cases}\\
   \vec{q}_{\vec{m}}[\tau](k+1)&=\vec{q}_{\vec{m}}[\tau](k)\\
 \vec{q}_{\vec{m}}[L](k+1)&=\vec{y}_{\vec{m}}[L](k)\\
 \vec{q}_{\vec{m}}[P](k+1)&=\begin{cases}
-  \texttt{off},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq Lmin$,}\\
+  \texttt{off},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq L_{min}$,}\\
   \vec{q}_{\vec{m}}[P](k)&\quad \text{otherwise;}    
 \end{cases}
 \end{align}
@@ -822,9 +820,9 @@ Finally, Corollary~\ref{cor:insecure} is a special case of Corollary~\ref{cor:mo
 %   \label{eq:ControllerStager3}
 %   \vec{q}[MV](k+1)&=
 %   \begin{cases}
-%     \texttt{opening},&\quad \text{if $\vec{q}[MV](k)=\texttt{closed}$ and $\vec{y}[L](k)\leq Lmin$,}\\
+%     \texttt{opening},&\quad \text{if $\vec{q}[MV](k)=\texttt{closed}$ and $\vec{y}[L](k)\leq L_{min}$,}\\
 %     \texttt{open},&\quad \text{if $\vec{q}[MV](k)=\texttt{opening}$ and $\vec{q}[\tau](k)>T$,}\\
-%     \texttt{closing},&\quad \text{if $\vec{q}[MV](k)=\texttt{open}$ and $\vec{y}[L](k)\geq Lmax$,}\\
+%     \texttt{closing},&\quad \text{if $\vec{q}[MV](k)=\texttt{open}$ and $\vec{y}[L](k)\geq L_{max}$,}\\
 %     \texttt{closed},&\quad \text{if $\vec{q}[MV](k)=\texttt{closing}$ and $\vec{q}[\tau_3](k) >T_3$,}\\
 %     MV&\quad \text{otherwise;}    
 %   \end{cases}\\
@@ -977,14 +975,14 @@ This controller has eight modes which depend on the state of the pump $P2$ and t
   \vec{q}[\tau2]&\in\mathbb{N}
 \end{align*}
 
-The controller $\plc_2$ receives a network input $\vec{a}$ and a sensor reading $\vec{y}$, and produces a control signal $\vec{u}$. Through this section, we assume that every actuator and sensor behaves like a faithful single state transducer, i.e. $\vec{i}(k)=\theta_{\vec{Y}}(\vec{y}(k))=\vec{y}(k)$ and $\vec{u}(k)=\theta_{\vec{O}}(\vec{o}(k))=\vec{o}(k)$. 
+The controller $\plc_2$ receives a network input $\vec{a}$ and a sensor reading $\vec{y}$, and produces a control command $\vec{u}$. Through this section, we assume that every actuator and sensor behaves like a faithful single state transducer, i.e. $\vec{i}(k)=\theta_{\vec{Y}}(\vec{y}(k))=\vec{y}(k)$ and $\vec{u}(k)=\theta_{\vec{O}}(\vec{o}(k))=\vec{o}(k)$. 
 The network input $\vec{a}$ has two coordinates $L3$ and $MV3$, whose ranges are 
 \begin{align*}
   \vec{a}[L3]&\in[0..1200],\\ 
   \vec{a}[MV]&\in \{\texttt{closed},\texttt{opening},\texttt{open},\texttt{closing}\}.
 \end{align*} 
 The sensor reading $\vec{y}$ has one coordinate $L2$, where $\vec{y}[L2]\in[0..1200]$. 
-The control signal $\vec{u}$ has two coordinates, $MV2$ and $L2$, where 
+The control command $\vec{u}$ has two coordinates, $MV2$ and $L2$, where 
 \begin{align*}
   \vec{u}[P2]&\in\set{\const_\texttt{off},\const_\texttt{on},\id},\\
   \vec{u}[MV2]&\in\set{\texttt{closed},\texttt{opening},\const_\texttt{open},\const_\texttt{closing}, \id}.

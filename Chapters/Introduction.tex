@@ -52,7 +52,7 @@ To learn how attackers may compromise robustness, we are going to lower the leve
 %We now give an idea of how the the compromise rules of attackers in~\cite{KnowYourEnemy} can be generalised to spatial transformations. 
 We now illustrate the effects of a spatial transformation in the behaviour of a transition system: consider the set of integer number pairs $\Z\times\Z$ and the transition function $\delta\colon \Z\times\Z\rightarrow \Z\times\Z$ that maps $(x,y)\in \Z$ to $(x^2,y)$. The pair $(\Z\times\Z, \delta)$ defines a transition system, which we represent in Figure~\ref{fig:IntroVectorSpace}.
 
-The behaviour of $(x,y)\in \Z\times\Z$ is the sequence that results from the iterated application of $\delta$ starting from $(x,y)$; i.e., $(x^2,y),(x^4,y),(x^8,y),$ etc. Now, consider the endofunction $m\colon \Z\times\Z\rightarrow \Z\times\Z$ that maps $(x,y)\in \Z\times\Z$ to $(-y,x)$. The transformation $m$ generates a vector field, shown in Figure~\ref{fig:SpatialDeformation}. The transitions $\delta$ and $m$ do not commute in this scenario: applying $\delta$ first and then $m$ maps $(x,y)$ %to $(x/2,y/2)$ and then 
+The behaviour of $(x,y)\in \Z\times\Z$ is the sequence that results from the iterated application of $\delta$ starting from $(x,y)$; i.e., $(x^2,y),(x^4,y),(x^8,y),$ etc. Now, consider the endofunction $m\colon \Z\times\Z\rightarrow \Z\times\Z$ that maps $(x,y)\in \Z\times\Z$ to $(-y,x)$. The transformation $m$ also generates a transition system, shown in Figure~\ref{fig:SpatialDeformation}. The transitions $\delta$ and $m$ do not commute in this scenario: applying $\delta$ first and then $m$ maps $(x,y)$ %to $(x/2,y/2)$ and then 
 to $(-y,x^2)$ (whose transition system we show in Figure~\ref{fig:FirstLatent}) while applying $m$ first and then $\delta$ maps $(x,y)$ to $(y^2,x)$ (whose transition system we show in Figure~\ref{fig:SecondLatent}). %Since the original transition system is $(\Nat, +_1)$, the effect of $*_2$ models an external perturbation over $(\Nat, +_1)$.
 \begin{figure}[!t]
   \centering
@@ -63,7 +63,7 @@ to $(-y,x^2)$ (whose transition system we show in Figure~\ref{fig:FirstLatent}) 
 \begin{figure}[!t]
   \centering
   \includegraphics[width=0.75\textwidth]{Figures/VectorSpace2.pdf} 
-  \caption{The spatial transformation $m$ as a vector field in the interval $[-20,20]\times[-20,20]$. The function $m$ rotates pairs by 90 degrees counter-clockwise.} 
+  \caption{The spatial transformation $m$ as a transition system in the interval $[-20,20]\times[-20,20]$. The function $m$ rotates pairs by 90 degrees counter-clockwise.} 
   \label{fig:SpatialDeformation} 
 \end{figure} 
 
