@@ -1126,7 +1126,7 @@ Finally, the physical state of the process of Stage 2 propagates to Stage 3 via 
 \end{align}
 We use this relation to enforce the conservation of matter: if there is no water in T2, then no water should be flowing into T3, even if $MV3$ is open and $P2$ is on. 
 
-Figure~\ref{fig:CPSRobustness:Stage2Normal} shows the attack-free, steady state behaviour of the water level in tank T2. Due to interdependence, the changes in the behaviour of the tank T2 affect the behaviour of tank T3 and vice versa. 
+Figure~\ref{fig:CPSRobustness:Stage2Normal} shows the attack-free, steady state behaviour of the water level in tank T2. Due to interdependence, the changes in the behaviour of the tank T2 affect the behaviour of tank T3 and vice versa. This composite CPS has four security requirements that model safe water levels for both tanks: $\Always{\vec{x}[L2]>0}$, $\Always{\vec{x}[L2]<1200}$, $\Always{\vec{x}[L3]>0}$ and $\Always{\vec{x}[L3]<1200}$. 
 %\todo[inline]{@John: we are doing testing so it should be fine, but I can imagine a reviewer complaining about the omision of the error parameter. What reasoning can we use to omit explicitly including the error parameter?}
 
 % \todo[inline]{@All. Reviewers might ask why we do not include errors in the models. They can be added, but I wanted to keep the model as simple as possible.}
@@ -1162,17 +1162,18 @@ Figure~\ref{fig:CPSRobustness:Stage2Normal} shows the attack-free, steady state 
 
 \subsection{Attacker Model}%{Some Attacker Models of Stage 2 and Stage 3}
 % We define an attacker model for the composition of Stage 2 and Stage 3 by combining two attacker models, one for Stage 2 and one for Stage 3.  The following models describe single-point attackers in one of the processes.
-We now define an attacker model using Definitions~\ref{def:CPSRobustness:AttackBasis}, \ref{def:CPSRobustness:IdempotentMonoid}, and~\ref{def:CPSRobustness:Attack} for the quantification of robustness. We have four security requirements: $\Always{\vec{x}[L2]>0}$, $\Always{\vec{x}[L2]<1200}$, $\Always{\vec{x}[L3]>0}$ and $\Always{\vec{x}[L3]<1200}$. 
-We consider an attacker model that manipulates the control outputs of the controller PLC2 for pump $P2$ and valve $MV2$. We choose this attacker because they can override the commands sent by PLC2, giving them the same level of control than the PLC2. For testing, we allow this attacker to set $\vec{u}[MV2](k)$ and $\vec{u}[P2](k)$ for all $0\leq k\leq t$ given some testing time parameter $t$, which we set to 6 hours to give the effect of actions of the attacker enough time to propagate through the system. To define the attacker model, we reuse the base from Example~\ref{ex:CPSRobustness:AttackBasis}. The base for the attacker model is $[LL, OK, HH]^T$, where ${LL}(\pi)=\pi[\vec{x}[L3]]<L3min$, ${HH}(\pi)=\pi[\vec{x}[L3]]>L3max$ and ${OK}(\pi)=L3min \leq \pi[\vec{x}[L3]]\leq L3max$, for $\pi \in \Pi$. This implies that even though the attacker modifies components in Stage2, they only have visibility of the tank T3 and not of T2. Although this attacker is ``blind" with respect to $T2$, their actions will definitely impact the behaviour of $T2$. The representative values used by the attacker model for $\vec{u}[MV2]$ are $\texttt{open}$ and $\texttt{closed}$; more precisely, we define
+We now define an attacker model using Definitions~\ref{def:CPSRobustness:AttackBasis}, \ref{def:CPSRobustness:IdempotentMonoid}, and~\ref{def:CPSRobustness:Attack} for the quantification of robustness. We consider an attacker model that manipulates the control outputs of the controller PLC2 for pump $P2$ and valve $MV2$. We choose this attacker because they can override the commands sent by PLC2, giving them the same level of control over Stage 2 than PLC2 has. More precisely, we allow this attacker to set $\vec{u}[MV2](k)$ and $\vec{u}[P2](k)$ for all $0\leq k\leq t$ given some testing time parameter $t$, which we set to 6 hours to give the effect of actions of the attacker enough time to propagate through the system. To define the attacker model, we reuse the base from Example~\ref{ex:CPSRobustness:AttackBasis}. The base for the attacker model is $[LL, OK, HH]^T$, where ${LL}(\pi)=\pi[\vec{x}[L3]]<L3min$, ${HH}(\pi)=\pi[\vec{x}[L3]]>L3max$ and ${OK}(\pi)=L3min \leq \pi[\vec{x}[L3]]\leq L3max$, for $\pi \in \Pi$. This implies that even though the attacker modifies components in Stage2, \emph{they only have visibility of the tank T3 and not of T2}. Although this attacker is ``blind" with respect to $T2$, their actions will definitely impact the behaviour of $T2$. 
+
+We manually choose the representative values used by the attacker model so that we maximise testing coverage. The representative values of $\vec{u}[MV2]$ are $\texttt{open}$ and $\texttt{closed}$, which in turn define 
 \begin{align*}
   \Gamma_{\vec{u}[MV2]}=\set{\const^{\vec{u}[MV2]}_{\texttt{open}}, \const^{\vec{u}[MV2]}_{\texttt{closed}}}.
 \end{align*}
-The representative values for $\vec{u}[P2]$ are $\texttt{on}$ and $\texttt{off}$, which create the constant functions
+The representative values for $\vec{u}[P2]$ are $\texttt{on}$ and $\texttt{off}$, which define 
 \begin{align*}
   \Gamma_{\vec{u}[P2]}=\set{\const^{\vec{u}[P2]}_{\texttt{on}}, \const^{\vec{u}[P2]}_{\texttt{off}}}.
 \end{align*}
 % The set of coefficients for this attacker model is $\Gamma_{\vec{u}[MV2],\vec{u}[P2]}=\Gamma_{\vec{u}[MV2]}\cup \Gamma_{\vec{u}[P2]}$. 
-The attacks of this attacker model $\vec{m}$ are then of the form
+An attack $\vec{m}$ generated by this model is of the form
 \begin{align*}
   \vec{m}(\pi)=
   %[t_1,\ldots,t_n]
@@ -1194,12 +1195,12 @@ where $t_i\in \set{\id,\const^{\vec{u}[MV2]}_{\texttt{open}}, \const^{\vec{u}[MV
 \end{align*}
 
 \subsection{Counterattacker Model}
-The corresponding counterattacker model uses the controller PLC3; i.e. the counterattacker can set $\vec{q}[MV3](k)$ and $\vec{q}[P3](k)$ for all $0\leq k\leq t$ , with  $t=6$ hours to let the actions of the attacker and counterattacker enough time to stabilise. Since the counterattacker is in the controller of Stage 3, we define the base for the counterattacker model to be $[LL', OK', HH']^T$, where ${LL'}(\pi)=\pi[\vec{y}[L3]]<L3min$, ${HH'}(\pi)=\pi[\vec{y}[L3]]>L3max$ and ${OK'}(\pi)=L3min \leq \pi[\vec{y}[L3]]\leq L3max$, for $\pi \in \Pi$ (unlike the base of the attacker, which uses $\vec{x}[L3]$ instead of $\vec{y}[L3]$). The counterattacker is also ``blind" with respect to $T2$, but their actions also impact the behaviour of $T2$. 
+We want the counterattacker of this system to be ``in the controller PLC3''; i.e. we want the counterattacker to have control over $\vec{u}[MV3](k)$ and $\vec{u}[P3](k)$ for all $0\leq k\leq t$, with $t=6$ hours to let the actions of the attacker and counterattacker enough time to interact and reveal either stable safe behaviours of a broken requirement. We define the base for the counterattacker model to be $[LL', OK', HH']^T$, where ${LL'}(\pi)=\pi[\vec{y}[L3]]<L3min$, ${HH'}(\pi)=\pi[\vec{y}[L3]]>L3max$ and ${OK'}(\pi)=L3min \leq \pi[\vec{y}[L3]]\leq L3max$, for $\pi \in \Pi$ (unlike the base of the attacker, which uses $\vec{x}[L3]$ instead of $\vec{y}[L3]$). %The counterattacker is also ``blind" with respect to $T2$, but their actions also impact the behaviour of $T2$.  
 
-We set the representative values of $\vec{q}[MV3]$ to be $\texttt{open}$, and $\texttt{closed}$ and the representative values of $\vec{q}[P3]$ to be $\texttt{on}$, and $\texttt{off}$; more precisely, 
+We set the representative values of $\vec{u}[MV3]$ to be $\texttt{open}$, and $\texttt{closed}$ and the representative values of $\vec{u}[P3]$ to be $\texttt{on}$, and $\texttt{off}$; more precisely, 
 \begin{align*}
-  \Gamma_{\vec{q}[MV3]}&=\set{\const^{\vec{q}[MV3]}_{\texttt{open}}, \const^{\vec{q}[MV3]}_{\texttt{closed}}}.\\
-  \Gamma_{\vec{q}[P3]}&=\set{\const^{\vec{q}[P3]}_{\texttt{on}}, \const^{\vec{q}[P3]}_{\texttt{off}}}.
+  \Gamma_{\vec{u}[MV3]}&=\set{\const^{\vec{u}[MV3]}_{\texttt{open}}, \const^{\vec{u}[MV3]}_{\texttt{closed}}}.\\
+  \Gamma_{\vec{u}[P3]}&=\set{\const^{\vec{u}[P3]}_{\texttt{on}}, \const^{\vec{u}[P3]}_{\texttt{off}}}.
 \end{align*}
 % The set of coefficients for this attacker model is $\Gamma_{\vec{u}[MV2],\vec{u}[P2]}=\Gamma_{\vec{u}[MV2]}\cup \Gamma_{\vec{u}[P2]}$. 
 The counterattacks of this model $\vec{w}$ are then of the form
@@ -1218,7 +1219,7 @@ The counterattacks of this model $\vec{w}$ are then of the form
     HH'
   \end{bmatrix},
 \end{align*} 
-where $t_i\in \set{\id,\const^{\vec{q}[MV3]}_{\texttt{open}}, \const^{\vec{q}[MV3]}_{\texttt{closed}}}$ and  $s_i\in\set{\id,\const^{\vec{u}[P3]}_{\texttt{on}}, \const^{\vec{u}[P3]}_{\texttt{off}}}$, for $i\in \set{LL',OK',LL'}$. This counterattacker model has 729 counterattacks.
+where $t_i\in \set{\id,\const^{\vec{u}[MV3]}_{\texttt{open}}, \const^{\vec{u}[MV3]}_{\texttt{closed}}}$ and  $s_i\in\set{\id,\const^{\vec{u}[P3]}_{\texttt{on}}, \const^{\vec{u}[P3]}_{\texttt{off}}}$, for $i\in \set{LL',OK',LL'}$. This counterattacker model has 729 counterattacks.
 
 % \begin{figure}[t]
 %   \includegraphics[width=0.75\textwidth]{Figures/CounterAtkRank.pdf} 
@@ -1228,7 +1229,8 @@ where $t_i\in \set{\id,\const^{\vec{q}[MV3]}_{\texttt{open}}, \const^{\vec{q}[MV
 
 
 \subsection{Quantification of Robustness: Analysis of Results}
-Using LBA, we quantify the robustness of the system given the initial conditions $\vec{x}[L2]=990$, $\vec{x}[MV2]=open$, $\vec{x}[P2]=on$, $\vec{x}[L3]=920$, $\vec{x}[MV3]=open$, $\vec{x}[P3]=on$. The robustness factor of 162/729, meaning that are successful 567 attacks for the given attacker model. All attacks that break $\Always{\vec{x}[L3]>0}$ or $\Always{\vec{x}[L3]<1200}$ can always be countered. However, 136 attacks cannot be countered by the proposed counterattacker model, meaning that the latent robustness of the system is only $593/729$. Non countered attacks always break either $\Always{\vec{x}[L2]>0}$ or $\Always{\vec{x}[L2]<1200}$. Nevertheless, some attacks which break $\Always{\vec{x}[L2]>0}$ or $\Always{\vec{x}[L2]<1200}$ can be countered. For example, the attack
+Using LBA, we quantify the robustness of the system given the initial conditions $\vec{x}[L2]=990$, $\vec{x}[MV2]=open$, $\vec{x}[P2]=on$, $\vec{x}[L3]=920$, $\vec{x}[MV3]=open$, $\vec{x}[P3]=on$. 
+The analysis computes a robustness factor of 162/729, meaning that are successful 567 attacks for the given attacker model. All attacks that break $\Always{\vec{x}[L3]>0}$ or $\Always{\vec{x}[L3]<1200}$ can always be countered. However, 136 attacks cannot be countered by the proposed counterattacker model, meaning that the latent robustness of the system is only $593/729$. The attacks without a counterattack always break either $\Always{\vec{x}[L2]>0}$ or $\Always{\vec{x}[L2]<1200}$, but some attacks that break those requirements can be countered. For example, the attack
 \begin{align*}
 %   Requirement "Tank T2 Never Overflows" broken at time 644 by attack (x[L3]<L3min)=>[(O[P2]->off), (O[MV2]->open)] + (L3min<=x[L3]<=L3max)=>[id(O[P2]), id(O[MV2])] + (x[L3]>L3max)=>[id(O[P2]), id(O[MV2])]
 % Found counterattack(Y[L3]>L3max)=>[id(Q[MV3]), (Q[P3]->off)] + (L3min<=Y[L3]<=L3max)=>[id(Q[MV3]), id(Q[P3])] + (Y[L3]<L3min)=>[id(Q[MV3]), id(Q[P3])]
@@ -1253,7 +1255,7 @@ breaks the requirement $\Always{\vec{x}[L2]<1200}$, but it is countered by the c
   \begin{bmatrix}
     \id\circ \id \\
     \id\circ \id \\
-    \id\circ \const^{\vec{q}[P3]}_{\texttt{off}} \\
+    \id\circ \const^{\vec{u}[P3]}_{\texttt{off}} \\
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
@@ -1281,28 +1283,30 @@ The following attack
       \pi[\vec{x}[L3]]>L3max
     \end{bmatrix}
   \end{align*} 
-causes tank T2 to overflow, and it cannot be countered using the current counterattacker model. This and similar attacks cannot be countered because the controller of Stage 3 cannot compensate the effects of an attacker controlling $\vec{u}[MV2]$ by influencing other components. 
+causes tank T2 to overflow, and it cannot be countered using the current counterattacker model. This and similar attacks cannot be countered because the counterattacker in Stage 3 cannot compensate some effects of the attacker over T2 by influencing components under their control. In summary, we identified 333 attacks that cause T2 to overflow, 126 that cause T2 to empty and 108 that cause T3 to empty; no attack caused T3 to overflow because we stop analysis at the first broken requirement, and attacks that may overflow T3 also overflow T2, empty T2 or empty T3 faster than they could overflow T3.
 
 \subsection{Increasing Robustness}
 %\todo[inline]{Discuss a couple of attack and counterattack dynamics, several counterattacks vs several attacks with some things in common.}
-Using LBA, we can group attacks that are countered by the same counterattack. After evaluating the composition of Stage 2 and Stage 3 under the given attacker and counterattacker models, we observe 12 counterattacks to address 431 successful attacks. The number of attacks countered by each counterattack does not follow a uniform distribution; some counterattacks counter only a couple of attacks, while others counter hundreds. 
+From the data obtained during LBA, we group attacks that are countered by the same counterattack. After evaluating the composition of Stage 2 and Stage 3 under the given attacker and counterattacker models, we observe that 12 non-trivial counterattacks counter 431 successful attacks. The number of attacks countered by each counterattack does not follow a uniform distribution; some counterattacks counter only a couple of attacks, while others counter hundreds. 
 
-For a given counterattack $\vec{w}$ which counters $n$ attacks $\vec{m}_1, \ldots, \vec{m}_n$, understanding the similarities among the $n$ attacks gives us a good indication of the reason why the counterattack is effective. For this evaluation, we manually analysed possible common causes, but a more systematic and efficient methodology is encouraged for future work. In summary, we identified 333 attacks that cause T2 to overflow, 126 that cause T2 to empty and 108 that cause T3 to empty; no attack caused T3 to overflow because we stop analysis at the first cause of problem, and attacks that can overflow T3 can also overflow T2, empty T2 or empty T3 faster than they can overflow T3.
-
+%For a given counterattack $\vec{w}$ which counters $n$ attacks $\vec{m}_1, \ldots, \vec{m}_n$, u
+Understanding the similarities among the attacks countered by the same counterattack should give us a good indication for why the counterattack is effective. For this evaluation, we manually analysed possible common causes, but a more systematic and efficient methodology is encouraged for future work. 
 
 \subsubsection{A Correct Repair}
 \label{sec:CPSRobustness:CorrectRepair}
-For an attack $\vec{m}$ and a counterattack $\vec{w}$ which counters it, if we implement the composition $\vec{w}\circ \vec{m}$, this transformation does not break the requirements of the system, although it may take the system to exceptional states. In general, implementing the application of a counterattack is far from trivial: the counterattack must only be applied when an attack it counters is detected; otherwise, the counterattack itself may become an attack! 
+%For an attack $\vec{m}$ and a counterattack $\vec{w}$ which counters it, if we implement the composition $\vec{w}\circ \vec{m}$, this transformation does not break the requirements of the system, although it may take the system to exceptional states. 
+%Implementing the application of a counterattack is far from trivial: the counterattack must only be applied when an attack it counters is detected; otherwise, the counterattack itself may become an attack! 
+In Section~\ref{sec:CPSRobustness:UrgentAttacker}, we briefly mentioned that, to soundly apply a counterattack, we must ensure to only apply it when an attack it counters exists in the system. This implicitly assumes the existence of a very powerful system monitor that can correctly identify which attack is being applied to the system. Once the is identified, the entity implementing the counterattacker applies the appropriate counterattack. Given that these requirements over the monitor are quite restrictive, we explore a different approach: we directly modify the program of a controller PLC based on the information we have on counterattacks, and we run LBA to measure the robustness of the new system to check if it improved. 
 
-In Section~\ref{sec:CPSRobustness:UrgentAttacker}, we mentioned that to implement a counterattack, we must ensure that it is only applied when the attack it counters exists in the system. This implicitly assumes the existence of a system monitor that can correctly identify which attack is being applied to the system; i.e., it properly identifies $\vec{m}$. Once $\vec{m}$ is identified, the monitor applies the appropriate counterattack for $\vec{m}$. Given that this requitements over the monitor are quite restrictive, we explore in the following a different approach: we directly modify the program of a controller PLC, and we run LBA to measure the robustness of the new system to check if it improved. 
+We used a counterattacker model that acts on the coordinates $\vec{u}[MV3]$ and $\vec{u}[P3]$, which are normally controlled by controller PLC3. Our plan is to incorporate the ``most useful counterattack" as part of the program of PLC3. Two things are necessary: the conditions that would trigger the application of this counterattack, and the right effects over $\vec{u}[MV3]$ and $\vec{u}[P3]$. 
 
-We used a counterattacker model which acts on the coordinates $\vec{q}[MV3]$ and $\vec{q}[P3]$ which are normally controlled by controller PLC3. Our plan then is to incorporate a counterattack $\vec{w}$ as part of the program of PLC3. Two parts are necessary: the conditions that would trigger the application of the counterattack, and the right effects over $\vec{q}[MV3]$ and $\vec{q}[P3]$. We observe that several attacks that empty tank T3 can be countered by means of the counterattack 
+From LBA, we observe that several attacks that empty tank T3 can be countered by means of the counterattack 
 \begin{align*}
   %(Y[L3]>L3max)=>[id(Q[MV3]), (Q[P3]->off)] + (L3min<=Y[L3]<=L3max)=>[id(Q[MV3]), id(Q[P3])] + (Y[L3]<L3min)=>[id(Q[MV3]), id(Q[P3])]
     \vec{w}(\pi)&=
     %[t_1,\ldots,t_n]
     \begin{bmatrix}
-    \id\circ \const^{\vec{q}[P3]}_{\texttt{off}} \\
+    \id\circ \const^{\vec{u}[P3]}_{\texttt{off}} \\
      \id\circ \id \\
      \id\circ \id \\
     \end{bmatrix}
@@ -1313,11 +1317,12 @@ We used a counterattacker model which acts on the coordinates $\vec{q}[MV3]$ and
       \pi[\vec{y}[L3]]>L3max
     \end{bmatrix},
   \end{align*} 
-which is sensible: if the tank $T3$ is losing water, by shutting off the pump $P3$ when the level is low, we prevent water from leaving the tank. The counterattack $\vec{w}$ counters 122 attacks in total.
+which is sensible: if the tank $T3$ is losing water, by shutting off the pump $P3$ when the level is low, we prevent water from leaving the tank. The counterattack $\vec{w}$ counters 122 attacks out of the 729 attacks generated by the given attacker model.
 
-The counterattack $\vec{w}$ defines the effects over $\vec{q}[MV3]$ and $\vec{q}[P3]$ to be triggered by the controller PLC3: do nothing with respect to $\vec{q}[MV3]$ and set $\vec{q}[P3]$ to $\texttt{off}$ only if $\pi[\vec{y}[L3]]<L3min$. We now need to establish the conditions that would trigger these effects, and for that we look at common elements among the attacks countered by $\vec{w}$. We observe among several of those attacks that they share the factor $(\const^{\vec{u}[P2]}_{\texttt{off}})(\vec{x}[L3]]<L3min)$; this provides the trigger condition for the application of the effects given by $\vec{w}$.More precisely, to implement the counterattack $\vec{w}$ as part of the controller PLC3, we change its program to set $\vec{q}[P3]$ to \texttt{off} if $\vec{u}[P2]$ is \texttt{off} and $\vec{y}[L3]]<L3min$; we use $\vec{y}[L3]]<L3min$ instead of $\vec{x}[L3]]<L3min$ because $\vec{y}[L3]=\vec{x}[L3]$, because PLC3 has access to $\vec{y}[L3]$, and because the attacker model does not include the coordinate $\vec{y}[L3]$. 
+The counterattack $\vec{w}$ defines the following effects over $\vec{u}[MV3]$ and $\vec{u}[P3]$ to be implemented by the controller PLC3: do nothing with respect to $\vec{u}[MV3]$ and set $\vec{u}[P3]$ to $\texttt{off}$ only if $\pi[\vec{y}[L3]]<L3min$. While this gives us the implementation of the counterattack, we still need to find a trigger condition for it. We look for common elements among the attacks countered by $\vec{w}$, and we observe among several of those attacks that they share the factor $(\const^{\vec{u}[P2]}_{\texttt{off}})(\vec{x}[L3]]<L3min)$. This factor provides the trigger condition for the application of the effects given by $\vec{w}$; more precisely, to implement the counterattack $\vec{w}$ as part of the controller PLC3, we change its program such that $\vec{u}[P3]$ is \texttt{off} if $\vec{u}[P2]$ is \texttt{off} and $\vec{y}[L3]]<L3min$. 
+%We use $\vec{y}[L3]]<L3min$ instead of $\vec{x}[L3]]<L3min$ because $\vec{y}[L3]=\vec{x}[L3]$, because PLC3 has access to $\vec{y}[L3]$, and because the attacker model does not include the coordinate $\vec{y}[L3]$. 
 
-After implementing these changes, we run LBA again. We see that the changes to PLC3 increase the robustness of the system from $162/729$ to $333/729$, since the controller PLC3 now prevents the tank T3 from running out of water due to the effect of 171 previously successful attacks. We recall that $\vec{w}$ countered 122 attacks according to the original LBA, so the change to the program of PLC3 is more profound than anticipated. Nevertheless, the increase in robustness indicates that the system is now more robust after the change, even if the latent robustness remains the same, $593/729$. 
+After implementing these changes, we run LBA again. We see that the changes to PLC3 increase the robustness of the system from $162/729$ to $333/729$, since the controller PLC3 now prevents the tank T3 from running out, countering the effects of 171 previously successful attacks. We recall that $\vec{w}$ countered 122 attacks according to the original LBA, so the change to the program of PLC3 is more profound than anticipated. Nevertheless, the increase in robustness indicates that the system is now more robust after the change, even if the latent robustness remains the same, $593/729$. 
 
 %  that broke this requirement in the original system. The latent robustness remains at 581/729, which means that implementing this counterattack did not add additional vulnerabilities.
  
@@ -1329,9 +1334,9 @@ After implementing these changes, we run LBA again. We see that the changes to P
     %[t_1,\ldots,t_n]
     \begin{bmatrix}
      \id\circ \id \\
-     \const^{\vec{q}[MV3]}_{\texttt{open}}\circ \id \\
+     \const^{\vec{u}[MV3]}_{\texttt{open}}\circ \id \\
      \id\circ \id \\
-     %\const^{\vec{q}[MV3]}_{\texttt{open}}\circ \id
+     %\const^{\vec{u}[MV3]}_{\texttt{open}}\circ \id
     \end{bmatrix}
     \cdot
     \begin{bmatrix}
@@ -1341,7 +1346,7 @@ After implementing these changes, we run LBA again. We see that the changes to P
     \end{bmatrix},
   \end{align*} 
 %\todo[inline]{Python keeps playing tricks: sometimes it uses this as a counterattack, sometimes it finds another. it's driving me mad.}
-counters 58 attacks, many of which overflow T2 and have a common factor of $(\vec{x}[L3]>L3max)\const^{\vec{u}[P2]}_{\texttt{on}}$, i.e., many attacks turn on the pump $P2$ then the level of tank $L3$ is beyond the safety limit $L3max$. 
+counters 58 attacks, many of which overflow T2 and have a common factor of $(\vec{x}[L3]>L3max)\const^{\vec{u}[P2]}_{\texttt{on}}$, i.e., many attacks turn on the pump $P2$ then the level of tank $T3$ is beyond the safety limit $L3max$. 
 %\todo[inline]{@John: What happens when the pump is on and the valve is closed? Where does the water go? Reviewers might ask.}
 \begin{figure}[t]
   \centering
@@ -1349,14 +1354,15 @@ counters 58 attacks, many of which overflow T2 and have a common factor of $(\ve
   \caption{Attack distribution with respect to the first broken requirement for the original system, the repaired system from Section~\ref{sec:CPSRobustness:CorrectRepair} and the non-repaired system from Section~\ref{sec:CPSRobustness:NonRepair}}
   \label{fig:CPSRobustness:AttackDistribution}
 \end{figure} 
-Since the condition of the attacks $(\vec{x}[L3]>L3max)$ does not match the condition of the counterattack $L3min \leq \pi[\vec{y}[L3]]\leq L3max$, we just create a rule in the controller that implements the counterattack $\vec{w'}$. To check if such modification improved robustness, we perform LBA, and we observe that the robustness factor remains the same at 162/729; i.e., this new system can also withstand the effect of 162 attacks.  We observe two major differences: the latent robustness of the system changed from 593/729 to 606/729, and the distribution of attacks with respect to the first requirement they break also changes, as shown in Figure~\ref{fig:CPSRobustness:AttackDistribution}. The robustness of the new system is equal to the original robustness, so we cannot consider this to be an improvement over the previous version of the system, which is why we affirm this modification is an example of a non-repair. While this modification reduced the number of attacks that overflow tank T2, it now enables attacks that overflow tank T3, which were previously inexistent. More precisely, in the original system, no attack caused T3 to overflow, but now there are 144 attacks whose first broken requirement is to overflow tank T3. An increase in latent robustness indicates that more attacks in this new system can be countered. This vaguely indicates that the \emph{security potential} increased with respect to the given attacker and counterattacker model.
+Since the condition of the attacks $(\vec{x}[L3]>L3max)$ is mutually exclusive with the condition of the counterattack $L3min \leq \pi[\vec{y}[L3]]\leq L3max$, we prioritise the condition of the counterattack over those of attacks, and we implement it in the controller directly as a rule. To check if such modification improved robustness, we perform LBA, and we observe that the robustness factor remains the same at 162/729; i.e., this new system also resists the effect of 162 attacks. We observe two major differences: the latent robustness of the system changed from 593/729 to 606/729, and the distribution of successful attacks with respect to the first requirement they break also changes, as shown in Figure~\ref{fig:CPSRobustness:AttackDistribution}. The robustness of the new system is equal to the original robustness, so we cannot consider this to be an improvement over the previous version of the system, which is why we affirm that this modification is an example of a non-repair. 
+
+This modification reduced the number of attacks that overflow tank T2, but it now enables attacks that overflow tank T3, which were previously inexistent (now there are 144 attacks whose first broken requirement is to overflow tank T3). An increase in latent robustness indicates that more attacks in this new system can be countered, but this vaguely indicates that the new system has more \emph{security potential} than the original system with respect to the given attacker and counterattacker model.
 
 % Figure \ref{fig:CPSRobustness:AttackDistribution} shows the distribution of attacks for all three systems. Both the original and the non-repaired system have the same number of successful attacks, although their distribution changes.
 
 
-\subsection{Discussion of Results}
-We can use LBA and a testing methodology (e.g., simulation) to check if an arbitrary modification enhances the robustness of the system by comparing the resulting robustness factor. 
-We propose two changes to the original Stage 2 and Stage 3 system; one is a repair since it strictly improves the robustness of the system, while the other is not since it only changes the distribution of successful attacks. We believe that a more systematic analysis of the large amounts of data obtained via LBA can produce meaningful suggestions for correct model repairs, e.g., we believe that using machine learning or clustering techniques to find common causes of attacks that are countered by the same counterattack, or finding similarities among counterattacks for the same types of requirements might help the implementation of both system monitors and repairs. 
+\subsection{Summay and Discussion of Results}
+We use LBA and a testing methodology based on simulation to check if an arbitrary modification enhances the robustness of a CPS by comparing the original and the resulting robustness factors. We propose two changes: one is a repair since it strictly improves the robustness of the system, while the other is not since it only changes the distribution of successful attacks. We believe that a more systematic analysis of the large amounts of data obtained via LBA can produce meaningful suggestions for correct model repairs, e.g., using machine learning or clustering techniques to find common causes of attacks that are countered by the same counterattack, or finding similarities among counterattacks for the same types of requirements might help the implementation of both system monitors and repairs. 
 
 \begin{figure}[t]
   \centering
@@ -1364,13 +1370,14 @@ We propose two changes to the original Stage 2 and Stage 3 system; one is a repa
   \caption{Robustness improvement. The implementation of counterattacks improves the robustness of the system, making it susceptible to fewer attacks.}
   \label{fig:CPSRobustness:Robustness}
 \end{figure}
-Figure ~\ref{fig:CPSRobustness:Robustness} shows a transition from the robustness innate to the systems presented in this section and their latent robustness. This transition assumes that counterattacks are properly implemented, and that an adequate attack identification monitor exists. A properly implemented counterattack reduces the number of successful attacks, which in turn increases the robustness of the system. Each dot in the ``applying counterattacks'' section corresponds to the cumulative reduction of successful attacks by the proper implementation of a counterattacks that we identified using LBA. By proper implementation of counterattacks, we do not imply that we incorporate them all as part of the normal functionality of the system; instead, that they only activate when it is adequate in an exceptional reactive mode of the system. The slight difference in latent robustness is due to the fact that the original system and the system in Section~\ref{sec:CPSRobustness:NonRepair} are different, and the latter has more attacks that can be countered under the current attacker/counterattacker models. 
+Figure ~\ref{fig:CPSRobustness:Robustness} shows a transition from the robustness that is innate to the systems presented in this section and their latent robustness. This transition assumes shows the potential for improvement if counterattacks were properly implemented, given the existence of an adequate attack identification monitor. When properly implemented, a counterattack reduces the number of successful attacks, which in turn increases the robustness of the system. Each dot in the ``applying counterattacks'' section corresponds to the cumulative reduction of successful attacks by the proper implementation of a counterattacks. %By proper implementation of counterattacks, we do not imply that we incorporate them all as part of the normal functionality of the system; instead, that they only activate when it is adequate in an exceptional reactive mode of the system. 
+The slight difference in latent robustness is due to the fact that the original system and the system in Section~\ref{sec:CPSRobustness:NonRepair} are different, and the latter has more attacks that can be countered under the current attacker and counterattacker models. 
 
-For this experiment, we used a very basic counting unweighted metric for robustness that assumes all requirements are equally important. We can refine the definitions of robustness and latent robustness from Definitions~\ref{def:CPSRobustness:Robustness} and \ref{def:CPSRobustness:LatentRobustness} metrics to represent a larger lack of robustness if a particular security requirement is broken by many attacks. 
+For this experiment, we used a very basic counting unweighted metric for robustness that assumes all requirements are equally important. We can refine the definitions of robustness and latent robustness metrics from Definitions~\ref{def:CPSRobustness:Robustness} and \ref{def:CPSRobustness:LatentRobustness} to represent a larger lack of robustness if a particular security requirement is broken by many attacks or to reflect other measurement biases. 
 
 %, similar to the repair presented in Section ~\ref{sec:CPSRobustness:CorrectRepair}.
 
-% We implement the counterattack $\vec{w'}$ similarly to how we implemented $\vec{w}$: we change the program of PLC3 such that so that, under common conditions given by the countered attacks, we apply the changes indicated by the counterattack $\vec{w'}$. More precisely, PLC3 now sets $\vec{q}[MV3]$ to \texttt{open} if $\pi[\vec{y}[L3]]>L3max$, but it only responding to the factor $(\const^{\vec{u}[P2]}_{\texttt{on}})(\vec{x}[L3]]<L3min)$. Clearly, both $\vec{x}[L3]]<L3min$ and $\pi[\vec{y}[L3]]>L3max$ are mutually exclusive, so this repair does nothing. 
+% We implement the counterattack $\vec{w'}$ similarly to how we implemented $\vec{w}$: we change the program of PLC3 such that so that, under common conditions given by the countered attacks, we apply the changes indicated by the counterattack $\vec{w'}$. More precisely, PLC3 now sets $\vec{u}[MV3]$ to \texttt{open} if $\pi[\vec{y}[L3]]>L3max$, but it only responding to the factor $(\const^{\vec{u}[P2]}_{\texttt{on}})(\vec{x}[L3]]<L3min)$. Clearly, both $\vec{x}[L3]]<L3min$ and $\pi[\vec{y}[L3]]>L3max$ are mutually exclusive, so this repair does nothing. 
 
 % (Y[L3]>L3max)=>[id(Q[MV3]), (Q[P3]->off)] + (L3min<=Y[L3]<=L3max)=>[id(Q[MV3]), id(Q[P3])] + (Y[L3]<L3min)=>[id(Q[MV3]), id(Q[P3])]
 % because
@@ -1444,46 +1451,6 @@ For this experiment, we used a very basic counting unweighted metric for robustn
 
 %==================END ERIC WORKSPACE====================
 
-\section{Discussion and Future Work}
-\label{sec:CPSRobustness:Discussion}
-In this section, we list and discuss some fundamental discussion points, some of which represent the basis for interesting future work. 
-%LBA is a systematic way to test transition systems with respect to a set of properties
-%\todo[inline]{We do not work with attackers that act on physical components.}
-%\todo[inline]{We do not provide heuristics to choose the most pressing attacker to be addressed.}
-\subsection{Modelling and Abstraction level}
-Although we provide a formal framework for the modelling of CPSs, their states, and their execution semantics, and showed evidence that it can be used to derive useful analysis, it will be a subject of future work to assess how appropriate our modelling is when applied to other, perhaps more complex, scenarios. In essence, our formalism defines a deterministic transition system whose transition function is given by the one-step cycle semantics function $\TheSystem$ (see Definition \ref{def:CPSRobustness:SingleCycleSemantics}). Consequently, the notion of robustness and latent robustness that we give in Definitions \ref{def:CPSRobustness:Robustness} and \ref{def:CPSRobustness:LatentRobustness} are not probabilistic. However, we believe that this approach is good enough to carry out an approximate analysis if the probabilistic nature of the process is due to the existence of zero-mean noises. %Moreover, a testing approach like the one we use in this work produces statistically significant results if the experiments are repeated possibly missing only rare events.
-%\todo[inline]{@John: testing deals with probabilistic systems by repeating experiments and doing statistic analysis, right? Do you do this so that I can cite? Do you know of papers that do this with testing so that we cite them?}
-
-{Hybrid automata} \cite{ALUR19953} are state-based models for dynamical systems. These automata allow the description of invariants and side-effects on transitions, making them suitable for the description of many continuous physical processes. Being state-based systems, we believe they are compatible with LBA, and their attacker models could contain transformations that change the state of the continuous process while preserving the current mode of the system (as long as the transformation is physically possible). %There are also model checking techniques for hybrid automata. It would be interesting to see if these automata provide any advantages when it comes to automatic verification of the proposed properties.
-
-% \subsection{Quantification of Interference}
-% For our case study, we came up with a notion of quantification of integrity violations which, ultimately, was related to how many unwanted states could an attacker force the system to be in, in other words the level of \emph{corruption} an attacker can induce. These metrics are in a sense dual to metrics used in quantitative information flow, which measure the entropy of information, and how likely it is for an attacker to guess a secret based on the information she has already observed. 
-
-% Ideally, we want to quantify the $k$-controllability of attackers for large values of $k$ in order to cover as many possible states. Unfortunately, the larger $k$ is, the more computationally demanding the analysis becomes. However, we want to highlight that the behaviour of CPSs is usually regular; {i.e.}, the operation modes of CPSs often follow the same sequence over and over, revisiting similar states each time the process repeats. Due to this regular nature, it may be possible to restrict the analysis to the length of this ``behavioural loop'' instead of analysing arbitrarily long traces, therefore considering a well defined and relatively small $\bar{k} \in \mathbb{N}$.
-
-% \subsection{A Theory of Attacks and Attackers}
-% From our case study, we observe that it is possible for different attackers to drive the CPS to critical states by using different attacks. Thus, it may be convenient to define more abstract notions of attack and attacker that are more related to the effects that we want to avoid on the system in order to bundle together attacks and attackers that are equally powerful.
-% While we think that our attacker model is at least as powerful as attacker models commonly used in control theory (see Section \ref{sec:CPSRobustness:AttacksOnModels}), further work is indeed to formally compare them. 
-
-\subsection{Beyond Robustness}
-There are many well-known properties in control theory that characterise important aspects of dynamical systems, including {controllability, observability, stability} and {stabilizability}. Since we focus on the protection of the integrity of the process, we want to reduce the degree of \emph{controllability} that the attacker has over the system. A focus on the protection of the confidentiality of data would aim to reduce the degree of \emph{observability} that the attacker has over the system. Krotofil and Larsen acknowledge the importance of reasoning about {controllability} and {observability}, but they highlight that it is also important to reason about \emph{operability}, which is ``the ability to achieve acceptable operations'' \cite{krotofil2015rocking}. Some counterattacks could take the system to a safe state, but such a state may be inoperable, and requires a restart of the system. By adding operability requirements to the LBA when discovering counterattacks, we refine the search of useful counterattacks, and is an interesting avenue for future work. 
- 
-\subsection{More Automation}
-LBA offers several use cases for automation. As we briefly mentioned in Section~\ref{sec:CPSRobustness:example}, partitioning the state space could be automated by means of data-flow analysis of the controller; more precisely, by determining the path conditions of the program of controller, as illustrated in \cite{castellanos2021AttkFinder}. Moreover, the transformations we use to define attacker models in Section~\ref{sec:CPSRobustness:AttackerCapabilities} can be systematically obtained by a fuzzing framework (e.g. AFL\footnote{\url{https://github.com/google/AFL}} or \cite{chen2019learning} for CPSs) or by symbolic execution (e.g. \cite{castellanos2021AttkFinder}).
-
-%From the manual analysis of the case study CPS in the previous section, we foresee that it will be possible to use existing techniques (such as automated theorem proving, model-checking, model counting, and SMT solving) to automate parts of the verification. 
-%\subsection{Comparing Systems and Attacker Models}
-
-Each LBA offers only a partial quantification of robustness since it is parametrised by an attacker and a counterattacker model. For a more comprehensive result, we should systematically explore different attacker and counterattacker models covering several coordinates of the system. This systematic exploration of attacker models benefits from the monotonicity properties presented in Corollaries \ref{cor:CPSRobustness:monoup} and \ref{cor:CPSRobustness:monodown}.
-
-%The definition the notions of critical state, the attackers and the initial states must naturally be done manually, but the problem of verification can be reduced to the quantification of the reachable states by an attacker (similar as in quantitative information flow analysis for confidentiality). We want to first focus on the characterisation of the $k$-controllability of the attacker over the system, since it needs to be computed only once, and then we can apply different security measures to the resulting set of reachable states.
-
-% It would be also interesting to determine whether our approach together with state-of-the-art verification tools has advantages over existing control-theoretical reasoning techniques, which focus on solving algebraic 
-% representations of CPSs.
-% {\color{red}
-% \subsection{Redesign}
-% In our case study, we determined that the attacker $\alpha_3$ was more powerful than the attacker $\alpha_2$ due to the way the controller was designed. Thus, we believe that it would be interesting to develop a methodology for (re)designing controllers that helps avoiding these type of unsafe behaviours. 
-% }
 \section{Related Work}
 % We do not use hybrid automata. We may be questioned why, since we are working on CPS. However, it is not that we cannot use hybrid automata; we just wanted to separate the cyber part as much as we could from the physical part, because we wanted to easily define interaction points between attackers and system. If those interaction points are clear in hybrid automata, we should do it too for them; e.g., if a sensor is modelled as some state variable of a mode, then an attacker of that sensor should be able to modify that property of the current mode. In other words, attacks are transformations of the state variables of modes. However, it may be more complicated: an attacks might need to satisfy some continuity condition (i.e., only some arbitrary changes in the mode are possible, and the attacker cannot any jump from a mode $a$ to any arbitrary mode $b$.)
 % Latent behaviour analysis can be applied as long as we can clearly define the state transformations that we want to study. Moreover, those state transformations should correspond to realistic attacks.
@@ -1520,17 +1487,60 @@ We believe that it is possible to provide a reactive implementation of the count
 % In the work by Murguia \emph{et al.} \cite{ReachableSets}, the authors characterise the states of the system that can be reached when under attack, and they try to minimise this set of reachable states by modifying the mathematical model of the controller. Their approach to characterise the security of the system is purely control-theoretical, while ours is based on information-flow analysis.
 
 \paragraph{Verification}
-Several tools compute an over approximation of the set of reachable states, which we can use to verify safety properties (see, e.g., Flow$^*$\footnote{\url{https://flowstar.org/}}). 
+Several tools compute an over approximation of the set of reachable states, which we can use to verify safety properties (see, e.g., Flow$^*$~\cite{FlowStar}). 
 These tools are extremely valuable for the verification of safety properties, but in the presence of adversaries, we believe that a testing approach like the one proposed in this work is more suitable given the exponential number of scenarios to verify, and the tendency of attacks to break safety requirements. This reasoning also extends to other verification tools like McLaughlin \emph{et al.}'s \cite{TSVPLC} that use symbolic execution for model checking safety properties in PLCs.
 
 {
 % In sum, to the best of our knowledge, we are the first to propose the use of a semantics-based approach, inspired by traditional information-flow analysis techniques used for software security, to quantify the impact of attacker actions on process variables at design time in CPSs.
 }
-\section{Conclusion}
-\label{sec:CPSRobustness:CPSRobustness:Conclusion} 
-The parametrisation of LBA (i.e., the security requirements, the attacker model, and the counterattacker model) clearly defines the boundaries and the meaning of the security guarantees concluded by the analysis. There is ample room for improvement, since a single analysis only covers one point in the combinatorial space of such parameters, which is exponential in size. To obtain more comprehensive security guarantees, we should systematically vary the parameters of the analysis in a way that we cover as much as we can of the parameter space in an organised and comprehensive way. We can take inspiration from other testing approaches, especially fuzzing and fault injection, which use heuristics to expand their coverage and guide the analysis. 
 
-The vast amount of data produced by LBA has clearly defined features. For example, attacks and counterattacks are defined in terms of state conditions and actions, and they may be related if one counters the other. This opens a potential collaboration between LBA and machine learning techniques, where LBA systematically generates training data for monitors (from the attack data) and reactive modules (from the counterattack data).
+\section{Discussion and Future Work}
+\label{sec:CPSRobustness:Discussion}
+We highlight that the parametrisation of LBA (i.e., the security requirements, the attacker model, and the counterattacker model) clearly defines the boundaries and the meaning of the security guarantees concluded by the analysis. There is ample room for improvement, since a single analysis only covers one point in the combinatorial space of such parameters, which is exponential in size. To obtain more comprehensive security guarantees, we should systematically vary the parameters of the analysis in a way that we cover as much as we can of the parameter space in an organised and comprehensive way. We can take inspiration from other testing approaches, especially fuzzing and fault injection, which use heuristics to expand their coverage and guide the analysis. 
+
+We also highlight that the vast amount of data produced by LBA has clearly defined features. For example, attacks and counterattacks are defined in terms of state conditions and actions, and they may be related if one counters the other. This opens a potential collaboration between LBA and machine learning techniques, where LBA systematically generates training data for monitors (from the attack data) and reactive modules (from the counterattack data).
+
+We now discuss other concrete points that could benefit from future work.
+%LBA is a systematic way to test transition systems with respect to a set of properties
+%\todo[inline]{We do not work with attackers that act on physical components.}
+%\todo[inline]{We do not provide heuristics to choose the most pressing attacker to be addressed.}
+\subsection{Modelling and Abstraction level}
+% We provide a formal framework for the modelling of CPSs, their states, and their execution semantics. We also showed evidence that this framework helps us obtain useful results concerning the security of the CPS. However, 
+While many CPSs are probabilistic systems in nature, our formalism defines a deterministic transition system whose transition function is given by the single-cycle semantics function $\TheSystem$ (see Definition \ref{def:CPSRobustness:SingleCycleSemantics}). Consequently, the notion of robustness and latent robustness that we give in Definitions \ref{def:CPSRobustness:Robustness} and \ref{def:CPSRobustness:LatentRobustness} are not probabilistic. We believe that our approach is good enough to carry out an approximate analysis if the probabilistic nature of the process is due to the existence of zero-mean noises. Moreover, since we use a testing approach, we believe that it is possible to adapt the LBA to obtain statistically significant results (e.g., by repeating experiments), missing only rare events (which is an innate limitation of testing approaches).
+%\todo[inline]{@John: testing deals with probabilistic systems by repeating experiments and doing statistic analysis, right? Do you do this so that I can cite? Do you know of papers that do this with testing so that we cite them?}
+
+{Hybrid automata} \cite{ALUR19953} are state-based models for dynamical systems. These automata allow the description of invariants and side-effects on transitions, making them suitable for the description of many continuous physical processes. Being state-based systems, we believe they are compatible with LBA, and their attacker models could contain transformations that change the state of the continuous process while preserving the current discrete mode of the system (as long as the transformation is physically possible). %There are also model checking techniques for hybrid automata. It would be interesting to see if these automata provide any advantages when it comes to automatic verification of the proposed properties.
+
+% \subsection{Quantification of Interference}
+% For our case study, we came up with a notion of quantification of integrity violations which, ultimately, was related to how many unwanted states could an attacker force the system to be in, in other words the level of \emph{corruption} an attacker can induce. These metrics are in a sense dual to metrics used in quantitative information flow, which measure the entropy of information, and how likely it is for an attacker to guess a secret based on the information she has already observed. 
+
+% Ideally, we want to quantify the $k$-controllability of attackers for large values of $k$ in order to cover as many possible states. Unfortunately, the larger $k$ is, the more computationally demanding the analysis becomes. However, we want to highlight that the behaviour of CPSs is usually regular; {i.e.}, the operation modes of CPSs often follow the same sequence over and over, revisiting similar states each time the process repeats. Due to this regular nature, it may be possible to restrict the analysis to the length of this ``behavioural loop'' instead of analysing arbitrarily long traces, therefore considering a well defined and relatively small $\bar{k} \in \mathbb{N}$.
+
+% \subsection{A Theory of Attacks and Attackers}
+% From our case study, we observe that it is possible for different attackers to drive the CPS to critical states by using different attacks. Thus, it may be convenient to define more abstract notions of attack and attacker that are more related to the effects that we want to avoid on the system in order to bundle together attacks and attackers that are equally powerful.
+% While we think that our attacker model is at least as powerful as attacker models commonly used in control theory (see Section \ref{sec:CPSRobustness:AttacksOnModels}), further work is indeed to formally compare them. 
+
+\subsection{Beyond Robustness}
+There are many well-known properties in control theory that characterise important aspects of dynamical systems, including {controllability, observability, stability} and {stabilizability}. Since we focus on the protection of the integrity of the process, we want to quantify the degree of \emph{controllability} that the attacker has over the system. A focus on the protection of the confidentiality of data would aim to quantify the degree of \emph{observability} that the attacker has over the system. Krotofil and Larsen acknowledge the importance of reasoning about {controllability} and {observability}, but they highlight that it is also important to reason about \emph{operability}, which is ``the ability to achieve acceptable operations'' \cite{krotofil2015rocking}. Some counterattacks could take the system to a safe state when implemented, but such a state may be inoperable, and requires a restart of the system. By adding operability and functionality requirements to the LBA when discovering counterattacks, we refine the search of useful counterattacks, and is an interesting avenue for future work. 
+ 
+\subsection{More Automation}
+LBA offers several use cases for automation. Partitioning the state space could be automated by means of data-flow analysis of the controller, i.e., by a procedure that determines the path conditions of the program of controller, as illustrated in \cite{castellanos2021AttkFinder}. Moreover, the transformations we use to define attacker models in Section~\ref{sec:CPSRobustness:AttackerCapabilities} can be systematically obtained by a fuzzing framework (e.g. AFL~\cite{AFL} or \cite{chen2019learning} for CPSs) or by a symbolic execution engine (see \cite{castellanos2021AttkFinder}).
+
+%From the manual analysis of the case study CPS in the previous section, we foresee that it will be possible to use existing techniques (such as automated theorem proving, model-checking, model counting, and SMT solving) to automate parts of the verification. 
+%\subsection{Comparing Systems and Attacker Models}
+
+\subsection{Coverage}
+Each LBA offers only a partial quantification of robustness since it is parametrised by an attacker and a counterattacker model. For a more comprehensive result, we must systematically explore different attacker and counterattacker models covering several coordinates of the system. This systematic exploration of attacker models benefits from the monotonicity properties presented in Corollaries \ref{cor:CPSRobustness:monoup} and \ref{cor:CPSRobustness:monodown}. We leave this systematic exploration of attacker and counterattacker models in CPSs for future work.
+
+%The definition the notions of critical state, the attackers and the initial states must naturally be done manually, but the problem of verification can be reduced to the quantification of the reachable states by an attacker (similar as in quantitative information flow analysis for confidentiality). We want to first focus on the characterisation of the $k$-controllability of the attacker over the system, since it needs to be computed only once, and then we can apply different security measures to the resulting set of reachable states.
+
+% It would be also interesting to determine whether our approach together with state-of-the-art verification tools has advantages over existing control-theoretical reasoning techniques, which focus on solving algebraic 
+% representations of CPSs.
+% {\color{red}
+% \subsection{Redesign}
+% In our case study, we determined that the attacker $\alpha_3$ was more powerful than the attacker $\alpha_2$ due to the way the controller was designed. Thus, we believe that it would be interesting to develop a methodology for (re)designing controllers that helps avoiding these type of unsafe behaviours. 
+% }
+
 
 % LBA is a rather general approach for the study of the exceptional behaviours of a system, but it keeps us grounded: 
 

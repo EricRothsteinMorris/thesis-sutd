@@ -2411,6 +2411,19 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
+  \entry{FlowStar}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Flo}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{title}{FLOW$^*$: A VERIFICATION TOOL FOR CYBER-PHYSICAL SYSTEMS}
+    \verb{url}
+    \verb https://flowstar.org/
+    \endverb
+    \field{year}{2017}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{Giraldo2018}{article}{}
     \name{author}{9}{}{%
       {{hash=GJ}{%
@@ -4226,6 +4239,32 @@
     \field{title}{Reachable Sets of Hidden CPS Sensor Attacks: Analysis and
   Synthesis Tools}
     \field{year}{2017}
+  \endentry
+
+  \entry{AFL}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=dbMZGO}{%
+         prefix={developed\bibnamedelima by},
+         prefixi={d\bibinitperiod\bibinitdelim b\bibinitperiod},
+         family={Michal\bibnamedelima Zalewski)},
+         familyi={M\bibinitperiod\bibinitdelim Z\bibinitperiod},
+         given={Google\bibnamedelima (Originally},
+         giveni={G\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MZGOdb1}
+    \strng{fullhash}{MZGOdb1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MZ21}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{American Fuzzy Lop - a security-oriented fuzzer}
+    \verb{url}
+    \verb https://github.com/google/AFL
+    \endverb
+    \field{year}{2021}
+    \warn{\item Invalid format of field 'month'}
   \endentry
 
   \entry{7958606}{inproceedings}{}
