@@ -815,8 +815,8 @@ Changing the program of the controller is not a fail-proof process to improve ro
  
 % To find the most pressing attack, check which is the attack that requires the least amount of capabilities. This can be done efficiently by looking at its definition. 
 
-\subsection{Choosing Models}
-The choice of attacker model and counterattacker model defines the boundaries of the LBA. If the attacker model is too complex, then the resulting set of generated attacks is not only large, but several of its attacks might not have a counterattack. In this section, we provide small hints for the selection of attackers and counterattackers, based on partial orders that exist within the attacker models.
+\subsection{Choosing Attacker and Counterattacker Models}
+The choice of attacker and counterattacker models defines the boundaries of the LBA. If the attacker model is too complex, then the resulting set of generated attacks is not only large, but several of its attacks might not have a counterattack. Similarly, if the counterattacker model is not very capable, then LBA will conclude that many attacks cannot be countered. In this section, we provide small hints for the selection of attackers and counterattackers, based on partial orders that exist within the attacker models.
 
  %, and we use that as a reference to repair our system.
 % \todo[inline]{Whoops I should rephrase this. Say that identifying an attacka ccurately is hard, and that instead we can propose a modification to the controller based on what we observe from the counterattacks. We need to test the repair again to confirm it is in fact a repair}
@@ -824,23 +824,24 @@ The choice of attacker model and counterattacker model defines the boundaries of
 % \subsection{Orders of Attackers}
 % \label{sec:CPSRobustness:OrdersOfAttackers}
 %\todo[inline]{Formally, $\Sigma|_m$ is the \emph{support} of $m$}
-We can compare attacker models by both their capabilities and by the set of physical requirements that they break; i.e. their power. As expected, these partial orders are tightly related.
+{\color{red} From Chapter~\ref{ch:Classification}, w}e know that we can compare attacker models by both their capabilities and by the set of physical requirements that they break; i.e. their power. As expected, these partial orders are tightly related. 
 % We have two ways to proceed: either 1) we systematically generate an attack $m$, obtain its latent behaviour $\TheSystem^m$, test if $\TheSystem^m$ breaks any physical requirement $\TheRequirement$, and, if it does, we find their characteristic attacker $\Sigma|_m$ to claim that $\Sigma|_m$ can break $\TheRequirement$; or 2) we first choose an attacker $A$, then we systematically generate an attack $m$ that can be carried out by $A$, we obtain the latent behaviour $\TheSystem^m$, test if $\TheSystem^m$ breaks any physical requirement $\TheRequirement$, and, if it does, claim that $A$ can break $\TheRequirement$. Both ways are compatible with the following attacker orderings.
 \begin{definition}[Capabilities and Power]
-  Given two attacker models $\mathcal{A}_1=(\Gamma_1,\sum \Pi_1)$ and $\mathcal{A}_1=(\Gamma_2,\sum \Pi_2)$, we say that $\mathcal{A}_1$ is \emph{less or equally capable} than $\mathcal{A}_2$, denoted $\mathcal{A}_1\subseteq \mathcal{A}_2$, iff $\IM{\Gamma_1}\subseteq \IM{\Gamma_2}$. 
+  Given two attacker models $\mathcal{A}_1=(\Gamma_1,\sum \Pi_1)$ and $\mathcal{A}_1=(\Gamma_2,\sum \Pi_2)$, we say that $\mathcal{A}_1$ is \emph{less or equally capable} than $\mathcal{A}_2$, denoted $\mathcal{A}_1\subseteq \mathcal{A}_2$, iff $\AsSequence{\mathcal{A}_1}\subseteq \AsSequence{\mathcal{A}_2}$. 
   
   % We say that $\mathcal{A}_1$ is \emph{less or equally {powerful}} than $\mathcal{A}_2$, denoted $\mathcal{A}_1\leq \mathcal{A}_2$, iff the robustness of the system with respect to $\mathcal{A}_1$ is less than the robustness of the system with respect to $\mathcal{A}_2$
-  Now, given a set of physical requirements $\TheSetOfRequirements$, we denote the set of requirements that an attacker model $\mathcal{A}$ can break by $\TheSetOfRequirements|_{\mathcal{A}}$. We say that $\mathcal{A}_1$ is \emph{less or equally {powerful}} than $\mathcal{A}_2$, denoted $\mathcal{A}_1\leq \mathcal{A}_2$, iff $\TheSetOfRequirements|_{\mathcal{A}_1}\subseteq\TheSetOfRequirements|_{\mathcal{A}_2}$. 
+  Now, given a set of physical requirements $\TheSetOfRequirements$, we denote the set of requirements that an attacker model $\mathcal{A}$ can break by $\TheSetOfRequirements|_{\mathcal{A}}$. 
+  Formally, for a requirement $\TheRequirement\in \TheSetOfRequirements$,  $\TheRequirement\in\TheSetOfRequirements|_{\mathcal{A}}$ if and only if there exists an attack in $\mathcal{A}(\TheSetOfRequirements)$ that breaks $\TheRequirement$. We say that $\mathcal{A}_1$ is \emph{less or equally {powerful}} than $\mathcal{A}_2$, denoted $\mathcal{A}_1\leq \mathcal{A}_2$, iff $\TheSetOfRequirements|_{\mathcal{A}_1}\subseteq\TheSetOfRequirements|_{\mathcal{A}_2}$. 
 \end{definition}
 We highlight some relevant corollaries.
 \begin{corollary}[Monotonicity$\uparrow$]
   \label{cor:CPSRobustness:monoup}
-  For all attacker models $\mathcal{A}_1$ and $\mathcal{A}_2$, if $\mathcal{A}_1\subseteq \mathcal{A}_2$, then $\mathcal{A}_1 \leq \mathcal{A}_2$. 
-\end{corollary}
+  For all attacker models $\mathcal{A}_1$ and $\mathcal{A}_2$, if ${\mathcal{A}_1}\subseteq {\mathcal{A}_2}$, then $\mathcal{A}_1 \leq \mathcal{A}_2$. 
+\end{corollary} 
 \begin{proof}
-  Every attack in $\mathcal{A}_1$ is an attack in $\mathcal{A}_2$, so every requirement that $\mathcal{A}_1$ can break, $\mathcal{A}_2$ can break using the same attacks as $\mathcal{A}_1$.
+  Every attack generated by $\mathcal{A}_1$ is an attack generated by $\mathcal{A}_2$, so every requirement that $\mathcal{A}_1$ can break, $\mathcal{A}_2$ can break using the same attacks as $\mathcal{A}_1$.
 \end{proof}
-Corollary~\ref{cor:CPSRobustness:monoup} is practical because it motivates us to start our latent behaviour analysis with small attacker models. If we prove that the system is not robust with respect to an attacker model that only modifies one coordinate, then the system is not robust with respect to any attacker model that extends the such single-component model.
+Corollary~\ref{cor:CPSRobustness:monoup} is practical because it motivates us to first run LBA with small attacker models. If we prove that the system is vulnerable with respect to an attacker model $\mathcal{A}$ that only modifies one coordinate, then the system is vulnerable with respect to any attacker model that is more capable than $\mathcal{A}$.
 
 \begin{corollary}[Monotonicity$\downarrow$]
   \label{cor:CPSRobustness:monodown}
@@ -849,16 +850,16 @@ Corollary~\ref{cor:CPSRobustness:monoup} is practical because it motivates us to
   \begin{proof}
   If $\TheRequirement\not\in\mathcal{A}_2(\TheSetOfRequirements)$, then there is no attack $\vec{m}$ generated by $\mathcal{A}_2$ that can reveal a latent behaviour that fails $\TheRequirement$; since $\mathcal{A}_1\subseteq \mathcal{A}_2$, the universe of attacks of $\mathcal{A}_1$ is included in the universe of attacks of $\mathcal{A}_2$, so an attack that breaks $\TheRequirement$ cannot exist for $\mathcal{A}_1$, meaning that $\TheRequirement\not\in\mathcal{A}_1(\TheSetOfRequirements)$.
   \end{proof}
-  Corollary~\ref{cor:CPSRobustness:monodown} is also practical. If we have an intuition about what the robustness of the system is, and we characterise an attacker model $\mathcal{A}$ such that the robustness of the system with respect to $\mathcal{A}$ is $100\%$, then there is no need to check any attacker model that is less capable than $\mathcal{A}$, and we can study attacker models that are strictly stronger than $\mathcal{A}$.
+  Corollary~\ref{cor:CPSRobustness:monodown} is also practical. If we have an intuition about the robustness of the system, and we characterise an attacker model $\mathcal{A}$ such that the robustness of the system with respect to $\mathcal{A}$ is high, then there is no need to check any attacker model that is less capable than $\mathcal{A}$ since the robustness will not decrease for those attackers.%; instead, we should study attacker models that are strictly more capable than $\mathcal{A}$ or incomparable.
 
-\begin{corollary}[Insecure by Design]
+\begin{corollary}[Unsafe CPS]
   \label{cor:CPSRobustness:insecure}
-  If the attacker model $(\emptyset,\Pi)$ is capable of breaking some requirement $\TheRequirement$, then every attacker model is capable of breaking $\TheRequirement$ by doing nothing (due to monotonicity), and the system is insecure by design.
+  If the trivial attacker model $(\emptyset,\Pi)$ is capable of breaking some requirement $\TheRequirement$, then every attacker model is capable of breaking $\TheRequirement$ by doing nothing (due to monotonicity); in other words, the CPS is unsafe.
 \end{corollary}
 \begin{proof}
-  The transformation $\id$, which maps every state to itself, is the only attack generated by the attacker mode $(\emptyset,\Pi)$. Now, since the original CPS $(\Pi,\TheSystem)$ is equal to $(\Pi,\TheSystem\circ \id)$ (i.e. the latent behaviour revealed by the attack $\id$), if $(\Pi,\TheSystem\circ \id)$ fails any requirement $\TheRequirement$, then the original system also fails $\TheRequirement$. %Every attack breaks $\TheRequirement$ by monotonicity.
+  The transformation $\id$, which maps every state to itself, is the only attack generated by the attacker model $(\emptyset,\Pi)$. Now, since the original CPS $(\Pi,\TheSystem)$ is equal to $(\Pi,\TheSystem\circ \id)$, if $(\Pi,\TheSystem\circ \id)$ fails any requirement $\TheRequirement$, then the original system also fails $\TheRequirement$. %Every attack breaks $\TheRequirement$ by monotonicity.
 \end{proof}
-Finally, Corollary~\ref{cor:CPSRobustness:insecure} is a special case of Corollary~\ref{cor:CPSRobustness:monoup}, where the least capable attacker model (i.e., the attacker that does nothing) breaks one or more physical requirements. In such a case, the system is currently designed to fail one or more physical requirements. 
+Finally, Corollary~\ref{cor:CPSRobustness:insecure} is a special case of Corollary~\ref{cor:CPSRobustness:monoup}, where the least capable attacker model (i.e., the attacker that does nothing) breaks one or more physical requirements. %In such a case, the system is unsafe, and it is never . 
 % To close this section, we provide a general notion of robustness of a system with respect to an attacker model.
  
 % \begin{align}
