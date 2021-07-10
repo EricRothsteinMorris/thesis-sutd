@@ -2942,6 +2942,28 @@
     \field{year}{2020}
   \endentry
 
+  \entry{SWat}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=i}{%
+         family={iTrust},
+         familyi={i\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{i1}
+    \strng{fullhash}{i1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{iTr21}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{Secure Water Treatment}
+    \verb{url}
+    \verb https://itrust.sutd.edu.sg/testbeds/secure-water-treatment-swat/
+    \endverb
+    \field{year}{2021}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{JacobsBook}{book}{}
     \name{author}{1}{}{%
       {{hash=JB}{%

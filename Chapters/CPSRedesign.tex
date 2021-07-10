@@ -947,30 +947,27 @@ We now illustrate how quantifying the robustness of CPS designs can help the pro
 % \end{itemize}
 % }
 % \todo[inline]{Explain in plain english the goal and structure of the case study.}
-In this section, we illustrate the process of improving the design of a composition of CPSs by using robustness as the evaluation measure which we obtain via latent behaviour analysis.
+In this section, we illustrate the process of improving the design of a composition of CPSs by using robustness as the evaluation measure which we obtain via LBA and testing.
 \subsection{SWaT -- Secure Water Treatment Plat}
 %==================BEGIN JOHN WORKSPACE====================
 %\todo[inline]{@John: Please provide a description of Swat and especially of stages 2 and 3 in plain English. We have to model them using the formalism that we present in this work later.}
 
-SWaT\footnote{\url{https://itrust.sutd.edu.sg/itrust-labs-home/itrust-labs_swat/}} is a water treatment plant for security research. SWaT is a six-stage testbed that combines modern real-world filtration techniques to treat water for human consumption. 
+{\color{red}SWaT~\cite{SWat}\footnote{\url{https://itrust.sutd.edu.sg/itrust-labs-home/itrust-labs_swat/}}
+is a water treatment plant for security research. SWaT is a six-stage testbed that combines modern real-world filtration techniques to treat water for human consumption.}
 
 In a nutshell, the six-stage system operates as follows:
 (1) Stage1 and Stage2, the system takes raw water, and through pH, conductivity, and Oxidation-reduction potential analysers (ORP) determine how much chemicals (HCl, NaOCl, NaCl) add to the liquid. 
 (2) Stage3 and Stage4 filter the water using an Ultrafiltration system and de-chlorinates the water through the usage of UV lamps. 
 (3) Stage5 and Stage6 feed the Reverse Osmosis (RO) system with filtered water. Water from the RO system cleans the membranes in the Ultrafiltration system. 
-
-{%\color{blue} 
-A set of paired-Programmable Logic Controllers (PLC) control each stage. 
+%\color{blue} 
+A set of interconnected PLCs control each stage. 
 They read the system's physical properties and issue commands to influence the plant in a controlled manner. 
 Operators monitor the whole system via a Supervisory Control and Data Acquisition (SCADA) system.
 
-In this work, we focus on the water flow and storage subprocess. Then we pay special attention to Stages 1--3. Stage1 stores raw water or pre-processing liquid, Stage2 stores chemical--treated water and Stage3 stores the water after filtration.
-The level of water in the three tanks, denoted by L1, L2 and L3 respectively, has to remain within a given range (between H and L limits).}
-
-Figure~\ref{fig:CPSRobustness:SWaTSchema} shows a diagram of these Stages and how they interact with the rest of the system. 
-Each stage has an MV-P pair of actuators to regulate the liquid in the tank. MV stands for Motor valve; the Motor valves control the amount of water that flows into the tank, while a pump drains water out of each tank.
-
-
+Figure~\ref{fig:CPSRobustness:SWaTSchema} shows a diagram of the first three stages of SWaT and how they interact. 
+Each stage has a pair of actuators: a motor valve $MV$ to regulate the liquid in the tank, and a pump $P$ that drains water out of each tank.
+In this work, we focus on the water flow and storage subprocess, i.e., Stages 2 and 3. %Stage1 stores raw water or pre-processing liquid, 
+Stage2 stores chemical--treated water and Stage3 stores the water after filtration. The security requirements state that the level of water in the two tanks, denoted by L2 and L3 respectively, must remain within safe ranges (i.e., the tanks should never be empty nor overflow).
 \begin{figure}[htb]
   \centering
   \begin{subfigure}[b]{.65\linewidth}
@@ -992,9 +989,9 @@ Each stage has an MV-P pair of actuators to regulate the liquid in the tank. MV 
 %==================END JOHN WORKSPACE====================
 %==================BEGIN ERIC WORKSPACE====================
 \subsection{SWaT Stage 3}
-Recall the motivational example presented in Section~\ref{sec:CPSRobustness:example} that models a water tank; such water tank is the Stage 3 submodule of SWaT. We reuse the dynamics presented in Section~\ref{sec:CPSRobustness:example} (which we henceforth refer to as Stage 3), but since there are also pumps and valves in the other process we model, i.e., Stage 2, we rename the components: $MV$, $L$, and $P$ from Section~\ref{sec:CPSRobustness:example} are now respectively $MV3$, $L3$ and $P3$, matching the descriptions in Figure~\ref{fig:CPSRobustness:SWaTSchema}.
+Recall the motivational example presented in Section~\ref{sec:CPSRobustness:example} that models a water tank. That water tank is the Stage 3 submodule of SWaT. We reuse the dynamics presented in Section~\ref{sec:CPSRobustness:example} (which we henceforth refer to as Stage 3). Since there are also pumps and valves in other processes, we rename the components $MV$, $L$, and $P$ from Section~\ref{sec:CPSRobustness:example} to $MV3$, $L3$ and $P3$ respectively, matching the descriptions in Figure~\ref{fig:CPSRobustness:SWaTSchema}.
 
-Stage 3 receives water from Stage 2, and the controller of Stage 3 reports to the controller of Stage 2 the following information: the level of water in the tank $T3$ and the state of the valve $MV3$. To model the composition of Stage 3 with Stage 2, we define the behaviour of the communication channels $\vec{a}$, and $\vec{w}$ for Stage 2, and $\vec{b}$ and $\vec{v}$ for Stage 3. Let  
+Stage 3 receives water from Stage 2, and the controller of Stage 3 reports to the controller of Stage 2 the following information: the presumed level of water in the tank $T3$ and the presumed state of the valve $MV3$. To model the composition of Stage 3 with Stage 2, we define the behaviour of the communication channels $\vec{a}$, and $\vec{w}$ for Stage 2, and $\vec{b}$ and $\vec{v}$ for Stage 3. Let  
 \begin{align}
   \vec{b}[L3](k+1)&\triangleq \vec{q}[L3](k)\\
   \vec{b}[MV3](k+1)&\triangleq \vec{q}[MV3](k)\\
@@ -1008,21 +1005,20 @@ Stage 3 receives water from Stage 2, and the controller of Stage 3 reports to th
 \end{align}
 where $\vec{v}[L2](k)$ is part of the behaviour description of Stage 2. The inflow of water for $T3$ now depends on the physical state of $T2$; if there is no water in $T2$, there is no inflow.
 
-We now formally model Stage 2 and describe its composition with Stage 3. We then characterise an attacker model to measure the robustness of the composition, which we then proceed to redesign and prove that its robustness improves with respect to given the attacker model.
+In the following, we formally model Stage 2 and describe its composition with Stage 3. We then characterise an attacker model and a counterattacker model to measure the robustness of the composition. Finally, we use the results from the LBA to illustrate two changes to the composition: a repair that improves robustness, and a non-repair that does not.
 
 \subsection{A Formal Model of Stage 2}
 We provide a model of SWaT Stage 2. This model has three physical components $MV2$, $L2$ and $P2$, and uses the constants $L2min=800$, $L2max=1000$ and $T2=7$.
 
-\paragraph{The Controller $\plc_2$.} 
-This controller has eight modes which depend on the state of the pump $P2$ and the valve $MV2$, and a timer, so $\vec{q}$ has three coordinates: $P2$, $MV2$, and $\tau2$. Their respective ranges are 
+\paragraph{The Controller PLC2.} 
+This controller has eight modes which depend on the presumed states of the pump $P2$ and the valve $MV2$, and a timer. The vector $\vec{q}$ has three more coordinates $P2$, $MV2$, and $\tau2$, and their respective ranges are 
 \begin{align*}
   \vec{q}[P2]&\in\set{\texttt{off},\texttt{on}},\\
   \vec{q}[MV2]&\in\set{\texttt{closed},\texttt{opening},\texttt{open},\texttt{closing}},\\
   \vec{q}[\tau2]&\in\mathbb{N}
 \end{align*}
 
-The controller $\plc_2$ receives a network input $\vec{a}$ and a sensor reading $\vec{y}$, and produces a control command $\vec{u}$. Through this section, we assume that every actuator and sensor behaves like a faithful single state transducer, i.e. $\vec{i}(k)=\theta_{\vec{Y}}(\vec{y}(k))=\vec{y}(k)$ and $\vec{u}(k)=\theta_{\vec{O}}(\vec{o}(k))=\vec{o}(k)$. 
-The network input $\vec{a}$ has two coordinates $L3$ and $MV3$, whose ranges are 
+Through this section, we assume that every actuator and sensor simply translates values accross the cyber and physical domains, i.e., $\vec{i}(k)=\theta_{\vec{Y}}(\vec{y}(k))=\vec{y}(k)$ and $\vec{u}(k)=\theta_{\vec{O}}(\vec{o}(k))=\vec{o}(k)$. The controller PLC2 receives a network input $\vec{a}$ and a sensor reading $\vec{y}$, and produces a control command $\vec{u}$. The network input $\vec{a}$ has two coordinates $L3$ and $MV3$, whose ranges are 
 \begin{align*}
   \vec{a}[L3]&\in[0..1200],\\ 
   \vec{a}[MV]&\in \{\texttt{closed},\texttt{opening},\texttt{open},\texttt{closing}\}.
@@ -1058,8 +1054,8 @@ Let $L3_k=\vec{a}[L3](k)$, $MV3_k=\vec{a}[MV3](k)$, $MV2_k=\vec{q}[MV2](k)$, $P2
   \tau2_k+1 &\quad \text{if $MV2_k\in \set{\texttt{opening},\texttt{closing}}$}\\
   0&\quad \text{otherwise;}    
 \end{cases}\\
-\vec{u}[MV2](k+1)=&\const_{MV2_k},\\%\vec{q}[MV2](k)\\%
-\vec{u}[P2](k+1)=&\const_{P2_k}.%\vec{q}[P2](k)\\%
+\vec{u}[MV2](k+1)&\triangleq\const_{MV2_k},\\%\vec{q}[MV2](k)\\%
+\vec{u}[P2](k+1)&\triangleq\const_{P2_k}.%\vec{q}[P2](k)\\%
 \end{align}
 % \begin{align*}
 %   \theta_{\vec{Q}}(P2,MV2,t)&\triangleq (\vec{o}[MV2],\vec{o}[P2]), \text{where}\\
@@ -1097,8 +1093,6 @@ Let $L3_k=\vec{a}[L3](k)$, $MV3_k=\vec{a}[MV3](k)$, $MV2_k=\vec{q}[MV2](k)$, $P2
 \paragraph{The Process} 
 The state of the process $\vec{x}$ has three coordinates: $L2, MV2$ and $P2$. Their respective ranges are $\vec{x}[L2]\in [0..1200]$, $\vec{x}[MV2]\in \{\texttt{closed},\texttt{opening},\texttt{open},\texttt{closing}\}$ and $\vec{x}[P2]\in \set{\texttt{on},\texttt{off}}$. 
 % subcomponents $\vec{x}=(L2,MV2,P2)$, with $\range(\vec{x}[L2])=[0..1200]$, $\range(\vec{x}[MV2])=\set{\texttt{closed},\texttt{opening},\texttt{open},\texttt{closing}}$, and $\range(\vec{x}[P2])=\set{\texttt{on},\texttt{off}}$. 
-
-We leave the initial condition abstract for now. The behaviour of the process is given by
 % \todo[inline]{@Eric:The initial state of the process is $\vec{x_0}=(990,\texttt{open},\texttt{on})$.}
 %The process reacts to the control input $\vec{u}$,
 
@@ -1119,18 +1113,20 @@ Let $P2_k=\vec{x}[P2](k)$, $MV2_k=\vec{x}[MV2](k)$, and $L2_k=\vec{x}[L2](k)$, a
   -0.28&\quad \text{if $MV2_k\in\set{\texttt{opening},\texttt{closing}}$ and $P2_k=\texttt{on}$}\\  
 \end{cases}
 \end{align*}
-The values for $\partial(MV2,P2)$ were computed by linear regression to approximate the flow equation $L2_{k+1}=L2_{k}+\texttt{Inflow}_k-\texttt{Outflow}_k$.
+The values for $\partial(MV2,P2)$ were computed by linear regression to approximate the flow equation $L2_{k+1}=L2_{k}+\texttt{Inflow}_k-\texttt{Outflow}_k$. We leave the initial conditions for $\vec{x}$ abstract for now. 
 
-The sensor reading $\vec{y}$ has only one coordinate $L2$, whose range is $\vec{y}\in \mathbb{R}^+$; i.e, any positive value. The behaviour of $\vec{y}$ is given by 
+The sensor reading $\vec{y}$ has only one coordinate $L2$, whose range is any positive value. The behaviour of $\vec{y}$ is given by 
 \begin{align}
-  \vec{y}[L2](k)=\vec{x}[L2]
+  \vec{y}[L2](k)\triangleq\vec{x}[L2]
 \end{align}
 
-Finally, the physical state of the process propagates to Stage 3 via the abstract channel $\vec{v}[L3]$
+Finally, the physical state of the process of Stage 2 propagates to Stage 3 via the abstract channel $\vec{v}[L3]$
 \begin{align}
-  \vec{v}[L2](k)&\triangleq \vec{x}[L2](k)
+  \vec{v}[L2](k)&\triangleq \vec{x}[L2](k).
 \end{align}
-Figure~\ref{fig:CPSRobustness:Stage2Normal} shows the normal steady state behaviour of the water level in tank T2. Due to interdependence, many changes in the behaviour of the tank T2 affect the behaviour of tank T3 and vice versa. 
+We use this relation to enforce the conservation of matter: if there is no water in T2, then no water should be flowing into T3, even if $MV3$ is open and $P2$ is on. 
+
+Figure~\ref{fig:CPSRobustness:Stage2Normal} shows the attack-free, steady state behaviour of the water level in tank T2. Due to interdependence, the changes in the behaviour of the tank T2 affect the behaviour of tank T3 and vice versa. 
 %\todo[inline]{@John: we are doing testing so it should be fine, but I can imagine a reviewer complaining about the omision of the error parameter. What reasoning can we use to omit explicitly including the error parameter?}
 
 % \todo[inline]{@All. Reviewers might ask why we do not include errors in the models. They can be added, but I wanted to keep the model as simple as possible.}
