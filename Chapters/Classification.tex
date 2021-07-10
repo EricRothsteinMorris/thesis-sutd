@@ -844,7 +844,7 @@ In this chapter, we model AIGs as $F$-coalgebras, and we model their attackers u
 
 
 % In this chapter, we presented a methodology to model check systems in the presence of attackers with the objective of mapping each attacker model to the set of security requirements broken by attackers that fit the model. This mapping of attacker models creates a classification for them, defining equivalence classes of attacker models by both set inclusion and by the set of requirements broken by their attackers. While it is possible to perform a classification of attackers by exhaustively performing model checking, the exponential size of the set of attackers renders a naive approach impractical. Thus, we rely on ordering relations between attackers to efficiently classify a large percentage of them. We provide empirical evidence by applying our methodology to a set of AIG benchmarks, which describe hardware systems at a bit level.
-Finding minimal attacker models with only one coordinate is relatively simple since AIGs are systems where a fault quickly propagates through the system. Informally, this means that the systems we studied were not very robust: all it takes is for one of several components to fail or be attacked to cause these systems to fail their security requirements. Since altering a single component already causes systems to fail, we conclude that using SAT solvers and BMC was excessive for attacker classification; it could have sufficed to test systematically the systems instead of checking them. Consequently, we switch from verification to testing in Chapter~\ref{ch:CPSRobustness}. 
+Finding minimal attacker models with only one coordinate is relatively simple since AIGs are systems where a fault quickly propagates through the system. Informally, this means that the systems we studied were not very robust: all it takes is for one of several components to fail or be attacked to cause these systems to fail their security requirements. In retrospective, we believe that using SAT solvers and BMC is reasonable for the computation of the power of a single attacker with several capabilities; however, BMC might have overcomplicated our approach to the problem of {systematic} attacker classification, where we study several attacker models. Maybe it would have sufficed to study these multiple attackers using a testing approach instead of a verification approach. Consequently, we switch from verification to testing in Chapter~\ref{ch:CPSRobustness}. 
 
 % The contents of this chapter are published in ~\cite{SystematicClassification}.
 
@@ -944,7 +944,7 @@ Finding minimal attacker models with only one coordinate is relatively simple si
 			(+IS, -MO) & 2.912532493  & 2.909934933 & 2.1953125   & 2.885495873 & 2.927835684 & 2.964760733 & 2.984195449      \\
 			(-IS, -MO) & 2.975171828  & 2.983304749 & 2.665659086 & 1.986925862 & 1.977314997 & 2.973301799 & 2.984195449      \\ \hline
 	\end{tabular}
-		\caption{Average metrics per requirement for the different benchmarks (Cont. of Figure~\ref{tab:Classification:AllResults1})}
+		\caption{Average metrics per requirement for the different benchmarks (Continued from Figure~\ref{tab:Classification:AllResults1})}
 		\label{tab:Classification:AllResults2}
 		\end{table}	
 \end{landscape} 

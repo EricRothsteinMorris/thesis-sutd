@@ -1,11 +1,11 @@
  %!TEX root = ../main.tex
  \chapter{Improving the Robustness of Cyber-Physical System Models}
  \label{ch:CPSRobustness}  
+ {\color{red}
+ We now consider a practical scenario where we use spatial transformations to model both attacks and counterattacks. From the perspective of LBA, attacks and counterattacks are distinguishable only by intent: an attack is a spatial transformation that aims to damage a system, while a counterattack is a spatial transformation that tries to fix it. Recall the automaton from Section~\ref{sec:Latent:Motivation}; the spatial transformation that affected the system was a symmetry $m$ that is its own inverse (i.e., $m\circ m=\id$), so we can counter $m$ by applying it a second time. 
  
- We now consider a practical scenario where we use spatial transformations to model both attacks and counterattacks. From the perspective of LBA, attacks and counterattacks are distinguishable only by intent: an attack is a spatial transformation that aims to damage a system, while a counterattack is a spatial transformation that tries to fix it. Recall the automaton from Section~\ref{sec:CPSRobustness:Latent:Motivation}; the spatial transformation that affected the system was a symmetry $m$ that is its own inverse (i.e., $m\circ m=\id$), so we can counter $m$ by applying it a second time. 
- 
- The inclusion of counterattacks alters the interaction between attacker and system. Up until now, the LBA of a system $(X,c)$ with respect to a spatial transformation $m\colon X\rightarrow X$ that reveals the latent system $(X,c\circ m)$, which models the the system $(X,c)$ under the effect of the attack $m$. In this chapter, we consider a second spatial transformation $w\colon X\rightarrow X$ that reveals the system $(X, c\circ (w\circ m))$, which models the system $(X,c)$ under the effect of the attack $m$, but also under the effect of the counterattack $w$.
-
+ The inclusion of counterattacks alters the interaction between attacker and system. Up until now, the LBA of a system $(X,c)$ with respect to a spatial transformation $m\colon X\rightarrow X$ that reveals the latent system $(X,c\circ m)$, which models the the system $(X,c)$ under the effect of the attack $m$. In this chapter, we consider a second spatial transformation $w\colon X\rightarrow X$ that reveals the system $(X, c\circ w\circ m)$, which models the system $(X,c)$ under the effect of the attack $m$, but also under the effect of the counterattack $w$.
+ }
 % In cyber-physical systems (CPSs), most security efforts aim to protect the integrity of some physical component (e.g., the level of water or chemical concentration in a tank, the temperature of an oven, etc.). The goal of integrity attackers of CPSs is to cause the system to reach a critical state by manipulating certain digital or physical inputs, e.g., by tampering with one or more sensor or actuators. The robustness of a system is a measure of tolerance to corruption introduced by external factors, be it a fault or an attacker. In this chapter, we use LBA to quantify the robustness of a CPS model via testing, and to suggest repairs which improve the robustness of the system.
    
 % Using the theory of LBA, we 
@@ -238,13 +238,13 @@ Under normal circumstances, the water level of the tank exhibits the behaviour d
 \subsection*{Testing and Quantifying Robustness}
 Now, consider an attacker model where the attacker can replace at any time the value $\vec{y}[L]$ by a value of their choice, or use the real value. This attacker model generates a universe of 64 different \emph{representative classes of attacks}, which define when and what values to use to replace $\vec{y}[L]$. These 64 attacks classes correspond to the paths that the attacker can trigger in the controller by varying the values of $\vec{y}[L]$.  More precisely, the attacker has four options: they can introduce a fake low level value (e.g., 500 L), a fake ok level value (e.g. 800 L), a fake high level value (e.g., 1100 L) or preserve the real water level value. The attacker can choose to use different actions in three main scenarios: when the water level is high, normal, or low. This combination of four ``what" values over three ``when" dimensions defines $4^3=64$ combinations. We explain in detail the generation of attack universes in Section~\ref{sec:CPSRobustness:AttackerCapabilities}. 
 
-We measure the robustness of the system with respect to this attacker model by computing the number of attacks that do not break any of the security requirements. To test an attack in the system, we simulate several operation hours of the system while concurrently simulating the effect of the attack until either the simulation timeouts or the system fails a requirement. After testing, we see that 40 out of 64 attacks break at least one requirement, so the robustness of this system is 24/64 with respect to an attacker that has control of $\vec{y}[L]$. We explain the process of computing robustness in detail in Section~\ref{sec:CPSRobustness:LatentBehaviours}.
+We measure the robustness of the system with respect to this attacker model by computing the number of attacks that do not break any of the security requirements. To test an attack in the system, we simulate several operation hours of the system while concurrently simulating the effect of the attack until either the simulation timeouts or the system fails a requirement. After testing, we see that 30 out of 64 attacks break at least one requirement, so the robustness of this system is 34/64 with respect to an attacker that has control of $\vec{y}[L]$. We explain the process of computing robustness in detail in Section~\ref{sec:CPSRobustness:LatentBehaviours}.
 
 \subsection*{Counterattackers}
 %So far, we have used a method similar to simulation-based fault-injection to quantify the robustness of the water tank with respect to an attacker that controls the sensor $\vec{y}[L]$; now, 
 We now rely on the fundamental observation that an attack $m$ on the original version of the tank reveals a latent system, which we denote $T_m$, and that a transformation $w$ on the latent system $T_m$ reveals another latent system $T^w_m$, which hopefully satisfies all security requirements. In such a case, we say that \emph{$w$ is a counterattack of $m$}. 
 
-A \emph{counterattacker model} is dual to an attacker model. It also requires a ``what" and a ``when" to act. In this scenario, we assume that the counterattacker acts in the PLC, and they can set the coordinate $\vec{q}[P]$ to \texttt{on} or \texttt{off} and the coordinate $\vec{q}[MV]$ to \texttt{open} or \texttt{close}. We also assume that the counterattacker can observe the value $\vec{y}[L]$ (which is controlled by the attacker in this scenario). This counterattacker does not replace the PLC, but instead acts as a preprocessor, i.e., it changes $\vec{q}[P]$ and $\vec{q}[MV]$ before the PLC makes control decisions using its normal strategy. From this counterattacker model, we generate a universe of 729 counterattacks (we explain how we obtain the size of the counterattack universe in Section~\ref{sec:CPSRobustness:CounterAttacks}). 
+A \emph{counterattacker model} is dual to an attacker model. It also requires a ``what" and a ``when" to act. In this scenario, we assume that the counterattacker directly changes the physical state of the pump and the valve, i.e., an operator implements this counterattacker, and they can manually set the coordinate $\vec{x}[P]$ to \texttt{on} or \texttt{off} and the coordinate $\vec{x}[MV]$ to \texttt{open} or \texttt{close}, overriding the commands of the controller. We also assume that the counterattacker can observe the value $\vec{y}[L]$ (which is controlled by the attacker in this scenario). From this counterattacker model, we generate a universe of 729 counterattacks (we explain how we obtain the size of the counterattack universe in Section~\ref{sec:CPSRobustness:CounterAttacks}).  
 
 All 40 successful attacks can be countered, i.e., for each attack $m$ there exists a counterattack $w$ such that the system $T^w_m$ satisfies all the security requirements. Consequently, we say that the system has a \emph{latent robustness} of 64/64; i.e., it is theoretically possible for a counterattacker fitting the counterattacker model to counter every attack of an attacker fitting the attacker model, given that it is possible for the counterattacker to accurately identify that: 1) the system is under attack, and 2) which exact attack is occurring, since apparently similar attacks could have different counterattacks. Assuming the existence of such monitor is impractical; which is why we instead consider a modification of the program of the PLC based on the information that we obtain from the LBA to improve the robustness of the system. In Section ~\ref{sec:CPSRobustness:CaseStudy}, we perform LBA on a system that is more complex than the water tank, and we show how to use the relations between attacks and counterattacks obtained via LBA to propose repairs that improve the robustness of the model.  
 
@@ -355,6 +355,11 @@ Finally, we define $\TheBehaviourOf{\pi}_{0}=\pi$ for all states $\pi \in \Pi$. 
 Because a CPS itself does not create values for $\vec{a}$ and $\vec{v}$, we need a stream of network inputs $(\vec{a_0}, \vec{a_1}, \ldots)$ and a stream of physical effects $(\vec{v_0}, \vec{v_1}, \ldots)$ to advance the system. Usually, $\vec{a}$ is the translation of a network output $\vec{b}$ given by another CPS; similarly, $\vec{v}$ is the translation of a physical output $\vec{w}$ from another system. If the functions $\delta_{\vec{Q}}$ and $\delta{\vec{X}}$ respectively ignore $\vec{a}$ and $\vec{v}$ for their computation, then we say that the CPS is \emph{closed}.
 Henceforth, we assume that the CPS (or composition of CPSs) we are working with is closed. We study a closed CPSs composition in Section~\ref{sec:CPSRobustness:CaseStudy}.
 
+{\color{red} From the perspective of coalgebras, this definition of latent behaviour implies that the whole state is observable from the modelling perspective. Implicitly, we are working with a functor $F(X)=\Pi\times X$, modelling the CPS using the $F$-coalgebra $(\Pi,(\id,\TheSystem))$. 
+%The final $F$-coalgebra is $(\sigma F, 1_F)$ with $\sigma F=\Pi^\infty$, i.e., the set of infinite sequences of elements of $\Pi$ and $1_F=(\head,\tail)$. 
+% We adjust the visibility by adjusting the functor: a functor $G(X)=\vec{Y}\times X$ restricts the visibility to the values read by sensors by $(\Pi,(\vec{y},\TheSystem))$
+}
+
 In the following, we define a notion of integrity based on security requirements over physical components. We also discuss the attacker models we consider in this work, and a method to systematically generate attacks.
 
 \subsection{Physical Integrity Requirements}{
@@ -362,10 +367,13 @@ In the following, we define a notion of integrity based on security requirements
 We use \emph{physical integrity requirements} to determine when the behaviour of the process $\vec{x}$ has deviated critically, and becomes unsafe, independently of whether the system is under attack or not. Formally, physical integrity requirements model \emph{safety properties} over the physical state of the CPS.
 \begin{definition}[Physical Integrity Requirement]
   \label{def:CPSRobustness:IntegrityRequirement}
-  Let $\Pi$ be the set of states of the CPS. A \emph{physical integrity requirement} is a finite state automaton $\TheRequirement=(S,\delta,F,s_0)$, where $S$ is a set, $\delta\colon S\times \vec{X}\rightarrow S$ is the transition function, $F\subseteq S$ marks critical states, and $s_0\in S$ is the initial state. Given a possibly infinite sequence of states of the CPS $\omega=(\pi_0,\pi_1 \ldots)$, we say that \emph{$\omega$ fails the physical integrity requirement $\TheRequirement$} if and only if there exists a finite prefix of $\omega$, say $(\pi_0,\ldots\pi_n)$, such that the sequence $(\pi_0[\vec{x}],\ldots, \pi_n[\vec{x}])$ is rejected by $\TheRequirement$. %Under this definition, physical requirements correspond to safety properties.
+  Let $\Pi$ be the set of states of the CPS. A \emph{physical integrity requirement} is a finite state automaton $\TheRequirement=(S,\delta,F,s_0)$, where $S$ is a set, $\delta\colon S\times \vec{X}\rightarrow S$ is the transition function, $F\subseteq S$ marks critical states, and $s_0\in S$ is the initial state. Given a possibly infinite sequence of states of the CPS $\omega=(\pi_0,\pi_1 \ldots)$, we say that \emph{$\omega$ fails the physical integrity requirement $\TheRequirement$} if and only if there exists a finite prefix of $\omega$, say $(\pi_0,\ldots\pi_n)$, such that the sequence $(\pi_0[\vec{x}],\ldots, \pi_n[\vec{x}])$ is rejected by $\TheRequirement$. Henceforth, we refer to physical integrity requirements simply as \emph{physical requirements}. 
+  
+The \emph{behaviours of the CPS} are the infinite sequences $(\pi_0, \pi_1, \ldots)$ where $\pi_{k+1}=\TheBehaviourOf{\pi_k}$ and $\pi_0$ is an initial state. The CPS \emph{satisfies  $\TheRequirement$} iff all its behaviours satisfy $\TheRequirement$. We expect the attack-free CPS to satisfy all physical requirements.
+  %Under this definition, physical requirements correspond to safety properties.
 \end{definition}
   %\todo[inline]{Awesome! now we can model a requirement that states that the water level of the tank must not remain low for large periods of time, or the pump would burn.}]
-  Henceforth, we refer to physical integrity requirements simply as \emph{physical requirements}. We expect the original CPS to satisfy all physical requirements. More precisely, since the normal behaviour of the CPS are the sequences $(\pi_0, \pi_1, \ldots)$ where $\pi_{k+1}=\TheBehaviourOf{\pi_k}$ and $\pi_0$ is an initial state, we expect, for all $k$, that the sequences $(\pi_0[\vec{x}],\ldots,\pi_k[\vec{x}])$ is accepted by every physical requirement.
+   
 
 % \color{blue}
 % \todo[inline]{@All: this section in blue remains from the workshop version. We could keep it, unless you feel it does not fit the tone of the paper.}
@@ -455,13 +463,13 @@ An attacker model is a pair of a set of constant transformations of coordinates 
 % We finally define attacks by combining attack coefficients in $\IMCT$ and the predicates in the basis $\sum\Pi$.
 \begin{definition}[Attack]
   \label{def:CPSRobustness:Attack}
-Given an attacker model $(\Gamma_{\mathcal{K}}, \sum_{i=1}^n\Pi_i)$ and a choice of $n$ coefficients $t_1, \ldots, t_n\in\IMCT$, 
+Given an attacker model $\mathcal{A}=(\Gamma_{\mathcal{K}}, \sum_{i=1}^n\Pi_i)$,
  %generated by the representative values $\Gamma_c$ for each $c\in \mathbb{C}$, 
-we represent an \emph{attack} $\vec{m}\colon \Pi\rightarrow \Pi$ with the linear combination
+ an \emph{attack} $\vec{m}\colon \Pi\rightarrow \Pi$ \emph{generated by $\mathcal{A}$} is a linear combination
 \begin{align}
   \vec{m}=t_1\Pi_1 + t_2\Pi_2 + \ldots + t_n\Pi_n,
 \end{align} 
-which is equivalent to the function defined for $\pi\in \Pi$ by
+where $t_1, \ldots, t_n\in\IMCT$ is a choice of $n$ coefficients. The attack $\vec{m}$ implements a function defined for $\pi\in \Pi$ by
 \begin{align}
   \label{eq:AttackVector}
   \vec{m}(\pi)=
@@ -503,6 +511,8 @@ We can scale an attack $\vec{m}\colon \Pi\rightarrow \Pi$ by $t\in \IMCT$ to obt
     \Pi_{n}
   \end{bmatrix}.
 \end{align} 
+The set of all attacks generated by the attacker model $\mathcal{A}$ is $\AsSequence{\mathcal{A}}$.
+
 We can also combine attacks --i.e., attack addition-- using function composition, which is \emph{not commutative}. The sum of attacks using the same basis corresponds to the composition of their coefficients. However, the sum of attacks with different bases requires a common basis: given attacks $\vec{m}_1$ and $\vec{m}_2$ whose respective bases are $\sum_{i=1}^n\Pi_i$ and $\sum_{i=1}^m\Pi'_i$, 
 we define the common basis $(\sum_{i=1}^n\Pi_i)(\sum_{i=1}^m\Pi'_i)$ by 
 \begin{align}
@@ -641,11 +651,11 @@ The attacker with the minimal capabilities that can execute an attack $\vec{m}$ 
 \section{Improving Robustness via Latent Behaviour Analysis}
 \label{sec:CPSRobustness:LatentBehaviours} 
 % The robustness of a system is a measure relative to some attacker model. The more attacks there are, and the more the system resists them without failing its requirements, the more robust it is. 
-An attack $\vec{m}$ continuously changes the state of the system, altering the single-cycle semantics and revealing {latent behaviours}. When we compose the single-cycle semantics $\TheSystem$ with an arbitrary state transformation $m\colon \Pi\rightarrow\Pi$, we reveal a transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$. We call $\TheSystem\circ m$ the \emph{latent dynamics} revealed by $m$, and we use $\TheSystem\circ m$ to compute \emph{latent behaviours} revealed by $m$.%, because it depends on the latent/hidden variable $m$. 
+When we compose the single-cycle semantics $\TheSystem$ with an arbitrary state transformation $m\colon \Pi\rightarrow\Pi$, we reveal a transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$. We call $\TheSystem\circ m$ the \emph{latent dynamics} revealed by $m$, and we use $\TheSystem\circ m$ to compute \emph{latent behaviours} revealed by $m$.%, because it depends on the latent/hidden variable $m$. 
 
-\begin{definition}[Latent Behaviour of a Closed CPS]
+\begin{definition}[Latent Behaviours of a Closed CPS]
   \label{def:CPSRobustness:LatentBehaviour}
-  Given an attack $\vec{m}\colon \Pi\rightarrow \Pi$, the \emph{latent behaviour revealed by $\vec{m}$} at some initial state $\pi_0$ is the (infinite) sequence of states $(\pi^{\vec{m}}_0, \pi^{\vec{m}}_1\ldots)$ inductively defined, for $k\geq 0$, by 
+  Given an attack $\vec{m}\colon \Pi\rightarrow \Pi$, the \emph{latent behaviour revealed by $\vec{m}$} at some initial state $\pi_0$ is the infinite sequence of states $(\pi^{\vec{m}}_0, \pi^{\vec{m}}_1\ldots)$ inductively defined, for $k\geq 0$, by 
   \begin{align}
     \label{eq:newkCycle}
     %\TheSystem^m&\triangleq\TheSystem \circ m\\
@@ -657,34 +667,27 @@ An attack $\vec{m}$ continuously changes the state of the system, altering the s
 % \end{align}
 %In the following, we slightly abuse notation and refer to function which computes latent behaviours $(\pi^{\vec{m}}_0, \pi^{\vec{m}}_1\ldots)$ by $\TheSystem^{\vec{m}}$.
 \end{definition}
-{\color{red} From the perspective of coalgebras, this definition of latent behaviour implies that the whole state is observable from the modelling perspective. Implicitly, we are working with a functor $F(X)=\Pi\times X$, modelling the CPS using the $F$-coalgebra $(\Pi,(\id,\TheSystem))$. 
-%The final $F$-coalgebra is $(\sigma F, 1_F)$ with $\sigma F=\Pi^\infty$, i.e., the set of infinite sequences of elements of $\Pi$ and $1_F=(\head,\tail)$. 
-% We adjust the visibility by adjusting the functor: a functor $G(X)=\vec{Y}\times X$ restricts the visibility to the values read by sensors by $(\Pi,(\vec{y},\TheSystem))$
-}
 \subsection{Robustness}
-Given an attacker model $\mathcal{A}$, a set of requirements $\TheSetOfRequirements$, and a CPS $(\Pi,\TheSystem)$, we assume that the CPS satisfies all the requirements in $\TheSetOfRequirements$. For an attack $\vec{m}\colon \Pi\rightarrow \Pi$ in the attacker model $\mathcal{A}$, and a requirement $\TheRequirement\in\TheSetOfRequirements$, LBA states that if $(\Pi,\TheSystem\circ m)$ fails to satisfy a security requirement  (in the sense of Definition~\ref{def:CPSRobustness:IntegrityRequirement}), then \emph{$\vec{m}$ breaks $\TheRequirement$}.%where $\Pi$ is the set of states and $\TheSystem$ is the single cycle semantics 
-
-
- we define the \emph{robustness} of the system to be the number of attacks that fail to break any physical requirement over the total number of attacks generated by the attacker model. 
+When a system is under attack, the single-cycle semantics changes, and the system reveals {latent behaviours}. Given an attacker model $\mathcal{A}$, a set of requirements $\TheSetOfRequirements$, and a CPS $(\Pi,\TheSystem)$, we assume that the CPS satisfies all the requirements in $\TheSetOfRequirements$ (see Definition~\ref{def:CPSRobustness:IntegrityRequirement}). Given an attack $\vec{m}\colon \Pi\rightarrow \Pi$ generated by the attacker model $\mathcal{A}$, and a requirement $\TheRequirement\in\TheSetOfRequirements$, LBA states that if $(\Pi,\TheSystem\circ m)$ fails $\TheRequirement$, then \emph{$\vec{m}$ breaks $\TheRequirement$} in $(\Pi,\TheSystem)$, so the CPS is vulnerable to $\mathcal{A}$. %where $\Pi$ is the set of states and $\TheSystem$ is the single cycle semantics 
+We define the \emph{robustness} of the system with respect to a given attacker model to be the fraction of attacks generated by the attacker model that fail to break any physical requirement. 
 
 % In this section, we show how to model attacks as these transformations $m$ to reveal a latent behaviour of the system under attack $\TheSystem\circ m$. We can then use the revealed latent behaviours $\TheSystem\circ m$ to quantify robustness via testing, which we do in Section~\ref{sec:CPSRobustness:LatentBehaviours}.
 \begin{definition}[Robustness]
   \label{def:CPSRobustness:Robustness}
-  Given an attacker model $\mathcal{A}$, and a set of requirements $\TheSetOfRequirements$, we define $\mathcal{A}(\TheSetOfRequirements)$ to be the set of attacks in $\mathcal{A}$ that break at least one requirement. We define 
+  Given an attacker model $\mathcal{A}$, and a set of requirements $\TheSetOfRequirements$, let $\mathcal{A}(\TheSetOfRequirements)$ be the set of attacks generated $\mathcal{A}$ that break at least one requirement in $\TheSetOfRequirements$. We define 
   the \emph{robustness} of the system by 
   \begin{align*}
-    \frac{|\mathcal{A}|-|\mathcal{A}(\TheSetOfRequirements)|}{|\mathcal{A}|}
+    \frac{|\AsSequence{\mathcal{A}}|-|\mathcal{A}(\TheSetOfRequirements)|}{|\AsSequence{\mathcal{A}}|}
   \end{align*}
 \end{definition}
 
 \begin{example}
-  In the context of the attacker model of the water tank where the basis is $[LL, OK, HH]^T$ and the coefficients are $\Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}$, there are 64 attacks, out of which 40 break at least one physical requirement. The robustness of the water tank with respect to this attacker model is 24/64.
+  In the context of the attacker model of the water tank from Section~\ref{sec:CPSRobustness:example} where the basis is $[LL, OK, HH]^T$ and the coefficients are $\Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}$, there are 64 attacks. We confirm via simulation of the revealed latent systems that 30 of those attacks break at least one physical requirement, so the robustness of the water tank with respect to this attacker model is 34/64.
 \end{example}
 %\todo[inline]{@All: can someone please edit the following sections? I'm writing extremelly informally}
 \subsection{Counterattacks and Latent Robustness}
 \label{sec:CPSRobustness:CounterAttacks}
-Latent behaviour analysis shows us that attacks transform the single-cycle semantics, so it is possible for us to keep transforming the revealed latent behaviours with other transformations: \emph{counterattacks}. Counterattacks are exactly the same as attacks, but we use them to reveal second-degree latent behaviours; i.e. the latent behaviours of the latent behaviours revealed by attacks on the original system. 
-
+LBA uses spatial transformations to alter the single-cycle semantics of the CPS, but it is possible for us to keep transforming the revealed latent behaviours with other spatial transformations: \emph{counterattacks}. In the LBA framework, counterattacks and attacks only differ only by intent: we use attacks to reveal compromised systems, and we use counterattacks to reveal systems where attackers and counterattackers are interacting. Since attacks and counterattacks are both transformations of the system, applying a counterattack in the absence of attacks is equivalent to attacking the system using the counterattack. %i.e. the latent behaviours of the latent behaviours revealed by attacks on the original system. 
 % \begin{definition}[Counterattack]
 %   \label{def:CPSRobustness:CounterAttack}
 % Given a basis $\sum_{i=1}^n\Pi_i$ and coefficients $t_1, \ldots, t_n\in\IMCT$, 
@@ -711,24 +714,31 @@ Latent behaviour analysis shows us that attacks transform the single-cycle seman
 % \end{align} 
 % \end{definition}
 
-\emph{Counterattacker models} are dual to attacker models. Given that the controller or the operator would play the role of the counterattacker, we can give them extraordinary privileges. More precisely, we believe it is sensible to describe the counterattacker model as a rather capable attacker whose transformations directly affect the controller or the physical components the system. 
-
+\emph{Counterattacker models} are also dual to attacker models. A counterattacker model is also a pair of a set of constant transformations of coordinates and a basis that partitions the state space. However, we assume that that the controller or the operator are going to play the role of the counterattacker, so the coordinates that they affect should be specially impactful with respect to the behaviour of the system. More precisely, we believe it is sensible to describe the counterattacker model using transformations that directly affect the output of the controller or the physical components the system. 
 \begin{example}
   \label{ex:CPSRobustness:counterattack}
-  In the context of the water tank from Section~\ref{sec:CPSRobustness:example}, we define the counterattacker model $(\Gamma_{\set{\vec{q}[MV],\vec{q}[P]}},\set{\widehat{LL},\widehat{OK},\widehat{HH}})$. The idempotent monoid of coefficients is generated by $\Gamma_{\vec{q}[MV],\vec{q}[P]}$, where 
+  In the context of the water tank from Section~\ref{sec:CPSRobustness:example}, we define the counterattacker model $\left(\Gamma_{\set{\vec{x}[MV],\vec{x}[P]}},\set{\widehat{LL},\widehat{OK},\widehat{HH}}\right)$. The actions of the counterattacker are generated by $\Gamma_{\set{\vec{x}[MV],\vec{x}[P]}}$, where 
   \begin{align*}
-    \Gamma_{\set{\vec{q}[MV],\vec{q}[P]}}&=\Gamma_{\vec{q}[MV]}\cup\Gamma_{\vec{q}[P]}\\
-    &=\set{\const^{\vec{q}[MV]}_{\texttt{open}},\const^{\vec{q}[MV]}_{\texttt{closed}}}\\
-    &\cup \set{\const^{\vec{q}[P]}_{\texttt{on}},\const^{\vec{q}[P]}_{\texttt{off}}}
+    \Gamma_{\set{\vec{x}[MV],\vec{x}[P]}}&=\Gamma_{\vec{x}[MV]}\cup\Gamma_{\vec{x}[P]}\\
+    &=\set{\const^{\vec{x}[MV]}_{\texttt{open}},\const^{\vec{x}[MV]}_{\texttt{closed}}}\cup \set{\const^{\vec{x}[P]}_{\texttt{on}},\const^{\vec{x}[P]}_{\texttt{off}}};
   \end{align*}
-  The basis $\set{\widehat{LL},\widehat{OK},\widehat{HH}}$ is defined by  $\widehat{LL}(\pi)=(\pi[\vec{y}[L]]<L_{min})$, $\widehat{HH}(\pi)=(\pi[\vec{y}[L]]>L_{max})$ and $\widehat{OK}(\pi)=(L_{min}\leq \pi[\vec{y}[L]]\leq L_{max})$. Note that we arbitrarily choose the visibility of the counterattacker to be affected by the attacker. More precisely, we use $\widehat{LL},\widehat{OK}$ and $\widehat{HH}$, which depend on the level provided by the attacker $\vec{y}[L]$, and not on the physical (real) water level $\vec{x}[L]$. 
-  % (Y[L3]<L3min)=>[(Q[MV3]->closed), (Q[P3]->off)] + (L3min<=Y[L3]<=L3max)=>[id(Q[MV3]), id(Q[P3])] + (Y[L3]>L3max)=>[id(Q[MV3]), id(Q[P3])]
+i.e., the counterattacker can change the physical state of the motor valve $MV$ and the pump $P$ by, e.g., manual operation. Since this counterattacker acts directly on the physical state of the components, it is a rather influential force over the behaviour of the CPS.
+
+The basis $\set{\widehat{LL},\widehat{OK},\widehat{HH}}$ is defined for $\pi\in \Pi$ by 
+  \begin{align*}
+    \widehat{LL}(\pi)&\triangleq(\pi[\vec{y}[L]]<L_{min}),
+    \\\widehat{HH}(\pi)&\triangleq(\pi[\vec{y}[L]]>L_{max}), and\\
+    \widehat{OK}(\pi)&\triangleq(L_{min}\leq \pi[\vec{y}[L]]\leq L_{max}).
+  \end{align*}
   This counterattacker model generates 729 different counterattacks, 
-since
-\begin{align*}
-  \left| \IM{\Gamma_{\set{\vec{q}[MV],\vec{q}[P]}}}\right|^{\left|\set{\widehat{LL},\widehat{OK},\widehat{HH}}\right|}=9^3=729
-\end{align*}
-  An example counterattack $\vec{w}$ from this model is 
+  since
+  \begin{align*}
+    \left| \IM{\Gamma_{\set{\vec{x}[MV],\vec{x}[P]}}}\right|^{\left|\set{\widehat{LL},\widehat{OK},\widehat{HH}}\right|}=9^3=729
+  \end{align*}
+
+  Note that the visibility of this counterattacker is controlled by attacker from Example~\ref{ex:CPSRobustness:attack}. More precisely, when deciding $\widehat{LL},\widehat{OK}$ and $\widehat{HH}$, the counterattacker uses the value of coordinate $\vec{y}[L]$ (which is controlled by this attacker), and not on the physical (real) water level $\vec{x}[L]$. These non-trivial dependencies result in curious interactions:
+  % (Y[L3]<L3min)=>[(Q[MV3]->closed), (Q[P3]->off)] + (L3min<=Y[L3]<=L3max)=>[id(Q[MV3]), id(Q[P3])] + (Y[L3]>L3max)=>[id(Q[MV3]), id(Q[P3])]
+  the counterattack $\vec{w}$ defined by
   \begin{align}
     \vec{w}=
     \begin{bmatrix}
@@ -744,51 +754,55 @@ since
       \widehat{HH}
     \end{bmatrix}.
   \end{align}
+counters the attack $\vec{m}$ from Example~\ref{ex:CPSRobustness:attack}, because the attack $\vec{m}$ tries to trick the controller into thinking that the water level of the tank is low, and this counterattack closes the motor valve and shuts off the pump. This takes the system into a state where water does not flow in or out of the tank, so the attack $\vec{m}$ cannot overflow it.
 \end{example}
-
+We now provide a formal notion of what it means for an attack to be countered by a counterattack.
 \begin{definition}[Attack Countering]
   We say that a counterattack $\vec{w}$ \emph{counters} an attack $\vec{m}$ if and only if the latent behaviour $\TheSystem\circ\vec{m}$ fails at least one physical requirement, but $\TheSystem\circ(\vec{w}\circ\vec{m})$ does not fail any.
 \end{definition}
-\begin{example}
-  The counterattack $\vec{w}$ from Example~\ref{ex:CPSRobustness:counterattack} counters the attack $\vec{m}$ from Example~\ref{ex:CPSRobustness:attack}, because the attack $\vec{m}$ tries to trick the controller into keeping the valve $MV$ open by making the controller believe that the level of water is low, but the counterattack states that we should close the valve $MV$ and turn off the pump $P$ when the level of water is low. This interaction prevents water from flowing into the tank, and also leaving it, so the system remains in a safe state. In this case, the counterattack makes decisions based on the inputs given by the attacker, but still counters the attack.
-\end{example}
-Since attacks and counterattacks are both transformations of the system, applying a counterattack in the absence of the attack to be countered is equivalent to attacking the system by using the counterattack. A counterattack should only be applied when the attack that it counters is confirmed to be present. 
+ %A counterattack should only be applied when the attack that it counters is confirmed to be present. 
 
 The \emph{latent robustness} of a system is characterised by the set of attacks that fail to break any requirement, plus the set of attacks that can be countered.
 \begin{definition}[Latent Robustness]
   \label{def:CPSRobustness:LatentRobustness}
   Given an attacker model $\mathcal{A}$, a counterattacker model $\mathcal{B}$, and a set of physical requirements $\TheSetOfRequirements$, we define $\mathcal{B}(\mathcal{A}(\TheSetOfRequirements))$ to be the set of attacks in $\mathcal{A}$ that \emph{cannot be countered} by counterattacks in $\mathcal{B}$. We define the \emph{latent robustness} of the system by 
   \begin{align*}
-    \frac{|\mathcal{A}|-|\mathcal{B}(\mathcal{A}(\TheSetOfRequirements))|}{|\mathcal{A}|}
+    \frac{|\AsSequence{\mathcal{A}}|-|\mathcal{B}(\mathcal{A}(\TheSetOfRequirements))|}{|\AsSequence{\mathcal{A}}|}
   \end{align*}
 \end{definition}
-
+ 
 \begin{example}
   In the context of the attacker model of the water tank from Section~\ref{sec:CPSRobustness:example}, the latent robustness of the water tank with respect of the attacker model from Example~\ref{ex:CPSRobustness:attack} and the counterattacker model from Example~\ref{ex:CPSRobustness:counterattack} is 64/64, since every attack in the attacker model can be countered by a counterattack in the counterattacker model. 
   % where the basis is $[LL, OK, HH]^T$ and the coefficients are $\Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}$, there are 64 attacks, out of which 40 break at least one physical requirement. The robustness of the water tank with respect to this attacker model is 24/64.
 \end{example}
 
-\subsection{Implementing Counterattacks with Repairs}
+\subsection{Improving Robustness with Repairs}
 \label{sec:CPSRobustness:UrgentAttacker}
-If a counterattack $\vec{w}$ counters an attack $\vec{m}$, then we can, in theory, improve the robustness of the CPS by triggering $\vec{w}$ when $\vec{m}$ is affecting the system, and only then. This condition implicitly assumes the following two conditions: one, there exists some sort of monitor that can always correctly identify which attack is currently affecting the system (if any), and two, the counterattack can be launched; i.e., the attacker does not interfere with the counterattacking mechanism. While condition two can be enforced by isolating the attacker and the counterattacker model such that they do not share coordinates, the first condition may be practically impossible to enforce. An alternative method to implement counterattacks consists on changing the program of the controller so that it emulates the counterattack based on conditions anomaly conditions that it can detect. 
+If a counterattack $\vec{w}$ counters an attack $\vec{m}$, then we can, in theory, improve the robustness of the CPS by triggering $\vec{w}$ when $\vec{m}$ is affecting the system, and only then. This method has the following two assumptions: one, there exists some sort of monitor that can always correctly identify which attack is currently affecting the system (if any), and two, the counterattack can be properly launched; i.e., the attacker does not interfere with the counterattacking mechanism. While condition two can be enforced by isolating the attacker and the counterattacker models such that they do not share coordinates, the first condition may be practically impossible to satisfy. Thus, we consider an alternative method: changing the program of the controller to incorporate the effects of counterattacks in the system, guarded by conditions that signal abnormal behaviour, which we obtain from the data resulting from LBA.
 
-To repair a CPS, we study the distribution of attacks and counterattacks that we obtain from LBA. We aim to implement the counterattack that counters the most attacks by implementing it in the controller as an additional exceptional response mode that triggers given special circumstances that we obtain from the set of countered attacks. 
+Changing the program of the controller is not a fail-proof process to improve robustness. We study the distribution of attacks and counterattacks that we obtain from LBA and dig for relations between them, and we can see patterns that guide us in the process of changing the controller. To confirm that our changes are a repair, we compare the new system to the original system using  their robustness.
+
+% We aim to implement the counterattack that counters the most attacks by implementing it in the controller as an additional exceptional response mode that triggers given special circumstances that we obtain from the set of countered attacks. 
 \begin{example}
-  To counter the attack from Example~\ref{ex:CPSRobustness:attack}, we change the program of the controller to implement the functionality of the counterattack from Example~\ref{ex:CPSRobustness:counterattack}.
-\begin{align}
-  \label{eq:ControllerStage3Repair}
-  \vec{q}_{\vec{m}}[MV](k+1)&=
-  \begin{cases}
-    \texttt{closed},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq L_{min}$,}\\
-    \vec{q}_{\vec{m}}[MV](k)&\quad \text{otherwise;}    
-  \end{cases}\\
-  \vec{q}_{\vec{m}}[\tau](k+1)&=\vec{q}_{\vec{m}}[\tau](k)\\
-\vec{q}_{\vec{m}}[L](k+1)&=\vec{y}_{\vec{m}}[L](k)\\
-\vec{q}_{\vec{m}}[P](k+1)&=\begin{cases}
-  \texttt{off},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq L_{min}$,}\\
-  \vec{q}_{\vec{m}}[P](k)&\quad \text{otherwise;}    
-\end{cases}
-\end{align}
+  To increase the robustness of the CPS from Section~\ref{sec:CPSRobustness:example} with respect to the attacker model from the same example, we change the program of the controller to replicate the actions taken by the counterattack from Example~\ref{ex:CPSRobustness:counterattack} and the conditions that trigger them. The repair consists of shutting off $P$ and closing $MV$ when the level of water is low. This change improves the robustness of the system from $34/64$ to $58/64$, so it classifies as a repair. The improvement is due to a forced stabilisation of the system: once the level of water goes below $L_{min}$, the repair prevents any more water from flowing in or out of the tank. If the specification of the CPS required the level of the tank to constantly go from $L_{min}$ to $L_{max}$ and vice-versa, this repair would not be acceptable since it would break a functional requirement.
+%   Not all actions of the counterattacker can be implemented by the controller if we want to preserve the normal functionality of the system. More precisely, we cannot always close $MV$ when the sensor says that the level is low, since conflicts with the normal functionality of the system. 
+  
+%   Instead, we extend the control strategy to now shut off the pump if the level of water is low and turn it onif the level of water is high. 
+%   we change the program of the controller so that 
+% \begin{align}
+%   \label{eq:ControllerStage3Repair}
+%   \vec{q}_{\vec{m}}[MV](k+1)&=
+%   \begin{cases}
+%     \texttt{closed},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq L_{min}$,}\\
+%     \vec{q}_{\vec{m}}[MV](k)&\quad \text{otherwise;}    
+%   \end{cases}\\
+%   \vec{q}_{\vec{m}}[\tau](k+1)&=\vec{q}_{\vec{m}}[\tau](k)\\
+% \vec{q}_{\vec{m}}[L](k+1)&=\vec{y}_{\vec{m}}[L](k)\\
+% \vec{q}_{\vec{m}}[P](k+1)&=\begin{cases}
+%   \texttt{off},&\quad \text{if $\vec{y}_{\vec{m}}[L](k)\leq L_{min}$,}\\
+%   \vec{q}_{\vec{m}}[P](k)&\quad \text{otherwise;}    
+% \end{cases}
+% \end{align}
 \end{example}
 %we choose one attack $\vec{m}$ and implement its counterattack directly in the controller. %We do not repair attacks that have no counterattack; our options are to make the counterattacker model made more capable, or to change change the model of the system and run the analysis again.
 % \todo[inline]{This is an interesting direction for future work: how can we change system modularly?}
@@ -801,7 +815,7 @@ To repair a CPS, we study the distribution of attacks and counterattacks that we
  
 % To find the most pressing attack, check which is the attack that requires the least amount of capabilities. This can be done efficiently by looking at its definition. 
 
-\subsection{Choosing Attacker models}
+\subsection{Choosing Models}
 The choice of attacker model and counterattacker model defines the boundaries of the LBA. If the attacker model is too complex, then the resulting set of generated attacks is not only large, but several of its attacks might not have a counterattack. In this section, we provide small hints for the selection of attackers and counterattackers, based on partial orders that exist within the attacker models.
 
  %, and we use that as a reference to repair our system.
