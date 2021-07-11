@@ -5098,6 +5098,33 @@
     \field{year}{2013}
   \endentry
 
+  \entry{CEGIS}{thesis}{}
+    \name{author}{1}{}{%
+      {{hash=SLA}{%
+         family={Solar-Lezama},
+         familyi={S\bibinithyphendelim L\bibinitperiod},
+         given={Armando},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SLA1}
+    \strng{fullhash}{SLA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{SL08}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{{Program synthesis by sketching}}
+    \verb{url}
+    \verb https://people.csail.mit.edu/asolar/papers/thesis.pdf
+    \endverb
+    \list{institution}{1}{%
+      {University of California, Berkeley}%
+    }
+    \field{type}{phdthesis}
+    \field{year}{2008}
+  \endentry
+
   \entry{CPSCovertAttacks}{article}{}
     \name{author}{1}{}{%
       {{hash=SRS}{%
