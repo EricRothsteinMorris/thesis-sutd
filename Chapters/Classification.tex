@@ -310,7 +310,7 @@ The function $\theta$ evaluates the requirements given an input $\vec{w}$; for $
 where $\TheBehaviourOf{e(t)}$ is the result of evaluating the expression $e(t)$ by assuming $w'(t)=\vec{w}[w']$, $v'(t)=\vec{v}[v']$ and $g'(t)=\vec{g}^{\vec{w}}[g']$.
 
 %Since the set $\vec{V}\times \vec{G}$ is the carrier, 
-In the following we show how to use bounded model checking to find spatial transformations which reveal a latent coalgebra that fails one or more security requirements. %whose coordinates are $V\cup G$, 
+In the following we show how to use bounded model checking to find spatial transformations which create a latent coalgebra that fails one or more security requirements. %whose coordinates are $V\cup G$, 
 % Since the carrier is the set $\vec{V}$, spatial transformations do not directly transform the state of gates. If an attacker wants to affect a gate, they must do so via transitive data dependencies. More precisely, if a gate $g$ depends on a latch $v$ (e.g. $g(t)=v(t) \land \lnot k(t)$ where $k$ is some component, then an attacker controlling $v$ might affect $g$ by manipulating the value of the state at coordinate $v$. If the value of a gate $g$ does not transitively depend on any latch (e.g., $g_1$ in Figure~\ref{fig:Classification:Example}), then $g$ must only depend on inputs. %This follows the ideology of latent behaviour analysis, where we purposely restrict attackers to affect the state of the system.
 
 % 

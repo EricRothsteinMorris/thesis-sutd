@@ -42,7 +42,7 @@ Normally, an insecure systems is a system with abnormal termination, but we can 
 
 Following the LBA methodology, we model attacks as spatial transformations, and we compose these transformations with the original system to create a latent system. We test the latent systems to quantify the robustness of the original system: if a latent system fails a security requirement, then the CPS is vulnerable to the attack that creates the latent system. Similar to the control theoretical approaches, we expect that the system under normal circumstances satisfies all the security requirements in $\TheSetOfRequirements$. However, it is not unexpected that the system fails to satisfy one or more security requirement while it is under attack. 
 
-To protect the CPS in scenarios that are not attack free, we propose the use of \emph{counterattacks}. A counterattack is a second spatial transformation that aims to counter the effect of one or more attacks. More precisely, if we model a CPS whose set of states is $\Pi$ and whose transition function is $\TheSystem\colon\Pi\rightarrow\Pi$, we can compose $\TheSystem$ with a state transformation $m\colon \Pi\rightarrow\Pi$ that models an attack and reveal a the latent CPS $(\Pi,m\circ \TheSystem)$. To counter $m$, we introduce a second spatial transformation $w\colon \Pi\rightarrow \Pi$ to reveal a latent CPS $\TheSystem\circ w\circ m$ that satisfies the following property: if the system $(\Pi,\TheSystem\circ w\circ m)$ satisfies all security requirements that the original CPS does, then $w$ counters the attack $m$.
+To protect the CPS in scenarios that are not attack free, we propose the use of \emph{counterattacks}. A counterattack is a second spatial transformation that aims to counter the effect of one or more attacks. More precisely, if we model a CPS whose set of states is $\Pi$ and whose transition function is $\TheSystem\colon\Pi\rightarrow\Pi$, we can compose $\TheSystem$ with a state transformation $m\colon \Pi\rightarrow\Pi$ that models an attack and create a the latent CPS $(\Pi,m\circ \TheSystem)$. To counter $m$, we introduce a second spatial transformation $w\colon \Pi\rightarrow \Pi$ to create a latent CPS $\TheSystem\circ w\circ m$ that satisfies the following property: if the system $(\Pi,\TheSystem\circ w\circ m)$ satisfies all security requirements that the original CPS does, then $w$ counters the attack $m$.
 
 %latent transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$. The original system is modelled by a tuple $(\Pi,\TheSystem)$, and the tuple $(\Pi,\TheSystem\circ m)$ models the system when it is under the attack $m$. 
 % If the system $(\Pi,\TheSystem\circ m)$ fails a security requirement, then the system $(\Pi,\TheSystem)$ is vulnerable to the attack $m$. 
@@ -58,7 +58,7 @@ it is possible to arbitrarily choose values for the spatial transformations $m$ 
 
 %  We use the new transition function $\TheSystem\circ m$ to quantify the robustness of the original system in the same spirit as fault injection. Then, because attacks and counterattacks are duals of the same type, we define a counterattacker model to try to find, for each attack $m\colon\Pi\rightarrow\Pi$, a counterattack $w\colon\Pi\rightarrow\Pi$. We also show how attack-counterattack pairs can give the designer of the CPS useful insights on how to make the control strategy provably more robust. % and how to implement mitigation mechanisms that are more effective.
 
-% Formally, any transformation $m\colon\Pi\rightarrow\Pi$ can be used to reveal a latent behaviour. 
+% Formally, any transformation $m\colon\Pi\rightarrow\Pi$ can be used to create a latent behaviour. 
 % However, we are interested in those $m$ that model realistic attacks. 
 % In this work, we provide a framework to define attacks and attackers, and a method to systematically generate them, yielding a universe $\mathcal{A}$ of attackers and a universe $\mathcal{M}$ of attacks.
 % , and two mappings between them: 
@@ -388,7 +388,7 @@ give attackers the ability to either: 1) alter the value of the coordinates they
 
 
 % In Section~\ref{sec:CPSRobustness:example} we hinted the possibility of describing attacks as vectors. In this section, we discuss in more detail the meaning of the bases and the coefficients of attacks.
-Following the methodology of LBA, we aim to compose the single cycle semantics function $\TheSystem\colon\Pi\rightarrow\Pi$ from Definition~\ref{def:CPSRobustness:SingleCycleSemantics} with a spatial transformation $m\colon \Pi\rightarrow\Pi$ (which models some attack) to reveal the transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$ of a latent system which models the CPS under the attack $m$. 
+Following the methodology of LBA, we aim to compose the single cycle semantics function $\TheSystem\colon\Pi\rightarrow\Pi$ from Definition~\ref{def:CPSRobustness:SingleCycleSemantics} with a spatial transformation $m\colon \Pi\rightarrow\Pi$ (which models some attack) to create the transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$ of a latent system which models the CPS under the attack $m$. 
 {There is a major difference between the work presented here and the work in Chapter~\ref{ch:Classification}. In Chapter~\ref{ch:Classification}, given an attacker model $\mathcal{A}$, we wanted to determine for each requirement $\TheRequirement$ whether there \emph{exists} an attack within the capabilities of $\mathcal{A}$ that can break $\TheRequirement$. In this chapter, we want to measure the robustness of the system with respect to $\mathcal{A}$, which checks \emph{how many} attacks of $\mathcal{A}$ are successful. In this sense, the study in Chapter~\ref{ch:Classification} is qualitative, while the one in this chapter is quantitative. In the following, we show how to formally define attacker models, and we show how to systematically generate different attacks within their capabilities. 
 }
 \subsection{Attacker Models and Systematic Attack Generation} 
@@ -642,7 +642,7 @@ The attacker with the minimal capabilities that can execute an attack $\vec{m}$ 
 % \begin{align}
 %   \Gamma_{|\vec{m}|}\triangleq\bigcup_{i=1}^n |t_i|.
 % \end{align}
-% Now that we have a method to systematically generate attacks and to associate them with an attacker model, we are ready to use them to reveal latent behaviours. 
+% Now that we have a method to systematically generate attacks and to associate them with an attacker model, we are ready to use them to create latent behaviours. 
 % \begin{definition}[Hamming distance]
 % Let $\mathbb{C}$ be the set of coordinates of the CPS. Given states $\pi_1$ and $\pi_2$ in $\Pi$, we define the hamming distance between $\pi_1$ and $\pi_2$, denoted $|\pi_1-\pi_2|$, by the set
 % \begin{align}
@@ -652,11 +652,11 @@ The attacker with the minimal capabilities that can execute an attack $\vec{m}$ 
 \section{Improving Robustness via Latent Behaviour Analysis}
 \label{sec:CPSRobustness:LatentBehaviours} 
 % The robustness of a system is a measure relative to some attacker model. The more attacks there are, and the more the system resists them without failing its requirements, the more robust it is. 
-When we compose the single-cycle semantics $\TheSystem$ with an arbitrary state transformation $m\colon \Pi\rightarrow\Pi$, we reveal a transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$. We call $\TheSystem\circ m$ the \emph{latent dynamics} revealed by $m$, and we use $\TheSystem\circ m$ to compute \emph{latent behaviours} revealed by $m$.%, because it depends on the latent/hidden variable $m$. 
+When we compose the single-cycle semantics $\TheSystem$ with an arbitrary state transformation $m\colon \Pi\rightarrow\Pi$, we create a transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$. We call $\TheSystem\circ m$ the \emph{latent dynamics} created by $m$, and we use $\TheSystem\circ m$ to compute \emph{latent behaviours} created by $m$.%, because it depends on the latent/hidden variable $m$. 
 
 \begin{definition}[Latent Behaviours of a Closed CPS]
   \label{def:CPSRobustness:LatentBehaviour}
-  Given an attack $\vec{m}\colon \Pi\rightarrow \Pi$, the \emph{latent behaviour revealed by $\vec{m}$} at some initial state $\pi_0$ is the infinite sequence of states $(\pi^{\vec{m}}_0, \pi^{\vec{m}}_1\ldots)$ inductively defined, for $k\geq 0$, by 
+  Given an attack $\vec{m}\colon \Pi\rightarrow \Pi$, the \emph{latent behaviour created by $\vec{m}$} at some initial state $\pi_0$ is the infinite sequence of states $(\pi^{\vec{m}}_0, \pi^{\vec{m}}_1\ldots)$ inductively defined, for $k\geq 0$, by 
   \begin{align}
     \label{eq:newkCycle}
     %\TheSystem^m&\triangleq\TheSystem \circ m\\
@@ -672,7 +672,7 @@ When we compose the single-cycle semantics $\TheSystem$ with an arbitrary state 
 When a system is under attack, the single-cycle semantics changes, and the system creates {latent behaviours}. Given an attacker model $\mathcal{A}$, a set of requirements $\TheSetOfRequirements$, and a CPS $(\Pi,\TheSystem)$, we assume that the CPS satisfies all the requirements in $\TheSetOfRequirements$ (see Definition~\ref{def:CPSRobustness:IntegrityRequirement}). Given an attack $\vec{m}\colon \Pi\rightarrow \Pi$ generated by the attacker model $\mathcal{A}$, and a requirement $\TheRequirement\in\TheSetOfRequirements$, LBA states that if $(\Pi,\TheSystem\circ m)$ fails $\TheRequirement$, then \emph{$\vec{m}$ breaks $\TheRequirement$} in $(\Pi,\TheSystem)$, so the CPS is vulnerable to $\mathcal{A}$. %where $\Pi$ is the set of states and $\TheSystem$ is the single cycle semantics 
 We define the \emph{robustness} of the system with respect to a given attacker model to be the fraction of attacks generated by the attacker model that fail to break any physical requirement. 
 
-% In this section, we show how to model attacks as these transformations $m$ to reveal a latent behaviour of the system under attack $\TheSystem\circ m$. We can then use the revealed latent behaviours $\TheSystem\circ m$ to quantify robustness via testing, which we do in Section~\ref{sec:CPSRobustness:LatentBehaviours}.
+% In this section, we show how to model attacks as these transformations $m$ to create a latent behaviour of the system under attack $\TheSystem\circ m$. We can then use the created latent behaviours $\TheSystem\circ m$ to quantify robustness via testing, which we do in Section~\ref{sec:CPSRobustness:LatentBehaviours}.
 \begin{definition}[Robustness]
   \label{def:CPSRobustness:Robustness}
   Given an attacker model $\mathcal{A}$, and a set of requirements $\TheSetOfRequirements$, let $\mathcal{A}(\TheSetOfRequirements)$ be the set of attacks generated $\mathcal{A}$ that break at least one requirement in $\TheSetOfRequirements$. We define 
@@ -683,12 +683,12 @@ We define the \emph{robustness} of the system with respect to a given attacker m
 \end{definition}
 
 \begin{example}
-  In the context of the attacker model of the water tank from Section~\ref{sec:CPSRobustness:example} where the basis is $[LL, OK, HH]^T$ and the coefficients are $\Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}$, there are 64 attacks. We confirm via simulation of the revealed latent systems that 30 of those attacks break at least one physical requirement, so the robustness of the water tank with respect to this attacker model is 34/64.
+  In the context of the attacker model of the water tank from Section~\ref{sec:CPSRobustness:example} where the basis is $[LL, OK, HH]^T$ and the coefficients are $\Gamma_{\vec{y}[L]}=\set{\const_{500}, \const_{800},  \const_{1100}}$, there are 64 attacks. We confirm via simulation of the created latent systems that 30 of those attacks break at least one physical requirement, so the robustness of the water tank with respect to this attacker model is 34/64.
 \end{example}
 %\todo[inline]{@All: can someone please edit the following sections? I'm writing extremelly informally}
 \subsection{Counterattacks and Latent Robustness}
 \label{sec:CPSRobustness:CounterAttacks}
-LBA uses spatial transformations to alter the single-cycle semantics of the CPS, but it is possible for us to keep transforming the revealed latent behaviours with other spatial transformations: \emph{counterattacks}. In the LBA framework, counterattacks and attacks only differ only by intent: we use attacks to reveal compromised systems, and we use counterattacks to reveal systems where attackers and counterattackers are interacting. Since attacks and counterattacks are both transformations of the system, applying a counterattack in the absence of attacks is equivalent to attacking the system using the counterattack. %i.e. the latent behaviours of the latent behaviours revealed by attacks on the original system. 
+LBA uses spatial transformations to alter the single-cycle semantics of the CPS, but it is possible for us to keep transforming the created latent behaviours with other spatial transformations: \emph{counterattacks}. In the LBA framework, counterattacks and attacks only differ only by intent: we use attacks to create compromised systems, and we use counterattacks to create systems where attackers and counterattackers are interacting. Since attacks and counterattacks are both transformations of the system, applying a counterattack in the absence of attacks is equivalent to attacking the system using the counterattack. %i.e. the latent behaviours of the latent behaviours created by attacks on the original system. 
 % \begin{definition}[Counterattack]
 %   \label{def:CPSRobustness:CounterAttack}
 % Given a basis $\sum_{i=1}^n\Pi_i$ and coefficients $t_1, \ldots, t_n\in\IMCT$, 
@@ -854,7 +854,7 @@ Corollary~\ref{cor:CPSRobustness:monoup} is practical because it motivates us to
   For all attacker models $\mathcal{A}_1$ and $\mathcal{A}_2$ with $\mathcal{A}_1\subseteq \mathcal{A}_2$, if $\mathcal{A}_2$ cannot break a requirement $\TheRequirement$, then $\mathcal{A}_1$ cannot either.
   \end{corollary}
   \begin{proof}
-  If $\TheRequirement\not\in\mathcal{A}_2(\TheSetOfRequirements)$, then there is no attack $\vec{m}$ generated by $\mathcal{A}_2$ that can reveal a latent behaviour that fails $\TheRequirement$; since $\mathcal{A}_1\subseteq \mathcal{A}_2$, the universe of attacks of $\mathcal{A}_1$ is included in the universe of attacks of $\mathcal{A}_2$, so an attack that breaks $\TheRequirement$ cannot exist for $\mathcal{A}_1$, meaning that $\TheRequirement\not\in\mathcal{A}_1(\TheSetOfRequirements)$.
+  If $\TheRequirement\not\in\mathcal{A}_2(\TheSetOfRequirements)$, then there is no attack $\vec{m}$ generated by $\mathcal{A}_2$ that can create a latent behaviour that fails $\TheRequirement$; since $\mathcal{A}_1\subseteq \mathcal{A}_2$, the universe of attacks of $\mathcal{A}_1$ is included in the universe of attacks of $\mathcal{A}_2$, so an attack that breaks $\TheRequirement$ cannot exist for $\mathcal{A}_1$, meaning that $\TheRequirement\not\in\mathcal{A}_1(\TheSetOfRequirements)$.
   \end{proof}
   Corollary~\ref{cor:CPSRobustness:monodown} is also practical. If we have an intuition about the robustness of the system, and we characterise an attacker model $\mathcal{A}$ such that the robustness of the system with respect to $\mathcal{A}$ is high, then there is no need to check any attacker model that is less capable than $\mathcal{A}$ since the robustness will not decrease for those attackers.%; instead, we should study attacker models that are strictly more capable than $\mathcal{A}$ or incomparable.
 
@@ -1200,7 +1200,7 @@ where $t_i\in \set{\id,\const^{\vec{u}[MV2]}_{\texttt{open}}, \const^{\vec{u}[MV
 \end{align*}
 
 \subsection{Counterattacker Model}
-We want the counterattacker of this system to be ``in the controller PLC3''; i.e. we want the counterattacker to have control over $\vec{u}[MV3](k)$ and $\vec{u}[P3](k)$ for all $0\leq k\leq t$, with $t=6$ hours to let the actions of the attacker and counterattacker enough time to interact and reveal either stable safe behaviours of a broken requirement. We define the base for the counterattacker model to be $[LL', OK', HH']^T$, where ${LL'}(\pi)=\pi[\vec{y}[L3]]<L3min$, ${HH'}(\pi)=\pi[\vec{y}[L3]]>L3max$ and ${OK'}(\pi)=L3min \leq \pi[\vec{y}[L3]]\leq L3max$, for $\pi \in \Pi$ (unlike the base of the attacker, which uses $\vec{x}[L3]$ instead of $\vec{y}[L3]$). %The counterattacker is also ``blind" with respect to $T2$, but their actions also impact the behaviour of $T2$.  
+We want the counterattacker of this system to be ``in the controller PLC3''; i.e. we want the counterattacker to have control over $\vec{u}[MV3](k)$ and $\vec{u}[P3](k)$ for all $0\leq k\leq t$, with $t=6$ hours to let the actions of the attacker and counterattacker enough time to interact and create either stable safe behaviours of a broken requirement. We define the base for the counterattacker model to be $[LL', OK', HH']^T$, where ${LL'}(\pi)=\pi[\vec{y}[L3]]<L3min$, ${HH'}(\pi)=\pi[\vec{y}[L3]]>L3max$ and ${OK'}(\pi)=L3min \leq \pi[\vec{y}[L3]]\leq L3max$, for $\pi \in \Pi$ (unlike the base of the attacker, which uses $\vec{x}[L3]$ instead of $\vec{y}[L3]$). %The counterattacker is also ``blind" with respect to $T2$, but their actions also impact the behaviour of $T2$.  
 
 We set the representative values of $\vec{u}[MV3]$ to be $\texttt{open}$, and $\texttt{closed}$ and the representative values of $\vec{u}[P3]$ to be $\texttt{on}$, and $\texttt{off}$; more precisely, 
 \begin{align*}
