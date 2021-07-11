@@ -1,7 +1,7 @@
  %!TEX root = ../main.tex
  \chapter{Improving the Robustness of Cyber-Physical System Models}
  \label{ch:CPSRobustness}  
- {\color{red}
+ {
  We now consider a practical scenario where we use spatial transformations to model both attacks and counterattacks. From the perspective of LBA, attacks and counterattacks are distinguishable only by intent: an attack is a spatial transformation that aims to damage a system, while a counterattack is a spatial transformation that tries to fix it. Recall the automaton from Section~\ref{sec:Latent:Motivation}; the spatial transformation that affected the system was a symmetry $m$ that is its own inverse (i.e., $m\circ m=\id$), so we can counter $m$ by applying it a second time. 
  
  The inclusion of counterattacks alters the interaction between attacker and system. Up until now, the LBA of a system $(X,c)$ with respect to a spatial transformation $m\colon X\rightarrow X$ that reveals the latent system $(X,c\circ m)$, which models the the system $(X,c)$ under the effect of the attack $m$. In this chapter, we consider a second spatial transformation $w\colon X\rightarrow X$ that reveals the system $(X, c\circ w\circ m)$, which models the system $(X,c)$ under the effect of the attack $m$, but also under the effect of the counterattack $w$.
@@ -355,7 +355,7 @@ Finally, we define $\TheBehaviourOf{\pi}_{0}=\pi$ for all states $\pi \in \Pi$. 
 Because a CPS itself does not create values for $\vec{a}$ and $\vec{v}$, we need a stream of network inputs $(\vec{a_0}, \vec{a_1}, \ldots)$ and a stream of physical effects $(\vec{v_0}, \vec{v_1}, \ldots)$ to advance the system. Usually, $\vec{a}$ is the translation of a network output $\vec{b}$ given by another CPS; similarly, $\vec{v}$ is the translation of a physical output $\vec{w}$ from another system. If the functions $\delta_{\vec{Q}}$ and $\delta{\vec{X}}$ respectively ignore $\vec{a}$ and $\vec{v}$ for their computation, then we say that the CPS is \emph{closed}.
 Henceforth, we assume that the CPS (or composition of CPSs) we are working with is closed. We study a closed CPSs composition in Section~\ref{sec:CPSRobustness:CaseStudy}.
 
-{\color{red} From the perspective of coalgebras, this definition of latent behaviour implies that the whole state is observable from the modelling perspective. Implicitly, we are working with a functor $F(X)=\Pi\times X$, modelling the CPS using the $F$-coalgebra $(\Pi,(\id,\TheSystem))$. 
+{From the perspective of coalgebras, this definition of latent behaviour implies that the whole state is observable from the modelling perspective. Implicitly, we are working with a functor $F(X)=\Pi\times X$, modelling the CPS using the $F$-coalgebra $(\Pi,(\id,\TheSystem))$. 
 %The final $F$-coalgebra is $(\sigma F, 1_F)$ with $\sigma F=\Pi^\infty$, i.e., the set of infinite sequences of elements of $\Pi$ and $1_F=(\head,\tail)$. 
 % We adjust the visibility by adjusting the functor: a functor $G(X)=\vec{Y}\times X$ restricts the visibility to the values read by sensors by $(\Pi,(\vec{y},\TheSystem))$
 }
@@ -389,9 +389,9 @@ give attackers the ability to either: 1) alter the value of the coordinates they
 
 % In Section~\ref{sec:CPSRobustness:example} we hinted the possibility of describing attacks as vectors. In this section, we discuss in more detail the meaning of the bases and the coefficients of attacks.
 Following the methodology of LBA, we aim to compose the single cycle semantics function $\TheSystem\colon\Pi\rightarrow\Pi$ from Definition~\ref{def:CPSRobustness:SingleCycleSemantics} with a spatial transformation $m\colon \Pi\rightarrow\Pi$ (which models some attack) to reveal the transition function $\TheSystem\circ m\colon\Pi\rightarrow\Pi$ of a latent system which models the CPS under the attack $m$. 
-{\color{red} There is a major difference between the work presented here and the work in Chapter~\ref{ch:Classification}. In Chapter~\ref{ch:Classification}, given an attacker model $\mathcal{A}$, we wanted to determine for each requirement $\TheRequirement$ whether there \emph{exists} an attack within the capabilities of $\mathcal{A}$ that can break $\TheRequirement$. In this chapter, we want to measure the robustness of the system with respect to $\mathcal{A}$, which checks \emph{how many} attacks of $\mathcal{A}$ are successful. In this sense, the study in Chapter~\ref{ch:Classification} is qualitative, while the one in this chapter is quantitative. In the following, we show how to formally define attacker models, and we show how to systematically generate different attacks within their capabilities. 
+{There is a major difference between the work presented here and the work in Chapter~\ref{ch:Classification}. In Chapter~\ref{ch:Classification}, given an attacker model $\mathcal{A}$, we wanted to determine for each requirement $\TheRequirement$ whether there \emph{exists} an attack within the capabilities of $\mathcal{A}$ that can break $\TheRequirement$. In this chapter, we want to measure the robustness of the system with respect to $\mathcal{A}$, which checks \emph{how many} attacks of $\mathcal{A}$ are successful. In this sense, the study in Chapter~\ref{ch:Classification} is qualitative, while the one in this chapter is quantitative. In the following, we show how to formally define attacker models, and we show how to systematically generate different attacks within their capabilities. 
 }
-\subsection{Attacker Models: Basis and Coefficients} 
+\subsection{Attacker Models and Systematic Attack Generation} 
 Attacker model --which describes how an attacker may interact with the system and when-- generates a set of attacks. Each attacker model is composed by a \emph{basis} and a set of \emph{coefficients}. The \emph{basis} reflects the visibility of the attacker over the current state of the system, helping them decide ``when'' to attack. The \emph{coefficients} determine the actions that the attacker uses when interacting with the system, and they define the ``how'' an attacker attacks.
 
 \begin{definition}[Attack Basis]
@@ -810,10 +810,6 @@ We leave the study of collaborations between LBA and synthesis methods for futur
 % \end{cases}
 % \end{align}
 \end{example}
-\todo[inline]{@Eric: I think the repair section should highlight a few differences with the series of works in Synthesis (model level). I think we can mention that our counterattack is basically a repair hint by analyzing the LBA result and is complementary to synthesis. Talk about how we might inform other synthesis mechanisms here! I don’t know if this could work in conjunction with a CEGIS methodology, but I don’t see why not. Ultimately, our attacks work as tests, so test-based synthesis is probably the way to go?}
-
-
-Both attacks and counterattacks are, ultimately, spatial transformations. 
 %we choose one attack $\vec{m}$ and implement its counterattack directly in the controller. %We do not repair attacks that have no counterattack; our options are to make the counterattacker model made more capable, or to change change the model of the system and run the analysis again.
 % \todo[inline]{This is an interesting direction for future work: how can we change system modularly?}
 % The controller has more modes now: normal operation mode, and response mode, in which it aims to emulate the effects of the counterattack. The we base the condition of the response mode based on common conditions of the attacks countered by the counterattack. 
@@ -834,7 +830,7 @@ The choice of attacker and counterattacker models defines the boundaries of the 
 % \subsection{Orders of Attackers}
 % \label{sec:CPSRobustness:OrdersOfAttackers}
 %\todo[inline]{Formally, $\Sigma|_m$ is the \emph{support} of $m$}
-{\color{red} From Chapter~\ref{ch:Classification}, w}e know that we can compare attacker models by both their capabilities and by the set of physical requirements that they break; i.e. their power. As expected, these partial orders are tightly related. 
+{From Chapter~\ref{ch:Classification}, w}e know that we can compare attacker models by both their capabilities and by the set of physical requirements that they break; i.e. their power. As expected, these partial orders are tightly related. 
 % We have two ways to proceed: either 1) we systematically generate an attack $m$, obtain its latent behaviour $\TheSystem^m$, test if $\TheSystem^m$ breaks any physical requirement $\TheRequirement$, and, if it does, we find their characteristic attacker $\Sigma|_m$ to claim that $\Sigma|_m$ can break $\TheRequirement$; or 2) we first choose an attacker $A$, then we systematically generate an attack $m$ that can be carried out by $A$, we obtain the latent behaviour $\TheSystem^m$, test if $\TheSystem^m$ breaks any physical requirement $\TheRequirement$, and, if it does, claim that $A$ can break $\TheRequirement$. Both ways are compatible with the following attacker orderings.
 \begin{definition}[Capabilities and Power]
   Given two attacker models $\mathcal{A}_1=(\Gamma_1,\sum \Pi_1)$ and $\mathcal{A}_1=(\Gamma_2,\sum \Pi_2)$, we say that $\mathcal{A}_1$ is \emph{less or equally capable} than $\mathcal{A}_2$, denoted $\mathcal{A}_1\subseteq \mathcal{A}_2$, iff $\AsSequence{\mathcal{A}_1}\subseteq \AsSequence{\mathcal{A}_2}$. 
